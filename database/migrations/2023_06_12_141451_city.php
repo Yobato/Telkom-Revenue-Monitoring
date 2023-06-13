@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //
         Schema::create('city', function (Blueprint $table) {
-            $table->id('nama_city')->unique();
+            $table->string('nama_city')->primary()->unique();
         });
     }
 

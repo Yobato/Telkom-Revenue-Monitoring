@@ -20,10 +20,14 @@ return new class extends Migration
             $table->integer('nilai');
             $table->string('jenis_laporan');
             $table->string('keterangan');
-            $table->string('id_portofolio')->references('id')->on('portofolio');
-            $table->string('id_program')->references('id')->on('program');
-            $table->string('id_sub_grup_akun')->references('id')->on('sub_grup_akun');
-            $table->string('id_nama_kota')->references('nama_city')->on('city');
+            $table->unsignedBigInteger('id_portofolio');
+            $table->unsignedBigInteger('id_program');
+            $table->unsignedBigInteger('id_sub_grup_akun');
+            $table->string('id_nama_kota');
+            $table->foreign('id_portofolio')->references('id')->on('portofolio');
+            $table->foreign('id_program')->references('id')->on('program');
+            $table->foreign('id_sub_grup_akun')->references('id')->on('sub_grup_akun');
+            $table->foreign('id_nama_kota')->references('nama_city')->on('city');
         });
     }
 
