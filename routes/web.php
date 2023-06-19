@@ -13,8 +13,16 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function() {
+Route::get('/', function () {
     return view('auth.login');
+});
+
+Route::get('/register', function () {
+    return view('auth.register');
+});
+
+Route::get('/admin', function () {
+    return view('admin.dashboard.index');
 });
 
 // Route::get('home', function() {

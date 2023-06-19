@@ -5,7 +5,7 @@
   <div class="card-header"><h4>Register</h4></div>
 
   <div class="card-body">
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="">
         @csrf
         <div class="form-group">
           <label for="name">Name</label>
@@ -48,6 +48,6 @@
   </div>
 </div>
 <div class="mt-5 text-muted text-center">
- Already have an account? <a href="{{ route('login') }}">Sign In</a>
+ Already have an account? <a href="">Sign In</a>
 </div>
 @endsection
