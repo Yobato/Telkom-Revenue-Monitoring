@@ -23,13 +23,14 @@ return new class extends Migration
             $table->unsignedBigInteger('id_cost_plan');
             $table->unsignedBigInteger('id_peruntukan');
             $table->unsignedBigInteger('id_user');
-            $table->string('id_nama_kota');
+            // $table->string('id_nama_kota');
+            $table->unsignedBigInteger('kota');
             $table->foreign('id_portofolio')->references('id')->on('portofolio');
             $table->foreign('id_program')->references('id')->on('program');
             $table->foreign('id_cost_plan')->references('id')->on('cost_plan');
             $table->foreign('id_peruntukan')->references('id')->on('peruntukan');
             $table->foreign('id_user')->references('id')->on('user');
-            $table->foreign('id_nama_kota')->references('nama_city')->on('city');
+            $table->foreign('kota')->references('id')->on('city');
         });
     }
 
