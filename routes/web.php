@@ -25,6 +25,43 @@ Route::get('/admin', function () {
     return view('admin.dashboard.index');
 });
 
+Route::get('/commerce', function () {
+    return view('commerce.dashboard.index');
+})->name('commerce-index');
+
+Route::get('/commerce-gpm', function () {
+    return view('commerce.dashboard.gpm');
+})->name('commerce-gpm');
+
+Route::get('/commerce-form', function () {
+    return view('commerce.dashboard.form');
+})->name('commerce-form');
+
+Route::get('/commerce-management', function () {
+    return view('admin.users.commerce-management');
+})->name('commerce-management');
+
+Route::get('/finance-management', function () {
+    return view('admin.users.finance-management');
+})->name('finance-management');
+
+Route::get('/gm-management', function () {
+    return view('admin.users.gm-management');
+})->name('gm-management');
+
+Route::get('/create-user', function () {
+    return view('admin.users.create');
+})->name('create-user');
+
+Route::get('/admin-gpm', function () {
+    return view('admin.dashboard.gpm');
+})->name('admin-gpm');
+
+Route::get('/finance', function () {
+    return view('finance.dashboard.index');
+})->name('finance-index');
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
 // Route::get('home', function() {
 //     return redirect(route('admin.dashboard'));
 // });
