@@ -21,7 +21,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Laporan COGS & Revenue</h1>
+            <h1>Laporan COGS</h1>
         </div>
 
         <div class="section-body">
@@ -105,6 +105,22 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-10">
+                                        <div class="col-sm-8">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <div class="col-sm-8">
+                                            <div class="col-12 float-end">
+                                                <a href="{{ route('create-user') }}" class="btn btn-success  shadow rounded">
+                                                    <i></i>Submit
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -116,7 +132,7 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
+    {{-- <!-- JS Libraies -->
     <script src="{{ asset('library/cleave.js/dist/cleave.min.js') }}"></script>
     <script src="{{ asset('library/cleave.js/dist/addons/cleave-phone.us.js') }}"></script>
     <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
@@ -127,5 +143,5 @@
     <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
-    <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
+    <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script> --}}
 @endpush

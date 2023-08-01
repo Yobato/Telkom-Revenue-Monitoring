@@ -1,4 +1,4 @@
-@extends('layouts.manager-master')
+@extends('layouts.finance-master')
 
 @section('title', 'Statistic')
 
@@ -13,7 +13,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>GPM</h1>
+        <h1>KKP Operasional</h1>
     </div>
 
     <div class="section-body">
@@ -22,10 +22,10 @@
             <div class="col-12 col-sm-12 ">
                 <div class="card">
                     <div class="card-header">
-                        <h4>GPM</h4>
+                        <h4>KKP Operasional</h4>
                     </div>
                     <div class="card-body">
-                        <div id= chartGPM>
+                        <div id= chartKKP>
                     </div>
                     <div class="card-body">
                         <div class="statistic-details mt-1">
@@ -152,7 +152,7 @@
 @section('footer')
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
-    const chart = Highcharts.chart('chartGPM', {
+    const chart = Highcharts.chart('chartKKP', {
 
         chart: {
             type: 'column'

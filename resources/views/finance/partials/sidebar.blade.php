@@ -17,55 +17,7 @@
                 <ul class="dropdown-menu">
                     <li class='{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}'>
                         <a class="nav-link"
-                            href="{{ route('admin-gpm') }}">Gross Profit Margin</a>
-                    </li>
-                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="#">Cost of Goods Sold</a>
-                    </li>
-                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="#">Revenue</a>
-                    </li>
-                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="#">KKP Operasional</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown">
-                <a href="#"
-                    class="nav-link has-dropdown"><i class="bi bi-people-fill"></i><span>User Management</span></a>
-                <ul class="dropdown-menu">
-                    <li class="nav-item ">
-                        <a href="{{ route('commerce-management') }}"
-                            class="nav-link "><span>Commerce</span></a>
-                    </li>
-                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
-                        <a href="{{ route('finance-management') }}"
-                            class="nav-link "><span>Finance</span></a>
-                    </li>
-                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
-                        <a href="{{ route('gm-management') }}"
-                            class="nav-link "><span>General Manager</span></a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown">
-                <a href="#"
-                    class="nav-link has-dropdown"><i class="bi bi-ui-checks"></i><span>Target Management</span></a>
-                <ul class="dropdown-menu">
-                    <li class='{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}'>
-                        <a class="nav-link"
-                            href="#">Cost of Goods Sold</a>
-                    </li>
-                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="#">Revenue</a>
-                    </li>
-                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="#">KKP Operasional</a>
+                            href="{{ route('finance-kkp') }}">KKP Operasional</a>
                     </li>
                 </ul>
             </li>
@@ -73,13 +25,9 @@
                 <a href="#"
                     class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Reporting</span></a>
                 <ul class="dropdown-menu">
-                    <li class='{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}'>
-                        <a class="nav-link"
-                            href="#">COGS & Revenue</a>
-                    </li>
                     <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
                         <a class="nav-link"
-                            href="#">KKP Operasional</a>
+                            href="{{ route('finance-reporting-kkp') }}">KKP Operasional</a>
                     </li>
                 </ul>
             </li>
