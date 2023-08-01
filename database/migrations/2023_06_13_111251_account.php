@@ -20,11 +20,11 @@ return new class extends Migration
             $table->integer('nik');
             $table->string('password');
             $table->string('keterangan');
-            // $table->string('role');
+            $table->string('role');
             // $table->string('id_nama_kota');
-            $table->unsignedBigInteger('role');
+            // $table->unsignedBigInteger('role');
             $table->unsignedBigInteger('kota');
-            $table->foreign('role')->references('id')->on('role');
+            $table->foreign('role')->references('nama_role')->on('role');
             $table->foreign('kota')->references('id')->on('city');
         });
     }

@@ -18,9 +18,11 @@ return new class extends Migration
             $table->id();
             $table->string('nama_program');
             $table->string('kode_program');
-            $table->unsignedBigInteger('role');
+            $table->string('role');
+            $table->foreign('role')->references('nama_role')->on('role');
+            // $table->unsignedBigInteger('role');
             // $table->string('role');
-            $table->foreign('role')->references('id')->on('role');
+            // $table->foreign('role')->references('id')->on('role');
         });
     }
 
