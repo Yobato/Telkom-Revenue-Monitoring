@@ -89,6 +89,16 @@ Route::get('/finance/kkp-operasional', function () {
 })->name('finance-kkp');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+
+
+Route::get('/city', [App\Http\Controllers\CityController::class, 'index'])->name('admin.dashboard.city');
+Route::post('/city/add', [App\Http\Controllers\CityController::class, 'storeCity'])->name('admin.storeCity');
+Route::get('/city/deleteCity/{id}', [App\Http\Controllers\CityController::class, 'deleteCity'])->name('admin.deleteCity');
+Route::post('/city/update/{id}', [App\Http\Controllers\CityController::class, 'updateCity'])->name('admin.updateCity');
+
+
+
 // Route::get('home', function() {
 //     return redirect(route('admin.dashboard'));
 // });
