@@ -52,4 +52,5 @@
   @yield('scripts')
   @yield('footer')
 </body>
+  <script src="{{ asset('assets/js/modals.js') }}"></script>
 </html>
