@@ -43,22 +43,22 @@
                         <div class="table-responsive">
                             <table class="table-striped table">
                                 <tr>
-                                    <th>ID Commerce</th>
-                                    <th>Kode Program</th>
-                                    <th>Nama Program</th>
-                                    <th>Jenis</th>
+                                    <th>PID Finance</th>
                                     <th>Portofolio</th>
-                                    <th>Sub Grup Plan</th>
+                                    <th>Nama Program</th>
+                                    <th>Cost Plan</th>
+                                    <th>Pemakaian</th>
+                                    <th>User</th>
                                     <th>Nilai</th>
                                     <th>Keterangan</th>
                                     <th>Action</th>
                                 </tr>
                                 <tr>
                                     <td>278012018</td>
-                                    <td>AIK1234</td>
-                                    <td>Program A</td>
-                                    <td>COGS</td>
                                     <td>lorem ipsum</td>
+                                    <td>Program A</td>
+                                    <td>AIK1234</td>
+                                    <td>AIK1234</td>
                                     <td>lorem ipsum</td>
                                     <td>Rp. 1.000.000,00</td>
                                     <td>2017-01-09</td>
@@ -71,10 +71,10 @@
                                 </tr>
                                 <tr>
                                     <td>278012018</td>
-                                    <td>AIK1234</td>
-                                    <td>Program A</td>
-                                    <td>COGS</td>
                                     <td>lorem ipsum</td>
+                                    <td>Program A</td>
+                                    <td>AIK1234</td>
+                                    <td>AIK1234</td>
                                     <td>lorem ipsum</td>
                                     <td>Rp. 1.000.000,00</td>
                                     <td>2017-01-09</td>
@@ -87,10 +87,10 @@
                                 </tr>
                                 <tr>
                                     <td>278012018</td>
-                                    <td>AIK1234</td>
-                                    <td>Program A</td>
-                                    <td>COGS</td>
                                     <td>lorem ipsum</td>
+                                    <td>Program A</td>
+                                    <td>AIK1234</td>
+                                    <td>AIK1234</td>
                                     <td>lorem ipsum</td>
                                     <td>Rp. 1.000.000,00</td>
                                     <td>2017-01-09</td>
@@ -103,10 +103,10 @@
                                 </tr>
                                 <tr>
                                     <td>278012018</td>
-                                    <td>AIK1234</td>
-                                    <td>Program A</td>
-                                    <td>COGS</td>
                                     <td>lorem ipsum</td>
+                                    <td>Program A</td>
+                                    <td>AIK1234</td>
+                                    <td>AIK1234</td>
                                     <td>lorem ipsum</td>
                                     <td>Rp. 1.000.000,00</td>
                                     <td>2017-01-09</td>

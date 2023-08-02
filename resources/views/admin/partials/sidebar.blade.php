@@ -71,15 +71,35 @@
             </li>
             <li class="nav-item dropdown">
                 <a href="#"
-                    class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Reporting</span></a>
+                    class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Dropdown</span></a>
                 <ul class="dropdown-menu">
                     <li class='{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}'>
                         <a class="nav-link"
-                            href="#">COGS & Revenue</a>
+                            href="#">Role</a>
                     </li>
                     <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
                         <a class="nav-link"
-                            href="#">KKP Operasional</a>
+                            href="#">City</a>
+                    </li>
+                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
+                        <a class="nav-link"
+                            href="#">Cost Plan</a>
+                    </li>
+                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
+                        <a class="nav-link"
+                            href="#">Program</a>
+                    </li>
+                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
+                        <a class="nav-link"
+                            href="#">Portofolio</a>
+                    </li>
+                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
+                        <a class="nav-link"
+                            href="#">Peruntukan</a>
+                    </li>
+                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
+                        <a class="nav-link"
+                            href="#">User</a>
                     </li>
                 </ul>
             </li>

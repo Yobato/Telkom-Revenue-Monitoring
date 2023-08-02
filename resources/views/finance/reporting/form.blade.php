@@ -1,4 +1,4 @@
-@extends('layouts.commerce-master')
+@extends('layouts.finance-master')
 
 @section('title', 'Reporting')
 
@@ -36,10 +36,22 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <div class="col-sm-8">
-                                            <label>ID Commerce</label>
+                                            <label>PID Finance</label>
                                             <input type="text" class="form-control">
                                         </div>
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <div class="col-sm-8">
+                                            <label>Cost Plan</label>
+                                            <select class="form-control">
+                                                <option>Option 1</option>
+                                                <option>Option 2</option>
+                                                <option>Option 3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <div class="col-sm-8">
                                             <label>Portofolio</label>
@@ -50,20 +62,9 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <div class="col-sm-8">
-                                            <label>Jenis</label>
-                                            <select class="form-control">
-                                                <option>COGS</option>
-                                                <option>Revenue</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <div class="col-sm-8">
-                                            <label>Sub Grup Plan</label>
+                                            <label>Pemakaian</label>
                                             <select class="form-control">
                                                 <option>Option 1</option>
                                                 <option>Option 2</option>
@@ -75,13 +76,13 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <div class="col-sm-8">
-                                            <label>Kode Program</label>
+                                            <label>Nama Program</label>
                                             <input type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <div class="col-sm-8">
-                                            <label>Nilai</label>
+                                            <label>User</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control">
                                             </div>
@@ -91,7 +92,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <div class="col-sm-8">
-                                            <label>Nama Program</label>
+                                            <label>Nilai</label>
                                             <input type="text" class="form-control">
                                         </div>
                                     </div>
@@ -102,22 +103,6 @@
                                             <label class="col-form-label" for="keterangan">Keterangan</label>
                                             <textarea class="form-control" id="keterangan" 
                                             name="keterangan" style="height: 150px"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-10">
-                                        <div class="col-sm-8">
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <div class="col-sm-8">
-                                            <div class="col-12 float-end">
-                                                <a href="{{ route('create-user') }}" class="btn btn-success  shadow rounded">
-                                                    <i></i>Submit
-                                                </a>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -132,7 +117,7 @@
 @endsection
 
 @push('scripts')
-    {{-- <!-- JS Libraies -->
+    <!-- JS Libraies -->
     <script src="{{ asset('library/cleave.js/dist/cleave.min.js') }}"></script>
     <script src="{{ asset('library/cleave.js/dist/addons/cleave-phone.us.js') }}"></script>
     <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
@@ -143,5 +128,5 @@
     <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
-    <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script> --}}
+    <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
 @endpush

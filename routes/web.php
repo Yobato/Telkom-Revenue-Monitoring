@@ -21,21 +21,10 @@ Route::get('/register', function () {
     return view('auth.register');
 });
 
+//Admin
 Route::get('/admin', function () {
     return view('admin.dashboard.index');
 });
-
-Route::get('/commerce', function () {
-    return view('commerce.dashboard.index');
-})->name('commerce-index');
-
-Route::get('/commerce-gpm', function () {
-    return view('commerce.dashboard.gpm');
-})->name('commerce-gpm');
-
-Route::get('/commerce-form', function () {
-    return view('commerce.dashboard.form');
-})->name('commerce-form');
 
 Route::get('/commerce-management', function () {
     return view('admin.users.commerce-management');
@@ -57,9 +46,47 @@ Route::get('/admin-gpm', function () {
     return view('admin.dashboard.gpm');
 })->name('admin-gpm');
 
+//Commerce
+Route::get('/commerce', function () {
+    return view('commerce.dashboard.gpm');
+})->name('commerce');
+
+Route::get('/commerce-gpm', function () {
+    return view('commerce.dashboard.gpm');
+})->name('commerce-gpm');
+
+Route::get('/commerce-cogs/form', function () {
+    return view('commerce.reporting.cogs-form');
+})->name('commerce-cogs-form');
+
+Route::get('/commerce-cogs', function () {
+    return view('commerce.reporting.cogs');
+})->name('commerce-cogs');
+
+Route::get('/commerce-revenue', function () {
+    return view('commerce.reporting.revenue');
+})->name('commerce-revenue');
+
+Route::get('/commerce-revenue/form', function () {
+    return view('commerce.reporting.revenue-form');
+})->name('commerce-revenue-form');
+
+//Finance
 Route::get('/finance', function () {
     return view('finance.dashboard.index');
 })->name('finance-index');
+
+Route::get('/finance/form', function () {
+    return view('finance.reporting.form');
+})->name('finance-form');
+
+Route::get('/finance/reporting/kkp-operasional', function () {
+    return view('finance.reporting.kkp');
+})->name('finance-reporting-kkp');
+
+Route::get('/finance/kkp-operasional', function () {
+    return view('finance.dashboard.kkp');
+})->name('finance-kkp');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 // Route::get('home', function() {

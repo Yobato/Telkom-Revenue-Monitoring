@@ -1,4 +1,4 @@
-@extends('layouts.finance-master')
+@extends('layouts.commerce-master')
 
 @section('title', 'Reporting')
 
@@ -18,10 +18,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Laporan KKP</h4>
+                        <h4>Laporan Revenue</h4>
                         <div class="card-header-form">
                             <div class="col-12 float-end">
-                                <a href="{{ route('finance-form') }}" class="btn btn-primary mb-3 mt-3 shadow rounded">
+                                <a href="{{ route('commerce-revenue-form') }}" class="btn btn-primary mb-3 mt-3 shadow rounded">
                                     <i class="bi bi-file-earmark-plus" style="padding-right: 10px"></i>Buat Laporan
                                 </a>
                             </div>
