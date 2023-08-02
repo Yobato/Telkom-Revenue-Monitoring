@@ -9,7 +9,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Account extends Authenticatable
 {
-    use HasFactory;
     use HasFactory, Notifiable;
     protected $table = "account";
     protected $primaryKey = "id";
