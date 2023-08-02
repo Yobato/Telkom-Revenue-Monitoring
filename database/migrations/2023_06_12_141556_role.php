@@ -15,8 +15,7 @@ return new class extends Migration
     {
         //
         Schema::create('role', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_role');
+            $table->string('nama_role')->primary();
         });
     }
 
