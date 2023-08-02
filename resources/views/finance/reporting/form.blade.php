@@ -20,104 +20,160 @@
 
 @section('content')
     <section class="section">
-        <div class="section-header">
-            <h1>Laporan COGS & Revenue</h1>
-        </div>
-
-        <div class="section-body">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Form Laporan</h3>
-                        </div>
-                        <div class="row">
-                            <div class="card-body">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <div class="col-sm-8">
-                                            <label>PID Finance</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <div class="col-sm-8">
-                                            <label>Cost Plan</label>
-                                            <select class="form-control">
-                                                <option>Option 1</option>
-                                                <option>Option 2</option>
-                                                <option>Option 3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <div class="col-sm-8">
-                                            <label>Portofolio</label>
-                                            <select class="form-control">
-                                                <option>Option 1</option>
-                                                <option>Option 2</option>
-                                                <option>Option 3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <div class="col-sm-8">
-                                            <label>Pemakaian</label>
-                                            <select class="form-control">
-                                                <option>Option 1</option>
-                                                <option>Option 2</option>
-                                                <option>Option 3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <div class="col-sm-8">
-                                            <label>Nama Program</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <div class="col-sm-8">
-                                            <label>User</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <div class="col-sm-8">
-                                            <label>Nilai</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <div class="col-sm-8">
-                                            <label class="col-form-label" for="keterangan">Keterangan</label>
-                                            <textarea class="form-control" id="keterangan" 
-                                            name="keterangan" style="height: 150px"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    {{-- ADD LAPORAN  --}}
+                    <div class="card-body d-flex justify-content-start" style="padding-bottom:0; margin-bottom:0;">
+                        <div class="breadcrumb-item"><a href="{{ route('commerce-revenue') }}">KKP Operasional</a></div>
+                        <div class="breadcrumb-item active">Buat Laporan </div>
+                    </div>
+                    <div class="card-header" style="padding-bottom:0;">
+                        <div class="col-12">
+                            <h3>Reporting</h3>
                         </div>
                     </div>
+                    
+                    <p style="padding-left: 43px; padding-bottom:10px">Buat Laporan sesuai dengan ketentuan dan SOP yang berlaku di Telkom Akses. Anda dapat mengubah laporan ini nanti.</p>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="px-5 pt-4" style="font-size: 140%"><b>Buat Laporan</b></div>
+                    <div class="px-5 pt-2 pb-0">Sesuaikan data yang dibutuhkan dalam membuat laporan</div>
+                    <form>
+                        @csrf
+                        <div class="row">
+                            <div class="col-lg-6">
+                            <div class="form-group pt-4 pb-0 pl-5 mb-0 pb-0">
+                                <label for="PID_finance" class="col-form-label">PID Finance: </label>
+                                <input type="text" id="PID_finance" name="PID_finance" class="form-control @error('PID_finance') is-invalid @enderror mb-2" value="{{ old('PID_finance') }}">
+                                <span id=" PID_finance_error" style="display: none; color: red;">Field ID Commerce harus diisi!</span>
+                                @error('PID_finance')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+
+                                <label for="portofolio_id" class="col-form-label">Portofolio: </label>
+                                <select class="portofolio_id form-control @error('portofolio_id') is-invalid @enderror mb-2" name="portofolio_id" value="{{ old('portofolio_id') }}">
+                                    <option value="" selected>-- Pilih Portofolio --</option>
+                                    {{-- @foreach ($tipeprov as $tipe_provisioning)
+                                        <option value={{ $tipe_provisioning->id }} @selected(old('tipe_provisioning_id') == $tipe_provisioning->id)>{{ $tipe_provisioning->nama_tipe_provisioning }}</option>
+                                    @endforeach --}}
+                                </select>
+                                <span id="portofolio_id_error" style="display: none; color: red;">Field Portofolio harus diisi!</span>
+                                @error('portofolio_id')
+                                <div class="invalid-feedback">
+                                    Field Portofolio harus diisi!
+                                </div>
+                                @enderror
+
+                                <label for="nama_program" class="col-form-label">Nama Program: </label>
+                                <input type="text" id="nama_program" name="nama_program" value="{{ old('nama_program') }}" class="form-control @error('nama_program') is-invalid @enderror mb-2">
+                                <span id="nama_program_error" style="display: none; color: red;">Field Nama Program harus diisi!</span>
+                                @error('nama_program')
+                                <div class="invalid-feedback">
+                                    Field Nama Program harus diisi!
+                                </div>
+                                @enderror
+
+                                <label for="user" class="col-form-label">User: </label>
+                                <input type="text" id="user" name="user" value="{{ old('user') }}" class="form-control @error('user') is-invalid @enderror mb-2">
+                                <span id="user_error" style="display: none; color: red;">Field User harus diisi!</span>
+                                @error('user')
+                                <div class="invalid-feedback">
+                                    Field User harus diisi!
+                                </div>
+                                @enderror
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group pt-4 pb-0 pr-5 mb-0">
+                                    <label for="cost_plan_id" class="col-form-label">Cost Plan: </label>
+                                    <select class="cost_plan_id form-control @error('cost_plan_id') is-invalid @enderror mb-2" name="cost_plan_id" value="{{ old('cost_plan_id') }}">
+                                        <option value="" selected>-- Pilih Cost Plan --</option>
+                                        {{-- @foreach ($tipeprov as $tipe_provisioning)
+                                            <option value={{ $tipe_provisioning->id }} @selected(old('tipe_provisioning_id') == $tipe_provisioning->id)>{{ $tipe_provisioning->nama_tipe_provisioning }}</option>
+                                        @endforeach --}}
+                                    </select>
+                                    <span id="cost_plan_error" style="display: none; color: red;">Field Portofolio harus diisi!</span>
+                                    @error('cost_plan_id')
+                                    <div class="invalid-feedback">
+                                        Field Cost Plan harus diisi!
+                                    </div>
+                                    @enderror
+
+                                    <label for="sub_group_plan_id" class="col-form-label">Sub Group Plan: </label>
+                                    <select class="sub_group_plan_id form-control @error('sub_group_plan_id') is-invalid @enderror mb-2" name="sub_group_plan_id" value="{{ old('sub_group_plan_id') }}">
+                                        <option value="" selected>-- Pilih Sub Group Plan --</option>
+                                        {{-- @foreach ($tipeprov as $tipe_provisioning)
+                                            <option value={{ $tipe_provisioning->id }} @selected(old('tipe_provisioning_id') == $tipe_provisioning->id)>{{ $tipe_provisioning->nama_tipe_provisioning }}</option>
+                                        @endforeach --}}
+                                    </select>
+                                    <span id="sub_group_plan_id_error" style="display: none; color: red;">Field Sub Group Plan harus diisi!</span>
+                                    @error('sub_group_plan_id')
+                                    <div class="invalid-feedback">
+                                        Field Sub Group Plan harus diisi!
+                                    </div>
+                                    @enderror
+
+                                    <label for="nilai" class="col-form-label">Nilai: </label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Rp.
+                                            </div>
+                                        </div>
+                                        <input type="text" id="nilai" name="nilai" value="{{ old('nilai') }}" class="form-control @error('nilai') is-invalid @enderror mb-2" oninput="formatCurrency(this)">  
+                                    </div>
+                                    <span id="nilai_error" style="display: none; color: red;">Field Nilai harus diisi!</span>
+                                    @error('nilai')
+                                    <div class="invalid-feedback">
+                                        Field Nilai harus diisi!
+                                    </div>
+                                    @enderror
+
+                                    <label for="keterangan" class="col-form-label">Keterangan:</label>
+                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
+                                    {{-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> --}}
+                                    <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
+                                    @error('keterangan')
+                                    <div class="invalid-feedback">
+                                        Field Keterangan harus diisi!
+                                    </div>
+                                    @enderror
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-lg-5">
+                                <div class="col-lg-12" style="padding: 0 62px">
+                                    
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end pr-5 mb-5">
+                                <button class="btn btn-primary" value="Simpan Data" type="submit">Buat Laporan</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     </section>
 
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
+    {{-- <!-- JS Libraies -->
     <script src="{{ asset('library/cleave.js/dist/cleave.min.js') }}"></script>
     <script src="{{ asset('library/cleave.js/dist/addons/cleave-phone.us.js') }}"></script>
     <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
@@ -128,5 +184,5 @@
     <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
-    <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
+    <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script> --}}
 @endpush
