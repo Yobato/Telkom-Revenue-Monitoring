@@ -23,7 +23,7 @@ Route::get('/register', function () {
 
 //Admin
 Route::get('/admin', function () {
-    return view('admin.dashboard.index');
+    return view('admin.dashboard.gpm');
 });
 
 Route::get('/commerce-management', function () {

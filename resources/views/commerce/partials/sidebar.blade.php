@@ -27,10 +27,6 @@
                         <a class="nav-link"
                             href="#">Revenue</a>
                     </li>
-                    <li class="{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="#">KKP Operasional</a>
-                    </li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
