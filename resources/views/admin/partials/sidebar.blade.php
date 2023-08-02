@@ -71,7 +71,25 @@
             </li>
             <li class="nav-item dropdown">
                 <a href="#"
-                    class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Dropdown</span></a>
+                    class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Reporting</span></a>
+                <ul class="dropdown-menu">
+                    <li class='{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}'>
+                        <a class="nav-link"
+                            href="#">Cost of Goods Sold</a>
+                    </li>
+                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
+                        <a class="nav-link"
+                            href="#">Revenue</a>
+                    </li>
+                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
+                        <a class="nav-link"
+                            href="#">KKP Operasional</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#"
+                    class="nav-link has-dropdown"><i class="bi bi-menu-button-fill"></i><span>Dropdown</span></a>
                 <ul class="dropdown-menu">
                     <li class='{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}'>
                         <a class="nav-link"

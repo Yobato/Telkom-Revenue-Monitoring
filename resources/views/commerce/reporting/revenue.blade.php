@@ -57,7 +57,7 @@
                                     <td>278012018</td>
                                     <td>AIK1234</td>
                                     <td>Program A</td>
-                                    <td>COGS</td>
+                                    <td>Revenue</td>
                                     <td>lorem ipsum</td>
                                     <td>lorem ipsum</td>
                                     <td>Rp. 1.000.000,00</td>
@@ -73,7 +73,7 @@
                                     <td>278012018</td>
                                     <td>AIK1234</td>
                                     <td>Program A</td>
-                                    <td>COGS</td>
+                                    <td>Revenue</td>
                                     <td>lorem ipsum</td>
                                     <td>lorem ipsum</td>
                                     <td>Rp. 1.000.000,00</td>
@@ -89,7 +89,7 @@
                                     <td>278012018</td>
                                     <td>AIK1234</td>
                                     <td>Program A</td>
-                                    <td>COGS</td>
+                                    <td>Revenue</td>
                                     <td>lorem ipsum</td>
                                     <td>lorem ipsum</td>
                                     <td>Rp. 1.000.000,00</td>
@@ -105,7 +105,7 @@
                                     <td>278012018</td>
                                     <td>AIK1234</td>
                                     <td>Program A</td>
-                                    <td>COGS</td>
+                                    <td>Revenue</td>
                                     <td>lorem ipsum</td>
                                     <td>lorem ipsum</td>
                                     <td>Rp. 1.000.000,00</td>

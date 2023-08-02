@@ -159,7 +159,7 @@
         },
 
         title: {
-            text: 'Gross Profit Margin'
+            text: 'Target & Realization'
         },
 
         subtitle: {
