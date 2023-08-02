@@ -104,7 +104,15 @@ Route::post('/account/add', [App\Http\Controllers\AccountController::class, 'sto
 Route::get('/account/deleteAccount/{id}', [App\Http\Controllers\AccountController::class, 'deleteAccount'])->name('admin.deleteAccount');
 Route::post('/account/update/{id}', [App\Http\Controllers\AccountController::class, 'updateAccount'])->name('admin.updateAccount');
         
+Route::get('/sub', [App\Http\Controllers\SubGrupAkunController::class, 'index'])->name('admin.dashboard.sub');
+Route::post('/sub/add', [App\Http\Controllers\SubGrupAkunController::class, 'storeSub'])->name('admin.storeSub');
+Route::get('/sub/deleteCity/{id}', [App\Http\Controllers\SubGrupAkunController::class, 'deleteSub'])->name('admin.deleteSub');
+Route::post('/sub/update/{id}', [App\Http\Controllers\SubGrupAkunController::class, 'updateSub'])->name('admin.updateSub');
 
+Route::get('/peruntukan', [App\Http\Controllers\PeruntukanController::class, 'index'])->name('admin.dashboard.peruntukan');
+Route::post('/peruntukan/add', [App\Http\Controllers\PeruntukanController::class, 'storePeruntukan'])->name('admin.storePeruntukan');
+Route::get('/peruntukan/deleteCity/{id}', [App\Http\Controllers\PeruntukanController::class, 'deletePeruntukan'])->name('admin.deletePeruntukan');
+Route::post('/peruntukan/update/{id}', [App\Http\Controllers\PeruntukanController::class, 'updatePeruntukan'])->name('admin.updatePeruntukan');
 
 // Route::get('home', function() {
 //     return redirect(route('admin.dashboard'));
