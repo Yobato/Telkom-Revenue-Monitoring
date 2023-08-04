@@ -116,6 +116,11 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/portofolio/add', [App\Http\Controllers\PortofolioController::class, 'storePortofolio'])->name('admin.storePortofolio');
         Route::get('/portofolio/deletePortofolio/{id}', [App\Http\Controllers\PortofolioController::class, 'deletePortofolio'])->name('admin.deletePortofolio');
         Route::post('/portofolio/update/{id}', [App\Http\Controllers\PortofolioController::class, 'updatePortofolio'])->name('admin.updatePortofolio');
+
+        Route::get('/program', [App\Http\Controllers\ProgramController::class, 'index'])->name('admin.dashboard.program');
+        Route::post('/program/add', [App\Http\Controllers\ProgramController::class, 'storeProgram'])->name('admin.storeProgram');
+        Route::get('/program/deleteProgram/{id}', [App\Http\Controllers\ProgramController::class, 'deleteProgram'])->name('admin.deleteProgram');
+        Route::post('/program/update/{id}', [App\Http\Controllers\ProgramController::class, 'updateProgram'])->name('admin.updateProgram');
     });
 
     Route::post('/', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
