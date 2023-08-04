@@ -104,12 +104,12 @@ Route::group(['middleware' => 'revalidate'], function () {
 
         Route::get('/sub', [App\Http\Controllers\SubGrupAkunController::class, 'index'])->name('admin.dashboard.sub');
         Route::post('/sub/add', [App\Http\Controllers\SubGrupAkunController::class, 'storeSub'])->name('admin.storeSub');
-        Route::get('/sub/deleteCity/{id}', [App\Http\Controllers\SubGrupAkunController::class, 'deleteSub'])->name('admin.deleteSub');
+        Route::get('/sub/deleteSub/{id}', [App\Http\Controllers\SubGrupAkunController::class, 'deleteSub'])->name('admin.deleteSub');
         Route::post('/sub/update/{id}', [App\Http\Controllers\SubGrupAkunController::class, 'updateSub'])->name('admin.updateSub');
 
         Route::get('/peruntukan', [App\Http\Controllers\PeruntukanController::class, 'index'])->name('admin.dashboard.peruntukan');
         Route::post('/peruntukan/add', [App\Http\Controllers\PeruntukanController::class, 'storePeruntukan'])->name('admin.storePeruntukan');
-        Route::get('/peruntukan/deleteCity/{id}', [App\Http\Controllers\PeruntukanController::class, 'deletePeruntukan'])->name('admin.deletePeruntukan');
+        Route::get('/peruntukan/deletePeruntukan/{id}', [App\Http\Controllers\PeruntukanController::class, 'deletePeruntukan'])->name('admin.deletePeruntukan');
         Route::post('/peruntukan/update/{id}', [App\Http\Controllers\PeruntukanController::class, 'updatePeruntukan'])->name('admin.updatePeruntukan');
 
         Route::get('/portofolio', [App\Http\Controllers\PortofolioController::class, 'index'])->name('admin.dashboard.portofolio');
@@ -121,6 +121,16 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/program/add', [App\Http\Controllers\ProgramController::class, 'storeProgram'])->name('admin.storeProgram');
         Route::get('/program/deleteProgram/{id}', [App\Http\Controllers\ProgramController::class, 'deleteProgram'])->name('admin.deleteProgram');
         Route::post('/program/update/{id}', [App\Http\Controllers\ProgramController::class, 'updateProgram'])->name('admin.updateProgram');
+
+        Route::get('/costplan', [App\Http\Controllers\CostPlanController::class, 'index'])->name('admin.dashboard.cost_plan');
+        Route::post('/costplan/add', [App\Http\Controllers\CostPlanController::class, 'storeCostPlan'])->name('admin.storeCostPlan');
+        Route::get('/costplan/deleteCostPlan/{id}', [App\Http\Controllers\CostPlanController::class, 'deleteCostPlan'])->name('admin.deleteCostPlan');
+        Route::post('/costplan/update/{id}', [App\Http\Controllers\CostPlanController::class, 'updateCostPlan'])->name('admin.updateCostPlan');
+
+        Route::get('/userreco', [App\Http\Controllers\UserRecoController::class, 'index'])->name('admin.dashboard.user_reco');
+        Route::post('/userreco/add', [App\Http\Controllers\UserRecoController::class, 'storeUserReco'])->name('admin.storeUserReco');
+        Route::get('/userreco/deleteUserReco/{id}', [App\Http\Controllers\UserRecoController::class, 'deleteUserReco'])->name('admin.deleteUserReco');
+        Route::post('/userreco/update/{id}', [App\Http\Controllers\UserRecoController::class, 'updateUserReco'])->name('admin.updateUserReco');
     });
 
     Route::post('/', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');

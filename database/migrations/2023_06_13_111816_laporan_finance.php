@@ -29,7 +29,7 @@ return new class extends Migration
             $table->foreign('id_program')->references('id')->on('program');
             $table->foreign('id_cost_plan')->references('id')->on('cost_plan');
             $table->foreign('id_peruntukan')->references('id')->on('peruntukan');
-            $table->foreign('id_user')->references('id')->on('user');
+            $table->foreign('id_user')->references('id')->on('user_reco');
             $table->foreign('kota')->references('id')->on('city');
         });
     }
