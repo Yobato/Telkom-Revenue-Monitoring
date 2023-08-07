@@ -61,6 +61,28 @@ Route::group(['middleware' => 'revalidate'], function () {
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:GM']], function () {
+        //GM
+        Route::get('/manager', function () {
+            return view('manager.dashboard.gpm');
+        })->name('manager-index');
+
+        Route::get('/manager-gpm', function () {
+            return view('manager.dashboard.gpm');
+        })->name('manager-gpm');
+
+        Route::get('/manager/kkp-operasional', function () {
+            return view('manager.dashboard.kkp');
+        })->name('manager-kkp');
+
+        Route::get('/manager/Revenue', function () {
+            return view('manager.dashboard.revenue');
+        })->name('manager-revenue');
+
+        Route::get('/manager/Cost-of-Good-Sold', function () {
+            return view('manager.dashboard.cogs');
+        })->name('manager-cogs');
+
+
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:Admin']], function () {
