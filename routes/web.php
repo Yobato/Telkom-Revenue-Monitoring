@@ -131,6 +131,11 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/userreco/add', [App\Http\Controllers\UserRecoController::class, 'storeUserReco'])->name('admin.storeUserReco');
         Route::get('/userreco/deleteUserReco/{id}', [App\Http\Controllers\UserRecoController::class, 'deleteUserReco'])->name('admin.deleteUserReco');
         Route::post('/userreco/update/{id}', [App\Http\Controllers\UserRecoController::class, 'updateUserReco'])->name('admin.updateUserReco');
+
+        Route::get('/target', [App\Http\Controllers\TargetController::class, 'index'])->name('admin.dashboard.target');
+        Route::post('/target/add', [App\Http\Controllers\TargetController::class, 'storeTarget'])->name('admin.storeTarget');
+        Route::get('/target/deleteTarget/{id}', [App\Http\Controllers\TargetController::class, 'deleteTarget'])->name('admin.deleteTarget');
+        Route::post('/target/update/{id}', [App\Http\Controllers\TargetController::class, 'updateTarget'])->name('admin.updateTarget');
     });
 
     Route::post('/', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
