@@ -10,6 +10,8 @@ use App\Models\City;
 use App\Models\Peruntukan;
 use App\Models\UserReco;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LaporanFinanceController extends Controller
 {
@@ -57,5 +59,95 @@ class LaporanFinanceController extends Controller
             "peruntukan_id" => $peruntukan_id,
             "citys" => $citys
         ]);
+    }
+
+    public function addLaporanFinance(Request $request)
+    {
+        return view('finance.reporting.form', [
+            "title" => "Buat Laporan Finance",
+            "addcity" => City::all(),
+            "addportofolio" => Portofolio::all()->where("role", "=", "Finance"),
+            "addprogram" => Program::all()->where("role", "=", "Finance"),
+            "addcostplan" => CostPlan::all(),
+            "adduser" => UserReco::all(),
+            "addperuntukan" => Peruntukan::all(),
+        ]);
+    }
+
+    public function storeLaporanFinance(Request $request)
+    {
+
+        $account = Auth::guard('account')->user();
+
+        $messages = [
+            'required' => 'Field wajib diisi',
+            'unique' => 'Nilai sudah ada',
+        ];
+
+        $this->validate($request, [
+            'pid_finance' => 'required|unique:laporan_finance',
+            'nilai' => 'required',
+            'keterangan' => 'required',
+            'id_portofolio' => 'required',
+            'id_program' => 'required',
+            'id_cost_plan' => 'required',
+            'id_peruntukan' => 'required',
+            'id_user' => 'required',
+        ], $messages);
+
+        LaporanFinance::insert([
+            // "id" => 2,
+            // "nama_tipe_kemitraan" => $request->nama_tipe_kemitraan,
+            // "role" => $request->role,
+            'pid_finance' => $request->pid_finance,
+            'nilai' => str_replace('.', '', $request->nilai),
+            'keterangan' => $request->keterangan,
+            'id_portofolio' => $request->id_portofolio,
+            'id_program' => $request->id_program,
+            'id_cost_plan' => $request->id_cost_plan,
+            'id_peruntukan' => $request->id_peruntukan,
+            'id_user' => $request->id_user,
+            'kota' => $account->kota
+        ]);
+        return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menambahkan Laporan KKP");
+    }
+
+    public function deleteLaporanFinance($id)
+    {
+        try {
+            $account = Auth::guard('account')->user();
+            DB::beginTransaction();
+
+            $laporan_finance = LaporanFinance::find($id);
+
+            // Jika tidak ada pengecualian, hapus kota
+            $laporan_finance->delete();
+
+            DB::commit();
+
+            if ($account->role == "Finance") {
+                return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menghapus Laporan Finance");
+            } else if ($account->role == "Admin") {
+                // return redirect()->intended(route('admin.laporan_konstruksi'))->with("success", "Berhasil menghapus Laporan Finance");
+            }
+        } catch (QueryException $e) {
+            DB::rollback();
+
+            // Tangkap pengecualian QueryException jika terjadi kesalahan database
+            if ($account->role == "Finance") {
+                return redirect()->intended(route('finance.dashboard.index'))->with("error", $e->getMessage());
+            } else if ($account->role == "Admin") {
+                // return redirect()->intended(route('admin.laporan_konstruksi'))->with("error", $e->getMessage());
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            // Tangkap pengecualian umum dan tampilkan pesan error
+            if ($account->role == "Finance") {
+                return redirect()->intended(route('finance.dashboard.index'))->with("error", $e->getMessage());
+            } else if ($account->role == "Admin") {
+                // return redirect()->intended(route('admin.laporan_konstruksi'))->with("error", $e->getMessage());
+            }
+        }
     }
 }
