@@ -17,5 +17,10 @@ class DatabaseSeeder extends Seeder
         $this->call(CitySeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(AccountSeeder::class);
+        $this->call(PortofolioSeeder::class);
+        $this->call(ProgramSeeder::class);
+        $this->call(CostPlanSeeder::class);
+        $this->call(PeruntukanSeeder::class);
+        $this->call(UserRecoSeeder::class);
     }
 }
