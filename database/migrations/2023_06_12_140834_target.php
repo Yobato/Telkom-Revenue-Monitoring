@@ -21,6 +21,9 @@ return new class extends Migration
             $table->id();
             $table->integer('jumlah');
             $table->string('bulan');
+            $table->integer('tahun');
+            $table->string('role');
+            $table->foreign('role')->references('nama_role')->on('role');
         });
     }
 
