@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //
         Schema::create('laporan_commerce', function (Blueprint $table) {
-            $table->id("id_commerce");
+            $table->string("id_commerce")->primary();
             $table->string('kode_program');
             $table->integer('nilai');
             $table->string('jenis_laporan');

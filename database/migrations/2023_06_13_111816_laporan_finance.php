@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //
         Schema::create('laporan_finance', function (Blueprint $table) {
-            $table->id("pid");
+            $table->string("pid_finance")->primary();
             $table->integer('nilai');
             $table->string('keterangan');
             $table->unsignedBigInteger('id_portofolio');
