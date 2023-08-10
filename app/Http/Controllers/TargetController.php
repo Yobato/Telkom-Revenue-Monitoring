@@ -63,6 +63,9 @@ class TargetController extends Controller
         Target::where('id', $id)->update([
             "bulan" => $request->bulan,
             "jumlah"=> str_replace('.','',$request->jumlah),
+            'jenis_laporan' => $request->jenis_laporan,
+            'tahun' => $request->tahun,
+            'role' => $request->role
         ]);
 
         return redirect()->intended(route('admin.dashboard.target'))->with("success", "Berhasil mengubah Target");
