@@ -43,9 +43,7 @@ Route::group(['middleware' => 'revalidate'], function () {
 
     Route::group(['middleware' => ['auth:account', 'account-access:Finance']], function () {
         //Finance
-        Route::get('/finance', function () {
-            return view('finance.dashboard.index');
-        })->name('finance-index');
+        Route::get('/finance', [App\Http\Controllers\LaporanFinanceController::class, 'index'])->name('finance.dashboard.index');
 
         Route::get('/finance/form', function () {
             return view('finance.reporting.form');

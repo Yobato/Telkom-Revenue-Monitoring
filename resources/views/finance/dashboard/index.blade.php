@@ -43,80 +43,37 @@
                         <div class="table-responsive">
                             <table class="table-striped table">
                                 <tr>
-                                    <th>ID Commerce</th>
-                                    <th>Kode Program</th>
-                                    <th>Nama Program</th>
-                                    <th>Jenis</th>
-                                    <th>Portofolio</th>
-                                    <th>Sub Grup Plan</th>
-                                    <th>Nilai</th>
-                                    <th>Keterangan</th>
-                                    <th>Action</th>
+                                    <th scope="col">No</th>
+                                    <th scope="col">PID Finance</th>
+                                    <th scope="col">Portofolio</th>
+                                    <th scope="col">Nama Program</th>
+                                    <th scope="col">Cost Plan</th>
+                                    <th scope="col">Peruntukan</th>
+                                    <th scope="col">User</th>
+                                    <th scope="col">Nilai</th>
+                                    <th scope="col">Keterangan</th>
+                                    <th scope="col">Action</th>
                                 </tr>
+                                <?php $i = 1 ?>
+                                @foreach ($laporan_finance as $admins)
                                 <tr>
-                                    <td>278012018</td>
-                                    <td>AIK1234</td>
-                                    <td>Program A</td>
-                                    <td>COGS</td>
-                                    <td>lorem ipsum</td>
-                                    <td>lorem ipsum</td>
-                                    <td>Rp. 1.000.000,00</td>
-                                    <td>2017-01-09</td>
+                                    <th scope="row">{{$i++}}</th>
+                                    <td>{{ $admins->pid}}</td>
+                                    <td>{{ $portofolio_id[$admins->id_portofolio]}}</td>
+                                    <td>{{ $program_id[$admins->id_program]}}</td>
+                                    <td>{{ $cost_plan_id[$admins->id_cost_plan]}}</td>
+                                    <td>{{ $peruntukan_id[$admins->id_peruntukan]}}</td>
+                                    <td>{{ $user_id[$admins->id_user]}}</td>
+                                    <td>{{ $admins->nilai}}</td>
+                                    <td>{{ $admins->keterangan }}</td>
                                     <td>
                                         <button a href="#" class="btn btn-success btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i></button> 
+                                        <i class="fa fa-edit"></i></button> 
                                         <button class="btn btn-danger btn-sm rounded-0" type="button" data-confirm="Hapus Data?" >
-                                            <i class="fa fa-trash"></i></button>
+                                        <i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>278012018</td>
-                                    <td>AIK1234</td>
-                                    <td>Program A</td>
-                                    <td>COGS</td>
-                                    <td>lorem ipsum</td>
-                                    <td>lorem ipsum</td>
-                                    <td>Rp. 1.000.000,00</td>
-                                    <td>2017-01-09</td>
-                                    <td>
-                                        <button a href="#" class="btn btn-success btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i></button> 
-                                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-confirm="Hapus Data?" >
-                                            <i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>278012018</td>
-                                    <td>AIK1234</td>
-                                    <td>Program A</td>
-                                    <td>COGS</td>
-                                    <td>lorem ipsum</td>
-                                    <td>lorem ipsum</td>
-                                    <td>Rp. 1.000.000,00</td>
-                                    <td>2017-01-09</td>
-                                    <td>
-                                        <button a href="#" class="btn btn-success btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i></button> 
-                                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-confirm="Hapus Data?" >
-                                            <i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>278012018</td>
-                                    <td>AIK1234</td>
-                                    <td>Program A</td>
-                                    <td>COGS</td>
-                                    <td>lorem ipsum</td>
-                                    <td>lorem ipsum</td>
-                                    <td>Rp. 1.000.000,00</td>
-                                    <td>2017-01-09</td>
-                                    <td>
-                                        <button a href="#" class="btn btn-success btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i></button> 
-                                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-confirm="Hapus Data?" >
-                                            <i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </table>
                         </div>
                     </div>

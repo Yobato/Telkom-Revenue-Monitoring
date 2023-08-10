@@ -27,7 +27,7 @@ class RedirectIfAuthenticated
                     if ($account->role == 'Commerce') {
                         return redirect()->route('commerce');
                     } else if ($account->role == 'Finance') {
-                        return redirect()->route('finance-index');
+                        return redirect()->route('finance.dashboard.index');
                     } else if ($account->role == 'Admin') {
                         return redirect()->route('admin-index');
                     } else if ($account->role == 'GM') {
