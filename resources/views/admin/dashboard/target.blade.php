@@ -69,6 +69,27 @@ Dashboard
                                             @csrf
                                             <div class="modal-body">
                                                 <div class="form-group">
+                                                    <label for="jumlah" class="col-form-label">Jumlah: </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">
+                                                                Rp.
+                                                            </div>
+                                                        </div>
+                                                        <input type="text" id="jumlah" name="jumlah" class="required-input form-control" onkeyup="formatCurrency(this)">
+                                                    </div>
+                                                    <span class="error-message" id="jumlah_error" style="display: none; color: red;">Field Jumlah harus diisi!</span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="jenis_laporan" class="col-form-label">Jenis Laporan: </label>
+                                                    <select class="required-input form-control" name="jenis_laporan" id="jenis_laporan">
+                                                        <option value="">-- Pilih Jenis Laporan --</option>
+                                                        <option value="COGS">COGS</option>
+                                                        <option value="REVENUE">REVENUE</option>
+                                                    </select>
+                                                    <span class="error-message" id="bulan_error" style="display: none; color: red;">Field Jenis Laporan harus dipilih!</span>
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="bulan" class="col-form-label">Bulan: </label>
                                                     <select class="required-input form-control" name="bulan" id="bulan">
                                                         <option value="">-- Pilih Bulan --</option>
@@ -88,16 +109,20 @@ Dashboard
                                                     <span class="error-message" id="bulan_error" style="display: none; color: red;">Field Bulan harus dipilih!</span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="jumlah" class="col-form-label">Jumlah: </label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text">
-                                                                Rp.
-                                                            </div>
-                                                        </div>
-                                                        <input type="text" id="jumlah" name="jumlah" class="required-input form-control" onkeyup="formatCurrency(this)">
+                                                    <div class="form-group">
+                                                        <label for="tahun" class="col-form-label">Tahun: </label>
+                                                        <input type="text" id="tahun" name="tahun" class="form-control" value="{{ old('tahun')}}" required>
+                                                        <span class="error-message" id="tahun_error" style="display: none; color: red;">Field Jumlah harus diisi!</span>
                                                     </div>
-                                                    <span class="error-message" id="jumlah_error" style="display: none; color: red;">Field Jumlah harus diisi!</span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="role" class="col-form-label">Role: </label>
+                                                    <select class="form-control @error('role') is-invalid @enderror mb-2" name="role" id="role" value="">
+                                                        <option value="" selected>-- Pilih Role--</option>
+                                                        @foreach ($roles as $role)
+                                                        <option value="{{ $role->nama_role }}" {{ old('role') == $role->nama_role ? 'selected' : '' }}>{{ $role->nama_role }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="modal-footer bg-whitesmoke br">
@@ -114,8 +139,11 @@ Dashboard
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
-                                            <th scope="col" class="w-50">Bulan</th>
+                                            <th scope="col" class="w-50">Jenis Laporan</th>
                                             <th scope="col" class="w-50">Jumlah</th>
+                                            <th scope="col" class="w-50">Role</th>
+                                            <th scope="col" class="w-50">Bulan</th>
+                                            <th scope="col" class="w-50">Tahun</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -124,9 +152,12 @@ Dashboard
                                         @foreach ($target as $admins)
                                         <tr>
                                             <th scope="row">{{$i++}}</th>
-                                            <td>{{ $admins ->bulan}}</td>
-                                            <td>{{ $admins ->jumlah}}</td>
-                                            <td>
+                                            <td class="w-50">{{ $admins ->jenis_laporan}}</td>
+                                            <td class="w-50">{{ $admins ->jumlah}}</td>
+                                            <td class="w-50">{{ $admins ->role}}</td>
+                                            <td class="w-50">{{ $admins ->bulan}}</td>
+                                            <td class="w-50">{{ $admins ->tahun}}</td>
+                                            <td class="w-50">
                                                 <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteTargetModal{{ $admins->id }}">Delete</a>
                                                 <!-- MODAL DELETE -->
                                                 <div class="modal fade" tabindex="-1" role="dialog" id="deleteTargetModal{{ $admins->id }}" data-backdrop="static">
@@ -166,6 +197,29 @@ Dashboard
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <div class="form-group">
+                                                                        <div class="form-group">
+                                                                            <label for="jumlah" class="col-form-label">Jumlah: </label>
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-prepend">
+                                                                                    <div class="input-group-text">
+                                                                                        Rp.
+                                                                                    </div>
+                                                                                </div>
+                                                                                <input type="text" id="jumlah" name="jumlah" class="form-control" value="{{ old('jumlah', $admins->jumlah) }}" onkeyup="formatCurrency(this)" required>
+                                                                            </div>
+                                                                            <span class="error-message" id="jumlah_error" style="display: none; color: red;">Field Jumlah harus diisi!</span>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="jenis_laporan" class="col-form-label">Jenis Laporan: </label>
+                                                                            <select class="required-input form-control" name="jenis_laporan" id="jenis_laporan" required>
+                                                                                <option value="COGS" {{ $admins->jenis_laporan === 'COGS' ? 'selected' : '' }}>COGS</option>
+                                                                                <option value="REVENUE" {{ $admins->jenis_laporan === 'REVENUE' ? 'selected' : '' }}>REVENUE</option>
+                                                                            </select>
+                                                                            <span class="error-message" id="bulan_error" style="display: none; color: red;">Field Jenis Laporan harus dipilih!</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
                                                                         <label for="bulan" class="col-form-label">Bulan: </label>
                                                                         <select class="form-control" name="bulan" id="bulan" required>
                                                                             <option value="Januari" {{ $admins->bulan === 'Januari' ? 'selected' : '' }}>Januari</option>
@@ -184,17 +238,18 @@ Dashboard
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <div class="form-group">
-                                                                            <label for="jumlah" class="col-form-label">Jumlah: </label>
-                                                                            <div class="input-group">
-                                                                                <div class="input-group-prepend">
-                                                                                    <div class="input-group-text">
-                                                                                        Rp.
-                                                                                    </div>
-                                                                                </div>
-                                                                                <input type="text" id="jumlah" name="jumlah" class="form-control" value="{{ old('jumlah', $admins->jumlah) }}" onkeyup="formatCurrency(this)" required>
-                                                                            </div>
-                                                                            <span class="error-message" id="jumlah_error" style="display: none; color: red;">Field Jumlah harus diisi!</span>
+                                                                            <label for="tahun" class="col-form-label">Tahun: </label>
+                                                                            <input type="text" id="tahun" name="tahun" class="form-control" value="{{ old('tahun', $admins->tahun) }}" required>
+                                                                            <span class="error-message" id="tahun_error" style="display: none; color: red;">Field Jumlah harus diisi!</span>
                                                                         </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="role" class="col-form-label">Role: </label>
+                                                                        <select class="form-control @error('role') is-invalid @enderror mb-2" name="role" id="role" value="">
+                                                                            @foreach ($roles as $role)
+                                                                            <option value="{{ $role->nama_role }}" {{ old('role', $admins->role) == $role->nama_role ? 'selected' : '' }}>{{ $role->nama_role }}</option>
+                                                                            @endforeach
+                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer bg-whitesmoke br">

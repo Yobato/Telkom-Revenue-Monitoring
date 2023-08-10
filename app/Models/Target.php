@@ -12,6 +12,6 @@ class Target extends Model
     protected $primaryKey = "id";
     public $timestamps = false;
     protected $fillable = [
-        'jumlah', 'bulan', 'tahun', 'role'
+        'jumlah', 'bulan', 'tahun', 'role', 'jenis_laporan'
     ];
 }
