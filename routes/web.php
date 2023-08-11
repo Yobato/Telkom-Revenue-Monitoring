@@ -111,6 +111,18 @@ Route::group(['middleware' => 'revalidate'], function () {
             return view('admin.dashboard.gpm');
         })->name('admin-gpm');
 
+        Route::get('/admin-cogs', function () {
+            return view('admin.dashboard.cogs');
+        })->name('admin-cogs');
+
+        Route::get('/admin-revenue', function () {
+            return view('admin.dashboard.revenue');
+        })->name('admin-revenue');
+
+        Route::get('/admin-kkp', function () {
+            return view('admin.dashboard.kkp');
+        })->name('admin-kkp');
+
         // ------------- ADMIN ------------- 
         Route::get('/city', [App\Http\Controllers\CityController::class, 'index'])->name('admin.dashboard.city');
         Route::post('/city/add', [App\Http\Controllers\CityController::class, 'storeCity'])->name('admin.storeCity');
