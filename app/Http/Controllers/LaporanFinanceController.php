@@ -61,6 +61,12 @@ class LaporanFinanceController extends Controller
         ]);
     }
 
+    public function indexChart(){
+        return view('finance.dashboard.chart', [
+            "title" => "Laporan Finance",
+        ]);
+    }
+
     public function addLaporanFinance(Request $request)
     {
         return view('finance.reporting.form', [
@@ -96,9 +102,6 @@ class LaporanFinanceController extends Controller
         ], $messages);
 
         LaporanFinance::insert([
-            // "id" => 2,
-            // "nama_tipe_kemitraan" => $request->nama_tipe_kemitraan,
-            // "role" => $request->role,
             'pid_finance' => $request->pid_finance,
             'nilai' => str_replace('.', '', $request->nilai),
             'keterangan' => $request->keterangan,
@@ -125,29 +128,67 @@ class LaporanFinanceController extends Controller
 
             DB::commit();
 
-            if ($account->role == "Finance") {
-                return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menghapus Laporan Finance");
-            } else if ($account->role == "Admin") {
-                // return redirect()->intended(route('admin.laporan_konstruksi'))->with("success", "Berhasil menghapus Laporan Finance");
-            }
+            return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menghapus Laporan Finance");
+            
         } catch (QueryException $e) {
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            if ($account->role == "Finance") {
-                return redirect()->intended(route('finance.dashboard.index'))->with("error", $e->getMessage());
-            } else if ($account->role == "Admin") {
-                // return redirect()->intended(route('admin.laporan_konstruksi'))->with("error", $e->getMessage());
-            }
+            return redirect()->intended(route('finance.dashboard.index'))->with("error", $e->getMessage());
+            
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            if ($account->role == "Finance") {
-                return redirect()->intended(route('finance.dashboard.index'))->with("error", $e->getMessage());
-            } else if ($account->role == "Admin") {
-                // return redirect()->intended(route('admin.laporan_konstruksi'))->with("error", $e->getMessage());
-            }
+            return redirect()->intended(route('finance.dashboard.index'))->with("error", $e->getMessage());
+            
         }
+    }
+
+    public function editLaporanFinance($id)
+    {
+        return view('finance.reporting.formEdit', [
+            "title" => "Edit Laporan Finance",
+            "finance" => LaporanFinance::where("pid_finance", "=", $id)->get(),
+            "addcity" => City::all(),
+            "addportofolio" => Portofolio::all()->where("role", "=", "Finance"),
+            "addprogram" => Program::all()->where("role", "=", "Finance"),
+            "addcostplan" => CostPlan::all(),
+            "adduser" => UserReco::all(),
+            "addperuntukan" => Peruntukan::all(),
+            "id" => $id,
+        ]);
+    }
+
+    public function updateLaporanFinance(Request $request, $id)
+    {
+        $messages = [
+            'required' => ':Field wajib diisi',
+        ];
+
+        $this->validate($request, [
+            'pid_finance' => 'required',
+            'nilai' => 'required',
+            'keterangan' => 'required',
+            'id_portofolio' => 'required',
+            'id_program' => 'required',
+            'id_cost_plan' => 'required',
+            'id_peruntukan' => 'required',
+            'id_user' => 'required',
+        ], $messages);
+
+        $account = Auth::guard('account')->user();
+        LaporanFinance::where('pid_finance', $id)->update([
+            'pid_finance' => $request->pid_finance,
+            'nilai' => str_replace('.', '', $request->nilai),
+            'keterangan' => $request->keterangan,
+            'id_portofolio' => $request->id_portofolio,
+            'id_program' => $request->id_program,
+            'id_cost_plan' => $request->id_cost_plan,
+            'id_peruntukan' => $request->id_peruntukan,
+            'id_user' => $request->id_user,
+            'kota' => $account->kota
+        ]);
+        return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil mengubah Laporan Finance");
     }
 }

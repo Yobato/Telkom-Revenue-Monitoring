@@ -12,22 +12,18 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li class="nav-item dropdown">
-                <a href="#"
-                    class="nav-link has-dropdown"><i class="bi bi-bar-chart-fill"></i><span>Dashboard</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="bi bi-bar-chart-fill"></i><span>Dashboard</span></a>
                 <ul class="dropdown-menu">
-                    <li class='{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}'>
-                        <a class="nav-link"
-                            href="{{ route('finance-kkp') }}">KKP Operasional</a>
+                    <li class="{{ $title==='Laporan Finance' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('finance.dashboard.chart') }}">KKP Operasional</a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
-                <a href="#"
-                    class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Reporting</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Reporting</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ route('finance-reporting-kkp') }}">KKP Operasional</a>
+                    <li class='{{ $title==='Laporan Finance' ? ' active' : '' }}'>
+                        <a class="nav-link" href="{{ route('finance.dashboard.index') }}">Laporan KKP</a>
                     </li>
                 </ul>
             </li>

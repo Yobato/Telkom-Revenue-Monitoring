@@ -43,10 +43,14 @@ Route::group(['middleware' => 'revalidate'], function () {
 
     Route::group(['middleware' => ['auth:account', 'account-access:Finance']], function () {
         //Finance
+        Route::get('/finance/dashboard', [App\Http\Controllers\LaporanFinanceController::class, 'indexChart'])->name('finance.dashboard.chart');
         Route::get('/finance', [App\Http\Controllers\LaporanFinanceController::class, 'index'])->name('finance.dashboard.index');
         Route::get('/finance/add', [App\Http\Controllers\LaporanFinanceController::class, 'addLaporanFinance'])->name('finance.reporting.form');
         Route::post('/finance/add/success', [App\Http\Controllers\LaporanFinanceController::class, 'storeLaporanFinance'])->name('finance.storeLaporanFinance');
         Route::get('/finance/delete/{id}', [App\Http\Controllers\LaporanFinanceController::class, 'deleteLaporanFinance'])->name('finance.deleteLaporanFinance');
+        Route::get('/finance/edit/{id}', [App\Http\Controllers\LaporanFinanceController::class, 'editLaporanFinance'])->name('finance.editLaporanFinance');
+        Route::post('/finance/edit/{id}/success', [App\Http\Controllers\LaporanFinanceController::class, 'updateLaporanFinance'])->name('finance.updateLaporanFinance');
+
 
 
 
@@ -54,13 +58,13 @@ Route::group(['middleware' => 'revalidate'], function () {
         //     return view('finance.reporting.form');
         // })->name('finance-form');
 
-        Route::get('/finance/reporting/kkp-operasional', function () {
-            return view('finance.reporting.kkp');
-        })->name('finance-reporting-kkp');
+        // Route::get('/finance/reporting/kkp-operasional', function () {
+        //     return view('finance.reporting.kkp');
+        // })->name('finance-reporting-kkp');
 
-        Route::get('/finance/kkp-operasional', function () {
-            return view('finance.dashboard.kkp');
-        })->name('finance-kkp');
+        // Route::get('/finance/kkp-operasional', function () {
+        //     return view('finance.dashboard.kkp');
+        // })->name('finance-kkp');
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:GM']], function () {
@@ -84,8 +88,6 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/manager/Cost-of-Good-Sold', function () {
             return view('manager.dashboard.cogs');
         })->name('manager-cogs');
-
-
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:Admin']], function () {
