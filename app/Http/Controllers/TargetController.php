@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\Target;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,7 @@ class TargetController extends Controller
         return view('admin.dashboard.target', [
             "title" => "Target",
             "target" => Target::all(),
+            "roles" => Role::all(),
         ]);
     }
 
@@ -23,6 +25,9 @@ class TargetController extends Controller
         Target::insert([
             "bulan" => $request->bulan,
             "jumlah"=> str_replace('.','',$request->jumlah),
+            'jenis_laporan' => $request->jenis_laporan,
+            'tahun' => $request->tahun,
+            'role' => $request->role
         ]);
         return redirect()->intended(route('admin.dashboard.target'))->with("success", "Berhasil menambahkan Target");
     }
@@ -58,6 +63,9 @@ class TargetController extends Controller
         Target::where('id', $id)->update([
             "bulan" => $request->bulan,
             "jumlah"=> str_replace('.','',$request->jumlah),
+            'jenis_laporan' => $request->jenis_laporan,
+            'tahun' => $request->tahun,
+            'role' => $request->role
         ]);
 
         return redirect()->intended(route('admin.dashboard.target'))->with("success", "Berhasil mengubah Target");
