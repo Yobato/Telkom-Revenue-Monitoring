@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class LaporanCommerce extends Model
+{
+    use HasFactory;
+    protected $table = "laporan_commerce";
+    protected $primaryKey = "id_commerce";
+    public $timestamps = true;
+    public $incrementing = false;
+    protected $fillable = [
+        "id_commerce",
+        'kode_program',
+        'nilai',
+        'jenis_laporan',
+        'keterangan',
+        'id_portofolio',
+        'id_program',
+        'id_sub_grup_akun',
+        'kota',
+        'created_at',
+        'updated_at'
+    ];
+}

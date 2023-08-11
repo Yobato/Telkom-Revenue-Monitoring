@@ -31,6 +31,8 @@ return new class extends Migration
             $table->foreign('id_peruntukan')->references('id')->on('peruntukan');
             $table->foreign('id_user')->references('id')->on('user_reco');
             $table->foreign('kota')->references('id')->on('city');
+            $table->string('created_at')->nullable();
+            $table->string('updated_at')->nullable();
         });
     }
 
