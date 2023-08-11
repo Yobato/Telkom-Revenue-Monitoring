@@ -21,15 +21,15 @@
                     </li>
                     <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
                         <a class="nav-link"
-                            href="#">Cost of Goods Sold</a>
+                            href="{{ route('admin-cogs') }}">Cost of Goods Sold</a>
                     </li>
                     <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
                         <a class="nav-link"
-                            href="#">Revenue</a>
+                            href="{{ route('admin-revenue') }}">Revenue</a>
                     </li>
                     <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
                         <a class="nav-link"
-                            href="#">KKP Operasional</a>
+                            href="{{ route('admin-kkp') }}">KKP Operasional</a>
                     </li>
                 </ul>
             </li>
