@@ -30,7 +30,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $account = Auth::guard('account')->user();
             if ($account->role == "Commerce") {
-                return redirect()->intended(route('commerce'));
+                return redirect()->intended(route('commerce.dashboard.index'));
             } else if ($account->role == 'Finance') {
                 return redirect()->intended(route('finance.dashboard.index'));
             } else if ($account->role == 'GM') {

@@ -2,22 +2,6 @@
 
 @section('title', 'Reporting')
 
-@push('style')
-    <!-- CSS Libraries -->
-    <link rel="stylesheet"
-        href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('library/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('library/select2/dist/css/select2.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('library/selectric/public/selectric.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
-@endpush
-
 @section('content')
     <section class="section">
     <div class="section-body">
@@ -26,7 +10,7 @@
                 <div class="card">
                     {{-- ADD LAPORAN  --}}
                     <div class="card-body d-flex justify-content-start" style="padding-bottom:0; margin-bottom:0;">
-                        <div class="breadcrumb-item"><a href="{{ route('commerce-cogs') }}">COGS</a></div>
+                        <div class="breadcrumb-item"><a href="{{ route('commerce.dashboard.index') }}">Dashboard</a></div>
                         <div class="breadcrumb-item active">Buat Laporan </div>
                     </div>
                     <div class="card-header" style="padding-bottom:0;">
@@ -47,81 +31,103 @@
                 <div class="card">
                     <div class="px-5 pt-4" style="font-size: 140%"><b>Buat Laporan</b></div>
                     <div class="px-5 pt-2 pb-0">Sesuaikan data yang dibutuhkan dalam membuat laporan</div>
-                    <form>
+                    <form action="{{route('commerce.storeLaporanCommerce')}}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-lg-6">
                             <div class="form-group pt-4 pb-0 pl-5 mb-0 pb-0">
-                                <label for="ID_commerce" class="col-form-label">ID Commerce: </label>
-                                <input type="text" id="ID_commerce" name="ID_commerce" class="form-control @error('ID_commerce') is-invalid @enderror mb-2" value="{{ old('ID_commerce') }}">
-                                <span id=" ID_commerce_error" style="display: none; color: red;">Field ID Commerce harus diisi!</span>
-                                @error('ID_commerce')
+                                <label for="id_commerce" class="col-form-label">PID Commerce: </label>
+                                <input type="text" id="id_commerce" name="id_commerce" class="form-control @error('id_commerce') is-invalid @enderror mb-2" value="{{ old('id_commerce') }}">
+                                @error('id_commerce')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                                 @enderror
 
-                                <label for="jenis_id" class="col-form-label">Jenis: </label>
-                                <select class="jenis_id form-control @error('jenis_id') is-invalid @enderror mb-2" name="jenis_id" value="{{ old('jenis_id') }}">
-                                    <option value="" selected>-- Pilih Jenis Laporan --</option>
-                                    {{-- @foreach ($tipeprov as $tipe_provisioning)
-                                        <option value={{ $tipe_provisioning->id }} @selected(old('tipe_provisioning_id') == $tipe_provisioning->id)>{{ $tipe_provisioning->nama_tipe_provisioning }}</option>
-                                    @endforeach --}}
+                                <label for="id_program" class="col-form-label">Nama Program: </label>
+                                <select class="id_program form-control @error('id_program') is-invalid @enderror mb-2" name="id_program" value="{{ old('id_program') }}">
+                                    <option value="" selected>-- Pilih Nama Program --</option>
+                                    @foreach ($addprogram as $program)
+                                        <option value={{ $program->id }} @selected(old('id_program') == $program->id)>{{ $program->nama_program }}</option>
+                                    @endforeach
                                 </select>
-                                <span id="jenis_id_error" style="display: none; color: red;">Field Jenis Laporan harus diisi!</span>
-                                @error('jenis_id')
+                                @error('id_program')
                                 <div class="invalid-feedback">
-                                    Field Jenis Laporan harus diisi!
+                                    Field Nama Program harus diisi!
                                 </div>
                                 @enderror
-
+                                
                                 <label for="kode_program" class="col-form-label">Kode Program: </label>
-                                <input type="text" id="kode_program" name="kode_program" value="{{ old('kode_program') }}" class="form-control @error('kode_program') is-invalid @enderror mb-2">
-                                <span id="kode_program_error" style="display: none; color: red;">Field Kode Program harus diisi!</span>
-                                @error('kode_program')
+                                <select class="kode_program form-control @error('kode_program') is-invalid @enderror mb-2" name="kode_program" value="{{ old('kode_program') }}">
+                                    <option value="" selected>-- Pilih Kode Program --</option>
+                                    @foreach ($addprogram as $program)
+                                        <option value={{ $program->id }} @selected(old('kode_program') == $program->id)>{{ $program->kode_program }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_program')
                                 <div class="invalid-feedback">
                                     Field Kode Program harus diisi!
                                 </div>
                                 @enderror
 
-                                <label for="nama_program" class="col-form-label">Nama Program: </label>
-                                <input type="text" id="nama_program" name="nama_program" value="{{ old('nama_program') }}" class="form-control @error('nama_program') is-invalid @enderror mb-2">
-                                <span id="nama_program_error" style="display: none; color: red;">Field Nama Program harus diisi!</span>
-                                @error('nama_program')
+
+                                <!-- <label for="id_portofolio" class="col-form-label">Portofolio: </label>
+                                <select class="id_portofolio form-control @error('id_portofolio') is-invalid @enderror mb-2" name="id_portofolio" value="{{ old('id_portofolio') }}">
+                                    <option value="" selected>-- Pilih Portofolio --</option>
+                                    @foreach ($addportofolio as $portofolio)
+                                        <option value={{ $portofolio->id }} @selected(old('id_portofolio') == $portofolio->id)>{{ $portofolio->nama_portofolio }}</option>
+                                    @endforeach
+                                </select>
+                                <span id="id_portofolio_error" style="display: none; color: red;">Field Portofolio harus diisi!</span>
+                                @error('id_portofolio')
                                 <div class="invalid-feedback">
-                                    Field Nama Program harus diisi!
+                                    Field Portofolio harus diisi!
+                                </div>
+                                @enderror -->
+
+                                <label for="id_portofolio" class="col-form-label">Portofolio: </label>
+                                <select class="id_portofolio form-control @error('id_portofolio') is-invalid @enderror mb-2" name="id_portofolio" value="{{ old('id_portofolio') }}">
+                                    <option value="" selected>-- Pilih Portofolio --</option>
+                                    @foreach ($addportofolio as $portofolio)
+                                        <option value={{ $portofolio->id }} @selected(old('id_portofolio') == $portofolio->id)>{{ $portofolio->nama_portofolio }}</option>
+                                    @endforeach
+                                </select>
+                                <span id="id_portofolio_error" style="display: none; color: red;">Field Portofolio harus diisi!</span>
+                                @error('id_portofolio')
+                                <div class="invalid-feedback">
+                                    Field Portofolio harus diisi!
                                 </div>
                                 @enderror
+                                
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group pt-4 pb-0 pr-5 mb-0">
-                                    <label for="portofolio_id" class="col-form-label">Portofolio: </label>
-                                    <select class="portofolio_id form-control @error('portofolio_id') is-invalid @enderror mb-2" name="portofolio_id" value="{{ old('portofolio_id') }}">
-                                        <option value="" selected>-- Pilih Portofolio --</option>
-                                        {{-- @foreach ($tipeprov as $tipe_provisioning)
-                                            <option value={{ $tipe_provisioning->id }} @selected(old('tipe_provisioning_id') == $tipe_provisioning->id)>{{ $tipe_provisioning->nama_tipe_provisioning }}</option>
-                                        @endforeach --}}
+                                    <label for="id_sub_grup_akun" class="col-form-label">Sub Grup Akun: </label>
+                                    <select class="id_sub_grup_akun form-control @error('id_sub_grup_akun') is-invalid @enderror mb-2" name="id_sub_grup_akun" value="{{ old('id_sub_grup_akun') }}">
+                                        <option value="" selected>-- Pilih Sub Grup Akun --</option>
+                                        @foreach ($addsubgrupakun as $subgrupakun)
+                                            <option value={{ $subgrupakun->id }} @selected(old('id_sub_grup_akun') == $subgrupakun->id)>{{ $subgrupakun->nama_sub}}</option>
+                                        @endforeach
                                     </select>
-                                    <span id="tipe_provisioning_id_error" style="display: none; color: red;">Field Portofolio harus diisi!</span>
-                                    @error('portofolio_id')
+                                    <span id="sub_grup_akun_error" style="display: none; color: red;">Field Sub Grup Akun harus diisi!</span>
+                                    @error('id_sub_grup_akun')
                                     <div class="invalid-feedback">
-                                        Field Portofolio harus diisi!
+                                        Field Sub Grup Akun harus diisi!
                                     </div>
                                     @enderror
 
-                                    <label for="sub_group_plan_id" class="col-form-label">Sub Group Plan: </label>
-                                    <select class="sub_group_plan_id form-control @error('sub_group_plan_id') is-invalid @enderror mb-2" name="sub_group_plan_id" value="{{ old('sub_group_plan_id') }}">
-                                        <option value="" selected>-- Pilih Sub Group Plan --</option>
-                                        {{-- @foreach ($tipeprov as $tipe_provisioning)
-                                            <option value={{ $tipe_provisioning->id }} @selected(old('tipe_provisioning_id') == $tipe_provisioning->id)>{{ $tipe_provisioning->nama_tipe_provisioning }}</option>
-                                        @endforeach --}}
+                                    <label for="jenis_laporan" class="col-form-label">Jenis Laporan: </label>
+                                    <select class="jenis_laporan form-control @error('jenis_laporan') is-invalid @enderror mb-2" name="jenis_laporan" value="{{ old('jenis_laporan') }}">
+                                        <option value="" selected>-- Pilih Jenis Laporan --</option>
+                                        <option value="COGS">COGS</option>
+                                        <option value="Revenue">Revenue</option>
                                     </select>
-                                    <span id="sub_group_plan_id_error" style="display: none; color: red;">Field Sub Group Plan harus diisi!</span>
-                                    @error('sub_group_plan_id')
+                                    <span id="jenis_laporan_error" style="display: none; color: red;">Field Jenis Laporan harus diisi!</span>
+                                    @error('jenis_laporan')
                                     <div class="invalid-feedback">
-                                        Field Sub Group Plan harus diisi!
+                                        Field Jenis Laporan harus diisi!
                                     </div>
                                     @enderror
 
@@ -172,17 +178,18 @@
 
 @endsection
 
-@push('scripts')
-    {{-- <!-- JS Libraies -->
-    <script src="{{ asset('library/cleave.js/dist/cleave.min.js') }}"></script>
-    <script src="{{ asset('library/cleave.js/dist/addons/cleave-phone.us.js') }}"></script>
-    <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-    <script src="{{ asset('library/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
-    <script src="{{ asset('library/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
-    <script src="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
-    <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
-
-    <!-- Page Specific JS File -->
-    <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script> --}}
-@endpush
+<script>
+   function formatCurrency(input) {
+        // Menghilangkan semua karakter selain angka
+        let rawValue = input.value.replace(/[^\d]/g, '');
+        
+        // Memastikan input tidak kosong
+        if (rawValue) {
+            // Mengubah angka menjadi format uang dengan pemisah ribuan (.)
+            let formattedValue = Number(rawValue).toLocaleString('id-ID');
+            
+            // Menampilkan hasil format uang di input
+            input.value = formattedValue;
+        }
+    } 
+</script>
