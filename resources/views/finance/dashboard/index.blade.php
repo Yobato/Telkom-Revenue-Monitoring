@@ -84,8 +84,8 @@
                                     <td>{{ $admins->nilai}}</td>
                                     <td>{{ $admins->keterangan }}</td>
                                     <td>
-                                        <button a href="#" class="btn btn-success btn-sm rounded-0" type="button">
-                                        <i class="fa fa-edit"></i></button> 
+                                        <a href={{ route('finance.editLaporanFinance', [$admins->pid_finance]) }} class="btn btn-success btn-sm rounded-0" type="button">
+                                        <i class="fa fa-edit"></i></a> 
                                         {{-- <button class="btn btn-danger btn-sm rounded-0" type="button" data-confirm="Hapus Data?" >
                                         <i class="fa fa-trash"></i></button> --}}
                                         <a class="btn btn-sm btn-danger rounded-0" style="color: white" data-toggle="modal" data-target="#deleteLaporanFinanceModal{{ $admins->pid_finance }}"><i class="fa fa-trash"></i></a>

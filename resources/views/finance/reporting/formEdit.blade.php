@@ -11,7 +11,7 @@
                     {{-- ADD LAPORAN  --}}
                     <div class="card-body d-flex justify-content-start" style="padding-bottom:0; margin-bottom:0;">
                         <div class="breadcrumb-item"><a href="{{ route('commerce-revenue') }}">KKP Operasional</a></div>
-                        <div class="breadcrumb-item active">Buat Laporan </div>
+                        <div class="breadcrumb-item active">Edit Laporan </div>
                     </div>
                     <div class="card-header" style="padding-bottom:0;">
                         <div class="col-12">
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     
-                    <p style="padding-left: 43px; padding-bottom:10px">Buat Laporan sesuai dengan ketentuan dan SOP yang berlaku di Telkom Akses. Anda dapat mengubah laporan ini nanti.</p>
+                    <p style="padding-left: 43px; padding-bottom:10px">Edit Laporan sesuai dengan ketentuan dan SOP yang berlaku di Telkom Akses. Anda dapat mengubah laporan ini nanti.</p>
                 </div>
             </div>
         </div>
@@ -29,15 +29,16 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="px-5 pt-4" style="font-size: 140%"><b>Buat Laporan</b></div>
+                    <div class="px-5 pt-4" style="font-size: 140%"><b>Edit Laporan</b></div>
                     <div class="px-5 pt-2 pb-0">Sesuaikan data yang dibutuhkan dalam membuat laporan</div>
-                    <form action="{{route('finance.storeLaporanFinance')}}" method="POST">
+                    @foreach ($finance as $laporan)
+                    <form action="{{route('finance.updateLaporanFinance', [$id])}}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-lg-6">
                             <div class="form-group pt-4 pb-0 pl-5 mb-0 pb-0">
                                 <label for="pid_finance" class="col-form-label">PID Finance: </label>
-                                <input type="text" id="pid_finance" name="pid_finance" class="form-control @error('pid_finance') is-invalid @enderror mb-2" value="{{ old('pid_finance') }}">
+                                <input type="text" id="pid_finance" name="pid_finance" class="form-control @error('pid_finance') is-invalid @enderror mb-2" value="{{ old('pid_finance', $laporan->pid_finance) }}" readonly>
                                 @error('pid_finance')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -45,10 +46,10 @@
                                 @enderror
                                 
                                 <label for="id_program" class="col-form-label">Nama Program: </label>
-                                <select class="id_program form-control @error('id_program') is-invalid @enderror mb-2" name="id_program" value="{{ old('id_program') }}">
+                                <select class="id_program form-control @error('id_program') is-invalid @enderror mb-2" name="id_program" value="{{ old('id_program', $laporan->id_program) }}">
                                     <option value="" selected>-- Pilih Nama Program --</option>
                                     @foreach ($addprogram as $program)
-                                        <option value={{ $program->id }} @selected(old('id_program') == $program->id)>{{ $program->nama_program }}</option>
+                                        <option value="{{ $program->id }}"{{ strcmp($laporan->id_program,"$program->id")==0? 'selected':''; }}>{{ $program->nama_program }}</option>
                                     @endforeach
                                 </select>
                                 @error('id_program')
@@ -58,10 +59,10 @@
                                 @enderror
 
                                 <label for="id_portofolio" class="col-form-label">Portofolio: </label>
-                                <select class="id_portofolio form-control @error('id_portofolio') is-invalid @enderror mb-2" name="id_portofolio" value="{{ old('id_portofolio') }}">
+                                <select class="id_portofolio form-control @error('id_portofolio') is-invalid @enderror mb-2" name="id_portofolio" value="{{ old('id_portofolio', $laporan->id_portofolio) }}">
                                     <option value="" selected>-- Pilih Portofolio --</option>
                                     @foreach ($addportofolio as $portofolio)
-                                        <option value={{ $portofolio->id }} @selected(old('id_portofolio') == $portofolio->id)>{{ $portofolio->nama_portofolio }}</option>
+                                        <option value="{{ $portofolio->id }}" {{ strcmp($laporan->id_portofolio, "$portofolio->id")==0? 'selected':''; }}>{{ $portofolio->nama_portofolio }}</option>
                                     @endforeach
                                 </select>
                                 <span id="id_portofolio_error" style="display: none; color: red;">Field Portofolio harus diisi!</span>
@@ -72,10 +73,10 @@
                                 @enderror
                                 
                                 <label for="id_user" class="col-form-label">User: </label>
-                                <select class="id_user form-control @error('id_user') is-invalid @enderror mb-2" name="id_user" value="{{ old('id_user') }}">
+                                <select class="id_user form-control @error('id_user') is-invalid @enderror mb-2" name="id_user" value="{{ old('id_user', $laporan->id_user) }}">
                                     <option value="" selected>-- Pilih User --</option>
                                     @foreach ($adduser as $user)
-                                        <option value={{ $user->id }} @selected(old('id_user') == $user->id)>{{ $user->nama_user_reco }}</option>
+                                        <option value="{{ $user->id }}" {{ strcmp($laporan->id_user, "$user->id")==0? 'selected':''; }}>{{ $user->nama_user_reco }}</option>
                                     @endforeach
                                 </select>
                                 <span id="user_error" style="display: none; color: red;">Field User harus diisi!</span>
@@ -90,10 +91,10 @@
                             <div class="col-lg-6">
                                 <div class="form-group pt-4 pb-0 pr-5 mb-0">
                                     <label for="id_cost_plan" class="col-form-label">Cost Plan: </label>
-                                    <select class="id_cost_plan form-control @error('id_cost_plan') is-invalid @enderror mb-2" name="id_cost_plan" value="{{ old('id_cost_plan') }}">
+                                    <select class="id_cost_plan form-control @error('id_cost_plan') is-invalid @enderror mb-2" name="id_cost_plan" value="{{ old('id_cost_plan', $laporan->id_cost_plan) }}">
                                         <option value="" selected>-- Pilih Cost Plan --</option>
                                         @foreach ($addcostplan as $costplan)
-                                            <option value={{ $costplan->id }} @selected(old('id_cost_plan') == $costplan->id)>{{ $costplan->nama_cost_plan}}</option>
+                                            <option value="{{ $costplan->id }}" {{ strcmp($laporan->id_cost_plan, "$costplan->id")==0? 'selected':''; }}>{{ $costplan->nama_cost_plan}}</option>
                                         @endforeach
                                     </select>
                                     <span id="cost_plan_error" style="display: none; color: red;">Field Portofolio harus diisi!</span>
@@ -104,10 +105,10 @@
                                     @enderror
 
                                     <label for="id_peruntukan" class="col-form-label">Peruntukan: </label>
-                                    <select class="id_peruntukan form-control @error('id_peruntukan') is-invalid @enderror mb-2" name="id_peruntukan" value="{{ old('id_peruntukan') }}">
+                                    <select class="id_peruntukan form-control @error('id_peruntukan') is-invalid @enderror mb-2" name="id_peruntukan" value="{{ old('id_peruntukan', $laporan->id_peruntukan) }}">
                                         <option value="" selected>-- Pilih Peruntukan --</option>
                                         @foreach ($addperuntukan as $peruntukan)
-                                            <option value={{ $peruntukan->id }} @selected(old('id_peruntukan') == $peruntukan->id)>{{ $peruntukan->nama_peruntukan}}</option>
+                                            <option value="{{ $peruntukan->id }}" {{ strcmp($laporan->id_peruntukan, "$peruntukan->id")==0? 'selected':''; }}>{{ $peruntukan->nama_peruntukan}}</option>
                                         @endforeach
                                     </select>
                                     <span id="id_peruntukan_error" style="display: none; color: red;">Field Peruntukan harus diisi!</span>
@@ -124,7 +125,7 @@
                                                 Rp.
                                             </div>
                                         </div>
-                                        <input type="text" id="nilai" name="nilai" value="{{ old('nilai') }}" class="form-control @error('nilai') is-invalid @enderror mb-2" oninput="formatCurrency(this)">  
+                                        <input type="text" id="nilai" name="nilai" value="{{ old('nilai', $laporan->nilai) }}" class="form-control @error('nilai') is-invalid @enderror mb-2" oninput="formatCurrency(this)">  
                                     </div>
                                     <span id="nilai_error" style="display: none; color: red;">Field Nilai harus diisi!</span>
                                     @error('nilai')
@@ -134,7 +135,7 @@
                                     @enderror
 
                                     <label for="keterangan" class="col-form-label">Keterangan:</label>
-                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
+                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan', $laporan->keterangan) }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
                                     {{-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> --}}
                                     <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
                                     @error('keterangan')
@@ -155,6 +156,7 @@
                                 <button class="btn btn-primary" value="Simpan Data" type="submit">Buat Laporan</button>
                             </div>
                     </form>
+                    @endforeach
                 </div>
             </div>
         </div>
