@@ -148,7 +148,10 @@ Dashboard
                                             <td class="w-50">{{ $admins ->bulan}}</td>
                                             <td class="w-50">{{ $admins ->tahun}}</td>
                                             <td class="w-50">
-                                                <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteTargetModal{{ $admins->id }}">Delete</a>
+                                                <a href="#" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="modal" data-target="#editTargetModal-{{$admins->id}}">
+                                                    <i class="fa fa-edit"></i></a>
+                                                <a class="btn btn-danger btn-sm rounded-0" style="color: white" type="button" data-toggle="modal" data-target="#deleteTargetModal{{ $admins->id }}">
+                                                    <i class="fa fa-trash"></i></a>
                                                 <!-- MODAL DELETE -->
                                                 <div class="modal fade" tabindex="-1" role="dialog" id="deleteTargetModal{{ $admins->id }}" data-backdrop="static">
                                                     <div class="modal-dialog" role="document">
@@ -173,7 +176,6 @@ Dashboard
                                                 {{-- <a class="btn btn-sm btn-warning" href="#">Edit</a> --}}
 
                                                 <!-- UPDATE Target -->
-                                                <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editTargetModal-{{$admins->id}}" style="color: white">Edit</a>
                                                 <div class="modal fade" tabindex="-1" role="dialog" id="editTargetModal-{{$admins->id}}" data-backdrop="static">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
