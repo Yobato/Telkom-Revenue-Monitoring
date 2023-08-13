@@ -16,12 +16,12 @@ return new class extends Migration
         //
         Schema::create('laporan_commerce', function (Blueprint $table) {
             $table->string("id_commerce")->primary();
+            $table->unsignedBigInteger('id_program');
             $table->string('kode_program');
             $table->integer('nilai');
             $table->string('jenis_laporan');
             $table->string('keterangan');
             $table->unsignedBigInteger('id_portofolio');
-            $table->unsignedBigInteger('id_program');
             $table->unsignedBigInteger('id_sub_grup_akun');
             // $table->string('id_nama_kota');
             $table->unsignedBigInteger('kota');
@@ -29,6 +29,8 @@ return new class extends Migration
             $table->foreign('id_program')->references('id')->on('program');
             $table->foreign('id_sub_grup_akun')->references('id')->on('sub_grup_akun');
             $table->foreign('kota')->references('id')->on('city');
+            $table->string('created_at')->nullable();
+            $table->string('updated_at')->nullable();
         });
     }
 

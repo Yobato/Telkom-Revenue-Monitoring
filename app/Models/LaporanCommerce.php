@@ -14,12 +14,12 @@ class LaporanCommerce extends Model
     public $incrementing = false;
     protected $fillable = [
         "id_commerce",
+        'id_program',
         'kode_program',
         'nilai',
         'jenis_laporan',
         'keterangan',
         'id_portofolio',
-        'id_program',
         'id_sub_grup_akun',
         'kota',
         'created_at',

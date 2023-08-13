@@ -25,7 +25,7 @@ class RedirectIfAuthenticated
             case "account":
                 if ($account) {
                     if ($account->role == 'Commerce') {
-                        return redirect()->route('commerce');
+                        return redirect()->route('commerce.dashboard.index');
                     } else if ($account->role == 'Finance') {
                         return redirect()->route('finance.dashboard.index');
                     } else if ($account->role == 'Admin') {

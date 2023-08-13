@@ -17,7 +17,7 @@
                 <ul class="dropdown-menu">
                     <li class='{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}'>
                         <a class="nav-link"
-                            href="{{ route('commerce-gpm') }}">Gross Profit Margin</a>
+                            href="{{ route('commerce.dashboard.gpm') }}">Gross Profit Margin</a>
                     </li>
                     <li class="{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}">
                         <a class="nav-link"
@@ -35,12 +35,9 @@
                 <ul class="dropdown-menu">
                     <li class='{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}'>
                         <a class="nav-link"
-                            href="{{ route('commerce-cogs') }}">COGS</a>
+                            href="{{ route('commerce.dashboard.index') }}">COGS & Revenue</a>
                     </li>
-                    <li class="{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ route('commerce-revenue') }}">Revenue</a>
-                    </li>
+                    
                 </ul>
             </li>
         </ul>

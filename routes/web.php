@@ -16,29 +16,14 @@ use Illuminate\Support\Facades\Auth;
 Route::group(['middleware' => 'revalidate'], function () {
     Route::group(['middleware' => ['auth:account', 'account-access:Commerce']], function () {
         //Commerce
-        Route::get('/commerce', function () {
-            return view('commerce.dashboard.gpm');
-        })->name('commerce');
-
-        Route::get('/commerce-gpm', function () {
-            return view('commerce.dashboard.gpm');
-        })->name('commerce-gpm');
-
-        Route::get('/commerce-cogs/form', function () {
-            return view('commerce.reporting.cogs-form');
-        })->name('commerce-cogs-form');
-
-        Route::get('/commerce-cogs', function () {
-            return view('commerce.reporting.cogs');
-        })->name('commerce-cogs');
-
-        Route::get('/commerce-revenue', function () {
-            return view('commerce.reporting.revenue');
-        })->name('commerce-revenue');
-
-        Route::get('/commerce-revenue/form', function () {
-            return view('commerce.reporting.revenue-form');
-        })->name('commerce-revenue-form');
+        Route::get('/commerce', [App\Http\Controllers\LaporanCommerceController::class, 'index'])->name('commerce.dashboard.index');
+        Route::get('/commerce/add', [App\Http\Controllers\LaporanCommerceController::class, 'addLaporanCommerce'])->name('commerce.reporting.form');
+        Route::post('/commerce/add/success', [App\Http\Controllers\LaporanCommerceController::class, 'storeLaporanCommerce'])->name('commerce.storeLaporanCommerce');
+        Route::get('/commerce/delete/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'deleteLaporanCommerce'])->name('commerce.deleteLaporanCommerce');
+        Route::get('/commerce/edit/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'editLaporanCommerce'])->name('commerce.editLaporanCommerce');
+        Route::post('/commerce/edit/{id}/success', [App\Http\Controllers\LaporanCommerceController::class, 'updateLaporanCommerce'])->name('commerce.updateLaporanCommerce');
+        
+        Route::get('/commerce/update', [App\Http\Controllers\LaporanCommerceController::class, 'gpm'])->name('commerce.dashboard.gpm');
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:Finance']], function () {
