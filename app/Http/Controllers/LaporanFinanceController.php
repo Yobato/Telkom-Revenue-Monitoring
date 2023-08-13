@@ -61,9 +61,10 @@ class LaporanFinanceController extends Controller
         ]);
     }
 
-    public function indexChart(){
+    public function indexChart()
+    {
         return view('finance.dashboard.chart', [
-            "title" => "Laporan Finance",
+            "title" => "Dashboard Finance",
         ]);
     }
 
@@ -129,19 +130,16 @@ class LaporanFinanceController extends Controller
             DB::commit();
 
             return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menghapus Laporan Finance");
-            
         } catch (QueryException $e) {
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
             return redirect()->intended(route('finance.dashboard.index'))->with("error", $e->getMessage());
-            
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
             return redirect()->intended(route('finance.dashboard.index'))->with("error", $e->getMessage());
-            
         }
     }
 
@@ -164,10 +162,11 @@ class LaporanFinanceController extends Controller
     {
         $messages = [
             'required' => ':Field wajib diisi',
+            'unique' => 'Nilai sudah ada',
         ];
 
         $this->validate($request, [
-            'pid_finance' => 'required',
+            'pid_finance' => 'required|unique:laporan_finance',
             'nilai' => 'required',
             'keterangan' => 'required',
             'id_portofolio' => 'required',

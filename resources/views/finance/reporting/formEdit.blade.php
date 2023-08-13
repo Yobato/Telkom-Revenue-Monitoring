@@ -38,7 +38,7 @@
                             <div class="col-lg-6">
                             <div class="form-group pt-4 pb-0 pl-5 mb-0 pb-0">
                                 <label for="pid_finance" class="col-form-label">PID Finance: </label>
-                                <input type="text" id="pid_finance" name="pid_finance" class="form-control @error('pid_finance') is-invalid @enderror mb-2" value="{{ old('pid_finance', $laporan->pid_finance) }}">
+                                <input type="text" id="pid_finance" name="pid_finance" class="form-control @error('pid_finance') is-invalid @enderror mb-2" value="{{ old('pid_finance', $laporan->pid_finance) }}" readonly>
                                 @error('pid_finance')
                                 <div class="invalid-feedback">
                                     {{ $message }}
