@@ -31,6 +31,7 @@ return new class extends Migration
             $table->foreign('kota')->references('id')->on('city');
             $table->string('created_at')->nullable();
             $table->string('updated_at')->nullable();
+            $table->boolean('editable')->default(0);
         });
     }
 

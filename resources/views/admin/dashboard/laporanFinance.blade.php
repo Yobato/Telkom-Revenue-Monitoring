@@ -1,4 +1,4 @@
-@extends('layouts.finance-master')
+@extends('layouts.admin-master')
 
 @section('title', 'Reporting')
 
@@ -36,13 +36,6 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Laporan KKP</h4>
-                        <div class="card-header-form">
-                            <div class="col-12 float-end">
-                                <a href="{{ route('finance.reporting.form') }}" class="btn btn-primary mb-3 mt-3 shadow rounded">
-                                    <i class="bi bi-file-earmark-plus" style="padding-right: 10px"></i>Buat Laporan
-                                </a>
-                            </div>
-                        </div>
                         <div class="card-header-form">
                             <form>
                                 <div class="input-group">
@@ -84,35 +77,15 @@
                                     <td>{{ $admins->nilai}}</td>
                                     <td>{{ $admins->keterangan }}</td>
                                     <td>
-                                        @if(Auth::user()->role == "Finance" && $admins->editable == 1)
-                                            <a href={{ route('finance.editLaporanFinance', [$admins->pid_finance]) }} class="btn btn-success btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i></a> 
+                                        @if($admins->editable == 0)
+                                            <a href={{ route('admin.editableFinance', [$admins->pid_finance]) }} class="btn btn-primary btn-sm rounded-0" type="button">
+                                            <i class="fa fa-edit"></i> Open Edit</a>
+                                        @endif
+                                        @if($admins->editable == 1)
+                                            <a href={{ route('admin.uneditableFinance', [$admins->pid_finance]) }} class="btn btn-danger btn-sm rounded-0" type="button">
+                                            <i class="fa fa-edit"></i> Close Edit</a>
                                         @endif
 
-                                        {{-- <button class="btn btn-danger btn-sm rounded-0" type="button" data-confirm="Hapus Data?" >
-                                        <i class="fa fa-trash"></i></button> --}}
-                                        <a class="btn btn-sm btn-danger rounded-0" style="color: white" data-toggle="modal" data-target="#deleteLaporanFinanceModal{{ $admins->pid_finance }}"><i class="fa fa-trash"></i></a>
-
-                                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanFinanceModal{{ $admins->pid_finance }}" data-backdrop="static">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Hapus Laporan Finance</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanFinance1">
-                                                        <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    @csrf
-                                                    <div class="modal-body">
-                                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan Finance yang dipilih.
-                                                    </div>
-                                                    <div class="modal-footer bg-whitesmoke br">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanFinance2">Cancel</button>
-                                                        <a class="btn btn-danger" href="{{ route('finance.deleteLaporanFinance', [$admins->pid_finance]) }}" value="Delete">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

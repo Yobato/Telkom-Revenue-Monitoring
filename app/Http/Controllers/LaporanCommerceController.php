@@ -15,7 +15,8 @@ use Illuminate\Database\QueryException;
 class LaporanCommerceController extends Controller
 {
     //
-    public function index(){
+    public function index()
+    {
         $account = Auth::guard('account')->user();
         $commerce = DB::table('laporan_commerce');
 
@@ -27,7 +28,7 @@ class LaporanCommerceController extends Controller
         foreach (Program::all() as $kodeprogram) {
             $kode_program_id[$kodeprogram->id] = $kodeprogram->kode_program;
         }
-        
+
         $portofolio_id = array();
         foreach (Portofolio::all() as $porto) {
             $portofolio_id[$porto->id] = $porto->nama_portofolio;
@@ -41,20 +42,35 @@ class LaporanCommerceController extends Controller
             $citys[$item->id] = $item->nama_city;
         }
 
-        return view('commerce.dashboard.index', [
-            "commerce" => LaporanCommerce::all(),
-            "title" => "Laporan Commerce",
-            "laporan_commerce" => LaporanCommerce::all(),
-            "program_id" => $program_id,
-            "kode_program_id" => $kode_program_id,
-            "portofolio_id" => $portofolio_id,
-            "sub_grup_akun_id" => $sub_grup_akun_id,
-            "citys" => $citys
-        ]);
+        $account = Auth::guard('account')->user();
+        if ($account->role == "Commerce") {
+            return view('commerce.dashboard.index', [
+                "commerce" => LaporanCommerce::all(),
+                "title" => "Laporan Commerce",
+                "laporan_commerce" => LaporanCommerce::all(),
+                "program_id" => $program_id,
+                "kode_program_id" => $kode_program_id,
+                "portofolio_id" => $portofolio_id,
+                "sub_grup_akun_id" => $sub_grup_akun_id,
+                "citys" => $citys
+            ]);
+        } else {
+            return view('admin.dashboard.laporanCommerce', [
+                "commerce" => LaporanCommerce::all(),
+                "title" => "Laporan Commerce",
+                "laporan_commerce" => LaporanCommerce::all(),
+                "program_id" => $program_id,
+                "kode_program_id" => $kode_program_id,
+                "portofolio_id" => $portofolio_id,
+                "sub_grup_akun_id" => $sub_grup_akun_id,
+                "citys" => $citys
+            ]);
+        }
     }
-    
 
-    public function addLaporanCommerce(Request $request){
+
+    public function addLaporanCommerce(Request $request)
+    {
         return view('commerce.reporting.cogs-form', [
             "title" => "Buat Laporan Commerce",
             "addcity" =>  City::all(),
@@ -64,14 +80,15 @@ class LaporanCommerceController extends Controller
         ]);
     }
 
-    public function storeLaporanCommerce(Request $request){
-        
-        
+    public function storeLaporanCommerce(Request $request)
+    {
+
+
         $commerce = DB::table('laporan_commerce');
 
         $messages = [
             'required' => "Field wajib diisi!",
-            "unique" => "Nilai sudah ada", 
+            "unique" => "Nilai sudah ada",
         ];
 
         $this->validate($request, [
@@ -165,7 +182,7 @@ class LaporanCommerceController extends Controller
             'keterangan' => 'required',
             'id_program' => 'required',
             'id_portofolio' => 'required',
-            'id_sub_grup_akun' => 'required', 
+            'id_sub_grup_akun' => 'required',
         ], $messages);
 
         // Mengambil nilai dari form
@@ -199,5 +216,33 @@ class LaporanCommerceController extends Controller
             'kota' => $account->kota
         ]);
         return redirect()->intended(route('commerce.dashboard.index'))->with("success", "Berhasil mengubah Laporan Commerce");
+    }
+
+    public function Editable($id)
+    {
+        $account = Auth::guard('account')->user();
+        LaporanCommerce::where('id_commerce', $id)->update([
+            "editable" => 1
+        ]);
+
+        if ($account->role == "Commerce") {
+            return redirect()->intended(route('commerce.dashboard.index'))->with("success", "Berhasil memberi akses edit pada Laporan Commerce");
+        } else if ($account->role == "Admin") {
+            return redirect()->intended(route('admin.dashboard.commerce'))->with("success", "Berhasil memberi akses edit pada Laporan Commerce");
+        }
+    }
+
+    public function Uneditable($id)
+    {
+        $account = Auth::guard('account')->user();
+        LaporanCommerce::where('id_commerce', $id)->update([
+            "editable" => 0
+        ]);
+
+        if ($account->role == "Commerce") {
+            return redirect()->intended(route('commerce.dashboard.index'))->with("success", "Berhasil menghapus akses edit pada Laporan Commerce");
+        } else if ($account->role == "Admin") {
+            return redirect()->intended(route('admin.dashboard.commerce'))->with("success", "Berhasil menghapus akses edit pada Laporan Commerce");
+        }
     }
 }

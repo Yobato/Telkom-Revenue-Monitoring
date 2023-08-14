@@ -1,4 +1,4 @@
-@extends('layouts.finance-master')
+@extends('layouts.commerce-master')
 
 @section('title', 'Reporting')
 
@@ -88,9 +88,11 @@
                                 <td>{{ $admins ->created_at}}</td>
                                 <td>{{ $admins ->updated_at}}</td>
                                 <td>
+                                    @if(Auth::user()->role == "Commerce" && $admins->editable == 1)
                                         <a href={{ route('commerce.editLaporanCommerce', [$admins->id_commerce]) }} class="btn btn-success btn-sm rounded-0" type="button">
                                         <i class="fa fa-edit"></i></a> 
-                                        
+                                    @endif
+
                                         <!-- {{-- <button class="btn btn-danger btn-sm rounded-0" type="button" data-confirm="Hapus Data?" >
                                         <i class="fa fa-trash"></i></button> --}} -->
                                         <a class="btn btn-sm btn-danger rounded-0" style="color: white" data-toggle="modal" data-target="#deleteLaporanCommerceModal{{ $admins->pid_commerce }}"><i class="fa fa-trash"></i></a>

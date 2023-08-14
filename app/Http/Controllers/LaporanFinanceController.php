@@ -49,17 +49,31 @@ class LaporanFinanceController extends Controller
             $citys[$item->id] = $item->nama_city;
         }
 
+        $account = Auth::guard('account')->user();
+        if ($account->role == "Finance") {
+            return view('finance.dashboard.index', [
+                "title" => "Laporan Finance",
+                "laporan_finance" => LaporanFinance::all(),
+                "portofolio_id" => $portofolio_id,
+                "program_id" => $program_id,
+                "cost_plan_id" => $cost_plan_id,
+                "user_id" => $user_id,
+                "peruntukan_id" => $peruntukan_id,
+                "citys" => $citys
+            ]);
+        } else {
+            return view('admin.dashboard.laporanFinance', [
+                "title" => "Laporan Finance",
+                "laporan_finance" => LaporanFinance::all(),
+                "portofolio_id" => $portofolio_id,
+                "program_id" => $program_id,
+                "cost_plan_id" => $cost_plan_id,
+                "user_id" => $user_id,
+                "peruntukan_id" => $peruntukan_id,
+                "citys" => $citys
+            ]);
+        }
         //
-        return view('finance.dashboard.index', [
-            "title" => "Laporan Finance",
-            "laporan_finance" => LaporanFinance::all(),
-            "portofolio_id" => $portofolio_id,
-            "program_id" => $program_id,
-            "cost_plan_id" => $cost_plan_id,
-            "user_id" => $user_id,
-            "peruntukan_id" => $peruntukan_id,
-            "citys" => $citys
-        ]);
     }
 
     public function indexChart()
@@ -167,7 +181,6 @@ class LaporanFinanceController extends Controller
         ];
 
         $this->validate($request, [
-            'pid_finance' => 'required|unique:laporan_finance',
             'nilai' => 'required',
             'keterangan' => 'required',
             'id_portofolio' => 'required',
@@ -179,7 +192,6 @@ class LaporanFinanceController extends Controller
 
         $account = Auth::guard('account')->user();
         LaporanFinance::where('pid_finance', $id)->update([
-            'pid_finance' => $request->pid_finance,
             'nilai' => str_replace('.', '', $request->nilai),
             'keterangan' => $request->keterangan,
             'id_portofolio' => $request->id_portofolio,
@@ -190,5 +202,33 @@ class LaporanFinanceController extends Controller
             'kota' => $account->kota
         ]);
         return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil mengubah Laporan Finance");
+    }
+
+    public function Editable($id)
+    {
+        $account = Auth::guard('account')->user();
+        LaporanFinance::where('pid_finance', $id)->update([
+            "editable" => 1
+        ]);
+
+        if ($account->role == "Finance") {
+            return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil memberi akses edit pada Laporan Finance");
+        } else if ($account->role == "Admin") {
+            return redirect()->intended(route('admin.dashboard.finance'))->with("success", "Berhasil memberi akses edit pada Laporan Finance");
+        }
+    }
+
+    public function Uneditable($id)
+    {
+        $account = Auth::guard('account')->user();
+        LaporanFinance::where('pid_finance', $id)->update([
+            "editable" => 0
+        ]);
+
+        if ($account->role == "Finance") {
+            return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menghapus akses edit pada Laporan Finance");
+        } else if ($account->role == "Admin") {
+            return redirect()->intended(route('admin.dashboard.finance'))->with("success", "Berhasil menghapus akses edit pada Laporan Finance");
+        }
     }
 }
