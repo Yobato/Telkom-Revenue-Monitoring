@@ -27,7 +27,6 @@ class TargetController extends Controller
             "jumlah"=> str_replace('.','',$request->jumlah),
             'jenis_laporan' => $request->jenis_laporan,
             'tahun' => $request->tahun,
-            'role' => $request->role
         ]);
         return redirect()->intended(route('admin.dashboard.target'))->with("success", "Berhasil menambahkan Target");
     }
@@ -65,7 +64,6 @@ class TargetController extends Controller
             "jumlah"=> str_replace('.','',$request->jumlah),
             'jenis_laporan' => $request->jenis_laporan,
             'tahun' => $request->tahun,
-            'role' => $request->role
         ]);
 
         return redirect()->intended(route('admin.dashboard.target'))->with("success", "Berhasil mengubah Target");

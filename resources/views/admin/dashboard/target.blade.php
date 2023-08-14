@@ -86,6 +86,7 @@ Dashboard
                                                         <option value="">-- Pilih Jenis Laporan --</option>
                                                         <option value="COGS">COGS</option>
                                                         <option value="REVENUE">REVENUE</option>
+                                                        <option value="KKP">KKP</option>
                                                     </select>
                                                     <span class="error-message" id="bulan_error" style="display: none; color: red;">Field Jenis Laporan harus dipilih!</span>
                                                 </div>
@@ -115,15 +116,6 @@ Dashboard
                                                         <span class="error-message" id="tahun_error" style="display: none; color: red;">Field Jumlah harus diisi!</span>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="role" class="col-form-label">Role: </label>
-                                                    <select class="form-control @error('role') is-invalid @enderror mb-2" name="role" id="role" value="">
-                                                        <option value="" selected>-- Pilih Role--</option>
-                                                        @foreach ($roles as $role)
-                                                        <option value="{{ $role->nama_role }}" {{ old('role') == $role->nama_role ? 'selected' : '' }}>{{ $role->nama_role }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
                                             </div>
                                             <div class="modal-footer bg-whitesmoke br">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeTarget2">Close</button>
@@ -141,7 +133,6 @@ Dashboard
                                             <th scope="col">No</th>
                                             <th scope="col" class="w-50">Jenis Laporan</th>
                                             <th scope="col" class="w-50">Jumlah</th>
-                                            <th scope="col" class="w-50">Role</th>
                                             <th scope="col" class="w-50">Bulan</th>
                                             <th scope="col" class="w-50">Tahun</th>
                                             <th scope="col">Action</th>
@@ -154,11 +145,13 @@ Dashboard
                                             <th scope="row">{{$i++}}</th>
                                             <td class="w-50">{{ $admins ->jenis_laporan}}</td>
                                             <td class="w-50">{{ $admins ->jumlah}}</td>
-                                            <td class="w-50">{{ $admins ->role}}</td>
                                             <td class="w-50">{{ $admins ->bulan}}</td>
                                             <td class="w-50">{{ $admins ->tahun}}</td>
                                             <td class="w-50">
-                                                <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteTargetModal{{ $admins->id }}">Delete</a>
+                                                <a href="#" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="modal" data-target="#editTargetModal-{{$admins->id}}">
+                                                    <i class="fa fa-edit"></i></a>
+                                                <a class="btn btn-danger btn-sm rounded-0" style="color: white" type="button" data-toggle="modal" data-target="#deleteTargetModal{{ $admins->id }}">
+                                                    <i class="fa fa-trash"></i></a>
                                                 <!-- MODAL DELETE -->
                                                 <div class="modal fade" tabindex="-1" role="dialog" id="deleteTargetModal{{ $admins->id }}" data-backdrop="static">
                                                     <div class="modal-dialog" role="document">
@@ -183,7 +176,6 @@ Dashboard
                                                 {{-- <a class="btn btn-sm btn-warning" href="#">Edit</a> --}}
 
                                                 <!-- UPDATE Target -->
-                                                <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editTargetModal-{{$admins->id}}" style="color: white">Edit</a>
                                                 <div class="modal fade" tabindex="-1" role="dialog" id="editTargetModal-{{$admins->id}}" data-backdrop="static">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
@@ -214,6 +206,7 @@ Dashboard
                                                                             <select class="required-input form-control" name="jenis_laporan" id="jenis_laporan" required>
                                                                                 <option value="COGS" {{ $admins->jenis_laporan === 'COGS' ? 'selected' : '' }}>COGS</option>
                                                                                 <option value="REVENUE" {{ $admins->jenis_laporan === 'REVENUE' ? 'selected' : '' }}>REVENUE</option>
+                                                                                <option value="KKP" {{ $admins->jenis_laporan === 'KKP' ? 'selected' : '' }}>KKP</option>
                                                                             </select>
                                                                             <span class="error-message" id="bulan_error" style="display: none; color: red;">Field Jenis Laporan harus dipilih!</span>
                                                                         </div>
@@ -242,14 +235,6 @@ Dashboard
                                                                             <input type="text" id="tahun" name="tahun" class="form-control" value="{{ old('tahun', $admins->tahun) }}" required>
                                                                             <span class="error-message" id="tahun_error" style="display: none; color: red;">Field Jumlah harus diisi!</span>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="role" class="col-form-label">Role: </label>
-                                                                        <select class="form-control @error('role') is-invalid @enderror mb-2" name="role" id="role" value="">
-                                                                            @foreach ($roles as $role)
-                                                                            <option value="{{ $role->nama_role }}" {{ old('role', $admins->role) == $role->nama_role ? 'selected' : '' }}>{{ $role->nama_role }}</option>
-                                                                            @endforeach
-                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer bg-whitesmoke br">
