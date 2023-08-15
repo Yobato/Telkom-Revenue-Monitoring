@@ -77,9 +77,11 @@ Route::group(['middleware' => 'revalidate'], function () {
 
     Route::group(['middleware' => ['auth:account', 'account-access:Admin']], function () {
         //Admin
-        Route::get('/admin', function () {
-            return view('admin.dashboard.gpm');
-        })->name('admin-index');
+        // Route::get('/admin', function () {
+        //     return view('admin.dashboard.gpm');
+        // })->name('admin-index');
+        Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
+        
 
         Route::get('/commerce-management', function () {
             return view('admin.users.commerce-management');
