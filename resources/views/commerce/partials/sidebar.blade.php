@@ -29,13 +29,11 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item dropdown">
-                <a href="#"
-                    class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Reporting</span></a>
+            <li class="nav-item dropdown {{ $title==='Laporan Commerce' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Reporting</span></a>
                 <ul class="dropdown-menu">
-                    <li class='{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}'>
-                        <a class="nav-link"
-                            href="{{ route('commerce.dashboard.index') }}">COGS & Revenue</a>
+                    <li class='{{ $title==='Laporan Commerce' ? ' active' : '' }}'>
+                        <a class="nav-link" href="{{ route('commerce.dashboard.index') }}">COGS & Revenue</a>
                     </li>
                     
                 </ul>

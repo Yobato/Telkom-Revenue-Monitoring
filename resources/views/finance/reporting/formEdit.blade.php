@@ -10,7 +10,7 @@
                 <div class="card">
                     {{-- ADD LAPORAN  --}}
                     <div class="card-body d-flex justify-content-start" style="padding-bottom:0; margin-bottom:0;">
-                        <div class="breadcrumb-item"><a href="{{ route('commerce-revenue') }}">KKP Operasional</a></div>
+                        <div class="breadcrumb-item"><a href="{{ route('finance.dashboard.index') }}">KKP Operasional</a></div>
                         <div class="breadcrumb-item active">Edit Laporan </div>
                     </div>
                     <div class="card-header" style="padding-bottom:0;">

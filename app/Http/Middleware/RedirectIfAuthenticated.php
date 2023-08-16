@@ -29,7 +29,7 @@ class RedirectIfAuthenticated
                     } else if ($account->role == 'Finance') {
                         return redirect()->route('finance.dashboard.index');
                     } else if ($account->role == 'Admin') {
-                        return redirect()->route('admin-index');
+                        return redirect()->route('admin.dashboard');
                     } else if ($account->role == 'GM') {
                         return redirect()->route('admin.dashboard.peruntukan');
                     }

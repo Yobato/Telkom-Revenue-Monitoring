@@ -77,9 +77,11 @@ Route::group(['middleware' => 'revalidate'], function () {
 
     Route::group(['middleware' => ['auth:account', 'account-access:Admin']], function () {
         //Admin
-        Route::get('/admin', function () {
-            return view('admin.dashboard.gpm');
-        })->name('admin-index');
+        // Route::get('/admin', function () {
+        //     return view('admin.dashboard.gpm');
+        // })->name('admin-index');
+        Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
+        
 
         Route::get('/commerce-management', function () {
             return view('admin.users.commerce-management');
@@ -160,6 +162,14 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/target/add', [App\Http\Controllers\TargetController::class, 'storeTarget'])->name('admin.storeTarget');
         Route::get('/target/deleteTarget/{id}', [App\Http\Controllers\TargetController::class, 'deleteTarget'])->name('admin.deleteTarget');
         Route::post('/target/update/{id}', [App\Http\Controllers\TargetController::class, 'updateTarget'])->name('admin.updateTarget');
+
+        Route::get('/admin/finance', [App\Http\Controllers\LaporanFinanceController::class, 'index'])->name('admin.dashboard.finance');
+        Route::get('admin/finance/editable/{id}', [App\Http\Controllers\LaporanFinanceController::class, 'Editable'])->name('admin.editableFinance');
+        Route::get('admin/finance/uneditable/{id}', [App\Http\Controllers\LaporanFinanceController::class, 'Uneditable'])->name('admin.uneditableFinance');
+
+        Route::get('/admin/commerce', [App\Http\Controllers\LaporanCommerceController::class, 'index'])->name('admin.dashboard.commerce');
+        Route::get('admin/commerce/editable/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'Editable'])->name('admin.editableCommerce');
+        Route::get('admin/commerce/uneditable/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'Uneditable'])->name('admin.uneditableCommerce');
     });
 
     Route::post('/', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
