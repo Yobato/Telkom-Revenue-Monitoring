@@ -48,10 +48,6 @@ class PortofolioSeeder extends Seeder
                 'nama_portofolio' => 'SDI',
                 'role' => 'Finance'
             ],
-            [
-                'nama_portofolio' => 'Testing',
-                'role' => 'Commerce'
-            ],
         ];
 
         foreach ($portofolio as $porto) {

@@ -29,7 +29,8 @@ return new class extends Migration
             $table->foreign('id_program')->references('id')->on('program');
             $table->foreign('id_sub_grup_akun')->references('id')->on('sub_grup_akun');
             $table->foreign('kota')->references('id')->on('city');
-            $table->timestamps();
+            $table->string('created_at')->nullable();
+            $table->string('updated_at')->nullable();
             $table->boolean('editable')->default(0);
         });
     }
