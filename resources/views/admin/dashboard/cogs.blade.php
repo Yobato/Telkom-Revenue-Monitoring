@@ -145,13 +145,14 @@
     <script src="{{ asset('assets/library/jqvmap/dist/jquery.vmap.min.js') }}"></script>
     <script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
     <script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.indonesia.js') }}"></script>
+    
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('assets/js/page/components-statistic.js') }}"></script>
 @endpush
 @section('footer')
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<script>
+<!-- <script>
     const chart = Highcharts.chart('chartKKP', {
 
         chart: {
@@ -238,9 +239,32 @@
     document.getElementById('auto').addEventListener('click', function () {
         chart.setSize(null);
     });
-</script>
+</script> -->
 
-<script>
+<!-- <script>
+    const commerceData = {!! json_encode($revenueData) !!};
+
+    const monthNames = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    const seriesData = {};
+
+    commerceData.forEach(item => {
+        const year = item.year.toString(); 
+        const month = item.month - 1;
+        if (!seriesData[year]) {
+            seriesData[year] = new Array(12).fill(0);
+        }
+        seriesData[year][month] += parseInt(item.total_nilai);
+    });
+
+    const series = Object.keys(seriesData).map(year => {
+        return {
+            name: year,
+            data: seriesData[year]
+        };
+    });
+
+    const categories = monthNames;
+
     Highcharts.chart('chartGAP', {
         chart: {
             type: 'column'
@@ -249,14 +273,8 @@
             text: '',
             align: 'left'
         },
-        subtitle: {
-            text:
-                '',
-            align: 'left'
-        },
         xAxis: {
-            categories: ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 
-            'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+            categories: categories,
             crosshair: true,
             accessibility: {
                 description: ''
@@ -265,11 +283,11 @@
         yAxis: {
             min: 0,
             title: {
-                text: '1000 metric tons (MT)'
+                text: 'Total Nilai'
             }
         },
         tooltip: {
-            valueSuffix: ' (1000 MT)'
+            valueSuffix: ''
         },
         plotOptions: {
             column: {
@@ -277,51 +295,93 @@
                 borderWidth: 0
             }
         },
-        series: [
-            {
-                name: 'GAP',
-                data: [38000, 40002, 40001, 42000, 40001, 44000, 43000, 30004, 50001, 50001, 44000, 40001]
-            }
-        ]
+        series: series
     });
-</script>
-
+</script> -->
 <script>
-    Highcharts.chart('percentage', {
+    const commerceData = {!! json_encode($commerceData) !!};
+    const targetData = {!! json_encode($targetData) !!};
+    const monthNames = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+    const monthIndexMapping = {
+        'Januari': 0,
+        'Febuari': 1,
+        'Maret': 2,
+        'April': 3,
+        'Mei': 4,
+        'Juni': 5,
+        'Juli': 6,
+        'Agustus': 7,
+        'September': 8,
+        'Oktober': 9,
+        'November': 10,
+        'Desember': 11
+    };
+
+    const seriesData = {};
+    commerceData.forEach(item => {
+        const year = item.year.toString(); 
+        const month = item.month - 1;
+        if (!seriesData[year]) {
+            seriesData[year] = new Array(12).fill(0);
+        }
+        seriesData[year][month] += parseInt(item.total_nilai);
+    });
+
+    const targetSeries = Object.keys(seriesData).map(year => {
+        const targetValues = new Array(12).fill(null);
+        targetData.forEach(item => {
+            if (item.year.toString() === year) {
+                const month = monthIndexMapping[item.month];
+                targetValues[month] = parseInt(item.total_nilai);
+            }
+        });
+        return {
+            name: 'Target ' + year,
+            data: targetValues
+        };
+    });
+
+    const realizationSeries = Object.keys(seriesData).map(year => {
+        return {
+            name: 'Realisasi ' + year,
+            data: seriesData[year]
+        };
+    });
+
+    const categories = monthNames;
+
+    Highcharts.chart('chartGAP', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'UEFA CL most assists by season'
+            text: '',
+            align: 'left'
         },
         xAxis: {
-            categories: ['2021/22', '2020/21', '2019/20', '2018/19', '2017/18']
+            categories: categories,
+            crosshair: true,
+            accessibility: {
+                description: ''
+            }
         },
         yAxis: {
             min: 0,
             title: {
-                text: 'Assists'
+                text: 'Total Nilai'
             }
         },
         tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-            shared: true
+            valueSuffix: ''
         },
         plotOptions: {
             column: {
-                stacking: 'percent'
+                pointPadding: 0.2,
+                borderWidth: 0
             }
         },
-        series: [{
-            name: 'Kevin De Bruyne',
-            data: [4, 4, 2, 4, 4]
-        }, {
-            name: 'Joshua Kimmich',
-            data: [0, 4, 3, 2, 3]
-        }, {
-            name: 'Sadio Mané',
-            data: [1, 2, 2, 1, 2]
-        }]
+        series: [...targetSeries, ...realizationSeries]
     });
 </script>
 @endsection

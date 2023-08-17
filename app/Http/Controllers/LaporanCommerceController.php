@@ -8,6 +8,7 @@ use App\Models\Program;
 use App\Models\Portofolio;
 use App\Models\SubGrupAkun;
 use App\Models\City;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
@@ -112,7 +113,8 @@ class LaporanCommerceController extends Controller
             'jenis_laporan' => $request->jenis_laporan,
             'id_portofolio' => $request->id_portofolio,
             'id_sub_grup_akun' => $request->id_sub_grup_akun,
-            'kota' => $account->kota
+            'kota' => $account->kota,
+            'created_at' => Carbon::now()
         ]);
         return redirect()->intended(route('commerce.dashboard.index'))->with("success", "Berhasil menambahkan Laporan COGS");
     }
