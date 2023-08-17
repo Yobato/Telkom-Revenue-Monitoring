@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CogsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -103,9 +104,7 @@ Route::group(['middleware' => 'revalidate'], function () {
             return view('admin.dashboard.gpm');
         })->name('admin-gpm');
 
-        Route::get('/admin-cogs', function () {
-            return view('admin.dashboard.cogs');
-        })->name('admin-cogs');
+        Route::get('/admin-cogs', [App\Http\Controllers\CogsController::class, 'index'])->name('admin-cogs');
 
         Route::get('/admin-revenue', function () {
             return view('admin.dashboard.revenue');
