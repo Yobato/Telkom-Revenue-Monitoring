@@ -17,7 +17,84 @@
     </div>
 
     <div class="section-body">
+        {{-- <body class="h-screen bg-gray-100">
+            <div class="container px-4 mx-auto">
 
+                <div class="p-6 m-20 bg-white rounded shadow">
+                    {!! $chart->container() !!}
+                </div>
+
+            </div>
+
+            <script src="{{ $chart->cdn() }}"></script>
+
+            {{ $chart->script() }}
+        </body> --}}
+        <div class="row mb-4 d-flex justify-content-between">
+            <div class="col-xl-4 col-lg-6">
+            <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
+                    <span class="h2 font-weight-bold mb-0">350,897</span>
+                    </div>
+                    <div class="col-auto">
+                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    </div>
+                </div>
+                <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    <span class="text-nowrap">Since last month</span>
+                </p>
+                </div>
+            </div>
+            </div>
+            <div class="col-xl-4 col-lg-6">
+            <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
+                    <span class="h2 font-weight-bold mb-0">2,356</span>
+                    </div>
+                    <div class="col-auto">
+                    <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    </div>
+                </div>
+                <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
+                    <span class="text-nowrap">Since last week</span>
+                </p>
+                </div>
+            </div>
+            </div>
+            <div class="col-xl-4 col-lg-6">
+                <div class="card card-stats mb-4 mb-xl-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
+                                <span class="h2 font-weight-bold mb-0">924</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-3 mb-0 text-muted text-sm">
+                            <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
+                            <span class="text-nowrap">Since yesterday</span>
+                        </p>
+                        </div>
+                </div>
+            </div>
+        </div>          
         <div class="row">
             <div class="col-12 col-sm-12 ">
                 <div class="card">
@@ -325,3 +402,18 @@
     });
 </script>
 @endsection
+
+<style>
+    .icon-shape {
+        display: inline-flex;
+        padding: 12px;
+        text-align: center;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+    }
+    .icon {
+        width: 3rem;
+        height: 3rem;
+    }
+</style>

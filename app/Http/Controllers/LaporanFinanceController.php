@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\PerbandinganKKPFinanceChart;
 use App\Models\CostPlan;
 use App\Models\LaporanFinance;
 use App\Models\Portofolio;
@@ -76,10 +77,11 @@ class LaporanFinanceController extends Controller
         //
     }
 
-    public function indexChart()
+    public function indexChart(PerbandinganKKPFinanceChart $chart)
     {
         return view('finance.dashboard.chart', [
             "title" => "Dashboard Finance",
+            'chart' => $chart->build()
         ]);
     }
 
