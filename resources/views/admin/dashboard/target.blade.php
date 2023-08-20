@@ -92,6 +92,7 @@ Dashboard
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="bulan" class="col-form-label">Bulan: </label>
+                                                    {{-- <input type="text" id="bulan-test" class="required-input form-control" name="bulan" required /> --}}
                                                     <select class="required-input form-control" name="bulan" id="bulan">
                                                         <option value="">-- Pilih Bulan --</option>
                                                         <option value="Januari">Januari</option>
@@ -112,7 +113,8 @@ Dashboard
                                                 <div class="form-group">
                                                     <div class="form-group">
                                                         <label for="tahun" class="col-form-label">Tahun: </label>
-                                                        <input type="text" id="tahun" name="tahun" class="form-control" value="{{ old('tahun')}}" required>
+                                                        <input type="text" id="tahun" class="required-input form-control" name="tahun" required />
+                                                        {{-- <input type="text" id="tahun" name="tahun" class="form-control" value="{{ old('tahun')}}" required> --}}
                                                         <span class="error-message" id="tahun_error" style="display: none; color: red;">Field Jumlah harus diisi!</span>
                                                     </div>
                                                 </div>
