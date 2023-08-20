@@ -46,6 +46,11 @@ class ProgramSeeder extends Seeder
                 'kode_program' => 'IOAN-Test',
                 'role' => 'Finance'
             ],
+            [
+                'nama_program' => 'Testing',
+                'kode_program' => 'Testing',
+                'role' => 'Commerce'
+            ],
             
         ];
 
