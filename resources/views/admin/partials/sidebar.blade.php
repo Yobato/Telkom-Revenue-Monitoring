@@ -11,9 +11,8 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="nav-item dropdown">
-                <a href="#"
-                    class="nav-link has-dropdown"><i class="bi bi-bar-chart-fill"></i><span>Dashboard</span></a>
+            <li class="nav-item dropdown {{ $title==='KKP' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="bi bi-bar-chart-fill"></i><span>Dashboard</span></a>
                 <ul class="dropdown-menu">
                     <li class='{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}'>
                         <a class="nav-link"
@@ -27,9 +26,8 @@
                         <a class="nav-link"
                             href="{{ route('admin-revenue') }}">Revenue</a>
                     </li>
-                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ route('admin-kkp') }}">KKP Operasional</a>
+                    <li class="{{ $title==='KKP' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin-kkp') }}">KKP Operasional</a>
                     </li>
                 </ul>
             </li>

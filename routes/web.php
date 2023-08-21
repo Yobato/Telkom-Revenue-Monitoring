@@ -23,7 +23,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/commerce/delete/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'deleteLaporanCommerce'])->name('commerce.deleteLaporanCommerce');
         Route::get('/commerce/edit/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'editLaporanCommerce'])->name('commerce.editLaporanCommerce');
         Route::post('/commerce/edit/{id}/success', [App\Http\Controllers\LaporanCommerceController::class, 'updateLaporanCommerce'])->name('commerce.updateLaporanCommerce');
-        
+
         Route::get('/commerce/update', [App\Http\Controllers\LaporanCommerceController::class, 'gpm'])->name('commerce.dashboard.gpm');
     });
 
@@ -82,7 +82,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         //     return view('admin.dashboard.gpm');
         // })->name('admin-index');
         Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
-        
+
 
         Route::get('/commerce-management', function () {
             return view('admin.users.commerce-management');
@@ -106,6 +106,7 @@ Route::group(['middleware' => 'revalidate'], function () {
 
         Route::get('/admin-cogs', [App\Http\Controllers\CogsController::class, 'index'])->name('admin-cogs');
 
+        Route::get('/admin-kkp', [App\Http\Controllers\KkpController::class, 'index'])->name('admin-kkp');
         Route::get('/admin-revenue', function () {
             return view('admin.dashboard.revenue');
         })->name('admin-revenue');
