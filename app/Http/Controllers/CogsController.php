@@ -40,7 +40,7 @@ class CogsController extends Controller
                 DB::raw('bulan as month'),
                 DB::raw('SUM(jumlah) as total_nilai')
             )
-            // ->where('jenis_laporan', '=', 'COGS')
+            ->where('jenis_laporan', '=', 'COGS')
             ->groupBy('tahun', 'bulan')
             ->orderBy('tahun', 'asc')
             ->orderBy('bulan', 'asc')
