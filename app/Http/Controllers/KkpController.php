@@ -16,7 +16,6 @@ class KkpController extends Controller
                 DB::raw('MONTH(created_at) as month'),
                 DB::raw('SUM(nilai) as total_nilai')
             )
-            ->where('jenis_laporan', '=', 'KKP')
             ->groupBy('year', 'month')
             ->orderBy('year', 'asc')
             ->orderBy('month', 'asc')
@@ -46,7 +45,7 @@ class KkpController extends Controller
             ->orderBy('bulan', 'asc')
             ->get();
 
-        return view('admin.dashboard.', [
+        return view('admin.dashboard.kkp', [
             "title" => "KKP",
             "kkpData" => $kkpData,
             // "revenueData" => $revenueData,

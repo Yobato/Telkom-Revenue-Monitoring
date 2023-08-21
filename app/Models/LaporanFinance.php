@@ -10,7 +10,7 @@ class LaporanFinance extends Model
     use HasFactory;
     protected $table = "laporan_finance";
     protected $primaryKey = "pid_finance";
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'nilai', 'keterangan', 'id_portofolio', 'id_program', 'id_cost_plan', 'id_peruntukan', 'id_user', 'kota'
     ];
