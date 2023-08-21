@@ -17,7 +17,7 @@
                 <ul class="dropdown-menu">
                     <li class='{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}'>
                         <a class="nav-link"
-                            href="{{ route('commerce.dashboard.gpm') }}">Gross Profit Margin</a>
+                            href="{{ route('commerce.dashboard.chart') }}">Gross Profit Margin</a>
                     </li>
                     <li class="{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}">
                         <a class="nav-link"

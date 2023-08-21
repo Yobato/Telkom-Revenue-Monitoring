@@ -38,6 +38,7 @@
                         <h4>Laporan KKP</h4>
                         <div class="card-header-form">
                             <div class="col-12 float-end">
+                                <a class="btn btn-outline-primary mr-3"  href="{{ route('finance.dashboard.export') }}">Export</a>
                                 <a href="{{ route('finance.reporting.form') }}" class="btn btn-primary mb-3 mt-3 shadow rounded">
                                     <i class="bi bi-file-earmark-plus" style="padding-right: 10px"></i>Buat Laporan
                                 </a>

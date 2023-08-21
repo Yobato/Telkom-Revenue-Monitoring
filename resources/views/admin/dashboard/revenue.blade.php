@@ -152,95 +152,58 @@
 @section('footer')
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
-    const chart = Highcharts.chart('chartKKP', {
+    const revenueData = {!! json_encode($revenueData) !!};
+    const targetData = {!! json_encode($targetData) !!};
+    const monthNames = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
-        chart: {
-            type: 'column'
-        },
+    const monthIndexMapping = {
+        'Januari': 0,
+        'Febuari': 1,
+        'Maret': 2,
+        'April': 3,
+        'Mei': 4,
+        'Juni': 5,
+        'Juli': 6,
+        'Agustus': 7,
+        'September': 8,
+        'Oktober': 9,
+        'November': 10,
+        'Desember': 11
+    };
 
-        title: {
-            text: 'Target & Realization'
-        },
-
-        subtitle: {
-            text: ''
-        },
-
-        legend: {
-            align: 'right',
-            verticalAlign: 'middle',
-            layout: 'vertical'
-        },
-
-        xAxis: {
-            categories: ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 
-            'Agustus', 'September', 'Oktober', 'November', 'Desember'],
-            labels: {
-                x: -10
-            }
-        },
-
-        yAxis: {
-            allowDecimals: false,
-            title: {
-                text: 'Amount'
-            }
-        },
-
-        series: [{
-            name: 'Target',
-            data: [38, 51, 34, 31, 32, 34, 35, 33, 49, 50, 46, 43]
-        },  {
-            name: 'Realisasi',
-            data: [38, 42, 41, 42, 41, 44, 43, 34, 51, 51, 44, 41]
-        }],
-
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        align: 'center',
-                        verticalAlign: 'bottom',
-                        layout: 'horizontal'
-                    },
-                    yAxis: {
-                        labels: {
-                            align: 'left',
-                            x: 0,
-                            y: -5
-                        },
-                        title: {
-                            text: null
-                        }
-                    },
-                    subtitle: {
-                        text: null
-                    },
-                    credits: {
-                        enabled: false
-                    }
-                }
-            }]
+    const seriesData = {};
+    revenueData.forEach(item => {
+        const year = item.year.toString(); 
+        const month = item.month - 1;
+        if (!seriesData[year]) {
+            seriesData[year] = new Array(12).fill(0);
         }
+        seriesData[year][month] += parseInt(item.total_nilai);
     });
 
-    document.getElementById('small').addEventListener('click', function () {
-        chart.setSize(400);
+    const targetSeries = Object.keys(seriesData).map(year => {
+        const targetValues = new Array(12).fill(null);
+        targetData.forEach(item => {
+            if (item.year.toString() === year) {
+                const month = monthIndexMapping[item.month];
+                targetValues[month] = parseInt(item.total_nilai);
+            }
+        });
+        return {
+            name: 'Target ' + year,
+            data: targetValues
+        };
     });
 
-    document.getElementById('large').addEventListener('click', function () {
-        chart.setSize(600);
+    const realizationSeries = Object.keys(seriesData).map(year => {
+        return {
+            name: 'Realisasi ' + year,
+            data: seriesData[year]
+        };
     });
 
-    document.getElementById('auto').addEventListener('click', function () {
-        chart.setSize(null);
-    });
-</script>
+    const categories = monthNames;
 
-<script>
     Highcharts.chart('chartGAP', {
         chart: {
             type: 'column'
@@ -249,14 +212,8 @@
             text: '',
             align: 'left'
         },
-        subtitle: {
-            text:
-                '',
-            align: 'left'
-        },
         xAxis: {
-            categories: ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 
-            'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+            categories: categories,
             crosshair: true,
             accessibility: {
                 description: ''
@@ -265,11 +222,11 @@
         yAxis: {
             min: 0,
             title: {
-                text: '1000 metric tons (MT)'
+                text: 'Total Nilai'
             }
         },
         tooltip: {
-            valueSuffix: ' (1000 MT)'
+            valueSuffix: ''
         },
         plotOptions: {
             column: {
@@ -277,51 +234,7 @@
                 borderWidth: 0
             }
         },
-        series: [
-            {
-                name: 'GAP',
-                data: [38000, 40002, 40001, 42000, 40001, 44000, 43000, 30004, 50001, 50001, 44000, 40001]
-            }
-        ]
-    });
-</script>
-
-<script>
-    Highcharts.chart('percentage', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'UEFA CL most assists by season'
-        },
-        xAxis: {
-            categories: ['2021/22', '2020/21', '2019/20', '2018/19', '2017/18']
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Assists'
-            }
-        },
-        tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-            shared: true
-        },
-        plotOptions: {
-            column: {
-                stacking: 'percent'
-            }
-        },
-        series: [{
-            name: 'Kevin De Bruyne',
-            data: [4, 4, 2, 4, 4]
-        }, {
-            name: 'Joshua Kimmich',
-            data: [0, 4, 3, 2, 3]
-        }, {
-            name: 'Sadio Mané',
-            data: [1, 2, 2, 1, 2]
-        }]
+        series: [...targetSeries, ...realizationSeries]
     });
 </script>
 @endsection
