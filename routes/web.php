@@ -17,7 +17,10 @@ use Illuminate\Support\Facades\Auth;
 Route::group(['middleware' => 'revalidate'], function () {
     Route::group(['middleware' => ['auth:account', 'account-access:Commerce']], function () {
         //Commerce
-        Route::get('/commerce/dashboard', [App\Http\Controllers\LaporanCommerceController::class, 'indexChart'])->name('commerce.dashboard.chart');
+        // Route::get('/commerce/dashboard', [App\Http\Controllers\LaporanCommerceController::class, 'indexChart'])->name('commerce.dashboard.chart');
+
+        Route::get('/dashboard/revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('commerce.dashboard.revenue');
+        
         Route::get('/commerce', [App\Http\Controllers\LaporanCommerceController::class, 'index'])->name('commerce.dashboard.index');
         Route::get('/commerce/add', [App\Http\Controllers\LaporanCommerceController::class, 'addLaporanCommerce'])->name('commerce.reporting.form');
         Route::post('/commerce/add/success', [App\Http\Controllers\LaporanCommerceController::class, 'storeLaporanCommerce'])->name('commerce.storeLaporanCommerce');

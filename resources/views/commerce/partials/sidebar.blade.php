@@ -11,21 +11,17 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="nav-item dropdown">
-                <a href="#"
-                    class="nav-link has-dropdown"><i class="bi bi-bar-chart-fill"></i><span>Dashboard</span></a>
+            <li class="nav-item dropdown {{ $title==='COGS' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="bi bi-bar-chart-fill"></i><span>Dashboard</span></a>
                 <ul class="dropdown-menu">
                     <li class='{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}'>
-                        <a class="nav-link"
-                            href="{{ route('commerce.dashboard.chart') }}">Gross Profit Margin</a>
+                        <a class="nav-link" href="#">Gross Profit Margin</a>
                     </li>
                     <li class="{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="#">Cost of Goods Sold</a>
+                        <a class="nav-link" href="#">Cost of Goods Sold</a>
                     </li>
-                    <li class="{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="#">Revenue</a>
+                    <li class="{{ $title==='COGS' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('commerce.dashboard.revenue') }}">Revenue</a>
                     </li>
                 </ul>
             </li>

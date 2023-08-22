@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LaporanCommerce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class RevenueController extends Controller
 {
@@ -47,12 +48,22 @@ class RevenueController extends Controller
             ->orderBy('bulan', 'asc')
             ->get();
 
-        return view('admin.dashboard.revenue', [
-            "title" => "COGS",
-            "commerceData" => $commerceData,
-            "revenueData" => $revenueData,
-            "targetData" => $targetData
-        ]);
+        $account = Auth::guard('account')->user();
+        if ($account->role == "Commerce") {
+            return view('commerce.dashboard.revenue', [
+                "title" => "COGS",
+                "commerceData" => $commerceData,
+                "revenueData" => $revenueData,
+                "targetData" => $targetData
+            ]);
+        } else{
+            return view('admin.dashboard.revenue', [
+                "title" => "COGS",
+                "commerceData" => $commerceData,
+                "revenueData" => $revenueData,
+                "targetData" => $targetData
+            ]);
+        }    
+
     }
 }
-
