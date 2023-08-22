@@ -10,8 +10,7 @@ class LaporanCommerce extends Model
     use HasFactory;
     protected $table = "laporan_commerce";
     protected $primaryKey = "id_commerce";
-    public $timestamps = true;
-    public $incrementing = false;
+    public $timestamps = false;
     protected $fillable = [
         "id_commerce",
         'id_program',

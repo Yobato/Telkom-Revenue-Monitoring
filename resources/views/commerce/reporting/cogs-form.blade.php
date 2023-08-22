@@ -147,19 +147,35 @@
                                     </div>
                                     @enderror
 
-                                    <label for="keterangan" class="col-form-label">Keterangan:</label>
-                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
-                                    {{-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> --}}
-                                    <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
-                                    @error('keterangan')
+                                    <label for="monthYearPicker" class="col-form-label">Bulan dan Tahun:</label>
+                                    <input type="month" id="monthYearPicker" onchange="handleDateChange(this)" name="tanggal" value="{{ old('tanggal') }}" class="form-control @error('tanggal') is-invalid @enderror mb-2">
+                                    @error('tanggal')
                                     <div class="invalid-feedback">
-                                        Field Keterangan harus diisi!
+                                        Field Bulan dan Tahun harus diisi!
                                     </div>
                                     @enderror
 
                                     </div>
+                                    
                                 </div>
+                                
                             </div>
+                            <div class="row mb-lg-5">
+                        <div class="col-lg-12" style="padding: 0 62px">
+                            <div class="form-group pb-0 mb-0">
+                                <label for="keterangan" class="col-form-label">Keterangan:</label>
+                                <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
+                                <!-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> -->
+
+                            </div>
+                        </div>
+                        @error('keterangan')
+                                <div class="invalid-feedback">
+                                    Keterangan wajib diisi!
+                                </div>
+                            @enderror
+                            
+                    </div>
                             <div class="row mb-lg-5">
                                 <div class="col-lg-12" style="padding: 0 62px">
                                     
