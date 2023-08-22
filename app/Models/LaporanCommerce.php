@@ -23,6 +23,7 @@ class LaporanCommerce extends Model
         'id_sub_grup_akun',
         'kota',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'tanggal'
     ];
 }

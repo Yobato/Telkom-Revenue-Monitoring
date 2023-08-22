@@ -34,6 +34,8 @@ return new class extends Migration
             $table->string('created_at')->nullable();
             $table->string('updated_at')->nullable();
             $table->boolean('editable')->default(0);
+            $table->string('tanggal');
+
         });
     }
 
