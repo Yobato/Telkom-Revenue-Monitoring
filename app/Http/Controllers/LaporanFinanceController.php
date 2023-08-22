@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use App\Exports\UsersExportF;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class LaporanFinanceController extends Controller
 {
@@ -74,6 +77,10 @@ class LaporanFinanceController extends Controller
             ]);
         }
         //
+    }
+    public function export() 
+    {
+        return Excel::download(new UsersExportF, 'expor_finance.xlsx', ExcelExcel::XLSX);
     }
 
     public function indexChart()

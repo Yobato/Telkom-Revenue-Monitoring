@@ -38,6 +38,7 @@
                         <h4>Laporan COGS dan Revenue</h4>
                         <div class="card-header-form">
                             <div class="col-12 float-end">
+                                <a class="btn btn-outline-primary mr-3"  href="{{ route('commerce.dashboard.export') }}">Export</a>
                                 <a href="{{ route('commerce.reporting.form') }}" class="btn btn-primary mb-3 mt-3 shadow rounded">
                                     <i class="bi bi-file-earmark-plus" style="padding-right: 10px"></i>Buat Laporan
                                 </a>

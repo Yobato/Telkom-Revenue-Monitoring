@@ -12,6 +12,9 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use App\Exports\UsersExportC;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class LaporanCommerceController extends Controller
 {
@@ -67,6 +70,10 @@ class LaporanCommerceController extends Controller
                 "citys" => $citys
             ]);
         }
+    }
+    public function export() 
+    {
+        return Excel::download(new UsersExportC, 'expor_commerce.xlsx', ExcelExcel::XLSX);
     }
 
 
