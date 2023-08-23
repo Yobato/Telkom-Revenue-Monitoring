@@ -133,10 +133,10 @@ Dashboard
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
-                                            <th scope="col" class="w-50">Jenis Laporan</th>
-                                            <th scope="col" class="w-50">Jumlah</th>
-                                            <th scope="col" class="w-50">Bulan</th>
-                                            <th scope="col" class="w-50">Tahun</th>
+                                            <th scope="col">Jenis Laporan</th>
+                                            <th scope="col">Jumlah</th>
+                                            <th scope="col">Bulan</th>
+                                            <th scope="col">Tahun</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -145,11 +145,11 @@ Dashboard
                                         @foreach ($target as $admins)
                                         <tr>
                                             <th scope="row">{{$i++}}</th>
-                                            <td class="w-50">{{ $admins ->jenis_laporan}}</td>
-                                            <td class="w-50">{{ $admins ->jumlah}}</td>
-                                            <td class="w-50">{{ $admins ->bulan}}</td>
-                                            <td class="w-50">{{ $admins ->tahun}}</td>
-                                            <td class="w-50">
+                                            <td>{{ $admins ->jenis_laporan}}</td>
+                                            <td>{{ $admins ->jumlah}}</td>
+                                            <td>{{ $admins ->bulan}}</td>
+                                            <td>{{ $admins ->tahun}}</td>
+                                            <td>
                                                 <a href="#" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="modal" data-target="#editTargetModal-{{$admins->id}}">
                                                     <i class="fa fa-edit"></i></a>
                                                 <a class="btn btn-danger btn-sm rounded-0" style="color: white" type="button" data-toggle="modal" data-target="#deleteTargetModal{{ $admins->id }}">

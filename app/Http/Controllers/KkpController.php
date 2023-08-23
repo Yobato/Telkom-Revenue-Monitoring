@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Target;
 use Illuminate\Http\Request;
 use App\Models\LaporanFinance;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,8 @@ class KkpController extends Controller
             ->orderBy('year', 'asc')
             ->orderBy('month', 'asc')
             ->get();
+
+        $tahunData = Target::distinct()->get(['tahun']);
 
         // $revenueData = DB::table('laporan_finance')
         //     ->select(
@@ -48,6 +51,7 @@ class KkpController extends Controller
         return view('admin.dashboard.kkp', [
             "title" => "KKP",
             "kkpData" => $kkpData,
+            'tahunData' => $tahunData,
             // "revenueData" => $revenueData,
             "targetData" => $targetData
         ]);
