@@ -17,14 +17,18 @@ use Illuminate\Support\Facades\Auth;
 Route::group(['middleware' => 'revalidate'], function () {
     Route::group(['middleware' => ['auth:account', 'account-access:Commerce']], function () {
         //Commerce
+        // Route::get('/commerce/dashboard', [App\Http\Controllers\LaporanCommerceController::class, 'indexChart'])->name('commerce.dashboard.chart');
+
+        Route::get('/dashboard/revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('commerce.dashboard.revenue');
+        Route::get('/commerce/dashboard', [App\Http\Controllers\LaporanCommerceController::class, 'indexChart'])->name('commerce.dashboard.chart');
         Route::get('/commerce', [App\Http\Controllers\LaporanCommerceController::class, 'index'])->name('commerce.dashboard.index');
         Route::get('/commerce/add', [App\Http\Controllers\LaporanCommerceController::class, 'addLaporanCommerce'])->name('commerce.reporting.form');
         Route::post('/commerce/add/success', [App\Http\Controllers\LaporanCommerceController::class, 'storeLaporanCommerce'])->name('commerce.storeLaporanCommerce');
         Route::get('/commerce/delete/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'deleteLaporanCommerce'])->name('commerce.deleteLaporanCommerce');
         Route::get('/commerce/edit/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'editLaporanCommerce'])->name('commerce.editLaporanCommerce');
         Route::post('/commerce/edit/{id}/success', [App\Http\Controllers\LaporanCommerceController::class, 'updateLaporanCommerce'])->name('commerce.updateLaporanCommerce');
-
-        Route::get('/commerce/update', [App\Http\Controllers\LaporanCommerceController::class, 'gpm'])->name('commerce.dashboard.gpm');
+        
+        Route::get('/exportcom', [App\Http\Controllers\LaporanCommerceController::class, 'export'])->name('commerce.dashboard.export');
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:Finance']], function () {
@@ -36,6 +40,8 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/finance/delete/{id}', [App\Http\Controllers\LaporanFinanceController::class, 'deleteLaporanFinance'])->name('finance.deleteLaporanFinance');
         Route::get('/finance/edit/{id}', [App\Http\Controllers\LaporanFinanceController::class, 'editLaporanFinance'])->name('finance.editLaporanFinance');
         Route::post('/finance/edit/{id}/success', [App\Http\Controllers\LaporanFinanceController::class, 'updateLaporanFinance'])->name('finance.updateLaporanFinance');
+
+        Route::get('/exportfin', [App\Http\Controllers\LaporanFinanceController::class, 'export'])->name('finance.dashboard.export');
 
 
 
@@ -105,11 +111,8 @@ Route::group(['middleware' => 'revalidate'], function () {
         })->name('admin-gpm');
 
         Route::get('/admin-cogs', [App\Http\Controllers\CogsController::class, 'index'])->name('admin-cogs');
-
+        Route::get('/admin-revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('admin-revenue');
         Route::get('/admin-kkp', [App\Http\Controllers\KkpController::class, 'index'])->name('admin-kkp');
-        Route::get('/admin-revenue', function () {
-            return view('admin.dashboard.revenue');
-        })->name('admin-revenue');
 
         // ------------- ADMIN ------------- 
         Route::get('/city', [App\Http\Controllers\CityController::class, 'index'])->name('admin.dashboard.city');

@@ -12,6 +12,9 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use App\Exports\UsersExportC;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class LaporanCommerceController extends Controller
 {
@@ -68,6 +71,17 @@ class LaporanCommerceController extends Controller
             ]);
         }
     }
+    public function export() 
+    {
+        return Excel::download(new UsersExportC, 'expor_commerce.xlsx', ExcelExcel::XLSX);
+    }
+
+    public function indexChart()
+    {
+        return view('commerce.dashboard.chart', [
+            "title" => "Dashboard Commerce",
+        ]);
+    }
 
 
     public function addLaporanCommerce(Request $request)
@@ -78,6 +92,7 @@ class LaporanCommerceController extends Controller
             "addprogram" => Program::all()->where("role", "=", "Commerce"),
             "addportofolio" => Portofolio::all()->where("role", "=", "Commerce"),
             "addsubgrupakun" => SubGrupAkun::all(),
+            
         ]);
     }
 
@@ -86,6 +101,7 @@ class LaporanCommerceController extends Controller
 
 
         $commerce = DB::table('laporan_commerce');
+        $account = Auth::guard('account')->user();
 
         $messages = [
             'required' => "Field wajib diisi!",
@@ -101,9 +117,10 @@ class LaporanCommerceController extends Controller
             'id_portofolio' => 'required',
             'id_sub_grup_akun' => 'required',
             'jenis_laporan' => 'required',
+            'tanggal' => 'required'
         ], $messages);
 
-        $account = Auth::guard('account')->user();
+
         LaporanCommerce::insert([
             'id_commerce' => $request->id_commerce,
             'nilai' => str_replace('.', '', $request->nilai),
@@ -114,7 +131,8 @@ class LaporanCommerceController extends Controller
             'id_portofolio' => $request->id_portofolio,
             'id_sub_grup_akun' => $request->id_sub_grup_akun,
             'kota' => $account->kota,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'tanggal' => $request->tanggal
         ]);
         return redirect()->intended(route('commerce.dashboard.index'))->with("success", "Berhasil menambahkan Laporan COGS");
     }
@@ -177,6 +195,7 @@ class LaporanCommerceController extends Controller
     {
         $messages = [
             'required' => 'Field wajib diisi',
+            'unique' => 'Nilai sudah ada',
         ];
 
         $this->validate($request, [
@@ -185,6 +204,7 @@ class LaporanCommerceController extends Controller
             'id_program' => 'required',
             'id_portofolio' => 'required',
             'id_sub_grup_akun' => 'required',
+            'tanggal' => 'required'
         ], $messages);
 
         // Mengambil nilai dari form
@@ -215,7 +235,8 @@ class LaporanCommerceController extends Controller
             'id_program' => $request->id_program,
             'id_portofolio' => $request->id_portofolio,
             'id_sub_grup_akun' => $request->id_sub_grup_akun,
-            'kota' => $account->kota
+            'kota' => $account->kota,
+            'tanggal' => $request->tanggal
         ]);
         return redirect()->intended(route('commerce.dashboard.index'))->with("success", "Berhasil mengubah Laporan Commerce");
     }

@@ -31,6 +31,8 @@ return new class extends Migration
             $table->foreign('kota')->references('id')->on('city');
             $table->timestamps();
             $table->boolean('editable')->default(0);
+            $table->string('tanggal');
+
         });
     }
 

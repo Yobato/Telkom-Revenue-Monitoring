@@ -3,7 +3,7 @@
 @section('title', 'Reporting')
 
 @section('content')
-    <section class="section">
+<section class="section">
     <div class="section-body">
         <div class="row">
             <div class="col-12">
@@ -18,7 +18,7 @@
                             <h3>Reporting</h3>
                         </div>
                     </div>
-                    
+
                     <p style="padding-left: 43px; padding-bottom:10px">Edit Laporan sesuai dengan ketentuan dan SOP yang berlaku di Telkom Akses. Anda dapat mengubah laporan ini nanti.</p>
                 </div>
             </div>
@@ -36,56 +36,63 @@
                         @csrf
                         <div class="row">
                             <div class="col-lg-6">
-                            <div class="form-group pt-4 pb-0 pl-5 mb-0 pb-0">
-                                <label for="pid_finance" class="col-form-label">PID Finance: </label>
-                                <input type="text" id="pid_finance" name="pid_finance" class="form-control @error('pid_finance') is-invalid @enderror mb-2" value="{{ old('pid_finance', $laporan->pid_finance) }}" readonly>
-                                @error('pid_finance')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                                
-                                <label for="id_program" class="col-form-label">Nama Program: </label>
-                                <select class="id_program form-control @error('id_program') is-invalid @enderror mb-2" name="id_program" value="{{ old('id_program', $laporan->id_program) }}">
-                                    <option value="" selected>-- Pilih Nama Program --</option>
-                                    @foreach ($addprogram as $program)
-                                        <option value="{{ $program->id }}"{{ strcmp($laporan->id_program,"$program->id")==0? 'selected':''; }}>{{ $program->nama_program }}</option>
-                                    @endforeach
-                                </select>
-                                @error('id_program')
-                                <div class="invalid-feedback">
-                                    Field Nama Program harus diisi!
-                                </div>
-                                @enderror
+                                <div class="form-group pt-4 pb-0 pl-5 mb-0 pb-0">
+                                    <label for="pid_finance" class="col-form-label">PID Finance: </label>
+                                    <input type="text" id="pid_finance" name="pid_finance" class="form-control @error('pid_finance') is-invalid @enderror mb-2" value="{{ old('pid_finance', $laporan->pid_finance) }}" readonly>
+                                    @error('pid_finance')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
 
-                                <label for="id_portofolio" class="col-form-label">Portofolio: </label>
-                                <select class="id_portofolio form-control @error('id_portofolio') is-invalid @enderror mb-2" name="id_portofolio" value="{{ old('id_portofolio', $laporan->id_portofolio) }}">
-                                    <option value="" selected>-- Pilih Portofolio --</option>
-                                    @foreach ($addportofolio as $portofolio)
+                                    <label for="id_program" class="col-form-label">Nama Program: </label>
+                                    <select class="id_program form-control @error('id_program') is-invalid @enderror mb-2" name="id_program" value="{{ old('id_program', $laporan->id_program) }}">
+                                        <option value="" selected>-- Pilih Nama Program --</option>
+                                        @foreach ($addprogram as $program)
+                                        <option value="{{ $program->id }}" {{ strcmp($laporan->id_program,"$program->id")==0? 'selected':''; }}>{{ $program->nama_program }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_program')
+                                    <div class="invalid-feedback">
+                                        Field Nama Program harus diisi!
+                                    </div>
+                                    @enderror
+
+                                    <label for="id_portofolio" class="col-form-label">Portofolio: </label>
+                                    <select class="id_portofolio form-control @error('id_portofolio') is-invalid @enderror mb-2" name="id_portofolio" value="{{ old('id_portofolio', $laporan->id_portofolio) }}">
+                                        <option value="" selected>-- Pilih Portofolio --</option>
+                                        @foreach ($addportofolio as $portofolio)
                                         <option value="{{ $portofolio->id }}" {{ strcmp($laporan->id_portofolio, "$portofolio->id")==0? 'selected':''; }}>{{ $portofolio->nama_portofolio }}</option>
-                                    @endforeach
-                                </select>
-                                <span id="id_portofolio_error" style="display: none; color: red;">Field Portofolio harus diisi!</span>
-                                @error('id_portofolio')
-                                <div class="invalid-feedback">
-                                    Field Portofolio harus diisi!
-                                </div>
-                                @enderror
-                                
-                                <label for="id_user" class="col-form-label">User: </label>
-                                <select class="id_user form-control @error('id_user') is-invalid @enderror mb-2" name="id_user" value="{{ old('id_user', $laporan->id_user) }}">
-                                    <option value="" selected>-- Pilih User --</option>
-                                    @foreach ($adduser as $user)
-                                        <option value="{{ $user->id }}" {{ strcmp($laporan->id_user, "$user->id")==0? 'selected':''; }}>{{ $user->nama_user_reco }}</option>
-                                    @endforeach
-                                </select>
-                                <span id="user_error" style="display: none; color: red;">Field User harus diisi!</span>
-                                @error('id_user')
-                                <div class="invalid-feedback">
-                                    Field User harus diisi!
-                                </div>
-                                @enderror
+                                        @endforeach
+                                    </select>
+                                    <span id="id_portofolio_error" style="display: none; color: red;">Field Portofolio harus diisi!</span>
+                                    @error('id_portofolio')
+                                    <div class="invalid-feedback">
+                                        Field Portofolio harus diisi!
+                                    </div>
+                                    @enderror
 
+                                    <label for="id_user" class="col-form-label">User: </label>
+                                    <select class="id_user form-control @error('id_user') is-invalid @enderror mb-2" name="id_user" value="{{ old('id_user', $laporan->id_user) }}">
+                                        <option value="" selected>-- Pilih User --</option>
+                                        @foreach ($adduser as $user)
+                                        <option value="{{ $user->id }}" {{ strcmp($laporan->id_user, "$user->id")==0? 'selected':''; }}>{{ $user->nama_user_reco }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span id="user_error" style="display: none; color: red;">Field User harus diisi!</span>
+                                    @error('id_user')
+                                    <div class="invalid-feedback">
+                                        Field User harus diisi!
+                                    </div>
+                                    @enderror
+                                    
+                                    <label for="monthYearPicker" class="col-form-label">Bulan dan Tahun:</label>
+                                    <input type="month" id="monthYearPicker" onchange="handleDateChange(this)" name="tanggal" value="{{ old('tanggal',  $user->tanggal) }}" class="form-control @error('tanggal') is-invalid @enderror mb-2">
+                                    @error('tanggal')
+                                    <div class="invalid-feedback">
+                                        Field Bulan dan Tahun harus diisi!
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -94,7 +101,7 @@
                                     <select class="id_cost_plan form-control @error('id_cost_plan') is-invalid @enderror mb-2" name="id_cost_plan" value="{{ old('id_cost_plan', $laporan->id_cost_plan) }}">
                                         <option value="" selected>-- Pilih Cost Plan --</option>
                                         @foreach ($addcostplan as $costplan)
-                                            <option value="{{ $costplan->id }}" {{ strcmp($laporan->id_cost_plan, "$costplan->id")==0? 'selected':''; }}>{{ $costplan->nama_cost_plan}}</option>
+                                        <option value="{{ $costplan->id }}" {{ strcmp($laporan->id_cost_plan, "$costplan->id")==0? 'selected':''; }}>{{ $costplan->nama_cost_plan}}</option>
                                         @endforeach
                                     </select>
                                     <span id="cost_plan_error" style="display: none; color: red;">Field Portofolio harus diisi!</span>
@@ -108,7 +115,7 @@
                                     <select class="id_peruntukan form-control @error('id_peruntukan') is-invalid @enderror mb-2" name="id_peruntukan" value="{{ old('id_peruntukan', $laporan->id_peruntukan) }}">
                                         <option value="" selected>-- Pilih Peruntukan --</option>
                                         @foreach ($addperuntukan as $peruntukan)
-                                            <option value="{{ $peruntukan->id }}" {{ strcmp($laporan->id_peruntukan, "$peruntukan->id")==0? 'selected':''; }}>{{ $peruntukan->nama_peruntukan}}</option>
+                                        <option value="{{ $peruntukan->id }}" {{ strcmp($laporan->id_peruntukan, "$peruntukan->id")==0? 'selected':''; }}>{{ $peruntukan->nama_peruntukan}}</option>
                                         @endforeach
                                     </select>
                                     <span id="id_peruntukan_error" style="display: none; color: red;">Field Peruntukan harus diisi!</span>
@@ -125,7 +132,7 @@
                                                 Rp.
                                             </div>
                                         </div>
-                                        <input type="text" id="nilai" name="nilai" value="{{ old('nilai', $laporan->nilai) }}" class="form-control @error('nilai') is-invalid @enderror mb-2" oninput="formatCurrency(this)">  
+                                        <input type="text" id="nilai" name="nilai" value="{{ old('nilai', $laporan->nilai) }}" class="form-control @error('nilai') is-invalid @enderror mb-2" oninput="formatCurrency(this)">
                                     </div>
                                     <span id="nilai_error" style="display: none; color: red;">Field Nilai harus diisi!</span>
                                     @error('nilai')
@@ -144,17 +151,17 @@
                                     </div>
                                     @enderror
 
-                                    </div>
                                 </div>
                             </div>
-                            <div class="row mb-lg-5">
-                                <div class="col-lg-12" style="padding: 0 62px">
-                                    
-                                </div>
+                        </div>
+                        <div class="row mb-lg-5">
+                            <div class="col-lg-12" style="padding: 0 62px">
+
                             </div>
-                            <div class="d-flex justify-content-end pr-5 mb-5">
-                                <button class="btn btn-primary" value="Simpan Data" type="submit">Buat Laporan</button>
-                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end pr-5 mb-5">
+                            <button class="btn btn-primary" value="Simpan Data" type="submit">Buat Laporan</button>
+                        </div>
                     </form>
                     @endforeach
                 </div>
@@ -162,22 +169,47 @@
         </div>
     </div>
 
-    </section>
+</section>
 
 @endsection
 
 <script>
-   function formatCurrency(input) {
+    function formatCurrency(input) {
         // Menghilangkan semua karakter selain angka
         let rawValue = input.value.replace(/[^\d]/g, '');
-        
+
         // Memastikan input tidak kosong
         if (rawValue) {
             // Mengubah angka menjadi format uang dengan pemisah ribuan (.)
             let formattedValue = Number(rawValue).toLocaleString('id-ID');
-            
+
             // Menampilkan hasil format uang di input
             input.value = formattedValue;
         }
-    } 
+    }
+</script>
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+        const monthYearPicker = document.getElementById("monthYearPicker");
+
+        // Fetch the existing "tanggal" value from the server and set it to the date picker
+        const existingTanggal = "{{ old('tanggal', $laporan->tanggal) }}"; // Assuming this is the correct variable
+
+        if (existingTanggal) {
+            monthYearPicker.value = existingTanggal;
+
+            // Trigger the change event to display the selected date
+            monthYearPicker.dispatchEvent(new Event("change"));
+        }
+
+        monthYearPicker.addEventListener("change", function() {
+            const selectedDate = new Date(monthYearPicker.value);
+            const selectedMonth = selectedDate.toLocaleString("default", { month: "long" });
+            const selectedYear = selectedDate.getFullYear();
+
+            // Display the selected month and year
+            console.log("Selected Month:", selectedMonth);
+            console.log("Selected Year:", selectedYear);
+        });
+    });
 </script>

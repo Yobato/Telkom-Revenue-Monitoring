@@ -14,6 +14,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use App\Exports\UsersExportF;
+use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Excel as ExcelExcel;
+
 
 class LaporanFinanceController extends Controller
 {
@@ -76,6 +81,10 @@ class LaporanFinanceController extends Controller
         }
         //
     }
+    public function export() 
+    {
+        return Excel::download(new UsersExportF, 'expor_finance.xlsx', ExcelExcel::XLSX);
+    }
 
     public function indexChart()
     {
@@ -106,7 +115,7 @@ class LaporanFinanceController extends Controller
             'required' => 'Field wajib diisi',
             'unique' => 'Nilai sudah ada',
         ];
-
+        
         $this->validate($request, [
             'pid_finance' => 'required|unique:laporan_finance',
             'nilai' => 'required',
@@ -116,6 +125,7 @@ class LaporanFinanceController extends Controller
             'id_cost_plan' => 'required',
             'id_peruntukan' => 'required',
             'id_user' => 'required',
+            'tanggal' => 'required'
         ], $messages);
 
         LaporanFinance::insert([
@@ -129,6 +139,8 @@ class LaporanFinanceController extends Controller
             'id_user' => $request->id_user,
             'kota' => $account->kota,
             'created_at' => Carbon::now()
+            'tanggal' => $request->tanggal
+
         ]);
         return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menambahkan Laporan KKP");
     }
@@ -190,6 +202,7 @@ class LaporanFinanceController extends Controller
             'id_cost_plan' => 'required',
             'id_peruntukan' => 'required',
             'id_user' => 'required',
+            'tanggal' => 'required'
         ], $messages);
 
         $account = Auth::guard('account')->user();
@@ -201,7 +214,9 @@ class LaporanFinanceController extends Controller
             'id_cost_plan' => $request->id_cost_plan,
             'id_peruntukan' => $request->id_peruntukan,
             'id_user' => $request->id_user,
-            'kota' => $account->kota
+            'kota' => $account->kota,
+            'tanggal' => $request->tanggal
+
         ]);
         return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil mengubah Laporan Finance");
     }
