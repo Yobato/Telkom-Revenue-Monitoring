@@ -22,5 +22,9 @@ class DatabaseSeeder extends Seeder
         $this->call(CostPlanSeeder::class);
         $this->call(PeruntukanSeeder::class);
         $this->call(UserRecoSeeder::class);
+        $this->call(SubGrupAkunSeeder::class);
+        $this->call(TargetSeeder::class);
+
+
     }
 }
