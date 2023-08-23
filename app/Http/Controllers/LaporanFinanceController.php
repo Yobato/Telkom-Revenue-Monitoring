@@ -9,6 +9,7 @@ use App\Models\Program;
 use App\Models\City;
 use App\Models\Peruntukan;
 use App\Models\UserReco;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -137,8 +138,9 @@ class LaporanFinanceController extends Controller
             'id_peruntukan' => $request->id_peruntukan,
             'id_user' => $request->id_user,
             'kota' => $account->kota,
-            'created_at' => Carbon::now(),
+            'created_at' => Carbon::now()
             'tanggal' => $request->tanggal
+
         ]);
         return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menambahkan Laporan KKP");
     }
