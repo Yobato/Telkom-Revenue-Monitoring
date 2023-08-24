@@ -13,8 +13,8 @@ class KkpController extends Controller
     {
         $kkpData = DB::table('laporan_finance')
             ->select(
-                DB::raw('YEAR(created_at) as year'),
-                DB::raw('MONTH(created_at) as month'),
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
                 DB::raw('SUM(nilai) as total_nilai')
             )
             ->groupBy('year', 'month')
@@ -26,8 +26,8 @@ class KkpController extends Controller
 
         // $revenueData = DB::table('laporan_finance')
         //     ->select(
-        //         DB::raw('YEAR(created_at) as year'),
-        //         DB::raw('MONTH(created_at) as month'),
+        //         DB::raw('YEAR(tanggal) as year'),
+        //         DB::raw('MONTH(tanggal) as month'),
         //         DB::raw('SUM(nilai) as total_nilai')
         //     )
         //     ->where('jenis_laporan', '=', 'REVENUE')
