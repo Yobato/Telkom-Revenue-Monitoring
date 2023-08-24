@@ -360,4 +360,90 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 </script>
+
+<script>
+    const gapData = {!! json_encode($gapData) !!};
+    // console.log(gapData)
+    const monthNamesGap = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+document.addEventListener("DOMContentLoaded", function() {
+    var dropdownGap = document.getElementById("tahun-filter");
+    var selectedValueGap = dropdownGap.value;
+
+    // Function to build or update the chart
+    function updateChartGap() {
+        if (selectedValueGap !== "") {
+            const filteredGapData = gapData.filter(item => item.year.toString() === selectedValueGap);
+
+            const seriesDataGap = {};
+            filteredGapData.forEach(item => {
+                const year = item.year.toString();
+                const month = item.month - 1;
+                if (!seriesDataGap[year]) {
+                    seriesDataGap[year] = new Array(12).fill(0);
+                }
+                seriesDataGap[year][month] += parseInt(item.total_nilai);
+            });
+
+            const realizationSeriesGap = Object.keys(seriesDataGap).map(year => {
+                // ... kode untuk realization series
+                return {
+                    name: 'Gap ' + year,
+                    data: seriesDataGap[year]
+                };
+            });
+
+            const categories = monthNamesGap;
+
+            Highcharts.chart('chartGAP', {
+                // ... pengaturan chart
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: '',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: categories,
+                    crosshair: true,
+                    accessibility: {
+                        description: ''
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Total Nilai'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [ ...realizationSeriesGap]
+            });
+        }
+    }
+
+    // Initial call to updateChartGap on page load
+    updateChartGap();
+
+    dropdownGap.addEventListener("change", function() {
+        selectedValueGap = dropdownGap.value;
+        console.log("Nilai input tahun: " + selectedValueGap);
+        updateChartGap(); // Call the updateChartGap function to rebuild the chart
+    });
+
+    // ...
+});
+
+
+
+</script>
 @endsection

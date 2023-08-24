@@ -48,6 +48,25 @@ class KkpController extends Controller
             ->orderBy('tahun', 'asc')
             ->orderBy('bulan', 'asc')
             ->get();
+
+        $gapData = DB::table('target')
+            ->select(
+                DB::raw('target.tahun as year'),
+                DB::raw('target.bulan as month'),
+                DB::raw('SUM(target.jumlah) as total_target'),
+                DB::raw('COALESCE(SUM(laporan_finance.nilai), 0) as total_finance')
+            )
+            ->leftJoin('laporan_finance', function ($join) {
+                $join->on(DB::raw('YEAR(target.tahun)'), '=', DB::raw('YEAR(laporan_finance.created_at)'));
+                $join->on(DB::raw('MONTH(target.bulan)'), '=', DB::raw('MONTH(laporan_finance.created_at)'));
+            })
+            ->where('target.jenis_laporan', '=', 'KKP')
+            ->groupBy('target.tahun', 'target.bulan')
+            ->orderBy('target.tahun', 'asc')
+            ->orderBy('target.bulan', 'asc')
+            ->get();
+
+        dd($gapData);
         
         $year1 = '2023';
         $TotalRealisasiKKP = LaporanFinance::whereRaw("SUBSTRING_INDEX(tanggal, '-', 1) = ?", [$year1])
@@ -67,6 +86,7 @@ class KkpController extends Controller
                 'tahunData' => $tahunData,
                 "TotalRealisasiKKP" => $TotalRealisasiKKP,
                 "kenaikanRealisasi" => $kenaikanRealisasi,
+                "gapData" => $gapData,
                 // "revenueData" => $revenueData,
                 "targetData" => $targetData
             ]);
@@ -78,6 +98,7 @@ class KkpController extends Controller
                 'tahunData' => $tahunData,
                 "TotalRealisasiKKP" => $TotalRealisasiKKP,
                 "kenaikanRealisasi" => $kenaikanRealisasi,
+                "gapData" => $gapData,
                 // "revenueData" => $revenueData,
                 "targetData" => $targetData
             ]);
