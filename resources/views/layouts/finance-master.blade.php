@@ -19,7 +19,7 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/components.css')}}">
-
+  <script src="https://kit.fontawesome.com/899c89402d.js" crossorigin="anonymous"></script>
 </head>
 
 <body>

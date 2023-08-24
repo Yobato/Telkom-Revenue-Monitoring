@@ -33,7 +33,8 @@ Route::group(['middleware' => 'revalidate'], function () {
 
     Route::group(['middleware' => ['auth:account', 'account-access:Finance']], function () {
         //Finance
-        Route::get('/finance/dashboard', [App\Http\Controllers\LaporanFinanceController::class, 'indexChart'])->name('finance.dashboard.chart');
+        // Route::get('/finance/dashboard', [App\Http\Controllers\LaporanFinanceController::class, 'indexChart'])->name('finance.dashboard.chart');
+        Route::get('/finance/dashboard', [App\Http\Controllers\KkpController::class, 'index'])->name('finance.dashboard.chart');
         Route::get('/finance', [App\Http\Controllers\LaporanFinanceController::class, 'index'])->name('finance.dashboard.index');
         Route::get('/finance/add', [App\Http\Controllers\LaporanFinanceController::class, 'addLaporanFinance'])->name('finance.reporting.form');
         Route::post('/finance/add/success', [App\Http\Controllers\LaporanFinanceController::class, 'storeLaporanFinance'])->name('finance.storeLaporanFinance');
