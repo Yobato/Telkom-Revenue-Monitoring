@@ -66,7 +66,7 @@ class KkpController extends Controller
             ->orderBy('target.bulan', 'asc')
             ->get();
 
-        dd($gapData);
+        // dd($gapData);
         
         $year1 = '2023';
         $TotalRealisasiKKP = LaporanFinance::whereRaw("SUBSTRING_INDEX(tanggal, '-', 1) = ?", [$year1])
