@@ -76,7 +76,15 @@ class KkpController extends Controller
         $TotalRealisasiKKP2 = LaporanFinance::whereRaw("SUBSTRING_INDEX(tanggal, '-', 1) = ?", [$year2])
             ->sum('nilai');
 
-        $kenaikanRealisasi = ($TotalRealisasiKKP - $TotalRealisasiKKP2)/$TotalRealisasiKKP2 * 100;
+        // $TotalRealisasiKKP = 0;
+        // $TotalRealisasiKKP2 = 0;
+        
+
+        if(!empty($TotalRealisasiKKP) || !empty($TotalRealisasiKKP2)){
+            $kenaikanRealisasi = ($TotalRealisasiKKP - $TotalRealisasiKKP2)/$TotalRealisasiKKP2 * 100;
+        } else{
+            $kenaikanRealisasi = 0;
+        }
 
         $account = Auth::guard('account')->user();
         if ($account->role == "Finance") {
