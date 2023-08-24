@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use App\Exports\UsersExportF;
-use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 
@@ -138,7 +137,7 @@ class LaporanFinanceController extends Controller
             'id_peruntukan' => $request->id_peruntukan,
             'id_user' => $request->id_user,
             'kota' => $account->kota,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
             'tanggal' => $request->tanggal
 
         ]);
