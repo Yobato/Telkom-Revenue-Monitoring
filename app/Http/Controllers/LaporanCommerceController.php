@@ -132,7 +132,7 @@ class LaporanCommerceController extends Controller
             'id_sub_grup_akun' => $request->id_sub_grup_akun,
             'kota' => $account->kota,
             'created_at' => Carbon::now(),
-            'tanggal' => $request->tanggal
+            'tanggal' => $request->tanggal . '-01'
         ]);
         return redirect()->intended(route('commerce.dashboard.index'))->with("success", "Berhasil menambahkan Laporan COGS");
     }
@@ -236,7 +236,7 @@ class LaporanCommerceController extends Controller
             'id_portofolio' => $request->id_portofolio,
             'id_sub_grup_akun' => $request->id_sub_grup_akun,
             'kota' => $account->kota,
-            'tanggal' => $request->tanggal
+            'tanggal' => $request->tanggal . '-01'
         ]);
         return redirect()->intended(route('commerce.dashboard.index'))->with("success", "Berhasil mengubah Laporan Commerce");
     }
