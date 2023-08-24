@@ -25,18 +25,6 @@ class KkpController extends Controller
 
         $tahunData = Target::distinct()->get(['tahun']);
 
-        // $revenueData = DB::table('laporan_finance')
-        //     ->select(
-        //         DB::raw('YEAR(tanggal) as year'),
-        //         DB::raw('MONTH(tanggal) as month'),
-        //         DB::raw('SUM(nilai) as total_nilai')
-        //     )
-        //     ->where('jenis_laporan', '=', 'REVENUE')
-        //     ->groupBy('year', 'month')
-        //     ->orderBy('year', 'asc')
-        //     ->orderBy('month', 'asc')
-        //     ->get();
-
         $targetData = DB::table('target')
             ->select(
                 DB::raw('tahun as year'),
@@ -80,9 +68,9 @@ class KkpController extends Controller
         // $TotalRealisasiKKP2 = 0;
         
 
-        if(!empty($TotalRealisasiKKP) || !empty($TotalRealisasiKKP2)){
-            $kenaikanRealisasi = ($TotalRealisasiKKP - $TotalRealisasiKKP2)/$TotalRealisasiKKP2 * 100;
-        } else{
+        if ($TotalRealisasiKKP2 != 0) {
+            $kenaikanRealisasi = ($TotalRealisasiKKP - $TotalRealisasiKKP2) / $TotalRealisasiKKP2 * 100;
+        } else {
             $kenaikanRealisasi = 0;
         }
 
