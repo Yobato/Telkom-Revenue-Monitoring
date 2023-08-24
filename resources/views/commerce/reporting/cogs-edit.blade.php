@@ -107,7 +107,7 @@
                                     <label for="jenis_laporan" class="col-form-label">Jenis Laporan: </label>
                                     <select class="jenis_laporan form-control @error('jenis_laporan') is-invalid @enderror mb-2" name="jenis_laporan" value="{{ old('jenis_laporan', $laporan->jenis_laporan) }}">    
                                     <option value="COGS" {{ $laporan->jenis_laporan === 'COGS' ? 'selected' : '' }}>COGS</option>
-                                        <option value="Revenue" {{ $laporan->jenis_laporan === 'Revenue' ? 'selected' : '' }}>Revenue</option>
+                                        <option value="REVENUE" {{ $laporan->jenis_laporan === 'REVENUE' ? 'selected' : '' }}>REVENUE</option>
                                         
                                     </select>
                                     <span id="jenis_laporan_error" style="display: none; color: red;">Field Jenis Laporan harus diisi!</span>

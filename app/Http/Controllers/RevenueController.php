@@ -14,8 +14,8 @@ class RevenueController extends Controller
     {
         $commerceData = DB::table('laporan_commerce')
             ->select(
-                DB::raw('YEAR(created_at) as year'),
-                DB::raw('MONTH(created_at) as month'),
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
                 DB::raw('SUM(nilai) as total_nilai')
             )
             ->where('jenis_laporan', '=', 'COGS')
@@ -26,8 +26,8 @@ class RevenueController extends Controller
 
         $revenueData = DB::table('laporan_commerce')
             ->select(
-                DB::raw('YEAR(created_at) as year'),
-                DB::raw('MONTH(created_at) as month'),
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
                 DB::raw('SUM(nilai) as total_nilai')
             )
             ->where('jenis_laporan', '=', 'REVENUE')
@@ -42,7 +42,7 @@ class RevenueController extends Controller
                 DB::raw('bulan as month'),
                 DB::raw('SUM(jumlah) as total_nilai')
             )
-            // ->where('jenis_laporan', '=', 'COGS')
+            ->where('jenis_laporan', '=', 'REVENUE')
             ->groupBy('tahun', 'bulan')
             ->orderBy('tahun', 'asc')
             ->orderBy('bulan', 'asc')
