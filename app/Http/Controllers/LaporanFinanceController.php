@@ -139,6 +139,7 @@ class LaporanFinanceController extends Controller
             'id_user' => $request->id_user,
             'kota' => $account->kota,
             'created_at' => Carbon::now(),
+       
             'tanggal' => $request->tanggal . '-01'
 
 
