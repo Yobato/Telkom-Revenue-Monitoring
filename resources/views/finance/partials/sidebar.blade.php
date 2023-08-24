@@ -11,10 +11,10 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="nav-item dropdown {{ $title==='Dashboard Finance' ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ $title==='KKP' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="bi bi-bar-chart-fill"></i><span>Dashboard</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ $title==='Dashboard Finance' ? ' active' : '' }}">
+                    <li class="{{ $title==='KKP' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('finance.dashboard.chart') }}">KKP Operasional</a>
                     </li>
                 </ul>

@@ -6,6 +6,7 @@ use App\Models\Target;
 use Illuminate\Http\Request;
 use App\Models\LaporanFinance;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class KkpController extends Controller
 {
@@ -47,13 +48,39 @@ class KkpController extends Controller
             ->orderBy('tahun', 'asc')
             ->orderBy('bulan', 'asc')
             ->get();
+        
+        $year1 = '2023';
+        $TotalRealisasiKKP = LaporanFinance::whereRaw("SUBSTRING_INDEX(tanggal, '-', 1) = ?", [$year1])
+            ->sum('nilai');
 
-        return view('admin.dashboard.kkp', [
-            "title" => "KKP",
-            "kkpData" => $kkpData,
-            'tahunData' => $tahunData,
-            // "revenueData" => $revenueData,
-            "targetData" => $targetData
-        ]);
+        $year2 = '2022';
+        $TotalRealisasiKKP2 = LaporanFinance::whereRaw("SUBSTRING_INDEX(tanggal, '-', 1) = ?", [$year2])
+            ->sum('nilai');
+
+        $kenaikanRealisasi = ($TotalRealisasiKKP - $TotalRealisasiKKP2)/$TotalRealisasiKKP2 * 100;
+
+        $account = Auth::guard('account')->user();
+        if ($account->role == "Finance") {
+            return view('finance.dashboard.chart', [
+                "title" => "KKP",
+                "kkpData" => $kkpData,
+                'tahunData' => $tahunData,
+                "TotalRealisasiKKP" => $TotalRealisasiKKP,
+                "kenaikanRealisasi" => $kenaikanRealisasi,
+                // "revenueData" => $revenueData,
+                "targetData" => $targetData
+            ]);
+        }
+        else{
+            return view('admin.dashboard.kkp', [
+                "title" => "KKP",
+                "kkpData" => $kkpData,
+                'tahunData' => $tahunData,
+                "TotalRealisasiKKP" => $TotalRealisasiKKP,
+                "kenaikanRealisasi" => $kenaikanRealisasi,
+                // "revenueData" => $revenueData,
+                "targetData" => $targetData
+            ]);
+        }
     }
 }
