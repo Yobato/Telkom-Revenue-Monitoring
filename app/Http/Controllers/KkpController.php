@@ -23,7 +23,7 @@ class KkpController extends Controller
             ->orderBy('month', 'asc')
             ->get();
 
-        $tahunData = Target::distinct()->get(['tahun']);
+        $tahunData = Target::distinct()->where('jenis_laporan', '=', 'KKP')->get(['tahun']);
 
         $targetData = DB::table('target')
             ->select(
