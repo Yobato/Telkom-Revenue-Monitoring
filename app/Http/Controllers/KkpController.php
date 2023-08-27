@@ -88,13 +88,10 @@ class KkpController extends Controller
         $TotalRealisasiKKP = LaporanFinance::whereYear("tanggal", [$newestYear])
             ->sum('nilai');
 
-        $lastYear = $newestYear;
+        $lastYear = $newestYear-1;
         $TotalRealisasiKKP2 = LaporanFinance::whereYear("tanggal", [$lastYear])
             ->sum('nilai');
 
-        // $TotalRealisasiKKP = 0;
-        // $TotalRealisasiKKP2 = 0;
-        
 
         if ($TotalRealisasiKKP2 != 0) {
             $kenaikanRealisasi = ($TotalRealisasiKKP - $TotalRealisasiKKP2) / $TotalRealisasiKKP2 * 100;

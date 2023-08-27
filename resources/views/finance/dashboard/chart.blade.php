@@ -36,7 +36,11 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
+                            @if($kenaikanRealisasi>0)
                             <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ $kenaikanRealisasi }}%</span>
+                            @else
+                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ $kenaikanRealisasi }}%</span>
+                            @endif
                             <span class="text-nowrap">Dari tahun lalu</span>
                         </p>
                     </div>
