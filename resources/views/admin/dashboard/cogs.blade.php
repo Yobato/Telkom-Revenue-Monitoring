@@ -20,7 +20,7 @@
             <div class="col-12 col-sm-12 ">
                 <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                        <h4>KKP Operasional</h4>
+                        <h4>Cost of Good Sold</h4>
                         <div class="filter d-flex ">
                             <label for="tahun" class="col-form-label mr-3">Filter </label>
                             <select class="form-control" name="tahun-filter" id="tahun-filter" style="border-radius: 8px">

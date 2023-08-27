@@ -12,9 +12,9 @@ class RevenueController extends Controller
 {
     //
     public function index()
-
     {
-        $tahunData = Target::distinct()->get(['tahun']); {
+
+            $tahunData = Target::distinct()->where('jenis_laporan', '=', 'REVENUE')->get(['tahun']);
             $commerceData = DB::table('laporan_commerce')
                 ->select(
                     DB::raw('YEAR(tanggal) as year'),
@@ -80,6 +80,5 @@ class RevenueController extends Controller
                     'tahunData' => $tahunData,
                 ]);
             }
-        }
     }
 }

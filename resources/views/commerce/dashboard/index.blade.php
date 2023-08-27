@@ -62,16 +62,16 @@
                             <table class="table-striped table">
                                 <tr>
                                 <th scope="col">No</th>
-                                    <th scope="col" class="w-50">ID Commerce</th>
-                                    <th scope="col" class="w-50">Nama Program</th>
-                                    <th scope="col" class="w-50">Kode Program</th>
-                                    <th scope="col" class="w-50">Jenis</th>
-                                    <th scope="col" class="w-50">Portofolio</th>
-                                    <th scope="col" class="w-50">Sub Grup Akun</th>
-                                    <th scope="col" class="w-50">Nilai</th>
-                                    <th scope="col" class="w-50">Keterangan</th>
-                                    <th scope="col" class="w-50">Created at</th>
-                                    <th scope="col" class="w-50">Updated at</th>
+                                    <th scope="col">ID Commerce</th>
+                                    <th scope="col">Nama Program</th>
+                                    <th scope="col">Kode Program</th>
+                                    <th scope="col">Jenis</th>
+                                    <th scope="col">Portofolio</th>
+                                    <th scope="col">Sub Grup Akun</th>
+                                    <th scope="col">Nilai</th>
+                                    <th scope="col">Keterangan</th>
+                                    <th scope="col">Created at</th>
+                                    <th scope="col">Updated at</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 <?php $i = 1 ?>

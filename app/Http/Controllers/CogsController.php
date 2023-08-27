@@ -35,7 +35,7 @@ class CogsController extends Controller
             ->orderBy('bulan', 'asc')
             ->get();
 
-        $tahunData = Target::distinct()->get(['tahun']);
+        $tahunData = Target::distinct()->where('jenis_laporan', '=', 'COGS')->get(['tahun']);
         return view('admin.dashboard.cogs', [
             "title" => "COGS",
             "commerceData" => $commerceData,

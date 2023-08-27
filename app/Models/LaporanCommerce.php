@@ -25,4 +25,5 @@ class LaporanCommerce extends Model
         'updated_at',
         'tanggal'
     ];
+    public $incrementing = false;
 }
