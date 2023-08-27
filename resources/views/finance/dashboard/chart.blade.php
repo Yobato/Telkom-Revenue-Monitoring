@@ -37,9 +37,9 @@
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
                             @if($kenaikanRealisasi>0)
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ $kenaikanRealisasi }}%</span>
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanRealisasi, 2, '.', '' )}}%</span>
                             @else
-                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ $kenaikanRealisasi }}%</span>
+                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanRealisasi, 2, '.', '') }}%</span>
                             @endif
                             <span class="text-nowrap">Dari tahun lalu</span>
                         </p>
