@@ -37,31 +37,59 @@ class KkpController extends Controller
             ->orderBy('bulan', 'asc')
             ->get();
 
-        $gapData = DB::table('target')
-            ->select(
-                DB::raw('target.tahun as year'),
-                DB::raw('target.bulan as month'),
-                DB::raw('SUM(target.jumlah) as total_target'),
-                DB::raw('COALESCE(SUM(laporan_finance.nilai), 0) as total_finance')
-            )
-            ->leftJoin('laporan_finance', function ($join) {
-                $join->on(DB::raw('YEAR(target.tahun)'), '=', DB::raw('YEAR(laporan_finance.created_at)'));
-                $join->on(DB::raw('MONTH(target.bulan)'), '=', DB::raw('MONTH(laporan_finance.created_at)'));
-            })
-            ->where('target.jenis_laporan', '=', 'KKP')
-            ->groupBy('target.tahun', 'target.bulan')
-            ->orderBy('target.tahun', 'asc')
-            ->orderBy('target.bulan', 'asc')
-            ->get();
 
-        // dd($gapData);
+        $monthMapping = [
+            'Januari' => 1,
+            'Februari' => 2,
+            'Maret' => 3,
+            'April' => 4,
+            'Mei' => 5,
+            'Juni' => 6,
+            'Juli' => 7,
+            'Agustus' => 8,
+            'September' => 9,
+            'Oktober' => 10,
+            'November' => 11,
+            'Desember' => 12,
+        ];
+
+        $targetGap = DB::table('target')
+            ->select(
+                DB::raw('tahun as year'),
+                DB::raw('bulan as month'),
+                DB::raw('SUM(jumlah) as total_nilai')
+            )
+            ->where('jenis_laporan', '=', 'KKP')
+            ->groupBy('tahun', 'bulan')
+            ->orderBy('tahun', 'asc')
+            ->orderBy('bulan', 'asc')
+            ->get()
+            ->map(function ($item) use ($monthMapping) {
+                $item->month = $monthMapping[$item->month];
+                return $item;
+            });
+
+        $gapData = [];
+
+        foreach ($kkpData as $kkpItem) {
+            foreach ($targetGap as $targetItem) {
+                if ($kkpItem->year == $targetItem->year && $kkpItem->month == $targetItem->month) {
+                    $gapData[] = [
+                        'year' => $kkpItem->year,
+                        'month' => $kkpItem->month,
+                        'gap' => $targetItem->total_nilai - $kkpItem->total_nilai,
+                    ];
+                    break;
+                }
+            }
+        }
         
-        $year1 = '2023';
-        $TotalRealisasiKKP = LaporanFinance::whereRaw("SUBSTRING_INDEX(tanggal, '-', 1) = ?", [$year1])
+        $newestYear = LaporanFinance::max(DB::raw('YEAR(tanggal)'));
+        $TotalRealisasiKKP = LaporanFinance::whereYear("tanggal", [$newestYear])
             ->sum('nilai');
 
-        $year2 = '2022';
-        $TotalRealisasiKKP2 = LaporanFinance::whereRaw("SUBSTRING_INDEX(tanggal, '-', 1) = ?", [$year2])
+        $lastYear = $newestYear;
+        $TotalRealisasiKKP2 = LaporanFinance::whereYear("tanggal", [$lastYear])
             ->sum('nilai');
 
         // $TotalRealisasiKKP = 0;

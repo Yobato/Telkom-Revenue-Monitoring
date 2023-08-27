@@ -134,8 +134,16 @@
             </div>
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between">
                         <h4>GAP</h4>
+                        <div class="filter d-flex ">
+                            <label for="tahun" class="col-form-label mr-3">Filter </label>
+                            <select class="form-control" name="tahun-filter-gap" id="tahun-filter-gap" style="border-radius: 8px">
+                                @foreach ($tahunData as $tahun)
+                                    <option value=<?= $tahun->tahun ?>>{{ $tahun->tahun }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div id= chartGAP>
@@ -401,17 +409,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <script>
     const gapData = {!! json_encode($gapData) !!};
-    // console.log(gapData)
     const monthNamesGap = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
 document.addEventListener("DOMContentLoaded", function() {
-    var dropdownGap = document.getElementById("tahun-filter");
+    var dropdownGap = document.getElementById("tahun-filter-gap");
     var selectedValueGap = dropdownGap.value;
 
     // Function to build or update the chart
     function updateChartGap() {
         if (selectedValueGap !== "") {
-            const filteredGapData = gapData.filter(item => item.year.toString() === selectedValueGap);
+            const filteredGapData = gapData.filter(item => item.year.toString() === selectedValueGap)
 
             const seriesDataGap = {};
             filteredGapData.forEach(item => {
@@ -420,7 +427,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (!seriesDataGap[year]) {
                     seriesDataGap[year] = new Array(12).fill(0);
                 }
-                seriesDataGap[year][month] += parseInt(item.total_nilai);
+                seriesDataGap[year][month] += parseInt(item.gap);
             });
 
             const realizationSeriesGap = Object.keys(seriesDataGap).map(year => {
@@ -450,7 +457,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 },
                 yAxis: {
-                    min: 0,
+                    // min: 0,
                     title: {
                         text: 'Total Nilai'
                     }
