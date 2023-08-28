@@ -12,7 +12,6 @@ class LaporanCommerce extends Model
     protected $primaryKey = "id_commerce";
     public $timestamps = false;
     protected $fillable = [
-        "id_commerce",
         'id_program',
         'kode_program',
         'nilai',

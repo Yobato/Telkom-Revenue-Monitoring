@@ -152,29 +152,17 @@ class LaporanCommerceController extends Controller
 
             DB::commit();
 
-            if ($account->role == "Commerce") {
-                return redirect()->intended(route('commerce.dashboard.index'))->with("success", "Berhasil menghapus Laporan Commerce");
-            } else if ($account->role == "Admin") {
-                // return redirect()->intended(route('admin.laporan_commerce'))->with("success", "Berhasil menghapus Laporan Commerce");
-            }
+            return redirect()->intended(route('commerce.dashboard.index'))->with("success", "Berhasil menghapus Laporan Commerce");  
         } catch (QueryException $e) {
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            if ($account->role == "Commerce") {
-                return redirect()->intended(route('commerce.dashboard.index'))->with("error", $e->getMessage());
-            } else if ($account->role == "Admin") {
-                // return redirect()->intended(route('admin.laporan_commerce'))->with("error", $e->getMessage());
-            }
+            return redirect()->intended(route('commerce.dashboard.index'))->with("error", $e->getMessage());
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            if ($account->role == "Commerce") {
-                return redirect()->intended(route('commerce.dashboard.index'))->with("error", $e->getMessage());
-            } else if ($account->role == "Admin") {
-                // return redirect()->intended(route('admin.laporan_commerce'))->with("error", $e->getMessage());
-            }
+            return redirect()->intended(route('commerce.dashboard.index'))->with("error", $e->getMessage());
         }
     }
 
