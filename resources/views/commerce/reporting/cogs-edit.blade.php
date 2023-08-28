@@ -9,7 +9,7 @@
                     {{-- ADD LAPORAN COMMERCE --}}
                     <div class="card-body d-flex justify-content-start" style="padding-bottom:0; margin-bottom:0;">
                         <div class="breadcrumb-item"><a href="{{ route('commerce.dashboard.index') }}">Laporan Commerce</a></div>
-                        <div class="breadcrumb-item active">Buat Laporan Commerce</div>
+                        <div class="breadcrumb-item active">Edit Laporan</div>
                     </div>
                     <div class="card-header" style="padding-bottom:0;">
                         <div class="col-12">
@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="px-5 pt-4" style="font-size: 140%"><b>Buat Laporan</b></div>
+                    <div class="px-5 pt-4" style="font-size: 140%"><b>Edit Laporan</b></div>
                     <div class="px-5 pt-2 pb-0">Sesuaikan data yang dibutuhkan dalam membuat laporan</div>
                     @foreach ($commerce as $laporan)
                     <form action="{{route('commerce.updateLaporanCommerce', [$id])}}" method="POST">
