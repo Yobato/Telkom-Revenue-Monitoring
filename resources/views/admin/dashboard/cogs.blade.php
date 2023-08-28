@@ -165,25 +165,6 @@
 @section('footer')
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
-    const kkpData = {!!json_encode($commerceData) !!};
-    const targetData = {!!json_encode($targetData) !!};
-    const lineData = {!!json_encode($commerceData) !!};
-    const monthNames = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-    const monthIndexMapping = {
-        'Januari': 0,
-        'Febuari': 1,
-        'Maret': 2,
-        'April': 3,
-        'Mei': 4,
-        'Juni': 5,
-        'Juli': 6,
-        'Agustus': 7,
-        'September': 8,
-        'Oktober': 9,
-        'November': 10,
-        'Desember': 11
-    };
-
     document.addEventListener("DOMContentLoaded", function () {
     const kkpData = {!! json_encode($commerceData) !!};
     const targetData = {!! json_encode($targetData) !!};
