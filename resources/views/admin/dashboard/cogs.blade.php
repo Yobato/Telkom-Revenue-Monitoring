@@ -11,11 +11,10 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Cost of Good Sold</h1>
+        <h1>Cost of Good Sold (COGS)</h1>
     </div>
 
     <div class="section-body">
-
         <div class="row">
             <div class="col-12 col-sm-12 ">
                 <div class="card">
@@ -25,7 +24,7 @@
                             <label for="tahun" class="col-form-label mr-3">Filter </label>
                             <select class="form-control" name="tahun-filter" id="tahun-filter" style="border-radius: 8px">
                                 @foreach ($tahunData as $tahun)
-                                    <option value=<?= $tahun->tahun ?>>{{ $tahun->tahun }}</option>
+                                <option value=<?= $tahun->tahun ?>>{{ $tahun->tahun }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -62,18 +61,28 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <h4>COGS</h4>
-                            <div class="filter d-flex ">
-                                <label for="tahun" class="col-form-label mr-3">Filter </label>
-                                <select class="form-control" name="tahun-filter" id="tahun-filter" style="border-radius: 8px">
-                                    @foreach ($tahunData as $tahun)
-                                    <option value=<?= $tahun->tahun ?>>{{ $tahun->tahun }}</option>
-                                    @endforeach
-                                </select>
+                            <h4>Perbandingan Tahun</h4>
+                            <div class="filter d-flex">
+                                <div class="mr-3">
+                                    <label for="tahun-filter-1" class="col-form-label">Filter 1:</label>
+                                    <select class="form-control" name="tahun-filter-1" id="tahun-filter-1" style="border-radius: 8px">
+                                        @foreach ($tahunData as $tahun)
+                                        <option value="{{ $tahun->tahun }}">{{ $tahun->tahun }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="tahun-filter-2" class="col-form-label">Filter 2:</label>
+                                    <select class="form-control" name="tahun-filter-2" id="tahun-filter-2" style="border-radius: 8px">
+                                        @foreach ($tahunData as $tahun)
+                                        <option value="{{ $tahun->tahun }}">{{ $tahun->tahun }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div id=chartCOGS>
+                            <div id=chartCOGS-Line>
                             </div>
                             <div class="card-body">
                                 <div class="statistic-details mt-1">
@@ -137,9 +146,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 </section>
 @endsection
-
 @push('scripts')
 <!-- JS Libraies -->
 <script src="{{ asset('assets/library/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
@@ -154,36 +164,28 @@
 @endpush
 @section('footer')
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
-
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
     const kkpData = {!! json_encode($commerceData) !!};
-    // console.log(kkpData)
     const targetData = {!! json_encode($targetData) !!};
-    const monthNames = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-
+    const lineData = {!! json_encode($commerceData) !!};
+    const monthNames = [
+        'Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
+        'September', 'Oktober', 'November', 'Desember'
+    ];
     const monthIndexMapping = {
-        'Januari': 0,
-        'Febuari': 1,
-        'Maret': 2,
-        'April': 3,
-        'Mei': 4,
-        'Juni': 5,
-        'Juli': 6,
-        'Agustus': 7,
-        'September': 8,
-        'Oktober': 9,
-        'November': 10,
+        'Januari': 0, 'Febuari': 1, 'Maret': 2, 'April': 3, 'Mei': 4, 'Juni': 5,
+        'Juli': 6, 'Agustus': 7, 'September': 8, 'Oktober': 9, 'November': 10,
         'Desember': 11
     };
 
-document.addEventListener("DOMContentLoaded", function() {
     var dropdown = document.getElementById("tahun-filter");
     var selectedValue = dropdown.value;
+    var dropdown1 = document.getElementById("tahun-filter-1");
+    var dropdown2 = document.getElementById("tahun-filter-2");
+    var selectedValue1 = dropdown1.value;
+    var selectedValue2 = dropdown2.value;
 
-    // Function to build or update the chart
     function updateChart() {
         if (selectedValue !== "") {
             const filteredKkpData = kkpData.filter(item => item.year.toString() === selectedValue);
@@ -200,7 +202,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             const targetSeries = Object.keys(seriesData).map(year => {
-                // ... kode untuk target series
                 const targetValues = new Array(12).fill(null);
                 targetData.forEach(item => {
                     if (item.year.toString() === year) {
@@ -215,7 +216,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             const realizationSeries = Object.keys(seriesData).map(year => {
-                // ... kode untuk realization series
                 return {
                     name: 'Realisasi ' + year,
                     data: seriesData[year]
@@ -225,7 +225,6 @@ document.addEventListener("DOMContentLoaded", function() {
             const categories = monthNames;
 
             Highcharts.chart('chartCOGS-Bar', {
-                // ... pengaturan chart
                 chart: {
                     type: 'column'
                 },
@@ -260,17 +259,94 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Initial call to updateChart on page load
+        function updateLineChart() {
+        const filteredLineData1 = lineData.filter(item => item.year.toString() === selectedValue1);
+        const filteredLineData2 = lineData.filter(item => item.year.toString() === selectedValue2);    
+        const seriesData1 = {}; 
+        const seriesData2 = {}; 
+
+        filteredLineData1.forEach(item => {
+        const year = item.year.toString();
+        const month = item.month - 1;
+        if (!seriesData1[year]) {
+            seriesData1[year] = new Array(12).fill(0);
+        }
+            seriesData1[year][month] += parseInt(item.total_nilai);
+        });
+
+        filteredLineData2.forEach(item => {
+            const year = item.year.toString();
+            const month = item.month - 1;
+            if (!seriesData2[year]) {
+                seriesData2[year] = new Array(12).fill(0);
+            }
+            seriesData2[year][month] += parseInt(item.total_nilai);
+        });
+
+        const realizationSeries1 = Object.keys(seriesData1).map(year => {
+            return {
+                name: 'Realisasi ' + year,
+                data: seriesData1[year]
+            };
+        });
+
+        const realizationSeries2 = Object.keys(seriesData2).map(year => {
+            return {
+                name: 'Realisasi ' + year,
+                data: seriesData2[year]
+            };
+        });
+
+        Highcharts.chart('chartCOGS-Line', {
+            chart: {
+                type: 'line'
+            },
+            
+            xAxis: {
+                categories: monthNames,
+                crosshair: true,
+                accessibility: {
+                    description: ''
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Total Nilai'
+                }
+            },
+            tooltip: {
+                valueSuffix: ''
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: true
+                }
+            },
+            series: [...realizationSeries1, ...realizationSeries2]
+        });
+    }
+
+    updateLineChart();
     updateChart();
 
-    dropdown.addEventListener("change", function() {
+    dropdown.addEventListener("change", function () {
         selectedValue = dropdown.value;
-        console.log("Nilai input tahun: " + selectedValue);
-        updateChart(); // Call the updateChart function to rebuild the chart
+        updateChart();
     });
 
-    // ...
-});
+    dropdown1.addEventListener("change", function () {
+        selectedValue1 = dropdown1.value;
+        updateLineChart();
+    });
 
+    dropdown2.addEventListener("change", function () {
+        selectedValue2 = dropdown2.value;
+        updateLineChart();
+        });
+});
 </script>
 @endsection

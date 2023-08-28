@@ -96,9 +96,9 @@
 
                                         <!-- {{-- <button class="btn btn-danger btn-sm rounded-0" type="button" data-confirm="Hapus Data?" >
                                         <i class="fa fa-trash"></i></button> --}} -->
-                                        <a class="btn btn-sm btn-danger rounded-0" style="color: white" data-toggle="modal" data-target="#deleteLaporanCommerceModal{{ $admins->pid_commerce }}"><i class="fa fa-trash"></i></a>
+                                        <a class="btn btn-sm btn-danger rounded-0" style="color: white" data-toggle="modal" data-target="#deleteLaporanCommerceModal{{ $admins->id_commerce }}"><i class="fa fa-trash"></i></a>
 
-                                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanCommerceModal{{ $admins->pid_commerce }}" data-backdrop="static">
+                                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanCommerceModal{{ $admins->id_commerce }}" data-backdrop="static">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
