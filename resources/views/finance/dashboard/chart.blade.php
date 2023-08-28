@@ -222,11 +222,29 @@
             </div>
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4>Line Chart Tahun</h4>
+                    <div class="card-header d-flex justify-content-between">
+                        <h4>Perbandingan Tahun</h4>
+                        <div class="filter d-flex">
+                            <div class="mr-3">
+                                <label for="kkp-tahun-filter-1" class="col-form-label">Filter 1:</label>
+                                <select class="form-control" name="kkp-tahun-filter-1" id="kkp-tahun-filter-1" style="border-radius: 8px">
+                                    @foreach ($tahunData as $tahun)
+                                    <option value="{{ $tahun->tahun }}">{{ $tahun->tahun }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <label for="kkp-tahun-filter-2" class="col-form-label">Filter 2:</label>
+                                <select class="form-control" name="kkp-tahun-filter-2" id="kkp-tahun-filter-2" style="border-radius: 8px">
+                                    @foreach ($tahunData as $tahun)
+                                    <option value="{{ $tahun->tahun }}">{{ $tahun->tahun }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
-                        <div id= linechart>
+                        <div id= chartKKP-Line>
                     </div>
                     <div class="card-body">
                         <div class="statistic-details mt-1">
@@ -294,11 +312,11 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 
 <script>
+
+    // ==== CHART KKP OPERASIONAL ====
     const kkpData = {!! json_encode($kkpData) !!};
-    // console.log(kkpData)
     const targetData = {!! json_encode($targetData) !!};
     const monthNames = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-
     const monthIndexMapping = {
         'Januari': 0,
         'Febuari': 1,
@@ -314,11 +332,29 @@
         'Desember': 11
     };
 
+    // ==== CHART GAP ====
+    const gapData = {!! json_encode($gapData) !!};
+
+    // ==== CHART LINE KKP ====
+    const lineKKPData = {!! json_encode($kkpData) !!};
+
 document.addEventListener("DOMContentLoaded", function() {
+
+    // ==== CHART KKP OPERASIONAL ====
     var dropdown = document.getElementById("tahun-filter");
     var selectedValue = dropdown.value;
 
-    // Function to build or update the chart
+    // ==== CHART GAP ====
+    var dropdownGap = document.getElementById("tahun-filter-gap");
+    var selectedValueGap = dropdownGap.value;
+
+    // ==== CHART LINE KKP ====
+    var dropdownTahunKKP1 = document.getElementById("kkp-tahun-filter-1");
+    var dropdownTahunKKP2 = document.getElementById("kkp-tahun-filter-2");
+    var selectedValueKKPLine1 = dropdownTahunKKP1.value;
+    var selectedValueKKPLine2 = dropdownTahunKKP2.value;
+
+    // ==== CHART KKP OPERASIONAL ====
     function updateChart() {
         if (selectedValue !== "") {
             const filteredKkpData = kkpData.filter(item => item.year.toString() === selectedValue);
@@ -395,31 +431,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Initial call to updateChart on page load
-    updateChart();
 
-    dropdown.addEventListener("change", function() {
-        selectedValue = dropdown.value;
-        console.log("Nilai input tahun: " + selectedValue);
-        updateChart(); // Call the updateChart function to rebuild the chart
-    });
-
-    // ...
-});
-
-
-
-</script>
-
-<script>
-    const gapData = {!! json_encode($gapData) !!};
-    const monthNamesGap = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-
-document.addEventListener("DOMContentLoaded", function() {
-    var dropdownGap = document.getElementById("tahun-filter-gap");
-    var selectedValueGap = dropdownGap.value;
-
-    // Function to build or update the chart
+    // ==== CHART GAP ====
     function updateChartGap() {
         if (selectedValueGap !== "") {
             const filteredGapData = gapData.filter(item => item.year.toString() === selectedValueGap)
@@ -442,7 +455,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 };
             });
 
-            const categories = monthNamesGap;
+            const categories = monthNames;
 
             Highcharts.chart('chartGAP', {
                 // ... pengaturan chart
@@ -480,8 +493,95 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Initial call to updateChartGap on page load
+
+    function updateLineChart() {
+        const filteredDataLineKKP1 = lineKKPData.filter(item => item.year.toString() === selectedValueKKPLine1);
+        const filteredDataLineKKP2 = lineKKPData.filter(item => item.year.toString() === selectedValueKKPLine2);    
+        const seriesDataKKP1 = {}; 
+        const seriesDataKKP2 = {}; 
+
+        filteredDataLineKKP1.forEach(item => {
+        const year = item.year.toString();
+        const month = item.month - 1;
+        if (!seriesDataKKP1[year]) {
+            seriesDataKKP1[year] = new Array(12).fill(0);
+        }
+            seriesDataKKP1[year][month] += parseInt(item.total_nilai);
+        });
+
+        filteredDataLineKKP2.forEach(item => {
+            const year = item.year.toString();
+            const month = item.month - 1;
+            if (!seriesDataKKP2[year]) {
+                seriesDataKKP2[year] = new Array(12).fill(0);
+            }
+            seriesDataKKP2[year][month] += parseInt(item.total_nilai);
+        });
+
+        const realizationSeriesKKPLine1 = Object.keys(seriesDataKKP1).map(year => {
+            return {
+                name: 'Realisasi ' + year,
+                data: seriesDataKKP1[year]
+            };
+        });
+
+        const realizationSeriesKKPLine2 = Object.keys(seriesDataKKP2).map(year => {
+            return {
+                name: 'Realisasi ' + year,
+                data: seriesDataKKP2[year]
+            };
+        });
+
+        Highcharts.chart('chartKKP-Line', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: '',
+                align: 'left'
+            },
+            xAxis: {
+                categories: monthNames,
+                crosshair: true,
+                accessibility: {
+                    description: ''
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Total Nilai'
+                }
+            },
+            tooltip: {
+                valueSuffix: ''
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: true
+                }
+            },
+            series: [...realizationSeriesKKPLine1, ...realizationSeriesKKPLine2]
+        });
+    }
+
+    // ==== CHART KKP OPERASIONAL ====
+    updateChart();
+
+    // ==== CHART GAP ====
     updateChartGap();
+
+    // ==== CHART LINE KKP ====
+    updateLineChart();
+
+    dropdown.addEventListener("change", function() {
+        selectedValue = dropdown.value;
+        console.log("Nilai input tahun: " + selectedValue);
+        updateChart(); // Call the updateChart function to rebuild the chart
+    });
 
     dropdownGap.addEventListener("change", function() {
         selectedValueGap = dropdownGap.value;
@@ -489,72 +589,19 @@ document.addEventListener("DOMContentLoaded", function() {
         updateChartGap(); // Call the updateChartGap function to rebuild the chart
     });
 
+    dropdownTahunKKP1.addEventListener("change", function () {
+        selectedValueKKPLine1 = dropdownTahunKKP1.value;
+        updateLineChart();
+    });
+
+    dropdownTahunKKP2.addEventListener("change", function () {
+        selectedValueKKPLine2 = dropdownTahunKKP2.value;
+        updateLineChart();
+        });
     // ...
 });
 
 
-
-</script>
-
-<script>
-    // Data retrieved https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature
-    Highcharts.chart('linechart', {
-        chart: {
-            type: 'spline'
-        },
-        title: {
-            text: 'Line Chart Compare Tahun'
-        },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            categories: ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 
-            'Agustus', 'September', 'Oktober', 'November', 'Desember'],
-            accessibility: {
-                description: 'Months of the year'
-            }
-        },
-        yAxis: {
-            title: {
-                text: 'Revenue'
-            },
-            
-        },
-        tooltip: {
-            crosshairs: true,
-            shared: true
-        },
-        plotOptions: {
-            spline: {
-                marker: {
-                    radius: 4,
-                    lineColor: '#666666',
-                    lineWidth: 1
-                }
-            }
-        },
-        series: [{
-            name: '2022',
-            marker: {
-                symbol: 'square'
-            },
-            data: [5.2, 5.7, 8.7, 13.9, 18.2, 21.4, 25.0, {
-                y: 26.4,
-                
-            }, 22.8, 17.5, 12.1, 7.6]
-
-        }, {
-            name: '2021',
-            marker: {
-                symbol: 'diamond'
-            },
-            data: [{
-                y: 1.5,
-                
-            }, 1.6, 3.3, 5.9, 10.5, 13.5, 14.5, 14.4, 11.5, 8.7, 4.7, 2.6]
-        }]
-    });
 
 </script>
 @endsection

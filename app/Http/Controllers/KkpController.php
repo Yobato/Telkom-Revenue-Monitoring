@@ -12,6 +12,8 @@ class KkpController extends Controller
 {
     public function index()
     {
+
+        //======== CHART REALISASI KKP OPERASIONAL ==========
         $kkpData = DB::table('laporan_finance')
             ->select(
                 DB::raw('YEAR(tanggal) as year'),
@@ -24,7 +26,8 @@ class KkpController extends Controller
             ->get();
 
         $tahunData = Target::distinct()->where('jenis_laporan', '=', 'KKP')->get(['tahun']);
-
+        
+        //======== CHART TARGET KKP OPERASIONAL ==========
         $targetData = DB::table('target')
             ->select(
                 DB::raw('tahun as year'),
@@ -37,7 +40,7 @@ class KkpController extends Controller
             ->orderBy('bulan', 'asc')
             ->get();
 
-
+        //======== CHART GAP KKP OPERASIONAL ==========
         $monthMapping = [
             'Januari' => 1,
             'Februari' => 2,
@@ -84,6 +87,7 @@ class KkpController extends Controller
             }
         }
         
+        //======== CARD STATISTIC ==========
         $newestYear = LaporanFinance::max(DB::raw('YEAR(tanggal)'));
         $TotalRealisasiKKP = LaporanFinance::whereYear("tanggal", [$newestYear])
             ->sum('nilai');
