@@ -86,6 +86,10 @@ class KkpController extends Controller
                 }
             }
         }
+
+        // $gapSum = array_sum(array_column($gapData, "gap"));
+        
+        // dd($gapSum);
         
         //======== CARD STATISTIC ==========
         $newestYear = LaporanFinance::max(DB::raw('YEAR(tanggal)'));
@@ -103,6 +107,43 @@ class KkpController extends Controller
             $kenaikanRealisasi = 0;
         }
 
+        $TotalTarget1 = Target::where("tahun", [$newestYear])->where('jenis_laporan', '=', 'KKP')
+            ->sum('jumlah');
+
+        $TotalTarget2 = Target::where("tahun", [$lastYear])->where('jenis_laporan', '=', 'KKP')
+            ->sum('jumlah');
+
+        if ($TotalTarget2 != 0) {
+            $kenaikanTarget = ($TotalTarget1 - $TotalTarget2) / $TotalTarget2 * 100;
+        } else {
+            $kenaikanTarget = 0;
+        }
+
+        $gapSum1 = 0;
+        $gapSum2 = 0;
+
+        foreach ($gapData as $data) {
+            if ($data["year"] === $newestYear) {
+                $gapSum1 += $data["gap"];
+            }
+        }
+
+        foreach ($gapData as $data) {
+            if ($data["year"] === $lastYear) {
+                $gapSum2 += $data["gap"];
+            }
+        }
+
+        if ($gapSum2 != 0) {
+            $kenaikanGap = ($gapSum1 - $gapSum2) / $gapSum2 * 100;
+        } else {
+            $kenaikanGap = 0;
+        }
+
+        // dd($gapSum2);
+
+        // dd($kenaikanGap);
+
         $account = Auth::guard('account')->user();
         if ($account->role == "Finance") {
             return view('finance.dashboard.chart', [
@@ -112,6 +153,10 @@ class KkpController extends Controller
                 "TotalRealisasiKKP" => $TotalRealisasiKKP,
                 "kenaikanRealisasi" => $kenaikanRealisasi,
                 "gapData" => $gapData,
+                "TotalTarget1" => $TotalTarget1,
+                "kenaikanTarget" => $kenaikanTarget,
+                "gapSum1" => $gapSum1,
+                "kenaikanGap" => $kenaikanGap,
                 // "revenueData" => $revenueData,
                 "targetData" => $targetData
             ]);
