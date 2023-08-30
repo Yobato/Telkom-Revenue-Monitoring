@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Target;
+use App\Models\UserReco;
 use Illuminate\Http\Request;
 use App\Models\LaporanFinance;
 use Illuminate\Support\Facades\DB;
@@ -86,12 +87,10 @@ class KkpController extends Controller
                 }
             }
         }
-
-        // $gapSum = array_sum(array_column($gapData, "gap"));
-        
-        // dd($gapSum);
         
         //======== CARD STATISTIC ==========
+
+        //======== STATISTIC TOTAL REALISASI ==========
         $newestYear = LaporanFinance::max(DB::raw('YEAR(tanggal)'));
         $TotalRealisasiKKP = LaporanFinance::whereYear("tanggal", [$newestYear])
             ->sum('nilai');
@@ -107,6 +106,7 @@ class KkpController extends Controller
             $kenaikanRealisasi = 0;
         }
 
+        //======== STATISTIC TOTAL TARGET ==========
         $TotalTarget1 = Target::where("tahun", [$newestYear])->where('jenis_laporan', '=', 'KKP')
             ->sum('jumlah');
 
@@ -119,6 +119,7 @@ class KkpController extends Controller
             $kenaikanTarget = 0;
         }
 
+        //======== STATISTIC TOTAL GAP ==========
         $gapSum1 = 0;
         $gapSum2 = 0;
 
@@ -140,9 +141,52 @@ class KkpController extends Controller
             $kenaikanGap = 0;
         }
 
-        // dd($gapSum2);
+        //======== STATISTIC TOP USER ==========
+        $userData = DB::table('laporan_finance')
+        ->select(
+            'id_user',
+            DB::raw('YEAR(tanggal) as year'),
+            DB::raw('MONTH(tanggal) as month'),
+            DB::raw('SUM(nilai) as total_nilai')
+        )
+        ->groupBy('id_user', 'year', 'month')
+        ->orderBy('year', 'asc')
+        ->orderBy('month', 'asc')
+        ->get();
+        
+        $gapUser = [];
 
-        // dd($kenaikanGap);
+        foreach ($userData as $userItem) {
+            foreach ($targetGap as $targetItem) {
+                if ($userItem->year == $targetItem->year && $userItem->month == $targetItem->month) {
+                    $gapUser[] = [
+                        'user' => $userItem->id_user,
+                        'year' => $userItem->year,
+                        'month' => $userItem->month,
+                        'gap' => $targetItem->total_nilai - $userItem->total_nilai,
+                    ];
+                    break;
+                }
+            }
+        }
+      
+        $collection = collect($gapUser);
+
+        $smallestGapUser = $collection->groupBy('user')->map(function ($userEntries, $userId) {
+            if ($userEntries->isEmpty()) {
+                return null; // Tidak ada data gap untuk user ini
+            }
+            
+            $smallestGapEntry = $userEntries->sortBy('gap')->first();
+            return [
+                'user' => $userId,
+                'gap' => $smallestGapEntry['gap'],
+            ];
+        })->filter()->sortBy('gap')->first(); // Menggunakan filter() untuk menghapus nilai null
+        
+        $TopUser = UserReco::find($smallestGapUser['user']);
+        $TopKKP = $TopUser->nama_user_reco;
+
 
         $account = Auth::guard('account')->user();
         if ($account->role == "Finance") {
@@ -157,7 +201,8 @@ class KkpController extends Controller
                 "kenaikanTarget" => $kenaikanTarget,
                 "gapSum1" => $gapSum1,
                 "kenaikanGap" => $kenaikanGap,
-                // "revenueData" => $revenueData,
+                "TopKKP" => $TopKKP,
+                "GapTop" => $smallestGapUser['gap'],
                 "targetData" => $targetData
             ]);
         }
@@ -169,7 +214,6 @@ class KkpController extends Controller
                 "TotalRealisasiKKP" => $TotalRealisasiKKP,
                 "kenaikanRealisasi" => $kenaikanRealisasi,
                 "gapData" => $gapData,
-                // "revenueData" => $revenueData,
                 "targetData" => $targetData
             ]);
         }
