@@ -18,7 +18,7 @@
 
     <div class="section-body">
         <div class="row mb-4 d-flex justify-content-between">
-            <div class="col-xl-4 col-lg-6">
+            <div class="col-xl-3 col-lg-6">
                 <div class="card card-stats mb-4 mb-xl-0">
                     <div class="card-body">
                         <div class="row">
@@ -46,34 +46,65 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-6">
+            <div class="col-xl-3 col-lg-6">
                 <div class="card card-stats mb-4 mb-xl-0">
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                                <span class="h2 font-weight-bold mb-0">2,356</span>
+                                <h5 class="card-title text-uppercase text-muted mb-0">Total Target</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ number_format($TotalTarget1), 2, ',', '.'}}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
                                     <i class="fas fa-chart-pie"></i>
+                                    {{-- <i class="fa-regular fa-list-check fa-xl"></i> --}}
+                                    {{-- <i class="fa-regular fa-bullseye fa-lg"></i> --}}
                                 </div>
                             </div>
                         </div>
                     <p class="mt-3 mb-0 text-muted text-sm">
-                        <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                        <span class="text-nowrap">Since last week</span>
+                        @if($kenaikanTarget>0)
+                        <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanTarget, 2, '.', '' )}}%</span>
+                        @else
+                        <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanTarget, 2, '.', '') }}%</span>
+                        @endif
+                        <span class="text-nowrap">Dari tahun lalu</span>
                     </p>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-6">
+            <div class="col-xl-3 col-lg-6">
                 <div class="card card-stats mb-4 mb-xl-0">
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                                <span class="h2 font-weight-bold mb-0">924</span>
+                                <h5 class="card-title text-uppercase text-muted mb-0"> Total GAP</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ number_format($gapSum1), 2, ',', '.'}}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape text-white rounded-circle shadow" style="background-color: #6f42c1">
+                                    <i class="fas fa-percent"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-3 mb-0 text-muted text-sm">
+                            @if($kenaikanGap>0)
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanGap, 2, '.', '' )}}%</span>
+                            @else
+                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanGap, 2, '.', '') }}%</span>
+                            @endif
+                            <span class="text-nowrap">Dari tahun lalu</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+                <div class="card card-stats mb-4 mb-xl-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Top KKP</h5>
+                                <span class="h2 font-weight-bold mb-0">Provisioning</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -82,8 +113,11 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
-                            <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                            <span class="text-nowrap">Since yesterday</span>
+                            <span class="text-success mr-2">
+                                {{-- <i class="fas fa-arrow-down"></i> --}}
+                                10 User
+                            </span>
+                            <span class="text-nowrap">Membuat laporan dengan gap terendah</span>
                         </p>
                     </div>
                 </div>
@@ -93,7 +127,7 @@
             <div class="col-12 col-sm-12 ">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h4>KKP Operasional</h4>
+                        <h4 style="color:#525358; font-weight:bold">KKP Operasional</h4>
                         <div class="filter d-flex ">
                             <label for="tahun" class="col-form-label mr-3">Filter </label>
                             <select class="form-control" name="tahun-filter" id="tahun-filter" style="border-radius: 8px">
@@ -106,40 +140,12 @@
                     <div class="card-body">
                         <div id= chartKKP>
                     </div>
-                    <div class="card-body">
-                        <div class="statistic-details mt-1">
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 7%</div>
-                                <div class="detail-value">$243</div>
-                                <div class="detail-name">Today</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-danger"><i
-                                            class="fas fa-caret-down"></i></span> 23%</div>
-                                <div class="detail-value">$2,902</div>
-                                <div class="detail-name">This Week</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span>9%</div>
-                                <div class="detail-value">$12,821</div>
-                                <div class="detail-name">This Month</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 19%</div>
-                                <div class="detail-value">$92,142</div>
-                                <div class="detail-name">This Year</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h4>GAP</h4>
+                        <h4 style="color:#525358; font-weight:bold">GAP</h4>
                         <div class="filter d-flex ">
                             <label for="tahun" class="col-form-label mr-3">Filter </label>
                             <select class="form-control" name="tahun-filter-gap" id="tahun-filter-gap" style="border-radius: 8px">
@@ -152,78 +158,12 @@
                     <div class="card-body">
                         <div id= chartGAP>
                     </div>
-                    <div class="card-body">
-                        <div class="statistic-details mt-1">
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 7%</div>
-                                <div class="detail-value">$243</div>
-                                <div class="detail-name">Today</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-danger"><i
-                                            class="fas fa-caret-down"></i></span> 23%</div>
-                                <div class="detail-value">$2,902</div>
-                                <div class="detail-name">This Week</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span>9%</div>
-                                <div class="detail-value">$12,821</div>
-                                <div class="detail-name">This Month</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 19%</div>
-                                <div class="detail-value">$92,142</div>
-                                <div class="detail-name">This Year</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Percentage</h4>
-                    </div>
-                    <div class="card-body">
-                        <div id= percentage>
-                    </div>
-                    <div class="card-body">
-                        <div class="statistic-details mt-1">
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 7%</div>
-                                <div class="detail-value">$243</div>
-                                <div class="detail-name">Today</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-danger"><i
-                                            class="fas fa-caret-down"></i></span> 23%</div>
-                                <div class="detail-value">$2,902</div>
-                                <div class="detail-name">This Week</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span>9%</div>
-                                <div class="detail-value">$12,821</div>
-                                <div class="detail-name">This Month</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 19%</div>
-                                <div class="detail-value">$92,142</div>
-                                <div class="detail-name">This Year</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h4>Perbandingan Tahun</h4>
+                        <h4 style="color:#525358; font-weight:bold">Perbandingan Tahun</h4>
                         <div class="filter d-flex">
                             <div class="mr-3">
                                 <label for="kkp-tahun-filter-1" class="col-form-label">Filter 1:</label>
@@ -245,34 +185,6 @@
                     </div>
                     <div class="card-body">
                         <div id= chartKKP-Line>
-                    </div>
-                    <div class="card-body">
-                        <div class="statistic-details mt-1">
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 7%</div>
-                                <div class="detail-value">$243</div>
-                                <div class="detail-name">Today</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-danger"><i
-                                            class="fas fa-caret-down"></i></span> 23%</div>
-                                <div class="detail-value">$2,902</div>
-                                <div class="detail-name">This Week</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span>9%</div>
-                                <div class="detail-value">$12,821</div>
-                                <div class="detail-name">This Month</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 19%</div>
-                                <div class="detail-value">$92,142</div>
-                                <div class="detail-name">This Year</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -334,6 +246,7 @@
 
     // ==== CHART GAP ====
     const gapData = {!! json_encode($gapData) !!};
+    console.log("INI GAP DATA BOS", gapData)
 
     // ==== CHART LINE KKP ====
     const lineKKPData = {!! json_encode($kkpData) !!};
@@ -455,12 +368,28 @@ document.addEventListener("DOMContentLoaded", function() {
                 };
             });
 
+            console.log("realizationSeriesGap",realizationSeriesGap)
+
+            const newRealizationSeriesGap = realizationSeriesGap.map(item => ({
+                name: item.name,
+                data: item.data,
+                zones: [
+                    {
+                        value: 0,
+                        color: 'red'
+                    },
+                    {
+                        color: 'green'
+                    },
+                ]
+            }))
+
             const categories = monthNames;
 
             Highcharts.chart('chartGAP', {
                 // ... pengaturan chart
                 chart: {
-                    type: 'column'
+                    type: 'line'
                 },
                 title: {
                     text: '',
@@ -488,7 +417,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         borderWidth: 0
                     }
                 },
-                series: [ ...realizationSeriesGap]
+                series: [...newRealizationSeriesGap]
             });
         }
     }
