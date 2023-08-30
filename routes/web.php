@@ -88,7 +88,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         // Route::get('/admin', function () {
         //     return view('admin.dashboard.gpm');
         // })->name('admin-index');
-        Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
+        Route::get('/admin', [App\Http\Controllers\GpmController::class, 'index'])->name('admin.dashboard');
 
 
         Route::get('/commerce-management', function () {
@@ -110,7 +110,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/admin-cogs', [App\Http\Controllers\CogsController::class, 'index'])->name('admin-cogs');
         Route::get('/admin-revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('admin-revenue');
         Route::get('/admin-kkp', [App\Http\Controllers\KkpController::class, 'index'])->name('admin-kkp');
-        Route::get('/admin-gpm', [App\Http\Controllers\GpmController::class, 'index'])->name('admin-gpm');
+        // Route::get('/admin-gpm', [App\Http\Controllers\GpmController::class, 'index'])->name('admin-gpm');
 
         // ------------- ADMIN ------------- 
         Route::get('/city', [App\Http\Controllers\CityController::class, 'index'])->name('admin.dashboard.city');
