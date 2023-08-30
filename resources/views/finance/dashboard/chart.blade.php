@@ -18,55 +18,93 @@
 
     <div class="section-body">
         <div class="row mb-4 d-flex justify-content-between">
-            <div class="col-xl-4 col-lg-6">
+            <div class="col-xl-3 col-lg-6">
                 <div class="card card-stats mb-4 mb-xl-0">
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                                <span class="h2 font-weight-bold mb-0">350,897</span>
+                                <h5 class="card-title text-uppercase text-muted mb-0">Total Realisasi</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ number_format($TotalRealisasiKKP), 2, ',', '.'}}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                    <i class="fas fa-chart-bar"></i>
+                                    <i class="fa-solid fa-rupiah-sign"></i>
+                                    <i class="fa-solid fa-arrow-trend-up" style="height: 0.5em"></i>
+                                    {{-- <i class="fas fa-chart-bar"></i> --}}
+
                                 </div>
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                            <span class="text-nowrap">Since last month</span>
+                            @if($kenaikanRealisasi>0)
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanRealisasi, 2, '.', '' )}}%</span>
+                            @else
+                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanRealisasi, 2, '.', '') }}%</span>
+                            @endif
+                            <span class="text-nowrap">Dari tahun lalu</span>
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-6">
+            <div class="col-xl-3 col-lg-6">
                 <div class="card card-stats mb-4 mb-xl-0">
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                                <span class="h2 font-weight-bold mb-0">2,356</span>
+                                <h5 class="card-title text-uppercase text-muted mb-0">Total Target</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ number_format($TotalTarget1), 2, ',', '.'}}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
                                     <i class="fas fa-chart-pie"></i>
+                                    {{-- <i class="fa-regular fa-list-check fa-xl"></i> --}}
+                                    {{-- <i class="fa-regular fa-bullseye fa-lg"></i> --}}
                                 </div>
                             </div>
                         </div>
                     <p class="mt-3 mb-0 text-muted text-sm">
-                        <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                        <span class="text-nowrap">Since last week</span>
+                        @if($kenaikanTarget>0)
+                        <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanTarget, 2, '.', '' )}}%</span>
+                        @else
+                        <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanTarget, 2, '.', '') }}%</span>
+                        @endif
+                        <span class="text-nowrap">Dari tahun lalu</span>
                     </p>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-6">
+            <div class="col-xl-3 col-lg-6">
                 <div class="card card-stats mb-4 mb-xl-0">
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                                <span class="h2 font-weight-bold mb-0">924</span>
+                                <h5 class="card-title text-uppercase text-muted mb-0"> Total GAP</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ number_format($gapSum1), 2, ',', '.'}}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape text-white rounded-circle shadow" style="background-color: #6f42c1">
+                                    <i class="fas fa-percent"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-3 mb-0 text-muted text-sm">
+                            @if($kenaikanGap>0)
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanGap, 2, '.', '' )}}%</span>
+                            @else
+                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanGap, 2, '.', '') }}%</span>
+                            @endif
+                            <span class="text-nowrap">Dari tahun lalu</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+                <div class="card card-stats mb-4 mb-xl-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Top KKP</h5>
+                                <span class="h2 font-weight-bold mb-0">Provisioning</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -75,124 +113,78 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
-                            <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                            <span class="text-nowrap">Since yesterday</span>
+                            <span class="text-success mr-2">
+                                {{-- <i class="fas fa-arrow-down"></i> --}}
+                                10 User
+                            </span>
+                            <span class="text-nowrap">Membuat laporan dengan gap terendah</span>
                         </p>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
             <div class="col-12 col-sm-12 ">
                 <div class="card">
-                    <div class="card-header">
-                        <h4>KKP Operasional</h4>
+                    <div class="card-header d-flex justify-content-between">
+                        <h4 style="color:#525358; font-weight:bold">KKP Operasional</h4>
+                        <div class="filter d-flex ">
+                            <label for="tahun" class="col-form-label mr-3">Filter </label>
+                            <select class="form-control" name="tahun-filter" id="tahun-filter" style="border-radius: 8px">
+                                @foreach ($tahunData as $tahun)
+                                    <option value=<?= $tahun->tahun ?>>{{ $tahun->tahun }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div id= chartKKP>
                     </div>
-                    <div class="card-body">
-                        <div class="statistic-details mt-1">
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 7%</div>
-                                <div class="detail-value">$243</div>
-                                <div class="detail-name">Today</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-danger"><i
-                                            class="fas fa-caret-down"></i></span> 23%</div>
-                                <div class="detail-value">$2,902</div>
-                                <div class="detail-name">This Week</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span>9%</div>
-                                <div class="detail-value">$12,821</div>
-                                <div class="detail-name">This Month</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 19%</div>
-                                <div class="detail-value">$92,142</div>
-                                <div class="detail-name">This Year</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4>GAP</h4>
+                    <div class="card-header d-flex justify-content-between">
+                        <h4 style="color:#525358; font-weight:bold">GAP</h4>
+                        <div class="filter d-flex ">
+                            <label for="tahun" class="col-form-label mr-3">Filter </label>
+                            <select class="form-control" name="tahun-filter-gap" id="tahun-filter-gap" style="border-radius: 8px">
+                                @foreach ($tahunData as $tahun)
+                                    <option value=<?= $tahun->tahun ?>>{{ $tahun->tahun }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div id= chartGAP>
                     </div>
-                    <div class="card-body">
-                        <div class="statistic-details mt-1">
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 7%</div>
-                                <div class="detail-value">$243</div>
-                                <div class="detail-name">Today</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-danger"><i
-                                            class="fas fa-caret-down"></i></span> 23%</div>
-                                <div class="detail-value">$2,902</div>
-                                <div class="detail-name">This Week</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span>9%</div>
-                                <div class="detail-value">$12,821</div>
-                                <div class="detail-name">This Month</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 19%</div>
-                                <div class="detail-value">$92,142</div>
-                                <div class="detail-name">This Year</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4>Percentage</h4>
-                    </div>
-                    <div class="card-body">
-                        <div id= percentage>
-                    </div>
-                    <div class="card-body">
-                        <div class="statistic-details mt-1">
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 7%</div>
-                                <div class="detail-value">$243</div>
-                                <div class="detail-name">Today</div>
+                    <div class="card-header d-flex justify-content-between">
+                        <h4 style="color:#525358; font-weight:bold">Perbandingan Tahun</h4>
+                        <div class="filter d-flex">
+                            <div class="mr-3">
+                                <label for="kkp-tahun-filter-1" class="col-form-label">Filter 1:</label>
+                                <select class="form-control" name="kkp-tahun-filter-1" id="kkp-tahun-filter-1" style="border-radius: 8px">
+                                    @foreach ($tahunData as $tahun)
+                                    <option value="{{ $tahun->tahun }}">{{ $tahun->tahun }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-danger"><i
-                                            class="fas fa-caret-down"></i></span> 23%</div>
-                                <div class="detail-value">$2,902</div>
-                                <div class="detail-name">This Week</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span>9%</div>
-                                <div class="detail-value">$12,821</div>
-                                <div class="detail-name">This Month</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <div class="text-small text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 19%</div>
-                                <div class="detail-value">$92,142</div>
-                                <div class="detail-name">This Year</div>
+                            <div>
+                                <label for="kkp-tahun-filter-2" class="col-form-label">Filter 2:</label>
+                                <select class="form-control" name="kkp-tahun-filter-2" id="kkp-tahun-filter-2" style="border-radius: 8px">
+                                    @foreach ($tahunData as $tahun)
+                                    <option value="{{ $tahun->tahun }}">{{ $tahun->tahun }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="card-body">
+                        <div id= chartKKP-Line>
                     </div>
                 </div>
             </div>
@@ -223,183 +215,322 @@
     <script src="{{ asset('assets/library/jqvmap/dist/jquery.vmap.min.js') }}"></script>
     <script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
     <script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.indonesia.js') }}"></script>
+    
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('assets/js/page/components-statistic.js') }}"></script>
 @endpush
 @section('footer')
 <script src="https://code.highcharts.com/highcharts.js"></script>
+
 <script>
-    const chart = Highcharts.chart('chartKKP', {
 
-        chart: {
-            type: 'column'
-        },
+    // ==== CHART KKP OPERASIONAL ====
+    const kkpData = {!! json_encode($kkpData) !!};
+    const targetData = {!! json_encode($targetData) !!};
+    const monthNames = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    const monthIndexMapping = {
+        'Januari': 0,
+        'Febuari': 1,
+        'Maret': 2,
+        'April': 3,
+        'Mei': 4,
+        'Juni': 5,
+        'Juli': 6,
+        'Agustus': 7,
+        'September': 8,
+        'Oktober': 9,
+        'November': 10,
+        'Desember': 11
+    };
 
-        title: {
-            text: 'Target & Realization'
-        },
+    // ==== CHART GAP ====
+    const gapData = {!! json_encode($gapData) !!};
+    console.log("INI GAP DATA BOS", gapData)
 
-        subtitle: {
-            text: ''
-        },
+    // ==== CHART LINE KKP ====
+    const lineKKPData = {!! json_encode($kkpData) !!};
 
-        legend: {
-            align: 'right',
-            verticalAlign: 'middle',
-            layout: 'vertical'
-        },
+document.addEventListener("DOMContentLoaded", function() {
 
-        xAxis: {
-            categories: ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 
-            'Agustus', 'September', 'Oktober', 'November', 'Desember'],
-            labels: {
-                x: -10
-            }
-        },
+    // ==== CHART KKP OPERASIONAL ====
+    var dropdown = document.getElementById("tahun-filter");
+    var selectedValue = dropdown.value;
 
-        yAxis: {
-            allowDecimals: false,
-            title: {
-                text: 'Amount'
-            }
-        },
+    // ==== CHART GAP ====
+    var dropdownGap = document.getElementById("tahun-filter-gap");
+    var selectedValueGap = dropdownGap.value;
 
-        series: [{
-            name: 'Target',
-            data: [38, 51, 34, 31, 32, 34, 35, 33, 49, 50, 46, 43]
-        },  {
-            name: 'Realisasi',
-            data: [38, 42, 41, 42, 41, 44, 43, 34, 51, 51, 44, 41]
-        }],
+    // ==== CHART LINE KKP ====
+    var dropdownTahunKKP1 = document.getElementById("kkp-tahun-filter-1");
+    var dropdownTahunKKP2 = document.getElementById("kkp-tahun-filter-2");
+    var selectedValueKKPLine1 = dropdownTahunKKP1.value;
+    var selectedValueKKPLine2 = dropdownTahunKKP2.value;
 
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        align: 'center',
-                        verticalAlign: 'bottom',
-                        layout: 'horizontal'
-                    },
-                    yAxis: {
-                        labels: {
-                            align: 'left',
-                            x: 0,
-                            y: -5
-                        },
-                        title: {
-                            text: null
-                        }
-                    },
-                    subtitle: {
-                        text: null
-                    },
-                    credits: {
-                        enabled: false
-                    }
+    // ==== CHART KKP OPERASIONAL ====
+    function updateChart() {
+        if (selectedValue !== "") {
+            const filteredKkpData = kkpData.filter(item => item.year.toString() === selectedValue);
+            const filteredTargetData = targetData.filter(item => item.year.toString() === selectedValue);
+
+            const seriesData = {};
+            filteredKkpData.forEach(item => {
+                const year = item.year.toString();
+                const month = item.month - 1;
+                if (!seriesData[year]) {
+                    seriesData[year] = new Array(12).fill(0);
                 }
-            }]
+                seriesData[year][month] += parseInt(item.total_nilai);
+            });
+
+            const targetSeries = Object.keys(seriesData).map(year => {
+                // ... kode untuk target series
+                const targetValues = new Array(12).fill(null);
+                targetData.forEach(item => {
+                    if (item.year.toString() === year) {
+                        const month = monthIndexMapping[item.month];
+                        targetValues[month] = parseInt(item.total_nilai);
+                    }
+                });
+                return {
+                    name: 'Target ' + year,
+                    data: targetValues
+                };
+            });
+
+            const realizationSeries = Object.keys(seriesData).map(year => {
+                // ... kode untuk realization series
+                return {
+                    name: 'Realisasi ' + year,
+                    data: seriesData[year]
+                };
+            });
+
+            const categories = monthNames;
+
+            Highcharts.chart('chartKKP', {
+                // ... pengaturan chart
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: '',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: categories,
+                    crosshair: true,
+                    accessibility: {
+                        description: ''
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Total Nilai'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [...targetSeries, ...realizationSeries]
+            });
         }
-    });
+    }
 
-    document.getElementById('small').addEventListener('click', function () {
-        chart.setSize(400);
-    });
 
-    document.getElementById('large').addEventListener('click', function () {
-        chart.setSize(600);
-    });
+    // ==== CHART GAP ====
+    function updateChartGap() {
+        if (selectedValueGap !== "") {
+            const filteredGapData = gapData.filter(item => item.year.toString() === selectedValueGap)
 
-    document.getElementById('auto').addEventListener('click', function () {
-        chart.setSize(null);
-    });
-</script>
+            const seriesDataGap = {};
+            filteredGapData.forEach(item => {
+                const year = item.year.toString();
+                const month = item.month - 1;
+                if (!seriesDataGap[year]) {
+                    seriesDataGap[year] = new Array(12).fill(0);
+                }
+                seriesDataGap[year][month] += parseInt(item.gap);
+            });
 
-<script>
-    Highcharts.chart('chartGAP', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: '',
-            align: 'left'
-        },
-        subtitle: {
-            text:
-                '',
-            align: 'left'
-        },
-        xAxis: {
-            categories: ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 
-            'Agustus', 'September', 'Oktober', 'November', 'Desember'],
-            crosshair: true,
-            accessibility: {
-                description: ''
+            const realizationSeriesGap = Object.keys(seriesDataGap).map(year => {
+                // ... kode untuk realization series
+                return {
+                    name: 'Gap ' + year,
+                    data: seriesDataGap[year]
+                };
+            });
+
+            console.log("realizationSeriesGap",realizationSeriesGap)
+
+            const newRealizationSeriesGap = realizationSeriesGap.map(item => ({
+                name: item.name,
+                data: item.data,
+                zones: [
+                    {
+                        value: 0,
+                        color: 'red'
+                    },
+                    {
+                        color: 'green'
+                    },
+                ]
+            }))
+
+            const categories = monthNames;
+
+            Highcharts.chart('chartGAP', {
+                // ... pengaturan chart
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: '',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: categories,
+                    crosshair: true,
+                    accessibility: {
+                        description: ''
+                    }
+                },
+                yAxis: {
+                    // min: 0,
+                    title: {
+                        text: 'Total Nilai'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [...newRealizationSeriesGap]
+            });
+        }
+    }
+
+
+    function updateLineChart() {
+        const filteredDataLineKKP1 = lineKKPData.filter(item => item.year.toString() === selectedValueKKPLine1);
+        const filteredDataLineKKP2 = lineKKPData.filter(item => item.year.toString() === selectedValueKKPLine2);    
+        const seriesDataKKP1 = {}; 
+        const seriesDataKKP2 = {}; 
+
+        filteredDataLineKKP1.forEach(item => {
+        const year = item.year.toString();
+        const month = item.month - 1;
+        if (!seriesDataKKP1[year]) {
+            seriesDataKKP1[year] = new Array(12).fill(0);
+        }
+            seriesDataKKP1[year][month] += parseInt(item.total_nilai);
+        });
+
+        filteredDataLineKKP2.forEach(item => {
+            const year = item.year.toString();
+            const month = item.month - 1;
+            if (!seriesDataKKP2[year]) {
+                seriesDataKKP2[year] = new Array(12).fill(0);
             }
-        },
-        yAxis: {
-            min: 0,
+            seriesDataKKP2[year][month] += parseInt(item.total_nilai);
+        });
+
+        const realizationSeriesKKPLine1 = Object.keys(seriesDataKKP1).map(year => {
+            return {
+                name: 'Realisasi ' + year,
+                data: seriesDataKKP1[year]
+            };
+        });
+
+        const realizationSeriesKKPLine2 = Object.keys(seriesDataKKP2).map(year => {
+            return {
+                name: 'Realisasi ' + year,
+                data: seriesDataKKP2[year]
+            };
+        });
+
+        Highcharts.chart('chartKKP-Line', {
+            chart: {
+                type: 'line'
+            },
             title: {
-                text: '1000 metric tons (MT)'
-            }
-        },
-        tooltip: {
-            valueSuffix: ' (1000 MT)'
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [
-            {
-                name: 'GAP',
-                data: [38000, 40002, 40001, 42000, 40001, 44000, 43000, 30004, 50001, 50001, 44000, 40001]
-            }
-        ]
-    });
-</script>
+                text: '',
+                align: 'left'
+            },
+            xAxis: {
+                categories: monthNames,
+                crosshair: true,
+                accessibility: {
+                    description: ''
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Total Nilai'
+                }
+            },
+            tooltip: {
+                valueSuffix: ''
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: true
+                }
+            },
+            series: [...realizationSeriesKKPLine1, ...realizationSeriesKKPLine2]
+        });
+    }
 
-<script>
-    Highcharts.chart('percentage', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'UEFA CL most assists by season'
-        },
-        xAxis: {
-            categories: ['2021/22', '2020/21', '2019/20', '2018/19', '2017/18']
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Assists'
-            }
-        },
-        tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-            shared: true
-        },
-        plotOptions: {
-            column: {
-                stacking: 'percent'
-            }
-        },
-        series: [{
-            name: 'Kevin De Bruyne',
-            data: [4, 4, 2, 4, 4]
-        }, {
-            name: 'Joshua Kimmich',
-            data: [0, 4, 3, 2, 3]
-        }, {
-            name: 'Sadio Mané',
-            data: [1, 2, 2, 1, 2]
-        }]
+    // ==== CHART KKP OPERASIONAL ====
+    updateChart();
+
+    // ==== CHART GAP ====
+    updateChartGap();
+
+    // ==== CHART LINE KKP ====
+    updateLineChart();
+
+    dropdown.addEventListener("change", function() {
+        selectedValue = dropdown.value;
+        console.log("Nilai input tahun: " + selectedValue);
+        updateChart(); // Call the updateChart function to rebuild the chart
     });
+
+    dropdownGap.addEventListener("change", function() {
+        selectedValueGap = dropdownGap.value;
+        console.log("Nilai input tahun: " + selectedValueGap);
+        updateChartGap(); // Call the updateChartGap function to rebuild the chart
+    });
+
+    dropdownTahunKKP1.addEventListener("change", function () {
+        selectedValueKKPLine1 = dropdownTahunKKP1.value;
+        updateLineChart();
+    });
+
+    dropdownTahunKKP2.addEventListener("change", function () {
+        selectedValueKKPLine2 = dropdownTahunKKP2.value;
+        updateLineChart();
+        });
+    // ...
+});
+
+
+
 </script>
 @endsection

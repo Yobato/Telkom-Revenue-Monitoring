@@ -20,21 +20,21 @@ Route::group(['middleware' => 'revalidate'], function () {
         // Route::get('/commerce/dashboard', [App\Http\Controllers\LaporanCommerceController::class, 'indexChart'])->name('commerce.dashboard.chart');
 
         Route::get('/dashboard/revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('commerce.dashboard.revenue');
-        
+        Route::get('/commerce/dashboard', [App\Http\Controllers\LaporanCommerceController::class, 'indexChart'])->name('commerce.dashboard.chart');
         Route::get('/commerce', [App\Http\Controllers\LaporanCommerceController::class, 'index'])->name('commerce.dashboard.index');
         Route::get('/commerce/add', [App\Http\Controllers\LaporanCommerceController::class, 'addLaporanCommerce'])->name('commerce.reporting.form');
         Route::post('/commerce/add/success', [App\Http\Controllers\LaporanCommerceController::class, 'storeLaporanCommerce'])->name('commerce.storeLaporanCommerce');
         Route::get('/commerce/delete/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'deleteLaporanCommerce'])->name('commerce.deleteLaporanCommerce');
         Route::get('/commerce/edit/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'editLaporanCommerce'])->name('commerce.editLaporanCommerce');
         Route::post('/commerce/edit/{id}/success', [App\Http\Controllers\LaporanCommerceController::class, 'updateLaporanCommerce'])->name('commerce.updateLaporanCommerce');
-    
-
+        
         Route::get('/exportcom', [App\Http\Controllers\LaporanCommerceController::class, 'export'])->name('commerce.dashboard.export');
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:Finance']], function () {
         //Finance
-        Route::get('/finance/dashboard', [App\Http\Controllers\LaporanFinanceController::class, 'indexChart'])->name('finance.dashboard.chart');
+        // Route::get('/finance/dashboard', [App\Http\Controllers\LaporanFinanceController::class, 'indexChart'])->name('finance.dashboard.chart');
+        Route::get('/finance/dashboard', [App\Http\Controllers\KkpController::class, 'index'])->name('finance.dashboard.chart');
         Route::get('/finance', [App\Http\Controllers\LaporanFinanceController::class, 'index'])->name('finance.dashboard.index');
         Route::get('/finance/add', [App\Http\Controllers\LaporanFinanceController::class, 'addLaporanFinance'])->name('finance.reporting.form');
         Route::post('/finance/add/success', [App\Http\Controllers\LaporanFinanceController::class, 'storeLaporanFinance'])->name('finance.storeLaporanFinance');
@@ -88,8 +88,8 @@ Route::group(['middleware' => 'revalidate'], function () {
         // Route::get('/admin', function () {
         //     return view('admin.dashboard.gpm');
         // })->name('admin-index');
-        Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
-        
+        Route::get('/admin', [App\Http\Controllers\GpmController::class, 'index'])->name('admin.dashboard');
+
 
         Route::get('/commerce-management', function () {
             return view('admin.users.commerce-management');
@@ -107,20 +107,10 @@ Route::group(['middleware' => 'revalidate'], function () {
             return view('admin.users.create');
         })->name('create-user');
 
-        Route::get('/admin-gpm', function () {
-            return view('admin.dashboard.gpm');
-        })->name('admin-gpm');
-
         Route::get('/admin-cogs', [App\Http\Controllers\CogsController::class, 'index'])->name('admin-cogs');
         Route::get('/admin-revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('admin-revenue');
-
-        Route::get('/admin-Revenue', function () {
-            return view('admin.dashboard.revenue');
-        })->name('admin-Revenue');
-
-        Route::get('/admin-kkp', function () {
-            return view('admin.dashboard.kkp');
-        })->name('admin-kkp');
+        Route::get('/admin-kkp', [App\Http\Controllers\KkpController::class, 'index'])->name('admin-kkp');
+        // Route::get('/admin-gpm', [App\Http\Controllers\GpmController::class, 'index'])->name('admin-gpm');
 
         // ------------- ADMIN ------------- 
         Route::get('/city', [App\Http\Controllers\CityController::class, 'index'])->name('admin.dashboard.city');

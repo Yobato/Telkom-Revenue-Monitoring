@@ -21,8 +21,16 @@
         <div class="row">
             <div class="col-12 col-sm-12 ">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between">
                         <h4>Revenue</h4>
+                        <div class="filter d-flex ">
+                            <label for="tahun" class="col-form-label mr-3">Filter </label>
+                            <select class="form-control" name="tahun-filter" id="tahun-filter" style="border-radius: 8px">
+                                @foreach ($tahunData as $tahun)
+                                    <option value=<?= $tahun->tahun ?>>{{ $tahun->tahun }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div id= chartKKP>
@@ -145,14 +153,17 @@
     <script src="{{ asset('assets/library/jqvmap/dist/jquery.vmap.min.js') }}"></script>
     <script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
     <script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.indonesia.js') }}"></script>
+    
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('assets/js/page/components-statistic.js') }}"></script>
 @endpush
 @section('footer')
 <script src="https://code.highcharts.com/highcharts.js"></script>
+
 <script>
     const revenueData = {!! json_encode($revenueData) !!};
+    // console.log(revenueData)
     const targetData = {!! json_encode($targetData) !!};
     const monthNames = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
@@ -171,70 +182,100 @@
         'Desember': 11
     };
 
-    const seriesData = {};
-    revenueData.forEach(item => {
-        const year = item.year.toString(); 
-        const month = item.month - 1;
-        if (!seriesData[year]) {
-            seriesData[year] = new Array(12).fill(0);
+document.addEventListener("DOMContentLoaded", function() {
+    var dropdown = document.getElementById("tahun-filter");
+    var selectedValue = dropdown.value;
+
+    // Function to build or update the chart
+    function updateChart() {
+        if (selectedValue !== "") {
+            const filteredrevenueData = revenueData.filter(item => item.year.toString() === selectedValue);
+            const filteredTargetData = targetData.filter(item => item.year.toString() === selectedValue);
+
+            const seriesData = {};
+            filteredrevenueData.forEach(item => {
+                const year = item.year.toString();
+                const month = item.month - 1;
+                if (!seriesData[year]) {
+                    seriesData[year] = new Array(12).fill(0);
+                }
+                seriesData[year][month] += parseInt(item.total_nilai);
+            });
+
+            const targetSeries = Object.keys(seriesData).map(year => {
+                // ... kode untuk target series
+                const targetValues = new Array(12).fill(null);
+                targetData.forEach(item => {
+                    if (item.year.toString() === year) {
+                        const month = monthIndexMapping[item.month];
+                        targetValues[month] = parseInt(item.total_nilai);
+                    }
+                });
+                return {
+                    name: 'Target ' + year,
+                    data: targetValues
+                };
+            });
+
+            const realizationSeries = Object.keys(seriesData).map(year => {
+                // ... kode untuk realization series
+                return {
+                    name: 'Realisasi ' + year,
+                    data: seriesData[year]
+                };
+            });
+
+            const categories = monthNames;
+
+            Highcharts.chart('chartKKP', {
+                // ... pengaturan chart
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: '',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: categories,
+                    crosshair: true,
+                    accessibility: {
+                        description: ''
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Total Nilai'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [...targetSeries, ...realizationSeries]
+            });
         }
-        seriesData[year][month] += parseInt(item.total_nilai);
+    }
+
+    // Initial call to updateChart on page load
+    updateChart();
+
+    dropdown.addEventListener("change", function() {
+        selectedValue = dropdown.value;
+        console.log("Nilai input tahun: " + selectedValue);
+        updateChart(); // Call the updateChart function to rebuild the chart
     });
 
-    const targetSeries = Object.keys(seriesData).map(year => {
-        const targetValues = new Array(12).fill(null);
-        targetData.forEach(item => {
-            if (item.year.toString() === year) {
-                const month = monthIndexMapping[item.month];
-                targetValues[month] = parseInt(item.total_nilai);
-            }
-        });
-        return {
-            name: 'Target ' + year,
-            data: targetValues
-        };
-    });
+    // ...
+});
 
-    const realizationSeries = Object.keys(seriesData).map(year => {
-        return {
-            name: 'Realisasi ' + year,
-            data: seriesData[year]
-        };
-    });
 
-    const categories = monthNames;
 
-    Highcharts.chart('chartGAP', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: '',
-            align: 'left'
-        },
-        xAxis: {
-            categories: categories,
-            crosshair: true,
-            accessibility: {
-                description: ''
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Total Nilai'
-            }
-        },
-        tooltip: {
-            valueSuffix: ''
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [...targetSeries, ...realizationSeries]
-    });
 </script>
 @endsection

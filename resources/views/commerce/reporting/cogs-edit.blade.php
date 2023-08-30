@@ -9,7 +9,7 @@
                     {{-- ADD LAPORAN COMMERCE --}}
                     <div class="card-body d-flex justify-content-start" style="padding-bottom:0; margin-bottom:0;">
                         <div class="breadcrumb-item"><a href="{{ route('commerce.dashboard.index') }}">Laporan Commerce</a></div>
-                        <div class="breadcrumb-item active">Buat Laporan Commerce</div>
+                        <div class="breadcrumb-item active">Edit Laporan</div>
                     </div>
                     <div class="card-header" style="padding-bottom:0;">
                         <div class="col-12">
@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="px-5 pt-4" style="font-size: 140%"><b>Buat Laporan</b></div>
+                    <div class="px-5 pt-4" style="font-size: 140%"><b>Edit Laporan</b></div>
                     <div class="px-5 pt-2 pb-0">Sesuaikan data yang dibutuhkan dalam membuat laporan</div>
                     @foreach ($commerce as $laporan)
                     <form action="{{route('commerce.updateLaporanCommerce', [$id])}}" method="POST">
@@ -107,7 +107,7 @@
                                     <label for="jenis_laporan" class="col-form-label">Jenis Laporan: </label>
                                     <select class="jenis_laporan form-control @error('jenis_laporan') is-invalid @enderror mb-2" name="jenis_laporan" value="{{ old('jenis_laporan', $laporan->jenis_laporan) }}">    
                                     <option value="COGS" {{ $laporan->jenis_laporan === 'COGS' ? 'selected' : '' }}>COGS</option>
-                                        <option value="Revenue" {{ $laporan->jenis_laporan === 'Revenue' ? 'selected' : '' }}>Revenue</option>
+                                        <option value="REVENUE" {{ $laporan->jenis_laporan === 'REVENUE' ? 'selected' : '' }}>REVENUE</option>
                                         
                                     </select>
                                     <span id="jenis_laporan_error" style="display: none; color: red;">Field Jenis Laporan harus diisi!</span>
@@ -133,19 +133,29 @@
                                     </div>
                                     @enderror
 
-                                    <label for="keterangan" class="col-form-label">Keterangan:</label>
-                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan', $laporan->keterangan) }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
-                                    {{-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> --}}
-                                    <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
-                                    @error('keterangan')
+                                    <label for="monthYearPicker" class="col-form-label">Bulan dan Tahun:</label>
+                                    <input type="month" id="monthYearPicker" onchange="handleDateChange(this)" name="tanggal" value="{{ old('tanggal',  $laporan->tanggal) }}" class="form-control @error('tanggal') is-invalid @enderror mb-2">
+                                    @error('tanggal')
                                     <div class="invalid-feedback">
-                                        Field Keterangan harus diisi!
+                                        Field Bulan dan Tahun harus diisi!
                                     </div>
                                     @enderror
 
                                 </div>
                             </div>
+                            
                         </div>
+                        <div class="row mb-lg-5">
+                        <div class="col-lg-12" style="padding: 0 62px">
+                            <div class="form-group pb-0 mb-0">
+                                <label for="keterangan" class="col-form-label">Keterangan:</label>
+                                <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan', $laporan->keterangan) }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
+                                <!-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> -->
+                                <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
+                            </div>
+                        </div>
+                            
+                    </div>
                         <div class="row mb-lg-5">
                             <div class="col-lg-12" style="padding: 0 62px">
 

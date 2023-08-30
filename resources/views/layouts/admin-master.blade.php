@@ -45,8 +45,8 @@
   </div>
 
   {{-- <script src="{{ route('js.dynamic') }}"></script> --}}
-  <script src="{{ asset('js/app.js') }}?{{ uniqid() }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="{{ asset('js/app.js') }}?{{ uniqid() }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
@@ -62,10 +62,6 @@
             minViewMode: "years",    // Tidak ada pilihan bulan saat klik
             orientation: 'auto top'  // Orientasi tampilan
         });
-    });
-  </script>
-  <script>
-    $(function(){
         $("#bulan-test").datepicker({
             format: "mm",          // Format hanya tahun
             viewMode: "months",       // Hanya menampilkan tahun

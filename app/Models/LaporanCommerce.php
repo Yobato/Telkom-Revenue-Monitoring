@@ -10,10 +10,8 @@ class LaporanCommerce extends Model
     use HasFactory;
     protected $table = "laporan_commerce";
     protected $primaryKey = "id_commerce";
-    public $timestamps = true;
-    public $incrementing = false;
+    public $timestamps = false;
     protected $fillable = [
-        "id_commerce",
         'id_program',
         'kode_program',
         'nilai',
@@ -23,6 +21,8 @@ class LaporanCommerce extends Model
         'id_sub_grup_akun',
         'kota',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'tanggal'
     ];
+    public $incrementing = false;
 }

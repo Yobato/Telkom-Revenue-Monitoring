@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LaporanCommerce;
+use App\Models\Target;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,23 +13,11 @@ class CogsController extends Controller
     {
         $commerceData = DB::table('laporan_commerce')
             ->select(
-                DB::raw('YEAR(created_at) as year'),
-                DB::raw('MONTH(created_at) as month'),
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
                 DB::raw('SUM(nilai) as total_nilai')
             )
             ->where('jenis_laporan', '=', 'COGS')
-            ->groupBy('year', 'month')
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
-            ->get();
-
-        $revenueData = DB::table('laporan_commerce')
-            ->select(
-                DB::raw('YEAR(created_at) as year'),
-                DB::raw('MONTH(created_at) as month'),
-                DB::raw('SUM(nilai) as total_nilai')
-            )
-            ->where('jenis_laporan', '=', 'REVENUE')
             ->groupBy('year', 'month')
             ->orderBy('year', 'asc')
             ->orderBy('month', 'asc')
@@ -40,17 +29,18 @@ class CogsController extends Controller
                 DB::raw('bulan as month'),
                 DB::raw('SUM(jumlah) as total_nilai')
             )
-            // ->where('jenis_laporan', '=', 'COGS')
+            ->where('jenis_laporan', '=', 'COGS')
             ->groupBy('tahun', 'bulan')
             ->orderBy('tahun', 'asc')
             ->orderBy('bulan', 'asc')
             ->get();
 
+        $tahunData = Target::distinct()->where('jenis_laporan', '=', 'COGS')->get(['tahun']);
         return view('admin.dashboard.cogs', [
             "title" => "COGS",
             "commerceData" => $commerceData,
-            "revenueData" => $revenueData,
-            "targetData" => $targetData
+            "targetData" => $targetData,
+            'tahunData' => $tahunData,
         ]);
     }
 }

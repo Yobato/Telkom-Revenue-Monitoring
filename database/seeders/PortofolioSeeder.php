@@ -49,9 +49,34 @@ class PortofolioSeeder extends Seeder
                 'role' => 'Finance'
             ],
             [
-                'nama_portofolio' => 'Testing',
+                'nama_portofolio' => 'Konstruksi',
                 'role' => 'Commerce'
             ],
+            [
+                'nama_portofolio' => 'Dismantling',
+                'role' => 'Commerce'
+            ],
+            [
+                'nama_portofolio' => 'MS CAPEX',
+                'role' => 'Commerce'
+            ],
+            [
+                'nama_portofolio' => 'Migrasi',
+                'role' => 'Commerce'
+            ],
+            [
+                'nama_portofolio' => 'MS OPEX',
+                'role' => 'Commerce'
+            ],
+            [
+                'nama_portofolio' => 'SDI',
+                'role' => 'Commerce'
+            ],
+            [
+                'nama_portofolio' => 'Provisioning',
+                'role' => 'Commerce'
+            ]
+            
         ];
 
         foreach ($portofolio as $porto) {
