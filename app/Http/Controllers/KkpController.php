@@ -214,6 +214,12 @@ class KkpController extends Controller
                 "TotalRealisasiKKP" => $TotalRealisasiKKP,
                 "kenaikanRealisasi" => $kenaikanRealisasi,
                 "gapData" => $gapData,
+                "TotalTarget1" => $TotalTarget1,
+                "kenaikanTarget" => $kenaikanTarget,
+                "gapSum1" => $gapSum1,
+                "kenaikanGap" => $kenaikanGap,
+                "TopKKP" => $TopKKP,
+                "GapTop" => $smallestGapUser['gap'],
                 "targetData" => $targetData
             ]);
         }
