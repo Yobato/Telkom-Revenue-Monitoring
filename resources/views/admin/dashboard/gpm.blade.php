@@ -23,23 +23,21 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Total Realisasi</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ number_format($TotalRealisasiKKP), 2, ',', '.'}}</span>
+                                <h5 class="card-title text-uppercase text-muted mb-0">Gross Profit</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ number_format($cumulativeGPM), 2, ',', '.'}}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
                                     <i class="fa-solid fa-rupiah-sign"></i>
                                     <i class="fa-solid fa-arrow-trend-up" style="height: 0.5em"></i>
-                                    <i class="fas fa-chart-bar"></i>
-
                                 </div>
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
-                            @if($kenaikanRealisasi>0)
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanRealisasi, 2, '.', '' )}}%</span>
+                            @if($kenaikanGPM>0)
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanGPM, 2, '.', '' )}}%</span>
                             @else
-                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanRealisasi, 2, '.', '') }}%</span>
+                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanGPM, 2, '.', '') }}%</span>
                             @endif
                             <span class="text-nowrap">Dari tahun lalu</span>
                         </p>
@@ -51,18 +49,23 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                                <span class="h2 font-weight-bold mb-0">2,356</span>
+                                <h5 class="card-title text-uppercase text-muted mb-0">Gross Margin</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ number_format($cumulativeGM), 2, ',', '.'}}%</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                                    <i class="fas fa-chart-pie"></i>
+                                    <i class="fas fa-chart-bar"></i>
+                                    {{-- <i class="fas fa-chart-pie"></i> --}}
                                 </div>
                             </div>
                         </div>
                     <p class="mt-3 mb-0 text-muted text-sm">
-                        <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                        <span class="text-nowrap">Since last week</span>
+                        @if($kenaikanGM>0)
+                        <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanGM, 2, '.', '' )}}%</span>
+                        @else
+                        <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanGM, 2, '.', '') }}%</span>
+                        @endif
+                        <span class="text-nowrap">Dari tahun lalu</span>
                     </p>
                     </div>
                 </div>
@@ -72,8 +75,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                                <span class="h2 font-weight-bold mb-0">924</span>
+                                <h5 class="card-title text-uppercase text-muted mb-0">Top Gross Profit</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ $TopGP }}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -82,8 +85,12 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
-                            <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                            <span class="text-nowrap">Since yesterday</span>
+                            @if($kenaikanGM>0)
+                            <span class="text-success mr-2"></i> {{ number_format($biggestGPUser), 2, ',', '.'}}</span>
+                            @else
+                            <span class="text-danger mr-2"></i> {{ number_format($biggestGPUser), 2, ',', '.'}}</span>
+                            @endif
+                            <span class="text-nowrap">Total Gross Profit</span>
                         </p>
                     </div>
                 </div>
