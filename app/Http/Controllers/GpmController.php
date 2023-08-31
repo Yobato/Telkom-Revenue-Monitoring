@@ -159,7 +159,7 @@ class GpmController extends Controller
         $account = Auth::guard('account')->user();
         if ($account->role == "Commerce") {
             return view('commerce.dashboard.gpm', [
-                "title" => "KKP",
+                "title" => "GPM",
                 "gpmData1" => $gpmData1,
                 "gpmData2" => $gpmData2,
                 'tahunData' => $tahunData,
