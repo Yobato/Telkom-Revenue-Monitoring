@@ -20,6 +20,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         // Route::get('/commerce/dashboard', [App\Http\Controllers\LaporanCommerceController::class, 'indexChart'])->name('commerce.dashboard.chart');
 
         Route::get('/dashboard/revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('commerce.dashboard.revenue');
+        Route::get('/dashboard/cogs', [App\Http\Controllers\CogsController::class, 'index'])->name('commerce.dashboard.cogs');
         Route::get('/commerce/dashboard', [App\Http\Controllers\LaporanCommerceController::class, 'indexChart'])->name('commerce.dashboard.chart');
         Route::get('/commerce', [App\Http\Controllers\LaporanCommerceController::class, 'index'])->name('commerce.dashboard.index');
         Route::get('/commerce/add', [App\Http\Controllers\LaporanCommerceController::class, 'addLaporanCommerce'])->name('commerce.reporting.form');

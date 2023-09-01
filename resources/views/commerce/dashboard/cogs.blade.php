@@ -13,7 +13,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Revenue Operasional</h1>
+        <h1>COGS Operasional</h1>
     </div>
 
     <div class="section-body">
@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Total Realisasi</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ number_format($TotalRealisasiRevenue), 2, ',', '.'}}</span>
+                                <span class="h2 font-weight-bold mb-0">{{ number_format($TotalRealisasiCOGS), 2, ',', '.'}}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -103,7 +103,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Top Revenue</h5>
+                                <h5 class="card-title text-uppercase text-muted mb-0">Top COGS </h5>
                                 <span class="h2 font-weight-bold mb-0">Provisioning</span>
                             </div>
                             <div class="col-auto">
@@ -127,7 +127,7 @@
             <div class="col-12 col-sm-12 ">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h4 style="color:#525358; font-weight:bold">Revenue Operasional</h4>
+                        <h4 style="color:#525358; font-weight:bold">COGS Operasional</h4>
                         <div class="filter d-flex ">
                             <label for="tahun" class="col-form-label mr-3">Filter </label>
                             <select class="form-control" name="tahun-filter" id="tahun-filter" style="border-radius: 8px">
@@ -138,7 +138,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div id= chartRevenue>
+                        <div id= chartCOGS>
                     </div>
                 </div>
             </div>
@@ -166,16 +166,16 @@
                         <h4 style="color:#525358; font-weight:bold">Perbandingan Tahun</h4>
                         <div class="filter d-flex">
                             <div class="mr-3">
-                                <label for="revenue-tahun-filter-1" class="col-form-label">Filter 1:</label>
-                                <select class="form-control" name="revenue-tahun-filter-1" id="revenue-tahun-filter-1" style="border-radius: 8px">
+                                <label for="cogs-tahun-filter-1" class="col-form-label">Filter 1:</label>
+                                <select class="form-control" name="cogs-tahun-filter-1" id="cogs-tahun-filter-1" style="border-radius: 8px">
                                     @foreach ($tahunData as $tahun)
                                     <option value="{{ $tahun->tahun }}">{{ $tahun->tahun }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div>
-                                <label for="revenue-tahun-filter-2" class="col-form-label">Filter 2:</label>
-                                <select class="form-control" name="revenue-tahun-filter-2" id="revenue-tahun-filter-2" style="border-radius: 8px">
+                                <label for="cogs-tahun-filter-2" class="col-form-label">Filter 2:</label>
+                                <select class="form-control" name="cogs-tahun-filter-2" id="cogs-tahun-filter-2" style="border-radius: 8px">
                                     @foreach ($tahunData as $tahun)
                                     <option value="{{ $tahun->tahun }}">{{ $tahun->tahun }}</option>
                                     @endforeach
@@ -184,7 +184,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div id= chartRevenue-Line>
+                        <div id= chartCOGS-Line>
                     </div>
                 </div>
             </div>
@@ -225,8 +225,8 @@
 
 <script>
 
-    // ==== CHART REVENUE OPERASIONAL ====
-    const revenueData = {!! json_encode($revenueData) !!};
+    // ==== CHART COGS OPERASIONAL ====
+    const cogsData = {!! json_encode($cogsData) !!};
     const targetData = {!! json_encode($targetData) !!};
     const monthNames = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     const monthIndexMapping = {
@@ -248,12 +248,12 @@
     const gapData = {!! json_encode($gapData) !!};
     console.log("INI GAP DATA BOS", gapData)
 
-    // ==== CHART LINE Revenue ====
-    const lineRevenueData = {!! json_encode($revenueData) !!};
+    // ==== CHART LINE COGS ====
+    const lineCOGSData = {!! json_encode($cogsData) !!};
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    // ==== CHART REVENUE OPERASIONAL ====
+    // ==== CHART COGS OPERASIONAL ====
     var dropdown = document.getElementById("tahun-filter");
     var selectedValue = dropdown.value;
 
@@ -261,20 +261,20 @@ document.addEventListener("DOMContentLoaded", function() {
     var dropdownGap = document.getElementById("tahun-filter-gap");
     var selectedValueGap = dropdownGap.value;
 
-    // ==== CHART LINE REVENUE ====
-    var dropdownTahunRevenue1 = document.getElementById("revenue-tahun-filter-1");
-    var dropdownTahunRevenue2 = document.getElementById("revenue-tahun-filter-2");
-    var selectedValueRevenueLine1 = dropdownTahunRevenue1.value;
-    var selectedValueRevenueLine2 = dropdownTahunRevenue2.value;
+    // ==== CHART LINE COGS ====
+    var dropdownTahunCOGS1 = document.getElementById("cogs-tahun-filter-1");
+    var dropdownTahunCOGS2 = document.getElementById("cogs-tahun-filter-2");
+    var selectedValueCOGSLine1 = dropdownTahunCOGS1.value;
+    var selectedValueCOGSLine2 = dropdownTahunCOGS2.value;
 
-    // ==== CHART Revenue OPERASIONAL ====
+    // ==== CHART COGS OPERASIONAL ====
     function updateChart() {
         if (selectedValue !== "") {
-            const filteredRevenueData = revenueData.filter(item => item.year.toString() === selectedValue);
+            const filteredCOGSData = cogsData.filter(item => item.year.toString() === selectedValue);
             const filteredTargetData = targetData.filter(item => item.year.toString() === selectedValue);
 
             const seriesData = {};
-            filteredRevenueData.forEach(item => {
+            filteredCOGSData.forEach(item => {
                 const year = item.year.toString();
                 const month = item.month - 1;
                 if (!seriesData[year]) {
@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const categories = monthNames;
 
-            Highcharts.chart('chartRevenue', {
+            Highcharts.chart('chartCOGS', {
                 // ... pengaturan chart
                 chart: {
                     type: 'column'
@@ -424,44 +424,44 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     function updateLineChart() {
-        const filteredDataLineRevenue1 = lineRevenueData.filter(item => item.year.toString() === selectedValueRevenueLine1);
-        const filteredDataLineRevenue2 = lineRevenueData.filter(item => item.year.toString() === selectedValueRevenueLine2);    
-        const seriesDataRevenue1 = {}; 
-        const seriesDataRevenue2 = {}; 
+        const filteredDataLineCOGS1 = lineCOGSData.filter(item => item.year.toString() === selectedValueCOGSLine1);
+        const filteredDataLineCOGS2 = lineCOGSData.filter(item => item.year.toString() === selectedValueCOGSLine2);    
+        const seriesDataCOGS1 = {}; 
+        const seriesDataCOGS2 = {}; 
 
-        filteredDataLineRevenue1.forEach(item => {
+        filteredDataLineCOGS1.forEach(item => {
         const year = item.year.toString();
         const month = item.month - 1;
-        if (!seriesDataRevenue1[year]) {
-            seriesDataRevenue1[year] = new Array(12).fill(0);
+        if (!seriesDataCOGS1[year]) {
+            seriesDataCOGS1[year] = new Array(12).fill(0);
         }
-            seriesDataRevenue1[year][month] += parseInt(item.total_nilai);
+            seriesDataCOGS1[year][month] += parseInt(item.total_nilai);
         });
 
-        filteredDataLineRevenue2.forEach(item => {
+        filteredDataLineCOGS2.forEach(item => {
             const year = item.year.toString();
             const month = item.month - 1;
-            if (!seriesDataRevenue2[year]) {
-                seriesDataRevenue2[year] = new Array(12).fill(0);
+            if (!seriesDataCOGS2[year]) {
+                seriesDataCOGS2[year] = new Array(12).fill(0);
             }
-            seriesDataRevenue2[year][month] += parseInt(item.total_nilai);
+            seriesDataCOGS2[year][month] += parseInt(item.total_nilai);
         });
 
-        const realizationSeriesRevenueLine1 = Object.keys(seriesDataRevenue1).map(year => {
+        const realizationSeriesCOGSLine1 = Object.keys(seriesDataCOGS1).map(year => {
             return {
                 name: 'Realisasi ' + year,
-                data: seriesDataRevenue1[year]
+                data: seriesDataCOGS1[year]
             };
         });
 
-        const realizationSeriesRevenueLine2 = Object.keys(seriesDataRevenue2).map(year => {
+        const realizationSeriesCOGSLine2 = Object.keys(seriesDataCOGS2).map(year => {
             return {
                 name: 'Realisasi ' + year,
-                data: seriesDataRevenue2[year]
+                data: seriesDataCOGS2[year]
             };
         });
 
-        Highcharts.chart('chartRevenue-Line', {
+        Highcharts.chart('chartCOGS-Line', {
             chart: {
                 type: 'line'
             },
@@ -493,17 +493,17 @@ document.addEventListener("DOMContentLoaded", function() {
                     enableMouseTracking: true
                 }
             },
-            series: [...realizationSeriesRevenueLine1, ...realizationSeriesRevenueLine2]
+            series: [...realizationSeriesCOGSLine1, ...realizationSeriesCOGSLine2]
         });
     }
 
-    // ==== CHART Revenue OPERASIONAL ====
+    // ==== CHART COGS OPERASIONAL ====
     updateChart();
 
     // ==== CHART GAP ====
     updateChartGap();
 
-    // ==== CHART LINE Revenue ====
+    // ==== CHART LINE COGS ====
     updateLineChart();
 
     dropdown.addEventListener("change", function() {
@@ -518,13 +518,13 @@ document.addEventListener("DOMContentLoaded", function() {
         updateChartGap(); // Call the updateChartGap function to rebuild the chart
     });
 
-    dropdownTahunRevenue1.addEventListener("change", function () {
-        selectedValueRevenueLine1 = dropdownTahunRevenue1.value;
+    dropdownTahunCOGS1.addEventListener("change", function () {
+        selectedValueCOGSLine1 = dropdownTahunCOGS1.value;
         updateLineChart();
     });
 
-    dropdownTahunRevenue2.addEventListener("change", function () {
-        selectedValueRevenueLine2 = dropdownTahunRevenue2.value;
+    dropdownTahunCOGS2.addEventListener("change", function () {
+        selectedValueCOGSLine2 = dropdownTahunCOGS2.value;
         updateLineChart();
         });
     // ...
