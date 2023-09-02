@@ -11,16 +11,16 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="nav-item dropdown {{ $title==='COGS' ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ $title==='Revenue' || $title==='GPM' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="bi bi-bar-chart-fill"></i><span>Dashboard</span></a>
                 <ul class="dropdown-menu">
-                    <li class='{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}'>
-                        <a class="nav-link" href="#">Gross Profit Margin</a>
+                    <li class='{{ $title==='GPM' ? ' active' : '' }}'>
+                        <a class="nav-link" href="{{ route('commerce.dashboard.gpm') }}">Gross Profit Margin</a>
                     </li>
                     <li class="{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}">
                         <a class="nav-link" href="#">Cost of Goods Sold</a>
                     </li>
-                    <li class="{{ $title==='COGS' ? ' active' : '' }}">
+                    <li class="{{ $title==='Revenue' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('commerce.dashboard.revenue') }}">Revenue</a>
                     </li>
                 </ul>

@@ -18,7 +18,7 @@ Route::group(['middleware' => 'revalidate'], function () {
     Route::group(['middleware' => ['auth:account', 'account-access:Commerce']], function () {
         //Commerce
         // Route::get('/commerce/dashboard', [App\Http\Controllers\LaporanCommerceController::class, 'indexChart'])->name('commerce.dashboard.chart');
-
+        Route::get('/dashboard/gpm', [App\Http\Controllers\GpmController::class, 'index'])->name('commerce.dashboard.gpm');
         Route::get('/dashboard/revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('commerce.dashboard.revenue');
         Route::get('/commerce/dashboard', [App\Http\Controllers\LaporanCommerceController::class, 'indexChart'])->name('commerce.dashboard.chart');
         Route::get('/commerce', [App\Http\Controllers\LaporanCommerceController::class, 'index'])->name('commerce.dashboard.index');
