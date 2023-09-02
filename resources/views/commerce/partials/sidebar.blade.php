@@ -18,7 +18,7 @@
                         <a class="nav-link" href="{{ route('commerce.dashboard.gpm') }}">Gross Profit Margin</a>
                     </li>
                     <li class="{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link" href="#">Cost of Goods Sold</a>
+                        <a class="nav-link" href="{{ route('commerce.dashboard.cogs') }}">Cost of Goods Sold</a>
                     </li>
                     <li class="{{ $title==='Revenue' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('commerce.dashboard.revenue') }}">Revenue</a>
