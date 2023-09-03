@@ -129,7 +129,7 @@ class CogsController extends Controller
         }
 
         if ($gapSum2 != 0) {
-            $kenaikanGap = ($gapSum1 - $gapSum2) / $gapSum2 * 100;
+            $kenaikanGap = ($gapSum1 - $gapSum2) / abs($gapSum2) * 100;
         } else {
             $kenaikanGap = 0;
         }
