@@ -98,13 +98,15 @@ class RevenueController extends Controller
                 }
             }
 
-            //======== CARD STATISTIC ==========
+        //======== CARD STATISTIC ==========
+
+        //======== STATISTIC TOTAL REALISASI ==========
         $newestYear = LaporanCommerce::max(DB::raw('YEAR(tanggal)'));
-        $TotalRealisasiRevenue = LaporanCommerce::whereYear("tanggal", [$newestYear])
+        $TotalRealisasiRevenue = LaporanCommerce::whereYear("tanggal", [$newestYear])->where('jenis_laporan', '=', 'REVENUE')
             ->sum('nilai');
 
         $lastYear = $newestYear-1;
-        $TotalRealisasiRevenue2 = LaporanCommerce::whereYear("tanggal", [$lastYear])
+        $TotalRealisasiRevenue2 = LaporanCommerce::whereYear("tanggal", [$lastYear])->where('jenis_laporan', '=', 'REVENUE')
             ->sum('nilai');
 
 
@@ -114,72 +116,73 @@ class RevenueController extends Controller
             $kenaikanRealisasi = 0;
         }
 
-        $TotalTarget1 = Target::where("tahun", [$newestYear])->where('jenis_laporan', '=', 'Revenue')
+        //======== STATISTIC TOTAL TARGET ==========
+        $TotalTarget1 = Target::where("tahun", [$newestYear])->where('jenis_laporan', '=', 'REVENUE')
         ->sum('jumlah');
 
-    $TotalTarget2 = Target::where("tahun", [$lastYear])->where('jenis_laporan', '=', 'Revenue')
-        ->sum('jumlah');
+        $TotalTarget2 = Target::where("tahun", [$lastYear])->where('jenis_laporan', '=', 'REVENUE')
+            ->sum('jumlah');
 
-    if ($TotalTarget2 != 0) {
-        $kenaikanTarget = ($TotalTarget1 - $TotalTarget2) / $TotalTarget2 * 100;
-    } else {
-        $kenaikanTarget = 0;
-    }
-
-    $gapSum1 = 0;
-    $gapSum2 = 0;
-
-    foreach ($gapData as $data) {
-        if ($data["year"] === $newestYear) {
-            $gapSum1 += $data["gap"];
+        if ($TotalTarget2 != 0) {
+            $kenaikanTarget = ($TotalTarget1 - $TotalTarget2) / $TotalTarget2 * 100;
+        } else {
+            $kenaikanTarget = 0;
         }
-    }
 
-    foreach ($gapData as $data) {
-        if ($data["year"] === $lastYear) {
-            $gapSum2 += $data["gap"];
-        }
-    }
+        $gapSum1 = 0;
+        $gapSum2 = 0;
 
-    if ($gapSum2 != 0) {
-        $kenaikanGap = ($gapSum1 - $gapSum2) / $gapSum2 * 100;
-    } else {
-        $kenaikanGap = 0;
-    }
-
-    // dd($gapSum2);
-
-    // dd($kenaikanGap);
-             
-
-            $account = Auth::guard('account')->user();
-            if ($account->role == "Commerce") {
-                return view('commerce.dashboard.revenue', [
-                    "title" => "Revenue",
-                    "commerceData" => $commerceData,
-                    "revenueData" => $revenueData,
-                    "targetData" => $targetData,
-                    "TotalRealisasiRevenue" => $TotalRealisasiRevenue,
-                    "kenaikanRealisasi" => $kenaikanRealisasi,
-                    "kenaikanTarget" => $kenaikanTarget,
-                    "TotalTarget1" => $TotalTarget1,
-                    "gapData" => $gapData,
-                    "gapSum1" => $gapSum1,
-                    "kenaikanGap" => $kenaikanGap,
-                    'tahunData' => $tahunData,
-                ]);
-            } else {
-                return view('admin.dashboard.revenue', [
-                    "title" => "Revenue",
-                    "commerceData" => $commerceData,
-                    "revenueData" => $revenueData,
-                    "targetData" => $targetData,
-                    'tahunData' => $tahunData,
-                    "TotalRealisasiRevenue" => $TotalRealisasiRevenue,
-                    "kenaikanRealisasi" => $kenaikanRealisasi,
-                    "gapData" => $gapData,
-                ]);
+        foreach ($gapData as $data) {
+            if ($data["year"] === $newestYear) {
+                $gapSum1 += $data["gap"];
             }
+        }
+
+        foreach ($gapData as $data) {
+            if ($data["year"] === $lastYear) {
+                $gapSum2 += $data["gap"];
+            }
+        }
+
+        if ($gapSum2 != 0) {
+            $kenaikanGap = ($gapSum1 - $gapSum2) / abs($gapSum2) * 100;
+        } else {
+            $kenaikanGap = 0;
+        }
+
+        // dd($gapSum2);
+
+        // dd($kenaikanGap);
+                
+
+        $account = Auth::guard('account')->user();
+        if ($account->role == "Commerce") {
+            return view('commerce.dashboard.revenue', [
+                "title" => "Revenue",
+                "commerceData" => $commerceData,
+                "revenueData" => $revenueData,
+                "targetData" => $targetData,
+                "TotalRealisasiRevenue" => $TotalRealisasiRevenue,
+                "kenaikanRealisasi" => $kenaikanRealisasi,
+                "kenaikanTarget" => $kenaikanTarget,
+                "TotalTarget1" => $TotalTarget1,
+                "gapData" => $gapData,
+                "gapSum1" => $gapSum1,
+                "kenaikanGap" => $kenaikanGap,
+                'tahunData' => $tahunData,
+            ]);
+        } else {
+            return view('admin.dashboard.revenue', [
+                "title" => "Revenue",
+                "commerceData" => $commerceData,
+                "revenueData" => $revenueData,
+                "targetData" => $targetData,
+                'tahunData' => $tahunData,
+                "TotalRealisasiRevenue" => $TotalRealisasiRevenue,
+                "kenaikanRealisasi" => $kenaikanRealisasi,
+                "gapData" => $gapData,
+            ]);
+        }
         }
     
 }
