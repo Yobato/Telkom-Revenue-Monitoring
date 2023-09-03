@@ -23,8 +23,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Total Realisasi</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ number_format($TotalRealisasiRevenue), 2, ',', '.'}}</span>
+                                <h5 class="card-title text-uppercase text-muted mb-0">Realisasi</h5>
+                                <span class="h5 font-weight-bold mb-0">{{ number_format($TotalRealisasiRevenue), 2, ',', '.'}}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -51,8 +51,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Total Target</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ number_format($TotalTarget1), 2, ',', '.'}}</span>
+                                <h5 class="card-title text-uppercase text-muted mb-0">Target</h5>
+                                <span class="h5 font-weight-bold mb-0">{{ number_format($TotalTarget1), 2, ',', '.'}}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -78,8 +78,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0"> Total GAP</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ number_format($gapSum1), 2, ',', '.'}}</span>
+                                <h5 class="card-title text-uppercase text-muted mb-0">GAP</h5>
+                                <span class="h5 font-weight-bold mb-0">{{ number_format($gapSum1), 2, ',', '.'}}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape text-white rounded-circle shadow" style="background-color: #6f42c1">
@@ -103,8 +103,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Top Revenue</h5>
-                                <span class="h2 font-weight-bold mb-0">Provisioning</span>
+                                <h5 class="top-revenue card-title text-uppercase text-muted mb-0">Top Revenue</h5>
+                                <span class="top-revenue h5 font-weight-bold mb-0">Provisioning</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -114,10 +114,9 @@
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
                             <span class="text-success mr-2">
-                                {{-- <i class="fas fa-arrow-down"></i> --}}
                                 10 User
                             </span>
-                            <span class="text-nowrap">Membuat laporan dengan gap terendah</span>
+                            <span class="text-nowrap">Total GAP</span>
                         </p>
                     </div>
                 </div>
@@ -205,6 +204,24 @@
     .icon {
         width: 3rem;
         height: 3rem;
+    }
+
+    .top-revenue{
+        display: block; 
+        width: 150px; 
+        overflow: hidden; 
+        white-space: nowrap; 
+        text-overflow: ellipsis;
+    }
+
+    @media only screen and (max-width: 1366px) {
+        .top-revenue{
+            display: block; 
+            width: 105px; 
+            overflow: hidden; 
+            white-space: nowrap; 
+            text-overflow: ellipsis;
+        }
     }
 </style>
 
