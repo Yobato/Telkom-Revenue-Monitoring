@@ -69,13 +69,13 @@
                                     @enderror
 
 
-                                    
+
 
                                     <label for="id_portofolio" class="col-form-label">Portofolio: </label>
                                     <select class="id_portofolio form-control @error('id_portofolio') is-invalid @enderror mb-2" name="id_portofolio" value="{{ old('id_portofolio', $laporan->id_portofolio) }}">
                                         <option value="" selected>-- Pilih Portofolio --</option>
                                         @foreach ($addportofolio as $portofolio)
-                                        <option value="{{ $portofolio->id }}" {{ old('id_portofolio', $laporan->id_portofolio) == $portofolio->id ? 'selected' : '' }}>{{ $portofolio->nama_portofolio }}</option>                                        
+                                        <option value="{{ $portofolio->id }}" {{ old('id_portofolio', $laporan->id_portofolio) == $portofolio->id ? 'selected' : '' }}>{{ $portofolio->nama_portofolio }}</option>
                                         @endforeach
                                     </select>
                                     <span id="id_portofolio_error" style="display: none; color: red;">Field Portofolio harus diisi!</span>
@@ -94,7 +94,7 @@
                                     <select class="id_sub_grup_akun form-control @error('id_sub_grup_akun') is-invalid @enderror mb-2" name="id_sub_grup_akun" value="{{ old('id_sub_grup_akun', $laporan->id_sub_grup_akun) }}">
                                         <option value="" selected>-- Pilih Sub Grup Akun --</option>
                                         @foreach ($addsubgrupakun as $subgrupakun)
-                                        <option value="{{ $subgrupakun->id }}" {{ old('id_sub_grup_akun', $laporan->id_sub_grup_akun) == $subgrupakun->id ? 'selected' : '' }}>{{ $subgrupakun->nama_sub }}</option>                                        
+                                        <option value="{{ $subgrupakun->id }}" {{ old('id_sub_grup_akun', $laporan->id_sub_grup_akun) == $subgrupakun->id ? 'selected' : '' }}>{{ $subgrupakun->nama_sub }}</option>
                                         @endforeach
                                     </select>
                                     <span id="sub_grup_akun_error" style="display: none; color: red;">Field Sub Grup Akun harus diisi!</span>
@@ -105,10 +105,9 @@
                                     @enderror
 
                                     <label for="jenis_laporan" class="col-form-label">Jenis Laporan: </label>
-                                    <select class="jenis_laporan form-control @error('jenis_laporan') is-invalid @enderror mb-2" name="jenis_laporan" value="{{ old('jenis_laporan', $laporan->jenis_laporan) }}">    
-                                    <option value="COGS" {{ $laporan->jenis_laporan === 'COGS' ? 'selected' : '' }}>COGS</option>
-                                        <option value="REVENUE" {{ $laporan->jenis_laporan === 'REVENUE' ? 'selected' : '' }}>REVENUE</option>
-                                        
+                                    <select class="jenis_laporan form-control @error('jenis_laporan') is-invalid @enderror mb-2" name="jenis_laporan">
+                                        <option value="COGS" {{ old('jenis_laporan', $laporan->jenis_laporan) === 'COGS' ? 'selected' : '' }}>COGS</option>
+                                        <option value="REVENUE" {{ old('jenis_laporan', $laporan->jenis_laporan) === 'REVENUE' ? 'selected' : '' }}>REVENUE</option>
                                     </select>
                                     <span id="jenis_laporan_error" style="display: none; color: red;">Field Jenis Laporan harus diisi!</span>
                                     @error('jenis_laporan')
@@ -134,7 +133,12 @@
                                     @enderror
 
                                     <label for="monthYearPicker" class="col-form-label">Bulan dan Tahun:</label>
-                                    <input type="month" id="monthYearPicker" onchange="handleDateChange(this)" name="tanggal" value="{{ old('tanggal',  $laporan->tanggal) }}" class="form-control @error('tanggal') is-invalid @enderror mb-2">
+                                    @php
+                                    $oldTanggal = old('tanggal', $laporan->tanggal);
+                                    $oldYear = date('Y', strtotime($oldTanggal));
+                                    $oldMonth = date('m', strtotime($oldTanggal));
+                                    @endphp
+                                    <input type="month" id="monthYearPicker" onchange="handleDateChange(this)" name="tanggal" value="{{ $oldYear }}-{{ str_pad($oldMonth, 2, '0', STR_PAD_LEFT) }}" class="form-control @error('tanggal') is-invalid @enderror mb-2">
                                     @error('tanggal')
                                     <div class="invalid-feedback">
                                         Field Bulan dan Tahun harus diisi!
@@ -143,19 +147,19 @@
 
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="row mb-lg-5">
-                        <div class="col-lg-12" style="padding: 0 62px">
-                            <div class="form-group pb-0 mb-0">
-                                <label for="keterangan" class="col-form-label">Keterangan:</label>
-                                <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan', $laporan->keterangan) }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
-                                <!-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> -->
-                                <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
+                            <div class="col-lg-12" style="padding: 0 62px">
+                                <div class="form-group pb-0 mb-0">
+                                    <label for="keterangan" class="col-form-label">Keterangan:</label>
+                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan', $laporan->keterangan) }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
+                                    <!-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> -->
+                                    <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
+                                </div>
                             </div>
+
                         </div>
-                            
-                    </div>
                         <div class="row mb-lg-5">
                             <div class="col-lg-12" style="padding: 0 62px">
 
@@ -169,23 +173,23 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 </section>
 @endsection
 
 <script>
-   function formatCurrency(input) {
+    function formatCurrency(input) {
         // Menghilangkan semua karakter selain angka
         let rawValue = input.value.replace(/[^\d]/g, '');
-        
+
         // Memastikan input tidak kosong
         if (rawValue) {
             // Mengubah angka menjadi format uang dengan pemisah ribuan (.)
             let formattedValue = Number(rawValue).toLocaleString('id-ID');
-            
+
             // Menampilkan hasil format uang di input
             input.value = formattedValue;
         }
-    } 
+    }
 </script>

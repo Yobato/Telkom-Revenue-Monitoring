@@ -148,6 +148,8 @@ class CogsController extends Controller
         ->orderBy('month', 'asc')
         ->get();
 
+        $gapPortofolio = [];
+
         foreach ($portofolioData as $portofolioItem) {
             foreach ($targetGap as $targetItem) {
                 if ($portofolioItem->year == $targetItem->year && $portofolioItem->month == $targetItem->month) {
@@ -178,12 +180,15 @@ class CogsController extends Controller
             ];
         })->filter()->sortBy('gap')->first(); // Menggunakan filter() untuk menghapus nilai null
         
-        // dd($smallestGapPortofolio);
         
-        $TopPortofolio = Portofolio::find($smallestGapPortofolio['portofolio']);
-        $TopCOGS = $TopPortofolio->nama_portofolio;
 
-        // dd($TopCOGS);
+        if ($smallestGapPortofolio !== null && isset($smallestGapPortofolio['portofolio'])) {
+            $TopPortofolio = Portofolio::find($smallestGapPortofolio['portofolio']);
+            $TopCOGS = $TopPortofolio->nama_portofolio;
+        } else {
+            // Handle the case where $biggestGPUser is null or 'gpm' key is not set
+            $TopCOGS = "Belum ada data"; // Set a default value or handle the error gracefully
+        }
 
         $account = Auth::guard('account')->user();
         if ($account->role == "Commerce") {
@@ -200,12 +205,13 @@ class CogsController extends Controller
                 "kenaikanGap" => $kenaikanGap,
                 'tahunData' => $tahunData,
                 "TopCOGS" => $TopCOGS,
-                "GapTop" => $smallestGapPortofolio['gap']
+                "GapTop" => $smallestGapPortofolio['gap'] ?? null
             ]);
         } else {
             return view('admin.dashboard.cogs', [
                 "title" => "COGS",
                 "cogsData" => $commerceData,
+                "commerceData" => $commerceData,
                 "targetData" => $targetData,
                 "TotalRealisasiCOGS" => $TotalRealisasiCOGS,
                 "kenaikanRealisasi" => $kenaikanRealisasi,

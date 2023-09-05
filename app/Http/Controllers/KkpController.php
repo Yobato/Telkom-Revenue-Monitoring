@@ -6,6 +6,7 @@ use App\Models\Target;
 use App\Models\UserReco;
 use Illuminate\Http\Request;
 use App\Models\LaporanFinance;
+use App\Models\Portofolio;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -170,23 +171,34 @@ class KkpController extends Controller
             }
         }
       
-        $collection = collect($gapUser);
-
-        $smallestGapUser = $collection->groupBy('user')->map(function ($userEntries, $userId) {
-            if ($userEntries->isEmpty()) {
-                return null; // Tidak ada data gap untuk user ini
-            }
-            
-            $smallestGapEntry = $userEntries->sortBy('gap')->first();
-            return [
-                'user' => $userId,
-                'gap' => $smallestGapEntry['gap'],
-            ];
-        })->filter()->sortBy('gap')->first(); // Menggunakan filter() untuk menghapus nilai null
         
-        $TopUser = UserReco::find($smallestGapUser['user']);
-        $TopKKP = $TopUser->nama_user_reco;
-
+        if($gapUser != null && !empty($gapUser)){
+            $collection = collect($gapUser);
+            $smallestGapUser = $collection->groupBy('user')->map(function ($userEntries, $userId) {
+                if ($userEntries->isEmpty()) {
+                    return null; // Tidak ada data gap untuk user ini
+                }
+                
+                $smallestGapEntry = $userEntries->sortBy('gap')->first();
+                return [
+                    'user' => $userId,
+                    'gap' => $smallestGapEntry['gap'],
+                ];
+            })->filter()->sortBy('gap')->first(); // Menggunakan filter() untuk menghapus nilai null
+        }else{
+            $smallestGapUser = [
+                'user' => 0,
+                'gap' => 0,
+            ];
+        }
+         
+        
+        if ($smallestGapUser['user'] != null) {
+            $TopUser = UserReco::find($smallestGapUser['user']);
+            $TopKKP = $TopUser->nama_user_reco;
+        } else {
+            $TopKKP = "Belum ada data";
+        }
 
         $account = Auth::guard('account')->user();
         if ($account->role == "Finance") {
@@ -202,7 +214,7 @@ class KkpController extends Controller
                 "gapSum1" => $gapSum1,
                 "kenaikanGap" => $kenaikanGap,
                 "TopKKP" => $TopKKP,
-                "GapTop" => $smallestGapUser['gap'],
+                "GapTop" => $smallestGapUser['gap'] ?? null,
                 "targetData" => $targetData
             ]);
         }
@@ -219,7 +231,7 @@ class KkpController extends Controller
                 "gapSum1" => $gapSum1,
                 "kenaikanGap" => $kenaikanGap,
                 "TopKKP" => $TopKKP,
-                "GapTop" => $smallestGapUser['gap'],
+                "GapTop" => $smallestGapUser['gap'] ?? null,
                 "targetData" => $targetData
             ]);
         }
