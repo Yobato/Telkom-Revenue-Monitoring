@@ -70,6 +70,7 @@
                                     <th scope="col">Sub Grup Akun</th>
                                     <th scope="col">Nilai</th>
                                     <th scope="col">Keterangan</th>
+                                    <th scope="col">Tanggal</th>
                                     <th scope="col">Created at</th>
                                     <th scope="col">Updated at</th>
                                     <th scope="col">Action</th>
@@ -86,6 +87,7 @@
                                 <td>{{ $sub_grup_akun_id[$admins ->id_sub_grup_akun]}}</td>
                                 <td>{{ $admins ->nilai}}</td>
                                 <td>{{ $admins ->keterangan}}</td>
+                                <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                 <td>{{ $admins ->created_at}}</td>
                                 <td>{{ $admins ->updated_at}}</td>
                                 <td>

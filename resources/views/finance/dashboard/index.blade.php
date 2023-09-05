@@ -69,6 +69,7 @@
                                     <th scope="col">Peruntukan</th>
                                     <th scope="col">User</th>
                                     <th scope="col">Nilai</th>
+                                    <th scope="col">Tanggal</th>
                                     <th scope="col">Keterangan</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -83,6 +84,7 @@
                                     <td>{{ $peruntukan_id[$admins->id_peruntukan]}}</td>
                                     <td>{{ $user_id[$admins->id_user]}}</td>
                                     <td>{{ $admins->nilai}}</td>
+                                    <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td>{{ $admins->keterangan }}</td>
                                     <td>
                                         @if(Auth::user()->role == "Finance" && $admins->editable == 1)

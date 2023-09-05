@@ -85,9 +85,14 @@
                                         Field User harus diisi!
                                     </div>
                                     @enderror
-                                    
+
                                     <label for="monthYearPicker" class="col-form-label">Bulan dan Tahun:</label>
-                                    <input type="month" id="monthYearPicker" onchange="handleDateChange(this)" name="tanggal" value="{{ old('tanggal',  $user->tanggal) }}" class="form-control @error('tanggal') is-invalid @enderror mb-2">
+                                    @php
+                                    $oldTanggal = old('tanggal', $laporan->tanggal);
+                                    $oldYear = date('Y', strtotime($oldTanggal));
+                                    $oldMonth = date('m', strtotime($oldTanggal));
+                                    @endphp
+                                    <input type="month" id="monthYearPicker" onchange="handleDateChange(this)" name="tanggal" value="{{ $oldYear }}-{{ str_pad($oldMonth, 2, '0', STR_PAD_LEFT) }}" class="form-control @error('tanggal') is-invalid @enderror mb-2">
                                     @error('tanggal')
                                     <div class="invalid-feedback">
                                         Field Bulan dan Tahun harus diisi!
@@ -187,29 +192,4 @@
             input.value = formattedValue;
         }
     }
-</script>
-<script>
-        document.addEventListener("DOMContentLoaded", function() {
-        const monthYearPicker = document.getElementById("monthYearPicker");
-
-        // Fetch the existing "tanggal" value from the server and set it to the date picker
-        const existingTanggal = "{{ old('tanggal', $laporan->tanggal) }}"; // Assuming this is the correct variable
-
-        if (existingTanggal) {
-            monthYearPicker.value = existingTanggal;
-
-            // Trigger the change event to display the selected date
-            monthYearPicker.dispatchEvent(new Event("change"));
-        }
-
-        monthYearPicker.addEventListener("change", function() {
-            const selectedDate = new Date(monthYearPicker.value);
-            const selectedMonth = selectedDate.toLocaleString("default", { month: "long" });
-            const selectedYear = selectedDate.getFullYear();
-
-            // Display the selected month and year
-            console.log("Selected Month:", selectedMonth);
-            console.log("Selected Year:", selectedYear);
-        });
-    });
 </script>
