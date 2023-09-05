@@ -1,4 +1,4 @@
-@extends('layouts.commerce-master')
+@extends('layouts.admin-master')
 
 @section('title', 'Statistic')
 
@@ -103,8 +103,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="top-revenue card-title text-uppercase text-muted mb-0">Top Revenue</h5>
-                                <span class="top-revenue h5 font-weight-bold mb-0">Provisioning</span>
+                                <h5 class="card-title text-uppercase text-muted mb-0">Top Revenue </h5>
+                                <span class="top-cogs h5 font-weight-bold mb-0">{{$TopRevenue}}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -114,7 +114,11 @@
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
                             <span class="text-success mr-2">
-                                10 User
+                                @if($GapTop<0)
+                                <span class="text-success mr-2">{{ number_format($GapTop), 2, ',', '.'}}</span>
+                                @else
+                                <span class="text-danger mr-2"></i>{{ number_format($GapTop), 2, ',', '.'}}</span>
+                                @endif
                             </span>
                             <span class="text-nowrap">Total GAP</span>
                         </p>

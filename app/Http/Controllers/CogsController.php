@@ -211,7 +211,6 @@ class CogsController extends Controller
             return view('admin.dashboard.cogs', [
                 "title" => "COGS",
                 "cogsData" => $commerceData,
-                "commerceData" => $commerceData,
                 "targetData" => $targetData,
                 "TotalRealisasiCOGS" => $TotalRealisasiCOGS,
                 "kenaikanRealisasi" => $kenaikanRealisasi,
@@ -222,6 +221,7 @@ class CogsController extends Controller
                 "kenaikanGap" => $kenaikanGap,
                 'tahunData' => $tahunData,
                 "TopCOGS" => $TopCOGS,
+                "GapTop" => $smallestGapPortofolio['gap'] ?? null
             ]);
         }
     }

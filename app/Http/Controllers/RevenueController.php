@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LaporanCommerce;
 use App\Models\Target;
+use App\Models\Portofolio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -15,17 +16,7 @@ class RevenueController extends Controller
     {
 
             $tahunData = Target::distinct()->where('jenis_laporan', '=', 'REVENUE')->get(['tahun']);
-            $commerceData = DB::table('laporan_commerce')
-                ->select(
-                    DB::raw('YEAR(tanggal) as year'),
-                    DB::raw('MONTH(tanggal) as month'),
-                    DB::raw('SUM(nilai) as total_nilai')
-                )
-                ->where('jenis_laporan', '=', 'COGS')
-                ->groupBy('year', 'month')
-                ->orderBy('year', 'asc')
-                ->orderBy('month', 'asc')
-                ->get();
+            
 
             $revenueData = DB::table('laporan_commerce')
                 ->select(
@@ -153,13 +144,69 @@ class RevenueController extends Controller
         // dd($gapSum2);
 
         // dd($kenaikanGap);
-                
+
+        //======== STATISTIC TOP USER ==========
+        $portofolioData = DB::table('laporan_commerce')
+        ->select(
+            'id_portofolio',
+            DB::raw('YEAR(tanggal) as year'),
+            DB::raw('MONTH(tanggal) as month'),
+            DB::raw('SUM(nilai) as total_nilai')
+        )
+        ->where('jenis_laporan', '=', 'Revenue')
+        ->groupBy('id_portofolio', 'year', 'month')
+        ->orderBy('year', 'asc')
+        ->orderBy('month', 'asc')
+        ->get();
+
+        $gapPortofolio = [];
+
+        foreach ($portofolioData as $portofolioItem) {
+            foreach ($targetGap as $targetItem) {
+                if ($portofolioItem->year == $targetItem->year && $portofolioItem->month == $targetItem->month) {
+                    $gapPortofolio[] = [
+                        'portofolio' => $portofolioItem->id_portofolio,
+                        'year' => $portofolioItem->year,
+                        'month' => $portofolioItem->month,
+                        'gap' => $targetItem->total_nilai - $portofolioItem->total_nilai,
+                    ];
+                    break;
+                }
+            }
+        }
+
+        // dd($gapPortofolio);
+
+        $collection = collect($gapPortofolio);
+
+        $smallestGapPortofolio = $collection->groupBy('portofolio')->map(function ($portofolioEntries, $portofolioId) {
+            if ($portofolioEntries->isEmpty()) {
+                return null; // Tidak ada data gap untuk portofolio ini
+            }
+            
+            $smallestGapEntry = $portofolioEntries->sortBy('gap')->first();
+            return [
+                'portofolio' => $portofolioId,
+                'gap' => $smallestGapEntry['gap'],
+            ];
+        })->filter()->sortBy('gap')->first(); // Menggunakan filter() untuk menghapus nilai null
+        
+        
+
+        if ($smallestGapPortofolio !== null && isset($smallestGapPortofolio['portofolio'])) {
+            $TopPortofolio = Portofolio::find($smallestGapPortofolio['portofolio']);
+            $TopRevenue = $TopPortofolio->nama_portofolio;
+        } else {
+            // Handle the case where $biggestGPUser is null or 'gpm' key is not set
+            $TopRevenue = "Belum ada data"; // Set a default value or handle the error gracefully
+        }
+
 
         $account = Auth::guard('account')->user();
         if ($account->role == "Commerce") {
             return view('commerce.dashboard.revenue', [
                 "title" => "Revenue",
-                "commerceData" => $commerceData,
+                
                 "revenueData" => $revenueData,
                 "targetData" => $targetData,
                 "TotalRealisasiRevenue" => $TotalRealisasiRevenue,
@@ -170,17 +217,25 @@ class RevenueController extends Controller
                 "gapSum1" => $gapSum1,
                 "kenaikanGap" => $kenaikanGap,
                 'tahunData' => $tahunData,
+                "TopRevenue" => $TopRevenue,
+                "GapTop" => $smallestGapPortofolio['gap'] ?? null
             ]);
         } else {
             return view('admin.dashboard.revenue', [
                 "title" => "Revenue",
-                "commerceData" => $commerceData,
+                
                 "revenueData" => $revenueData,
                 "targetData" => $targetData,
-                'tahunData' => $tahunData,
                 "TotalRealisasiRevenue" => $TotalRealisasiRevenue,
                 "kenaikanRealisasi" => $kenaikanRealisasi,
+                "kenaikanTarget" => $kenaikanTarget,
+                "TotalTarget1" => $TotalTarget1,
                 "gapData" => $gapData,
+                "gapSum1" => $gapSum1,
+                "kenaikanGap" => $kenaikanGap,
+                'tahunData' => $tahunData,
+                "TopRevenue" => $TopRevenue,
+                "GapTop" => $smallestGapPortofolio['gap'] ?? null
             ]);
         }
         }
