@@ -221,7 +221,7 @@
     @media only screen and (max-width: 1366px) {
         .top-kpp{
             display: block; 
-            width: 90px; 
+            width: 100px; 
             overflow: hidden; 
             white-space: nowrap; 
             text-overflow: ellipsis;

@@ -102,37 +102,10 @@ Dashboard
                           <th scope="row">{{$i++}}</th>
                           <td>{{ $admins ->nama_city}}</td>
                           <td>
-                            <a class="btn btn-sm btn-danger" 
-                            {{-- data-toggle="modal" data-target="#deleteModal{{$admins->id}}" --}}
-                            style="color: white"
-                            data-toggle="modal" data-target="#deleteCityModal{{ $admins->id }}"
-                            >Delete</a>
-                            {{-- MODAL DELETE --}}
-                            <div class="modal fade" tabindex="-1" role="dialog" id="deleteCityModal{{ $admins->id }}" data-backdrop="static">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title">Hapus Kota</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCity1">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    @csrf
-                                      <div class="modal-body">
-                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Kota yang dipilih.
-                                      </div>
-                                      <div class="modal-footer bg-whitesmoke br">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCity2">Cancel</button>
-                                        <a class="btn btn-danger" href="{{ route('admin.deleteCity', [$admins->id]) }}" value="Delete">Delete</a>
-                                      </div>
-                                  </div>
-                                </div>
-                            </div>
-                            {{-- <a class="btn btn-sm btn-warning" href="#">Edit</a> --}}
-
                             {{-- UPDATE CITY --}}
-                            <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editCityModal-{{$admins->id}}" style="color: white" 
-                            >Edit</a>
+                            <a class="btn btn-sm btn-success btn-sm rounded-0" data-toggle="modal" data-target="#editCityModal-{{$admins->id}}" style="color: white"><i class="fa fa-edit"></i></a>
+
+                            {{-- MODAL CITY --}}
                             <div class="modal fade" tabindex="-1" role="dialog" id="editCityModal-{{$admins->id}}" data-backdrop="static">
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -158,6 +131,34 @@ Dashboard
                                   </form>
                                 </div>
                               </div>
+                            </div>
+          
+                            {{-- DELETE CITY --}}
+                            <a class="btn btn-sm btn-danger btn-sm rounded-0"
+                            style="color: white"
+                            data-toggle="modal" data-target="#deleteCityModal{{ $admins->id }}"
+                            ><i class="fa fa-trash"></i></a>
+                            
+                            {{-- MODAL DELETE --}}
+                            <div class="modal fade" tabindex="-1" role="dialog" id="deleteCityModal{{ $admins->id }}" data-backdrop="static">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">Hapus Kota</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCity1">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    @csrf
+                                      <div class="modal-body">
+                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Kota yang dipilih.
+                                      </div>
+                                      <div class="modal-footer bg-whitesmoke br">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCity2">Cancel</button>
+                                        <a class="btn btn-danger" href="{{ route('admin.deleteCity', [$admins->id]) }}" value="Delete">Delete</a>
+                                      </div>
+                                  </div>
+                                </div>
                             </div>
 
                           </td>

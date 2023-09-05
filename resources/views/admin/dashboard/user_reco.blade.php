@@ -102,37 +102,11 @@ Dashboard
                           <th scope="row">{{$i++}}</th>
                           <td>{{ $admins ->nama_user_reco}}</td>
                           <td>
-                            <a class="btn btn-sm btn-danger" 
-                            {{-- data-toggle="modal" data-target="#deleteModal{{$admins->id}}" --}}
-                            style="color: white"
-                            data-toggle="modal" data-target="#deleteUserRecoModal{{ $admins->id }}"
-                            >Delete</a>
-                            {{-- MODAL DELETE --}}
-                            <div class="modal fade" tabindex="-1" role="dialog" id="deleteUserRecoModal{{ $admins->id }}" data-backdrop="static">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title">Hapus User</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeUserReco1">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    @csrf
-                                      <div class="modal-body">
-                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus User yang dipilih.
-                                      </div>
-                                      <div class="modal-footer bg-whitesmoke br">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeUserReco2">Cancel</button>
-                                        <a class="btn btn-danger" href="{{ route('admin.deleteUserReco', [$admins->id]) }}" value="Delete">Delete</a>
-                                      </div>
-                                  </div>
-                                </div>
-                            </div>
-                            <!-- <a class="btn btn-sm btn-warning" href="#">Edit</a> -->
-
                             <!-- UPDATE User -->
-                            <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editUserRecoModal-{{$admins->id}}" style="color: white" 
-                            >Edit</a>
+                            <a class="btn btn-sm btn-success btn-sm rounded-0" data-toggle="modal" data-target="#editUserRecoModal-{{$admins->id}}" style="color: white" 
+                            ><i class="fa fa-edit"></i></a>
+                            
+                            {{-- MODAL EDIT --}}
                             <div class="modal fade" tabindex="-1" role="dialog" id="editUserRecoModal-{{$admins->id}}" data-backdrop="static">
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -158,6 +132,34 @@ Dashboard
                                   </form>
                                 </div>
                               </div>
+                            </div>
+
+                            {{-- DELETE User --}}
+                            <a class="btn btn-sm btn-danger btn-sm rounded-0" 
+                            style="color: white"
+                            data-toggle="modal" data-target="#deleteUserRecoModal{{ $admins->id }}"
+                            ><i class="fa fa-trash"></i></a>
+
+                            {{-- MODAL DELETE --}}
+                            <div class="modal fade" tabindex="-1" role="dialog" id="deleteUserRecoModal{{ $admins->id }}" data-backdrop="static">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">Hapus User</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeUserReco1">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    @csrf
+                                      <div class="modal-body">
+                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus User yang dipilih.
+                                      </div>
+                                      <div class="modal-footer bg-whitesmoke br">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeUserReco2">Cancel</button>
+                                        <a class="btn btn-danger" href="{{ route('admin.deleteUserReco', [$admins->id]) }}" value="Delete">Delete</a>
+                                      </div>
+                                  </div>
+                                </div>
                             </div>
 
                           </td>

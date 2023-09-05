@@ -141,12 +141,79 @@ Dashboard
                           <td>{{ $admins ->keterangan}}</td>
 
                           <td>
-                            <a class="btn btn-sm btn-danger" 
-                            {{-- data-toggle="modal" data-target="#deleteModal{{$admins->id}}" --}}
+
+                            {{-- UPDATE Account --}}
+                            <a class="btn btn-sm btn-success btn-sm rounded-0" data-toggle="modal" data-target="#editAccountModal-{{$admins->id}}" style="color: white" 
+                            ><i class="fa fa-edit"></i></a>
+
+                            {{-- MODAL EDIT --}}
+                            <div class="modal fade" tabindex="-1" role="dialog" id="editAccountModal-{{$admins->id}}" data-backdrop="static">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">Ubah Akun</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeAccount1">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <form id="accountUpdateForm" class="form-validation" action="{{route('admin.updateAccount', [$admins->id])}}" method="POST">
+                                  @csrf
+                                    <div class="modal-body">
+                                      <div class="form-group">
+                                        <label for="nama" class="col-form-label">Nama: </label>
+                                        <input type="text" id="nama" name="nama" class="form-control" value="{{ $admins->nama }}" required>
+                                        <span id="nama" style="display: none; color: red;">Field Nama harus diisi!</span>
+  
+                                        <label for="nik" class="col-form-label">NIK: </label>
+                                        <input type="text" id="nik" name="nik" class="form-control" value="{{ $admins->nik }}" required>
+                                        <span id="nik" style="display: none; color: red;">Field NIK harus diisi!</span>
+  
+                                        <label for="password" class="col-form-label">Password: </label>
+                                        <input type="password" id="password" name="password" class="form-control" placeholder="Kosong" required>
+                                        <span id="password_error" style="display: none; color: red;">Field Password harus diisi!</span>
+  
+                                        <label for="role" class="col-form-label">Role: </label>
+                                        <select class="role form-control" name="role" required>
+                                          <option value="{{$admins->role}}" selected>{{$admins->role}}</option>
+                                          @foreach ($roles as $role)
+                                              @if ($role->nama_role !== $admins->role)
+                                                  <option value="{{ $role->nama_role }}">{{ $role->nama_role }}</option>
+                                              @endif
+                                          @endforeach
+                                        </select>
+                                        <span id="role_error" style="display: none; color: red;">Field Role harus diisi!</span>
+  
+                                        <label for="kota" class="col-form-label">Kota: </label>
+                                        <select class="kota form-control" name="kota" required>
+                                          <option value="{{$admins->kota}}" onclick="pushData('kota')" selected>{{$citys[$admins->kota]}}</option>
+                                          @foreach ($addcity as $city)
+                                            @if ($citys[$admins->kota] !== $city->nama_city)
+                                              <option value= {{ $city->id }}>{{ $city->nama_city }}</option>
+                                            @endif
+                                          @endforeach
+                                        </select>
+                                        <span id="kota_error" style="display: none; color: red;">Field Kota harus diisi!</span>
+  
+                                        <label for="keterangan" class="col-form-label">Keterangan: </label>
+                                        <input type="text" id="keterangan" name="keterangan" class="form-control" value="{{ $admins->keterangan }}" required>
+                                        {{-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> --}}
+                                        <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer bg-whitesmoke br">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeUpdateAccount">Close</button>
+                                      <button type="submit" class="btn btn-primary" value="Simpan Data">Save changes</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            {{-- DELETE Account --}}
+                            <a class="btn btn-sm btn-danger btn-sm rounded-0" 
                             style="color: white"
                             data-toggle="modal" data-target="#deleteAccountModal{{ $admins->id }}"
-                            >Delete</a>
-
+                            ><i class="fa fa-trash"></i></a>
 
                             {{-- MODAL DELETE --}}
                             <div class="modal fade" tabindex="-1" role="dialog" id="deleteAccountModal{{ $admins->id }}" data-backdrop="static">
@@ -169,73 +236,7 @@ Dashboard
                                   </div>
                                 </div>
                             </div>
-                            {{-- <a class="btn btn-sm btn-warning" href="#">Edit</a> --}}
-
-                            {{-- UPDATE CITY --}}
-                            <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editAccountModal-{{$admins->id}}" style="color: white" 
-                            >Edit</a>
-                            <div class="modal fade" tabindex="-1" role="dialog" id="editAccountModal-{{$admins->id}}" data-backdrop="static">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title">Ubah Akun</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeAccount1">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <form id="accountUpdateForm" class="form-validation" action="{{route('admin.updateAccount', [$admins->id])}}" method="POST">
-                                  @csrf
-                                    <div class="modal-body">
-                                      <div class="form-group">
-                                        <label for="nama" class="col-form-label">Nama: </label>
-                                        <input type="text" id="nama" name="nama" class="form-control" value="{{ $admins->nama }}" required>
-                                        <span id="nama" style="display: none; color: red;">Field Nama harus diisi!</span>
-
-                                        <label for="nik" class="col-form-label">NIK: </label>
-                                        <input type="text" id="nik" name="nik" class="form-control" value="{{ $admins->nik }}" required>
-                                        <span id="nik" style="display: none; color: red;">Field NIK harus diisi!</span>
-
-                                        <label for="password" class="col-form-label">Password: </label>
-                                        <input type="password" id="password" name="password" class="form-control" placeholder="Kosong" required>
-                                        <span id="password_error" style="display: none; color: red;">Field Password harus diisi!</span>
-
-                                        <label for="role" class="col-form-label">Role: </label>
-                                        <select class="role form-control" name="role" required>
-                                          <option value="{{$admins->role}}" selected>{{$admins->role}}</option>
-                                          @foreach ($roles as $role)
-                                              @if ($role->nama_role !== $admins->role)
-                                                  <option value="{{ $role->nama_role }}">{{ $role->nama_role }}</option>
-                                              @endif
-                                          @endforeach
-                                        </select>
-                                        <span id="role_error" style="display: none; color: red;">Field Role harus diisi!</span>
-
-                                        <label for="kota" class="col-form-label">Kota: </label>
-                                        <select class="kota form-control" name="kota" required>
-                                          <option value="{{$admins->kota}}" onclick="pushData('kota')" selected>{{$citys[$admins->kota]}}</option>
-                                          @foreach ($addcity as $city)
-                                            @if ($citys[$admins->kota] !== $city->nama_city)
-                                              <option value= {{ $city->id }}>{{ $city->nama_city }}</option>
-                                            @endif
-                                          @endforeach
-                                        </select>
-                                        <span id="kota_error" style="display: none; color: red;">Field Kota harus diisi!</span>
-
-                                        <label for="keterangan" class="col-form-label">Keterangan: </label>
-                                        <input type="text" id="keterangan" name="keterangan" class="form-control" value="{{ $admins->keterangan }}" required>
-                                        {{-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> --}}
-                                        <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
-                                      </div>
-                                    </div>
-                                    <div class="modal-footer bg-whitesmoke br">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeUpdateAccount">Close</button>
-                                      <button type="submit" class="btn btn-primary" value="Simpan Data">Save changes</button>
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-
+                            
                           </td>
                         </tr>
                         @endforeach
