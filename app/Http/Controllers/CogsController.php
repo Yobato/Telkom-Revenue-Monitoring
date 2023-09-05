@@ -7,6 +7,7 @@ use App\Models\Target;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\UserReco;
 
 class CogsController extends Controller
 {
@@ -133,6 +134,52 @@ class CogsController extends Controller
         $kenaikanGap = 0;
     }
 
+    //======== STATISTIC TOP USER ==========
+    $userData = DB::table('laporan_commerce')
+    ->select(
+        'id_user',
+        DB::raw('YEAR(tanggal) as year'),
+        DB::raw('MONTH(tanggal) as month'),
+        DB::raw('SUM(nilai) as total_nilai')
+    )
+    ->groupBy('id_user', 'year', 'month')
+    ->orderBy('year', 'asc')
+    ->orderBy('month', 'asc')
+    ->get();
+    
+    $gapUser = [];
+
+    foreach ($userData as $userItem) {
+        foreach ($targetGap as $targetItem) {
+            if ($userItem->year == $targetItem->year && $userItem->month == $targetItem->month) {
+                $gapUser[] = [
+                    'user' => $userItem->id_user,
+                    'year' => $userItem->year,
+                    'month' => $userItem->month,
+                    'gap' => $targetItem->total_nilai - $userItem->total_nilai,
+                ];
+                break;
+            }
+        }
+    }
+  
+    $collection = collect($gapUser);
+
+    $smallestGapUser = $collection->groupBy('user')->map(function ($userEntries, $userId) {
+        if ($userEntries->isEmpty()) {
+            return null; // Tidak ada data gap untuk user ini
+        }
+        
+        $smallestGapEntry = $userEntries->sortBy('gap')->first();
+        return [
+            'user' => $userId,
+            'gap' => $smallestGapEntry['gap'],
+        ];
+    })->filter()->sortBy('gap')->first(); // Menggunakan filter() untuk menghapus nilai null
+    
+    $TopUser = UserReco::find($smallestGapUser['user']);
+    $TopKKP = $TopUser->nama_user_reco;
+
     // dd($gapSum2);
 
     // dd($kenaikanGap);
@@ -150,6 +197,8 @@ class CogsController extends Controller
                     "TotalTarget1" => $TotalTarget1,
                     "gapData" => $gapData,
                     "gapSum1" => $gapSum1,
+                    "TopKKP" => $TopKKP,
+                    "GapTop" => $smallestGapUser['gap'],
                     "kenaikanGap" => $kenaikanGap,
                     'tahunData' => $tahunData,
                 ]);
@@ -161,7 +210,14 @@ class CogsController extends Controller
                     'tahunData' => $tahunData,
                     "TotalRealisasiCOGS" => $TotalRealisasiCOGS,
                     "kenaikanRealisasi" => $kenaikanRealisasi,
+                    "TopKKP" => $TopKKP,
+                    "GapTop" => $smallestGapUser['gap'],
+                    "gapSum1" => $gapSum1,
                     "gapData" => $gapData,
+                    'tahunData' => $tahunData,
+                    "TotalTarget1" => $TotalTarget1,
+                    "kenaikanTarget" => $kenaikanTarget,
+                    "kenaikanGap" => $kenaikanGap,
                 ]);
             }
         }
