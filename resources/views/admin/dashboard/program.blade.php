@@ -117,11 +117,58 @@ Dashboard
                           <td>{{ $admins ->kode_program}}</td>
                           <td>{{ $admins ->role}}</td>
                           <td>
-                            <a class="btn btn-sm btn-danger" 
+                            {{-- UPDATE PROGRAM --}}
+                            <a class="btn btn-sm btn-success btn-sm rounded-0" data-toggle="modal" data-target="#editProgramModal-{{$admins->id}}" style="color: white" 
+                            ><i class="fa fa-edit"></i></a>
+
+                            {{-- MODAL EDIT --}}
+                            <div class="modal fade" tabindex="-1" role="dialog" id="editProgramModal-{{$admins->id}}" data-backdrop="static">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">Ubah Program</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeProgram1">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <form id="programUpdateForm" class="form-validation" action="{{route('admin.updateProgram', [$admins->id])}}" method="POST">
+                                  @csrf
+                                    <div class="modal-body">
+                                      <div class="form-group">
+                                        <label for="nama_program" class="col-form-label">Nama Program: </label>
+                                        <input type="text" id="nama_program_update" name="nama_program" class="form-control" value="{{ $admins->nama_program }}" required>
+                                        <span id="nama_program_update_error" style="display: none; color: red;">Field Nama harus diisi!</span>
+  
+                                        <label for="kode" class="col-form-label">Kode Program: </label>
+                                        <input type="text" id="kode_program_update" name="kode_program" class="required-input form-control" value="{{ $admins->kode_program }}" required>
+                                        <span class="error-message" id="error_kode_program_update" style="display: none; color: red;">Field Kode Program harus diisi!</span>
+  
+                                        <label for="role" class="col-form-label">Role: </label>
+                                        <select class="role form-control" name="role" required>
+                                          <option value="{{$admins->role}}" selected>{{$admins->role}}</option>
+                                          @foreach ($roles as $role)
+                                              @if ($role->nama_role !== $admins->role)
+                                                  <option value="{{ $role->nama_role }}">{{ $role->nama_role }}</option>
+                                              @endif
+                                          @endforeach
+                                        </select>
+                                        <span id="role_error" style="display: none; color: red;">Field Role harus diisi!</span>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer bg-whitesmoke br">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeUpdateProgram">Close</button>
+                                      <button type="submit" class="btn btn-primary" value="Simpan Data">Save changes</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+
+                            {{-- DELETE PROGRAM --}}
+                            <a class="btn btn-sm btn-danger btn-sm rounded-0" 
                             style="color: white"
                             data-toggle="modal" data-target="#deleteProgramModal{{ $admins->id }}"
-                            >Delete</a>
-
+                            ><i class="fa fa-trash"></i></a>
 
                             {{-- MODAL DELETE --}}
                             <div class="modal fade" tabindex="-1" role="dialog" id="deleteProgramModal{{ $admins->id }}" data-backdrop="static">
@@ -144,53 +191,7 @@ Dashboard
                                   </div>
                                 </div>
                             </div>
-                            {{-- <a class="btn btn-sm btn-warning" href="#">Edit</a> --}}
-
-                            {{-- UPDATE CITY --}}
-                            <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editProgramModal-{{$admins->id}}" style="color: white" 
-                            >Edit</a>
-                            <div class="modal fade" tabindex="-1" role="dialog" id="editProgramModal-{{$admins->id}}" data-backdrop="static">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title">Ubah Program</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeProgram1">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <form id="programUpdateForm" class="form-validation" action="{{route('admin.updateProgram', [$admins->id])}}" method="POST">
-                                  @csrf
-                                    <div class="modal-body">
-                                      <div class="form-group">
-                                        <label for="nama_program" class="col-form-label">Nama Program: </label>
-                                        <input type="text" id="nama_program_update" name="nama_program" class="form-control" value="{{ $admins->nama_program }}" required>
-                                        <span id="nama_program_update_error" style="display: none; color: red;">Field Nama harus diisi!</span>
-
-                                        <label for="kode" class="col-form-label">Kode Program: </label>
-                                        <input type="text" id="kode_program_update" name="kode_program" class="required-input form-control" value="{{ $admins->kode_program }}" required>
-                                        <span class="error-message" id="error_kode_program_update" style="display: none; color: red;">Field Kode Program harus diisi!</span>
-
-                                        <label for="role" class="col-form-label">Role: </label>
-                                        <select class="role form-control" name="role" required>
-                                          <option value="{{$admins->role}}" selected>{{$admins->role}}</option>
-                                          @foreach ($roles as $role)
-                                              @if ($role->nama_role !== $admins->role)
-                                                  <option value="{{ $role->nama_role }}">{{ $role->nama_role }}</option>
-                                              @endif
-                                          @endforeach
-                                        </select>
-                                        <span id="role_error" style="display: none; color: red;">Field Role harus diisi!</span>
-                                      </div>
-                                    </div>
-                                    <div class="modal-footer bg-whitesmoke br">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeUpdateProgram">Close</button>
-                                      <button type="submit" class="btn btn-primary" value="Simpan Data">Save changes</button>
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-
+                            
                           </td>
                         </tr>
                         @endforeach

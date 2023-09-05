@@ -75,8 +75,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Top Gross Profit</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ $TopGP }}</span>
+                                <h5 class="top-cogs card-title text-uppercase text-muted mb-0">Top Gross Profit</h5>
+                                <span class="top-cogs h2 font-weight-bold mb-0">{{ $TopGP }}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -150,6 +150,24 @@
     .icon {
         width: 3rem;
         height: 3rem;
+    }
+
+    .top-cogs{
+        display: block; 
+        width: 200px; 
+        overflow: hidden; 
+        white-space: nowrap; 
+        text-overflow: ellipsis;
+    }
+
+    @media only screen and (max-width: 1366px) {
+        .top-cogs{
+            display: block; 
+            width: 155px; 
+            overflow: hidden; 
+            white-space: nowrap; 
+            text-overflow: ellipsis;
+        }
     }
 </style>
 
