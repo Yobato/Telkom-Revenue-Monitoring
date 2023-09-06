@@ -62,7 +62,7 @@
                                     <th scope="col">User</th>
                                     <th scope="col">Nilai</th>
                                     <th scope="col">Keterangan</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Tanggal</th>
                                 </tr>
                                 <?php $i = 1 ?>
                                 @foreach ($laporan_finance as $admins)
@@ -76,17 +76,7 @@
                                     <td>{{ $user_id[$admins->id_user]}}</td>
                                     <td>{{ $admins->nilai}}</td>
                                     <td>{{ $admins->keterangan }}</td>
-                                    <td>
-                                        @if($admins->editable == 0)
-                                            <a href={{ route('admin.editableFinance', [$admins->pid_finance]) }} class="btn btn-primary btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i> Open Edit</a>
-                                        @endif
-                                        @if($admins->editable == 1)
-                                            <a href={{ route('admin.uneditableFinance', [$admins->pid_finance]) }} class="btn btn-danger btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i> Close Edit</a>
-                                        @endif
-
-                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                 </tr>
                                 @endforeach
                             </table>
