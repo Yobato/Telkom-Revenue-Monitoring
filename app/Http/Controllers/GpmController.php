@@ -186,6 +186,19 @@ class GpmController extends Controller
                 "TopGP" => $TopGP,
                 "biggestGPUser" => $biggestGPUser['gpm'] ?? null
             ]);
+        }elseif ($account->role == "GM"){
+            return view('manager.dashboard.gpm', [
+                "title" => "GPM",
+                "gpmData1" => $gpmData1,
+                "gpmData2" => $gpmData2,
+                'tahunData' => $tahunData,
+                "cumulativeGPM" => $cumulativeGPM,
+                "kenaikanGPM" => $kenaikanGPM,
+                "cumulativeGM" => $cumulativeGM,
+                "kenaikanGM" => $kenaikanGM,
+                "TopGP" => $TopGP,
+                "biggestGPUser" => $biggestGPUser['gpm'] ?? null
+            ]);
         } else {
             return view('admin.dashboard.gpm', [
                 "title" => "GPM",

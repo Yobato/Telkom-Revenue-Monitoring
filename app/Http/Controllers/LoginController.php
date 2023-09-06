@@ -34,7 +34,7 @@ class LoginController extends Controller
             } else if ($account->role == 'Finance') {
                 return redirect()->intended(route('finance.dashboard.index'));
             } else if ($account->role == 'GM') {
-                return redirect()->intended(route('admin.dashboard.peruntukan'));
+                return redirect()->intended(route('manager.dashboard'));
             } else if ($account->role == 'Admin') {
                 return redirect()->intended(route('admin.dashboard'));
             } else {

@@ -7,17 +7,27 @@ use App\Models\Target;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class TargetController extends Controller
 {
     //
     public function index()
     {
-        return view('admin.dashboard.target', [
-            "title" => "Target",
-            "target" => Target::all(),
-            "roles" => Role::all(),
-        ]);
+         $account = Auth::guard('account')->user();
+        if ($account->role == "Admin") {
+            return view('admin.dashboard.target', [
+                "title" => "Target",
+                "target" => Target::all(),
+                "roles" => Role::all(),
+            ]);
+        } elseif($account->role == "GM"){
+            return view('manager.dashboard.target', [
+                "title" => "Target",
+                "target" => Target::all(),
+                "roles" => Role::all(),
+            ]);
+        }
     }
 
     public function storeTarget(Request $request)
@@ -69,4 +79,3 @@ class TargetController extends Controller
         return redirect()->intended(route('admin.dashboard.target'))->with("success", "Berhasil mengubah Target");
     }
 }
-

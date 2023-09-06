@@ -63,25 +63,32 @@ Route::group(['middleware' => 'revalidate'], function () {
 
     Route::group(['middleware' => ['auth:account', 'account-access:GM']], function () {
         //GM
-        Route::get('/manager', function () {
-            return view('manager.dashboard.gpm');
-        })->name('manager-index');
+        // Route::get('/manager', function () {
+        //     return view('manager.dashboard.gpm');
+        // })->name('manager-index');
 
-        Route::get('/manager-gpm', function () {
-            return view('manager.dashboard.gpm');
-        })->name('manager-gpm');
+        // Route::get('/manager-gpm', function () {
+        //     return view('manager.dashboard.gpm');
+        // })->name('manager-gpm');
 
-        Route::get('/manager/kkp-operasional', function () {
-            return view('manager.dashboard.kkp');
-        })->name('manager-kkp');
+        // Route::get('/manager/kkp-operasional', function () {
+        //     return view('manager.dashboard.kkp');
+        // })->name('manager-kkp');
 
-        Route::get('/manager/Revenue', function () {
-            return view('manager.dashboard.revenue');
-        })->name('manager-revenue');
+        // Route::get('/manager/Revenue', function () {
+        //     return view('manager.dashboard.revenue');
+        // })->name('manager-revenue');
 
-        Route::get('/manager/Cost-of-Good-Sold', function () {
-            return view('manager.dashboard.cogs');
-        })->name('manager-cogs');
+        // Route::get('/manager/Cost-of-Good-Sold', function () {
+        //     return view('manager.dashboard.cogs');
+        // })->name('manager-cogs');
+        Route::get('/manager-cogs', [App\Http\Controllers\CogsController::class, 'index'])->name('manager-cogs');
+        Route::get('/manager', [App\Http\Controllers\GpmController::class, 'index'])->name('manager.dashboard');
+        Route::get('/manager-revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('manager-revenue');
+        Route::get('/manager-kkp', [App\Http\Controllers\KkpController::class, 'index'])->name('manager-kkp');
+        Route::get('/manager/target', [App\Http\Controllers\TargetController::class, 'index'])->name('manager.dashboard.target');
+        Route::get('/manager/finance', [App\Http\Controllers\LaporanFinanceController::class, 'index'])->name('manager.dashboard.finance');
+        Route::get('/manager/commerce', [App\Http\Controllers\LaporanCommerceController::class, 'index'])->name('manager.dashboard.commerce');
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:Admin']], function () {

@@ -66,6 +66,17 @@ class LaporanFinanceController extends Controller
                 "peruntukan_id" => $peruntukan_id,
                 "citys" => $citys
             ]);
+        } elseif ($account->role == "GM"){
+             return view('manager.dashboard.laporanFinance', [
+                "title" => "Laporan Finance",
+                "laporan_finance" => LaporanFinance::all(),
+                "portofolio_id" => $portofolio_id,
+                "program_id" => $program_id,
+                "cost_plan_id" => $cost_plan_id,
+                "user_id" => $user_id,
+                "peruntukan_id" => $peruntukan_id,
+                "citys" => $citys
+            ]);
         } else {
             return view('admin.dashboard.laporanFinance', [
                 "title" => "Laporan Finance",

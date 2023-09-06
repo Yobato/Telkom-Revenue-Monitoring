@@ -11,42 +11,35 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="nav-item dropdown">
-                <a href="#"
-                    class="nav-link has-dropdown"><i class="bi bi-bar-chart-fill"></i><span>Dashboard</span></a>
+            <li class="nav-item dropdown {{ $title==='KKP' || $title==='Revenue' || $title==='COGS'|| $title==='GPM' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="bi bi-bar-chart-fill"></i><span>Dashboard</span></a>
                 <ul class="dropdown-menu">
-                    <li class='{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}'>
-                        <a class="nav-link"
-                            href="{{ route('manager-gpm') }}">Gross Profit Margin</a>
+                    <li class="{{ $title==='GPM' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('manager.dashboard') }}">Gross Profit Margin</a>
                     </li>
-                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ route('manager-cogs') }}">Cost of Goods Sold</a>
+                    <li class="{{ $title==='COGS' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('manager-cogs') }}">Cost of Goods Sold</a>
                     </li>
-                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ route('manager-revenue') }}">Revenue</a>
+                    <li class="{{ $title==='Revenue' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('manager-revenue') }}">Revenue</a>
                     </li>
-                    <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ route('manager-kkp') }}">KKP Operasional</a>
+                    <li class="{{ $title==='KKP' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('manager-kkp') }}">KKP Operasional</a>
                     </li>
                 </ul>
             </li>
-            <li class="nav-item dropdown">
-                <a href="#"
-                    class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Reporting</span></a>
+            <li class="nav-item dropdown {{ $title==='Laporan Finance' || $title==='Laporan Commerce' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Reporting</span></a>
                 <ul class="dropdown-menu">
-                    <li class='{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}'>
-                        <a class="nav-link"
-                            href="{{ route('commerce-cogs') }}">COGS</a>
+                    <li class="{{ $title==='Laporan Commerce' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('manager.dashboard.commerce')}}">COGS & Revenue</a>
                     </li>
-                    <li class="{{ Request::route()->getName() == 'commerce.dashboard' ? ' active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ route('commerce-revenue') }}">Revenue</a>
+                    <li class="{{ $title==='Laporan Finance' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('manager.dashboard.finance')}}">KKP Operasional</a>
                     </li>
                 </ul>
             </li>
+            <li class="{{ $title==='Target' ? ' active' : '' }}"><a class="nav-link" href="{{route('manager.dashboard.target')}}"><i class="bi bi-ui-checks"></i><span>Target</span></a></li>
         </ul>
     </aside>
 </div>
