@@ -58,6 +58,17 @@ class LaporanCommerceController extends Controller
                 "sub_grup_akun_id" => $sub_grup_akun_id,
                 "citys" => $citys
             ]);
+        } elseif ($account->role == "GM"){
+            return view('manager.dashboard.laporanCommerce', [
+                "commerce" => LaporanCommerce::all(),
+                "title" => "Laporan Commerce",
+                "laporan_commerce" => LaporanCommerce::all(),
+                "program_id" => $program_id,
+                "kode_program_id" => $kode_program_id,
+                "portofolio_id" => $portofolio_id,
+                "sub_grup_akun_id" => $sub_grup_akun_id,
+                "citys" => $citys
+            ]);
         } else {
             return view('admin.dashboard.laporanCommerce', [
                 "commerce" => LaporanCommerce::all(),

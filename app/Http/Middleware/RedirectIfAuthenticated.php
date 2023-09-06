@@ -31,7 +31,7 @@ class RedirectIfAuthenticated
                     } else if ($account->role == 'Admin') {
                         return redirect()->route('admin.dashboard');
                     } else if ($account->role == 'GM') {
-                        return redirect()->route('admin.dashboard.peruntukan');
+                        return redirect()->route('manager.dashboard');
                     }
                 }
                 break;

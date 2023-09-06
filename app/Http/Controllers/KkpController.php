@@ -217,6 +217,22 @@ class KkpController extends Controller
                 "GapTop" => $smallestGapUser['gap'] ?? null,
                 "targetData" => $targetData
             ]);
+        } elseif ($account->role == "GM"){
+            return view('manager.dashboard.kkp', [
+                "title" => "KKP",
+                "kkpData" => $kkpData,
+                'tahunData' => $tahunData,
+                "TotalRealisasiKKP" => $TotalRealisasiKKP,
+                "kenaikanRealisasi" => $kenaikanRealisasi,
+                "gapData" => $gapData,
+                "TotalTarget1" => $TotalTarget1,
+                "kenaikanTarget" => $kenaikanTarget,
+                "gapSum1" => $gapSum1,
+                "kenaikanGap" => $kenaikanGap,
+                "TopKKP" => $TopKKP,
+                "GapTop" => $smallestGapUser['gap'] ?? null,
+                "targetData" => $targetData
+            ]);
         }
         else{
             return view('admin.dashboard.kkp', [

@@ -207,6 +207,22 @@ class CogsController extends Controller
                 "TopCOGS" => $TopCOGS,
                 "GapTop" => $smallestGapPortofolio['gap'] ?? null
             ]);
+        } elseif ($account->role == "GM"){
+            return view('manager.dashboard.cogs', [
+                "title" => "COGS",
+                "cogsData" => $commerceData,
+                "targetData" => $targetData,
+                "TotalRealisasiCOGS" => $TotalRealisasiCOGS,
+                "kenaikanRealisasi" => $kenaikanRealisasi,
+                "kenaikanTarget" => $kenaikanTarget,
+                "TotalTarget1" => $TotalTarget1,
+                "gapData" => $gapData,
+                "gapSum1" => $gapSum1,
+                "kenaikanGap" => $kenaikanGap,
+                'tahunData' => $tahunData,
+                "TopCOGS" => $TopCOGS,
+                "GapTop" => $smallestGapPortofolio['gap'] ?? null
+            ]);
         } else {
             return view('admin.dashboard.cogs', [
                 "title" => "COGS",

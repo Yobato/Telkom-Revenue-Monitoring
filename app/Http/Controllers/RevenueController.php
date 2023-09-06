@@ -220,6 +220,22 @@ class RevenueController extends Controller
                 "TopRevenue" => $TopRevenue,
                 "GapTop" => $smallestGapPortofolio['gap'] ?? null
             ]);
+        } elseif ($account->role == "GM"){
+            return view('manager.dashboard.revenue', [
+                "title" => "Revenue",                
+                "revenueData" => $revenueData,
+                "targetData" => $targetData,
+                "TotalRealisasiRevenue" => $TotalRealisasiRevenue,
+                "kenaikanRealisasi" => $kenaikanRealisasi,
+                "kenaikanTarget" => $kenaikanTarget,
+                "TotalTarget1" => $TotalTarget1,
+                "gapData" => $gapData,
+                "gapSum1" => $gapSum1,
+                "kenaikanGap" => $kenaikanGap,
+                'tahunData' => $tahunData,
+                "TopRevenue" => $TopRevenue,
+                "GapTop" => $smallestGapPortofolio['gap'] ?? null
+            ]);
         } else {
             return view('admin.dashboard.revenue', [
                 "title" => "Revenue",
