@@ -71,7 +71,6 @@
                                     <th scope="col">Nilai</th>
                                     <th scope="col">Keterangan</th>
                                     <th scope="col">Tanggal</th>
-                                    <th scope="col">Updated at</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 <?php $i = 1 ?>
@@ -87,7 +86,6 @@
                                 <td>{{ $admins ->nilai}}</td>
                                 <td>{{ $admins ->keterangan}}</td>
                                 <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
-                                <td>{{ $admins ->updated_at}}</td>
                                 <td>
                                     @if(Auth::user()->role == "Commerce" && $admins->editable == 1)
                                         <a href={{ route('commerce.editLaporanCommerce', [$admins->id_commerce]) }} class="btn btn-success btn-sm rounded-0" type="button">
