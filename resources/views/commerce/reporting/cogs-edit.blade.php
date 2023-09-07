@@ -55,22 +55,6 @@
                                     </div>
                                     @enderror
 
-                                    <label for="kode_program" class="col-form-label">Kode Program: </label>
-                                    <select class="kode_program form-control @error('kode_program') is-invalid @enderror mb-2" name="kode_program" value="{{ old('kode_program', $laporan->kode_program) }}">
-                                        <option value="" selected>-- Pilih Kode Program --</option>
-                                        @foreach ($addprogram as $program)
-                                        <option value="{{ $program->id }}" {{ old('id_program', $laporan->id_program) == $program->id ? 'selected' : '' }}>{{ $program->nama_program }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('id_program')
-                                    <div class="invalid-feedback">
-                                        Field Kode Program harus diisi!
-                                    </div>
-                                    @enderror
-
-
-
-
                                     <label for="id_portofolio" class="col-form-label">Portofolio: </label>
                                     <select class="id_portofolio form-control @error('id_portofolio') is-invalid @enderror mb-2" name="id_portofolio" value="{{ old('id_portofolio', $laporan->id_portofolio) }}">
                                         <option value="" selected>-- Pilih Portofolio --</option>
@@ -85,6 +69,10 @@
                                     </div>
                                     @enderror
 
+                                    <label for="keterangan" class="col-form-label">Keterangan:</label>
+                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan', $laporan->keterangan) }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
+                                    <!-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> -->
+                                    <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
 
                                 </div>
                             </div>
@@ -145,17 +133,6 @@
                                     </div>
                                     @enderror
 
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row mb-lg-5">
-                            <div class="col-lg-12" style="padding: 0 62px">
-                                <div class="form-group pb-0 mb-0">
-                                    <label for="keterangan" class="col-form-label">Keterangan:</label>
-                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan', $laporan->keterangan) }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
-                                    <!-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> -->
-                                    <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
                                 </div>
                             </div>
 

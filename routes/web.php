@@ -45,43 +45,10 @@ Route::group(['middleware' => 'revalidate'], function () {
 
         Route::get('/exportfin', [App\Http\Controllers\LaporanFinanceController::class, 'export'])->name('finance.dashboard.export');
 
-
-
-
-        // Route::get('/finance/form', function () {
-        //     return view('finance.reporting.form');
-        // })->name('finance-form');
-
-        // Route::get('/finance/reporting/kkp-operasional', function () {
-        //     return view('finance.reporting.kkp');
-        // })->name('finance-reporting-kkp');
-
-        // Route::get('/finance/kkp-operasional', function () {
-        //     return view('finance.dashboard.kkp');
-        // })->name('finance-kkp');
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:GM']], function () {
-        //GM
-        // Route::get('/manager', function () {
-        //     return view('manager.dashboard.gpm');
-        // })->name('manager-index');
-
-        // Route::get('/manager-gpm', function () {
-        //     return view('manager.dashboard.gpm');
-        // })->name('manager-gpm');
-
-        // Route::get('/manager/kkp-operasional', function () {
-        //     return view('manager.dashboard.kkp');
-        // })->name('manager-kkp');
-
-        // Route::get('/manager/Revenue', function () {
-        //     return view('manager.dashboard.revenue');
-        // })->name('manager-revenue');
-
-        // Route::get('/manager/Cost-of-Good-Sold', function () {
-        //     return view('manager.dashboard.cogs');
-        // })->name('manager-cogs');
+    
         Route::get('/manager-cogs', [App\Http\Controllers\CogsController::class, 'index'])->name('manager-cogs');
         Route::get('/manager', [App\Http\Controllers\GpmController::class, 'index'])->name('manager.dashboard');
         Route::get('/manager-revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('manager-revenue');
@@ -92,10 +59,7 @@ Route::group(['middleware' => 'revalidate'], function () {
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:Admin']], function () {
-        //Admin
-        // Route::get('/admin', function () {
-        //     return view('admin.dashboard.gpm');
-        // })->name('admin-index');
+      
         Route::get('/admin', [App\Http\Controllers\GpmController::class, 'index'])->name('admin.dashboard');
 
 
@@ -184,34 +148,3 @@ Route::group(['middleware' => 'revalidate'], function () {
         return view('auth.register');
     });
 });
-
-// Route::get('home', function() {
-//     return redirect(route('admin.dashboard'));
-// });
-
-// Route::name('admin.')->prefix('admin')->middleware('auth')->group(function() {
-//     Route::get('dashboard', 'DashboardController')->name('dashboard');
-
-//     Route::get('users/roles', 'UserController@roles')->name('users.roles');
-//     Route::resource('users', 'UserController', [
-//         'names' => [
-//             'index' => 'users'
-//         ]
-//     ]);
-// });
-
-// Route::middleware('auth')->get('logout', function() {
-//     Auth::logout();
-//     return redirect(route('login'))->withInfo('You have successfully logged out!');
-// })->name('logout');
-
-// Auth::routes(['verify' => true]);
-
-// Route::name('js.')->group(function() {
-//     Route::get('dynamic.js', 'JsController@dynamic')->name('dynamic');
-// });
-
-// // Get authenticated user
-// Route::get('users/auth', function() {
-//     return response()->json(['user' => Auth::check() ? Auth::user() : false]);
-// });

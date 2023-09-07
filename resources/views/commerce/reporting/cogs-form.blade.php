@@ -57,34 +57,6 @@
                                     </div>
                                     @enderror
 
-                                    <label for="kode_program" class="col-form-label">Kode Program: </label>
-                                    <select class="kode_program form-control @error('kode_program') is-invalid @enderror mb-2" name="kode_program" value="{{ old('kode_program') }}">
-                                        <option value="" selected>-- Pilih Kode Program --</option>
-                                        @foreach ($addprogram as $program)
-                                        <option value={{ $program->id }} @selected(old('kode_program')==$program->id)>{{ $program->kode_program }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('id_program')
-                                    <div class="invalid-feedback">
-                                        Field Kode Program harus diisi!
-                                    </div>
-                                    @enderror
-
-
-                                    <!-- <label for="id_portofolio" class="col-form-label">Portofolio: </label>
-                                <select class="id_portofolio form-control @error('id_portofolio') is-invalid @enderror mb-2" name="id_portofolio" value="{{ old('id_portofolio') }}">
-                                    <option value="" selected>-- Pilih Portofolio --</option>
-                                    @foreach ($addportofolio as $portofolio)
-                                        <option value={{ $portofolio->id }} @selected(old('id_portofolio') == $portofolio->id)>{{ $portofolio->nama_portofolio }}</option>
-                                    @endforeach
-                                </select>
-                                <span id="id_portofolio_error" style="display: none; color: red;">Field Portofolio harus diisi!</span>
-                                @error('id_portofolio')
-                                <div class="invalid-feedback">
-                                    Field Portofolio harus diisi!
-                                </div>
-                                @enderror -->
-
                                     <label for="id_portofolio" class="col-form-label">Portofolio: </label>
                                     <select class="id_portofolio form-control @error('id_portofolio') is-invalid @enderror mb-2" name="id_portofolio" value="{{ old('id_portofolio') }}">
                                         <option value="" selected>-- Pilih Portofolio --</option>
@@ -99,6 +71,13 @@
                                     </div>
                                     @enderror
 
+                                    <label for="keterangan" class="col-form-label">Keterangan:</label>
+                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
+                                    @error('keterangan')
+                                    <div class="invalid-feedback">
+                                        Keterangan wajib diisi!
+                                    </div>
+                                    @enderror
 
                                 </div>
                             </div>
@@ -158,22 +137,6 @@
                                 </div>
 
                             </div>
-
-                        </div>
-                        <div class="row mb-lg-5">
-                            <div class="col-lg-12" style="padding: 0 62px">
-                                <div class="form-group pb-0 mb-0">
-                                    <label for="keterangan" class="col-form-label">Keterangan:</label>
-                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
-                                    <!-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> -->
-
-                                </div>
-                            </div>
-                            @error('keterangan')
-                            <div class="invalid-feedback">
-                                Keterangan wajib diisi!
-                            </div>
-                            @enderror
 
                         </div>
                         <div class="row mb-lg-5">
