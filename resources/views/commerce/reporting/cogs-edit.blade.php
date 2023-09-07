@@ -139,17 +139,6 @@
                         </div>
                         <div class="row mb-lg-5">
                             <div class="col-lg-12" style="padding: 0 62px">
-                                <div class="form-group pb-0 mb-0">
-                                    <label for="keterangan" class="col-form-label">Keterangan:</label>
-                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan', $laporan->keterangan) }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
-                                    <!-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> -->
-                                    <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row mb-lg-5">
-                            <div class="col-lg-12" style="padding: 0 62px">
 
                             </div>
                         </div>
