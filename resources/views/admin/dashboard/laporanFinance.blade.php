@@ -61,7 +61,9 @@
                                     <th scope="col">Peruntukan</th>
                                     <th scope="col">User</th>
                                     <th scope="col">Nilai</th>
+                                    <th scope="col">Tanggal</th>
                                     <th scope="col">Keterangan</th>
+                                    <th scope="col">Updated at</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 <?php $i = 1 ?>
@@ -75,7 +77,9 @@
                                     <td>{{ $peruntukan_id[$admins->id_peruntukan]}}</td>
                                     <td>{{ $user_id[$admins->id_user]}}</td>
                                     <td>{{ $admins->nilai}}</td>
+                                    <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td>{{ $admins->keterangan }}</td>
+                                    <td>{{ $admins ->updated_at}}</td>
                                     <td>
                                         @if($admins->editable == 0)
                                             <a href={{ route('admin.editableFinance', [$admins->pid_finance]) }} class="btn btn-primary btn-sm rounded-0" type="button">

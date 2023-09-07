@@ -71,7 +71,6 @@
                                     <th scope="col">Nilai</th>
                                     <th scope="col">Keterangan</th>
                                     <th scope="col">Tanggal</th>
-                                    <th scope="col">Created at</th>
                                     <th scope="col">Updated at</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -88,7 +87,6 @@
                                 <td>{{ $admins ->nilai}}</td>
                                 <td>{{ $admins ->keterangan}}</td>
                                 <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
-                                <td>{{ $admins ->created_at}}</td>
                                 <td>{{ $admins ->updated_at}}</td>
                                 <td>
                                     @if(Auth::user()->role == "Commerce" && $admins->editable == 1)
