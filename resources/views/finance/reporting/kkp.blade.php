@@ -41,7 +41,7 @@
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table-striped table">
+                            <table class="table">
                                 <tr>
                                     <th>PID Finance</th>
                                     <th>Portofolio</th>

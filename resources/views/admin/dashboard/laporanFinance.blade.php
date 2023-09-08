@@ -38,8 +38,7 @@
                         <h4>Laporan KKP</h4>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table-striped table" id="table-1">
+                            <table class="table table-responsive" id="table-1">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
@@ -84,7 +83,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        </div>
                     </div>
                 </div>
             </div>
