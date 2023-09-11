@@ -16,7 +16,9 @@ class KkpController extends Controller
     {
 
         //======== CHART REALISASI KKP OPERASIONAL ==========
-        $kkpData = DB::table('laporan_finance')
+        $account = Auth::guard('account')->user();
+        if($account == 'Admin'|| $account == 'GM' ){
+            $kkpData = DB::table('laporan_finance')
             ->select(
                 DB::raw('YEAR(tanggal) as year'),
                 DB::raw('MONTH(tanggal) as month'),
@@ -26,6 +28,19 @@ class KkpController extends Controller
             ->orderBy('year', 'asc')
             ->orderBy('month', 'asc')
             ->get();
+        } else{
+            $kkpData = DB::table('laporan_finance')
+                ->select(
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->where('kota', '=', $account->kota)
+                ->groupBy('year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->get();
+        }
 
         $tahunData = Target::distinct()->where('jenis_laporan', '=', 'KKP')->get(['tahun']);
         
@@ -200,7 +215,6 @@ class KkpController extends Controller
             $TopKKP = "Belum ada data";
         }
 
-        $account = Auth::guard('account')->user();
         if ($account->role == "Finance") {
             return view('finance.dashboard.chart', [
                 "title" => "KKP",
