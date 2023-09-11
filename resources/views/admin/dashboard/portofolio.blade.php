@@ -206,8 +206,16 @@ Dashboard
 
 @push('scripts')
 <script>
-    $(document).ready(function() {
-        $('#table-1').dataTable();
+$(document).ready(function() {
+    $('#table-1').DataTable({
+        "columnDefs": [
+            {
+                "targets": [3], // 4th column (Action)
+                "searchable": false, // Disable searching for this column
+                "orderable": false,
+            }
+        ]
     });
+});
 </script>
 @endpush

@@ -38,7 +38,7 @@
                         <h4>Laporan KKP</h4>
                     </div>
                     <div class="card-body">
-                        <table class="table table-responsive" id="table-1">
+                        <table class="table" id="table-1">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
