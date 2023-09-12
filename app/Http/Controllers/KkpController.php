@@ -241,7 +241,7 @@ class KkpController extends Controller
             $TopKKP = "Belum ada data";
         }
 
-         if ($account->role == "Finance") {
+        if ($account->role == "Finance") {
             return view('finance.dashboard.chart', [
                 "title" => "KKP",
                 "kkpData" => $kkpData,

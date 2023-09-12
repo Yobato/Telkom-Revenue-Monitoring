@@ -58,7 +58,7 @@ class LaporanFinanceController extends Controller
         if ($account->role == "Finance") {
             return view('finance.dashboard.index', [
                 "title" => "Laporan Finance",
-                "laporan_finance" => LaporanFinance::all()->where("kota", "=", $account->kota),
+                "laporan_finance" => LaporanFinance::all(),
                 "portofolio_id" => $portofolio_id,
                 "program_id" => $program_id,
                 "cost_plan_id" => $cost_plan_id,
@@ -69,7 +69,7 @@ class LaporanFinanceController extends Controller
         } elseif ($account->role == "GM"){
              return view('manager.dashboard.laporanFinance', [
                 "title" => "Laporan Finance",
-                "laporan_finance" => LaporanFinance::all()->where("kota", "=", $account->kota),
+                "laporan_finance" => LaporanFinance::all(),
                 "portofolio_id" => $portofolio_id,
                 "program_id" => $program_id,
                 "cost_plan_id" => $cost_plan_id,
@@ -80,7 +80,7 @@ class LaporanFinanceController extends Controller
         } else {
             return view('admin.dashboard.laporanFinance', [
                 "title" => "Laporan Finance",
-                "laporan_finance" => LaporanFinance::all()->where("kota", "=", $account->kota),
+                "laporan_finance" => LaporanFinance::all(),
                 "portofolio_id" => $portofolio_id,
                 "program_id" => $program_id,
                 "cost_plan_id" => $cost_plan_id,

@@ -15,60 +15,31 @@ class GpmController extends Controller
     public function index()
     {
         //======== CHART Gross Profit ==========
-        $account = Auth::guard('account')->user();
-        if($account == 'Admin'|| $account == 'GM' ){
-            $realisasiDataRevenue = DB::table('laporan_commerce')
-                ->select(
-                    'id_portofolio',
-                    DB::raw('YEAR(tanggal) as year'),
-                    DB::raw('MONTH(tanggal) as month'),
-                    DB::raw('SUM(nilai) as total_nilai')
-                )
-                ->groupBy('id_portofolio', 'year', 'month')
-                ->orderBy('year', 'asc')
-                ->orderBy('month', 'asc')
-                ->where('jenis_laporan', '=', 'REVENUE')
-                ->get();
-            } else{
-                $realisasiDataRevenue = DB::table('laporan_commerce')
-                    ->select(
-                        DB::raw('YEAR(tanggal) as year'),
-                        DB::raw('MONTH(tanggal) as month'),
-                        DB::raw('SUM(nilai) as total_nilai')
-                    )
-                    ->where('kota', '=', $account->kota)
-                    ->groupBy('year', 'month')
-                    ->orderBy('year', 'asc')
-                    ->orderBy('month', 'asc')
-                    ->get();
-            }
-        
-        if($account == 'Admin'|| $account == 'GM' ){
-            $realisasiDataCOGS = DB::table('laporan_commerce')
-                ->select(
-                    'id_portofolio',
-                    DB::raw('YEAR(tanggal) as year'),
-                    DB::raw('MONTH(tanggal) as month'),
-                    DB::raw('SUM(nilai) as total_nilai')
-                )
-                ->groupBy('id_portofolio', 'year', 'month')
-                ->orderBy('year', 'asc')
-                ->orderBy('month', 'asc')
-                ->where('jenis_laporan', '=', 'COGS')
-                ->get();
-        } else{
-            $realisasiDataCOGS = DB::table('laporan_commerce')
-                ->select(
-                    DB::raw('YEAR(tanggal) as year'),
-                    DB::raw('MONTH(tanggal) as month'),
-                    DB::raw('SUM(nilai) as total_nilai')
-                )
-                ->where('kota', '=', $account->kota)
-                ->groupBy('year', 'month')
-                ->orderBy('year', 'asc')
-                ->orderBy('month', 'asc')
-                ->get();
-        }
+        $realisasiDataRevenue = DB::table('laporan_commerce')
+            ->select(
+                'id_portofolio',
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(nilai) as total_nilai')
+            )
+            ->groupBy('id_portofolio', 'year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->where('jenis_laporan', '=', 'REVENUE')
+            ->get();
+
+        $realisasiDataCOGS = DB::table('laporan_commerce')
+            ->select(
+                'id_portofolio',
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(nilai) as total_nilai')
+            )
+            ->groupBy('id_portofolio', 'year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->where('jenis_laporan', '=', 'COGS')
+            ->get();
 
         //======== Fungsi Filter Berdasarkan Tahun laporan Revenue==========
         $query = "
@@ -98,11 +69,9 @@ class GpmController extends Controller
                         'gpm' => $revenueItem->total_nilai - $cogsItem->total_nilai,
                     ];
                     break;
-                    
                 }
             }
         }
-        dd($realisasiDataRevenue);
 
         //======== RUMUS CHART Gross Margin ==========
         $gpmData2 = [];
@@ -203,7 +172,7 @@ class GpmController extends Controller
         }
 
 
-        
+        $account = Auth::guard('account')->user();
         if ($account->role == "Commerce") {
             return view('commerce.dashboard.gpm', [
                 "title" => "GPM",

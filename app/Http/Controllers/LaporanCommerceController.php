@@ -51,7 +51,7 @@ class LaporanCommerceController extends Controller
             return view('commerce.dashboard.index', [
                 "commerce" => LaporanCommerce::all(),
                 "title" => "Laporan Commerce",
-                "laporan_commerce" => LaporanCommerce::all()->where("kota", "=", $account->kota),
+                "laporan_commerce" => LaporanCommerce::all(),
                 "program_id" => $program_id,
                 "kode_program_id" => $kode_program_id,
                 "portofolio_id" => $portofolio_id,
@@ -62,7 +62,7 @@ class LaporanCommerceController extends Controller
             return view('manager.dashboard.laporanCommerce', [
                 "commerce" => LaporanCommerce::all(),
                 "title" => "Laporan Commerce",
-                "laporan_commerce" => LaporanCommerce::all()->where("kota", "=", $account->kota),
+                "laporan_commerce" => LaporanCommerce::all(),
                 "program_id" => $program_id,
                 "kode_program_id" => $kode_program_id,
                 "portofolio_id" => $portofolio_id,
@@ -73,7 +73,7 @@ class LaporanCommerceController extends Controller
             return view('admin.dashboard.laporanCommerce', [
                 "commerce" => LaporanCommerce::all(),
                 "title" => "Laporan Commerce",
-                "laporan_commerce" => LaporanCommerce::all()->where("kota", "=", $account->kota),
+                "laporan_commerce" => LaporanCommerce::all(),
                 "program_id" => $program_id,
                 "kode_program_id" => $kode_program_id,
                 "portofolio_id" => $portofolio_id,
