@@ -22,6 +22,8 @@
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/components.css')}}">
   <script src="https://kit.fontawesome.com/899c89402d.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/r-2.3.0/datatables.min.css" />
 </head>
 
 <body>
@@ -73,9 +75,9 @@
         orientation: 'auto top' // Orientasi tampilan
       });
     });
-    $(document).ready(function() {
-        $('#table-1').dataTable();
-    });
+    // $(document).ready(function() {
+    //     $('#table-1').dataTable();
+    // });
   </script>
   @stack('scripts')
 </body>

@@ -3,7 +3,7 @@
 @section('title', 'Reporting')
 
 @push('style')
-    <!-- CSS Libraries -->
+<!-- CSS Libraries -->
 @endpush
 
 @section('content')
@@ -14,23 +14,21 @@
     </div>
 
     <div class="section-body">
-
         @if(session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show">
-          {{ session('success') }}
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ session('success') }}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         </div>
         @endif
 
         @if(session()->has('error'))
         <div class="alert alert-danger alert-dismissible fade show">
-          {{ session('error') }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         @endif
-
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -38,23 +36,11 @@
                         <h4>Laporan KKP</h4>
                         <div class="card-header-form">
                             <div class="col-12 float-end">
-                                <a class="btn btn-outline-primary mr-3"  href="{{ route('finance.dashboard.export') }}">Export</a>
+                                <a class="btn btn-outline-primary mr-3" href="{{ route('finance.dashboard.export') }}">Export</a>
                                 <a href="{{ route('finance.reporting.form') }}" class="btn btn-primary mb-3 mt-3 shadow rounded">
                                     <i class="bi bi-file-earmark-plus" style="padding-right: 10px"></i>Buat Laporan
                                 </a>
                             </div>
-                        </div>
-                        <div class="card-header-form">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text"
-                                        class="form-control"
-                                        placeholder="Search">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                     <div class="card-body">
@@ -69,10 +55,12 @@
                                     <th scope="col">Peruntukan</th>
                                     <th scope="col">User</th>
                                     <th scope="col">Nilai</th>
-                                    <th scope="col">Tanggal</th>
                                     <th scope="col">Keterangan</th>
+                                    <th scope="col">Tanggal</th>
                                     <th scope="col">Action</th>
                                 </tr>
+                            </thead>
+                            <tbody>
                                 <?php $i = 1 ?>
                                 @foreach ($laporan_finance as $admins)
                                 <tr>
@@ -84,25 +72,25 @@
                                     <td>{{ $peruntukan_id[$admins->id_peruntukan]}}</td>
                                     <td>{{ $user_id[$admins->id_user]}}</td>
                                     <td>{{ $admins->nilai}}</td>
-                                    <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td>{{ $admins->keterangan }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td>
                                         @if(Auth::user()->role == "Finance" && $admins->editable == 1)
-                                            <a href={{ route('finance.editLaporanFinance', [$admins->pid_finance]) }} class="btn btn-success btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i></a> 
+                                        <a href={{ route('finance.editLaporanFinance', [$admins->pid_finance]) }} class="btn btn-success btn-sm rounded-0" type="button">
+                                            <i class="fa fa-edit"></i></a>
                                         @endif
-
-                                        {{-- <button class="btn btn-danger btn-sm rounded-0" type="button" data-confirm="Hapus Data?" >
-                                        <i class="fa fa-trash"></i></button> --}}
-                                        <a class="btn btn-sm btn-danger rounded-0" style="color: white" data-toggle="modal" data-target="#deleteLaporanFinanceModal{{ $admins->pid_finance }}"><i class="fa fa-trash"></i></a>
-
-                                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanFinanceModal{{ $admins->pid_finance }}" data-backdrop="static">
+                                        
+                                        {{-- DELETE  --}}
+                                        <a class="btn btn-sm btn-danger rounded-0" style="color: white" 
+                                        data-toggle="modal" data-target="#deleteLaporanFinanceModal{{ $admins->pid_finance }}"><i class="fa fa-trash"></i></a>
+                                        <div class="modal fade" tabindex="-1" role="dialog" 
+                                        id="deleteLaporanFinanceModal{{ $admins->pid_finance }}" data-backdrop="static">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title">Hapus Laporan Finance</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanFinance1">
-                                                        <span aria-hidden="true">&times;</span>
+                                                            <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     @csrf
@@ -119,8 +107,8 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -131,9 +119,10 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
-    <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+<!-- JS Libraies -->
+<script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
-    <!-- Page Specific JS File -->
-    <script src="{{ asset('js/page/components-table.js') }}"></script>
+<!-- Page Specific JS File -->
+<script src="{{ asset('js/page/components-table.js') }}"></script>
+
 @endpush

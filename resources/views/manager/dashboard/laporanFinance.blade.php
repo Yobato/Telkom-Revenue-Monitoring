@@ -3,7 +3,7 @@
 @section('title', 'Reporting')
 
 @push('style')
-    <!-- CSS Libraries -->
+<!-- CSS Libraries -->
 @endpush
 
 @section('content')
@@ -17,17 +17,17 @@
 
         @if(session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show">
-          {{ session('success') }}
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ session('success') }}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         </div>
         @endif
 
         @if(session()->has('error'))
         <div class="alert alert-danger alert-dismissible fade show">
-          {{ session('error') }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         @endif
 
@@ -36,18 +36,6 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Laporan KKP</h4>
-                        <div class="card-header-form">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text"
-                                        class="form-control"
-                                        placeholder="Search">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                     <div class="card-body">
                         <table class="table" id="table-1">
@@ -64,6 +52,8 @@
                                     <th scope="col">Keterangan</th>
                                     <th scope="col">Tanggal</th>
                                 </tr>
+                            </thead>
+                            <tbody>
                                 <?php $i = 1 ?>
                                 @foreach ($laporan_finance as $admins)
                                 <tr>
@@ -79,8 +69,8 @@
                                     <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                 </tr>
                                 @endforeach
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -91,9 +81,9 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
-    <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+<!-- JS Libraies -->
+<script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
-    <!-- Page Specific JS File -->
-    <script src="{{ asset('js/page/components-table.js') }}"></script>
+<!-- Page Specific JS File -->
+<script src="{{ asset('js/page/components-table.js') }}"></script>
 @endpush

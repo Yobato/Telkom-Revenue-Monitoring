@@ -3,7 +3,7 @@
 @section('title', 'Reporting')
 
 @push('style')
-    <!-- CSS Libraries -->
+<!-- CSS Libraries -->
 @endpush
 
 @section('content')
@@ -17,17 +17,17 @@
 
         @if(session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show">
-          {{ session('success') }}
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ session('success') }}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         </div>
         @endif
 
         @if(session()->has('error'))
         <div class="alert alert-danger alert-dismissible fade show">
-          {{ session('error') }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         @endif
 
@@ -36,18 +36,6 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Laporan KKP</h4>
-                        <div class="card-header-form">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text"
-                                        class="form-control"
-                                        placeholder="Search">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                     <div class="card-body">
                             <table class="table" id="table-1">
@@ -83,18 +71,18 @@
                                         <td>
                                             @if($admins->editable == 0)
                                             <a href={{ route('admin.editableFinance', [$admins->pid_finance]) }} class="btn btn-primary btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i> Open Edit</a>
-                                        @endif
-                                        @if($admins->editable == 1)
+                                                <i class="fa fa-edit"></i> Open Edit</a>
+                                            @endif
+                                            @if($admins->editable == 1)
                                             <a href={{ route('admin.uneditableFinance', [$admins->pid_finance]) }} class="btn btn-danger btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i> Close Edit</a>
-                                        @endif
+                                                <i class="fa fa-edit"></i> Close Edit</a>
+                                            @endif
 
-                                    </td>
-                                </tr>
-                                @endforeach
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
                             </table>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -105,9 +93,16 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
-    <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+<!-- JS Libraies -->
+<script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
 <!-- Page Specific JS File -->
 <script src="{{ asset('js/page/components-table.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#table-1').dataTable({
+            responsive: true
+        });
+    });
+</script>
 @endpush
