@@ -15,45 +15,136 @@ class GpmController extends Controller
     public function index()
     {
         //======== CHART Gross Profit ==========
-        $realisasiDataRevenue = DB::table('laporan_commerce')
-            ->select(
-                'id_portofolio',
-                DB::raw('YEAR(tanggal) as year'),
-                DB::raw('MONTH(tanggal) as month'),
-                DB::raw('SUM(nilai) as total_nilai')
-            )
-            ->groupBy('id_portofolio', 'year', 'month')
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
-            ->where('jenis_laporan', '=', 'REVENUE')
-            ->get();
+        $account = Auth::guard('account')->user();
+        if($account->role == 'Admin'|| $account->role == 'GM' ){
+            $realisasiDataRevenue = DB::table('laporan_commerce')
+                ->select(
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->groupBy('year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->where('jenis_laporan', '=', 'REVENUE')
+                ->get();
+    
+            $realisasiDataCOGS = DB::table('laporan_commerce')
+                ->select(
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->groupBy('year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->where('jenis_laporan', '=', 'COGS')
+                ->get();
 
-        $realisasiDataCOGS = DB::table('laporan_commerce')
-            ->select(
-                'id_portofolio',
-                DB::raw('YEAR(tanggal) as year'),
-                DB::raw('MONTH(tanggal) as month'),
-                DB::raw('SUM(nilai) as total_nilai')
-            )
-            ->groupBy('id_portofolio', 'year', 'month')
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
-            ->where('jenis_laporan', '=', 'COGS')
-            ->get();
+            $realisasiDataRevenuePortofolio = DB::table('laporan_commerce')
+                ->select(
+                    'id_portofolio',
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->groupBy('id_portofolio', 'year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->where('jenis_laporan', '=', 'REVENUE')
+                ->get();
+    
+            $realisasiDataCOGSPortofolio = DB::table('laporan_commerce')
+                ->select(
+                    'id_portofolio',
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->groupBy('id_portofolio', 'year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->where('jenis_laporan', '=', 'COGS')
+                ->get();
+        } else{
+            $realisasiDataRevenue = DB::table('laporan_commerce')
+                ->select(
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->groupBy('year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->where('kota', '=', $account->kota)
+                ->where('jenis_laporan', '=', 'REVENUE')
+                ->get();
+    
+            $realisasiDataCOGS = DB::table('laporan_commerce')
+                ->select(
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->groupBy('year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->where('kota', '=', $account->kota)
+                ->where('jenis_laporan', '=', 'COGS')
+                ->get();
+
+            $realisasiDataRevenuePortofolio = DB::table('laporan_commerce')
+                ->select(
+                    'id_portofolio',
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->groupBy('id_portofolio', 'year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->where('kota', '=', $account->kota)
+                ->where('jenis_laporan', '=', 'REVENUE')
+                ->get();
+    
+            $realisasiDataCOGSPortofolio = DB::table('laporan_commerce')
+                ->select(
+                    'id_portofolio',
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->groupBy('id_portofolio', 'year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->where('kota', '=', $account->kota)
+                ->where('jenis_laporan', '=', 'COGS')
+                ->get();
+        }
+
+        // dd($realisasiDataRevenue);
 
         //======== Fungsi Filter Berdasarkan Tahun laporan Revenue==========
-        $query = "
-                    SELECT DISTINCT YEAR(tanggal) AS year
-                    FROM laporan_commerce
-                    WHERE jenis_laporan = 'REVENUE'
-                    ORDER BY year DESC
-                ";
+        if($account->role == 'Admin'|| $account->role == 'GM' ){
+            $query = "
+                        SELECT DISTINCT YEAR(tanggal) AS year
+                        FROM laporan_commerce
+                        WHERE jenis_laporan = 'REVENUE'
+                        ORDER BY year DESC
+                    ";
+        } else{
+            $query = "
+                        SELECT DISTINCT YEAR(tanggal) AS year
+                        FROM laporan_commerce
+                        WHERE jenis_laporan = 'REVENUE' AND kota = $account->kota
+                        ORDER BY year DESC
+                    ";
+        }
 
         $tahunData = DB::select(DB::raw($query));
 
         //======== RUMUS CHART Gross Profit ==========
         $gpmData1 = [];
-        $PortfolioGPM = [];
         foreach ($realisasiDataRevenue as $revenueItem) {
             foreach ($realisasiDataCOGS as $cogsItem) {
                 if ($revenueItem->year == $cogsItem->year && $revenueItem->month == $cogsItem->month) {
@@ -62,6 +153,15 @@ class GpmController extends Controller
                         'month' => $revenueItem->month,
                         'gpm' => $revenueItem->total_nilai - $cogsItem->total_nilai,
                     ];
+                    break;
+                }
+            }
+        }
+        
+        $PortfolioGPM = [];
+        foreach ($realisasiDataRevenuePortofolio as $revenueItem) {
+            foreach ($realisasiDataCOGSPortofolio as $cogsItem) {
+                if ($revenueItem->year == $cogsItem->year && $revenueItem->month == $cogsItem->month) {
                     $PortfolioGPM[] = [
                         'id_portofolio' => $revenueItem->id_portofolio,
                         'year' => $revenueItem->year,
@@ -72,6 +172,7 @@ class GpmController extends Controller
                 }
             }
         }
+        // dd($PortfolioGPM);
 
         //======== RUMUS CHART Gross Margin ==========
         $gpmData2 = [];
@@ -91,7 +192,12 @@ class GpmController extends Controller
 
 
         //======== CARD STATISTIC ==========
-        $newestYear = LaporanCommerce::max(DB::raw('YEAR(tanggal)'));
+        if($account->role == 'Admin'|| $account->role == 'GM' ){
+            $newestYear = LaporanCommerce::max(DB::raw('YEAR(tanggal)'));
+        }
+        else{
+            $newestYear = LaporanCommerce::where('kota', '=', $account->kota)->max(DB::raw('YEAR(tanggal)'));
+        }
         $lastYear = $newestYear - 1;
 
         //======== TOTAL Gross Profit TAHUN INI ==========
@@ -172,7 +278,6 @@ class GpmController extends Controller
         }
 
 
-        $account = Auth::guard('account')->user();
         if ($account->role == "Commerce") {
             return view('commerce.dashboard.gpm', [
                 "title" => "GPM",

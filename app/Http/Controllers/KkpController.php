@@ -16,7 +16,9 @@ class KkpController extends Controller
     {
 
         //======== CHART REALISASI KKP OPERASIONAL ==========
-        $kkpData = DB::table('laporan_finance')
+        $account = Auth::guard('account')->user();
+        if($account->role == 'Admin'|| $account->role == 'GM' ){
+            $kkpData = DB::table('laporan_finance')
             ->select(
                 DB::raw('YEAR(tanggal) as year'),
                 DB::raw('MONTH(tanggal) as month'),
@@ -26,6 +28,20 @@ class KkpController extends Controller
             ->orderBy('year', 'asc')
             ->orderBy('month', 'asc')
             ->get();
+        } else{
+            $kkpData = DB::table('laporan_finance')
+                ->select(
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->where('kota', '=', $account->kota)
+                ->groupBy('year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->get();
+        }
+        // dd($account->role);
 
         $tahunData = Target::distinct()->where('jenis_laporan', '=', 'KKP')->get(['tahun']);
         
@@ -92,13 +108,23 @@ class KkpController extends Controller
         //======== CARD STATISTIC ==========
 
         //======== STATISTIC TOTAL REALISASI ==========
-        $newestYear = LaporanFinance::max(DB::raw('YEAR(tanggal)'));
-        $TotalRealisasiKKP = LaporanFinance::whereYear("tanggal", [$newestYear])
-            ->sum('nilai');
-
-        $lastYear = $newestYear-1;
-        $TotalRealisasiKKP2 = LaporanFinance::whereYear("tanggal", [$lastYear])
-            ->sum('nilai');
+        if($account->role == 'Admin'|| $account->role == 'GM' ){
+            $newestYear = LaporanFinance::max(DB::raw('YEAR(tanggal)'));
+            $TotalRealisasiKKP = LaporanFinance::whereYear("tanggal", [$newestYear])
+                ->sum('nilai');
+    
+            $lastYear = $newestYear-1;
+            $TotalRealisasiKKP2 = LaporanFinance::whereYear("tanggal", [$lastYear])
+                ->sum('nilai');            
+        } else{
+            $newestYear = LaporanFinance::where('kota', '=', $account->kota)->max(DB::raw('YEAR(tanggal)'));
+            $TotalRealisasiKKP = LaporanFinance::whereYear("tanggal", [$newestYear])
+                ->where('kota', '=', $account->kota)->sum('nilai');
+    
+            $lastYear = $newestYear-1;
+            $TotalRealisasiKKP2 = LaporanFinance::whereYear("tanggal", [$lastYear])
+                ->where('kota', '=', $account->kota)->sum('nilai'); 
+        }
 
 
         if ($TotalRealisasiKKP2 != 0) {
@@ -143,17 +169,32 @@ class KkpController extends Controller
         }
 
         //======== STATISTIC TOP USER ==========
-        $userData = DB::table('laporan_finance')
-        ->select(
-            'id_user',
-            DB::raw('YEAR(tanggal) as year'),
-            DB::raw('MONTH(tanggal) as month'),
-            DB::raw('SUM(nilai) as total_nilai')
-        )
-        ->groupBy('id_user', 'year', 'month')
-        ->orderBy('year', 'asc')
-        ->orderBy('month', 'asc')
-        ->get();
+        if($account->role == 'Admin'|| $account->role == 'GM' ){
+            $userData = DB::table('laporan_finance')
+            ->select(
+                'id_user',
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(nilai) as total_nilai')
+            )
+            ->groupBy('id_user', 'year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+        } else{
+            $userData = DB::table('laporan_finance')
+            ->select(
+                'id_user',
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(nilai) as total_nilai')
+            )
+            ->where('kota', '=', $account->kota)
+            ->groupBy('id_user', 'year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+        }
         
         $gapUser = [];
 
@@ -200,7 +241,6 @@ class KkpController extends Controller
             $TopKKP = "Belum ada data";
         }
 
-        $account = Auth::guard('account')->user();
         if ($account->role == "Finance") {
             return view('finance.dashboard.chart', [
                 "title" => "KKP",
