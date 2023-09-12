@@ -13,18 +13,35 @@ class CogsController extends Controller
 {
     public function index()
     {
+        $account = Auth::guard('account')->user();
         $tahunData = Target::distinct()->where('jenis_laporan', '=', 'COGS')->get(['tahun']);
-        $commerceData = DB::table('laporan_commerce')
-            ->select(
-                DB::raw('YEAR(tanggal) as year'),
-                DB::raw('MONTH(tanggal) as month'),
-                DB::raw('SUM(nilai) as total_nilai')
-            )
-            ->where('jenis_laporan', '=', 'COGS')
-            ->groupBy('year', 'month')
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
-            ->get();
+        
+        if($account->role == 'Admin'|| $account->role == 'GM' ){
+            $commerceData = DB::table('laporan_commerce')
+                ->select(
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->where('jenis_laporan', '=', 'COGS')
+                ->groupBy('year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->get();
+        } else{
+            $commerceData = DB::table('laporan_commerce')
+                ->select(
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->where('kota', '=', $account->kota)
+                ->where('jenis_laporan', '=', 'COGS')
+                ->groupBy('year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->get();
+        }
 
         $targetData = DB::table('target')
             ->select(
@@ -86,13 +103,23 @@ class CogsController extends Controller
         }
 
             //======== CARD STATISTIC ==========
-        $newestYear = LaporanCommerce::max(DB::raw('YEAR(tanggal)'));
-        $TotalRealisasiCOGS = LaporanCommerce::whereYear("tanggal", [$newestYear])->where('jenis_laporan', '=', 'COGS')
-            ->sum('nilai');
-
-        $lastYear = $newestYear-1;
-        $TotalRealisasiCOGS2 = LaporanCommerce::whereYear("tanggal", [$lastYear])->where('jenis_laporan', '=', 'COGS')
-            ->sum('nilai');
+        if($account->role == 'Admin'|| $account->role == 'GM' ){
+            $newestYear = LaporanCommerce::max(DB::raw('YEAR(tanggal)'));
+            $TotalRealisasiCOGS = LaporanCommerce::whereYear("tanggal", [$newestYear])->where('jenis_laporan', '=', 'COGS')
+                ->sum('nilai');
+    
+            $lastYear = $newestYear-1;
+            $TotalRealisasiCOGS2 = LaporanCommerce::whereYear("tanggal", [$lastYear])->where('jenis_laporan', '=', 'COGS')
+                ->sum('nilai');
+        } else{
+            $newestYear = LaporanCommerce::where('kota', '=', $account->kota)->max(DB::raw('YEAR(tanggal)'));
+            $TotalRealisasiCOGS = LaporanCommerce::whereYear("tanggal", [$newestYear])->where('jenis_laporan', '=', 'COGS')
+                ->where('kota', '=', $account->kota)->sum('nilai');
+    
+            $lastYear = $newestYear-1;
+            $TotalRealisasiCOGS2 = LaporanCommerce::whereYear("tanggal", [$lastYear])->where('jenis_laporan', '=', 'COGS')
+                ->where('kota', '=', $account->kota)->sum('nilai');
+        }
 
 
         if ($TotalRealisasiCOGS2 != 0) {
@@ -135,18 +162,34 @@ class CogsController extends Controller
         }
 
         //======== STATISTIC TOP USER ==========
-        $portofolioData = DB::table('laporan_commerce')
-        ->select(
-            'id_portofolio',
-            DB::raw('YEAR(tanggal) as year'),
-            DB::raw('MONTH(tanggal) as month'),
-            DB::raw('SUM(nilai) as total_nilai')
-        )
-        ->where('jenis_laporan', '=', 'COGS')
-        ->groupBy('id_portofolio', 'year', 'month')
-        ->orderBy('year', 'asc')
-        ->orderBy('month', 'asc')
-        ->get();
+        if($account->role == 'Admin'|| $account->role == 'GM' ){
+            $portofolioData = DB::table('laporan_commerce')
+            ->select(
+                'id_portofolio',
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(nilai) as total_nilai')
+            )
+            ->where('jenis_laporan', '=', 'COGS')
+            ->groupBy('id_portofolio', 'year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+        } else{
+            $portofolioData = DB::table('laporan_commerce')
+            ->select(
+                'id_portofolio',
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(nilai) as total_nilai')
+            )
+            ->where('kota', '=', $account->kota)
+            ->where('jenis_laporan', '=', 'COGS')
+            ->groupBy('id_portofolio', 'year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+        }
 
         $gapPortofolio = [];
 
@@ -190,7 +233,6 @@ class CogsController extends Controller
             $TopCOGS = "Belum ada data"; // Set a default value or handle the error gracefully
         }
 
-        $account = Auth::guard('account')->user();
         if ($account->role == "Commerce") {
             return view('commerce.dashboard.cogs', [
                 "title" => "COGS",

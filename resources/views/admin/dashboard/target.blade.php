@@ -205,7 +205,7 @@ Dashboard
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label for="jenis_laporan" class="col-form-label">Jenis Laporan: </label>
-                                                                            <select class="form-control" name="jenis_laporan" id="jenis_laporan" required>
+                                                                            <select class="required-input form-control" name="jenis_laporan" id="jenis_laporan" required>
                                                                                 <option value="COGS" {{ $admins->jenis_laporan === 'COGS' ? 'selected' : '' }}>COGS</option>
                                                                                 <option value="REVENUE" {{ $admins->jenis_laporan === 'REVENUE' ? 'selected' : '' }}>REVENUE</option>
                                                                                 <option value="KKP" {{ $admins->jenis_laporan === 'KKP' ? 'selected' : '' }}>KKP</option>

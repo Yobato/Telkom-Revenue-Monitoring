@@ -51,7 +51,7 @@ class LaporanCommerceController extends Controller
             return view('commerce.dashboard.index', [
                 "commerce" => LaporanCommerce::all(),
                 "title" => "Laporan Commerce",
-                "laporan_commerce" => LaporanCommerce::all(),
+                "laporan_commerce" => LaporanCommerce::all()->where('kota', '=', $account->kota),
                 "program_id" => $program_id,
                 "kode_program_id" => $kode_program_id,
                 "portofolio_id" => $portofolio_id,

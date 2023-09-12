@@ -140,7 +140,7 @@ Dashboard
                                         <span id="nama_program_update_error" style="display: none; color: red;">Field Nama harus diisi!</span>
   
                                         <label for="kode" class="col-form-label">Kode Program: </label>
-                                        <input type="text" id="kode_program_update" name="kode_program" class="form-control" value="{{ $admins->kode_program }}" required>
+                                        <input type="text" id="kode_program_update" name="kode_program" class="required-input form-control" value="{{ $admins->kode_program }}" required>
                                         <span class="error-message" id="error_kode_program_update" style="display: none; color: red;">Field Kode Program harus diisi!</span>
   
                                         <label for="role" class="col-form-label">Role: </label>

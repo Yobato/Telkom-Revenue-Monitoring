@@ -58,7 +58,7 @@ class LaporanFinanceController extends Controller
         if ($account->role == "Finance") {
             return view('finance.dashboard.index', [
                 "title" => "Laporan Finance",
-                "laporan_finance" => LaporanFinance::all(),
+                "laporan_finance" => LaporanFinance::all()->where('kota', '=', $account->kota),
                 "portofolio_id" => $portofolio_id,
                 "program_id" => $program_id,
                 "cost_plan_id" => $cost_plan_id,

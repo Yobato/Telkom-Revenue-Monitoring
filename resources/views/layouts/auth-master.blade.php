@@ -12,9 +12,6 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
-  <script src="{{ asset('js/page/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/r-2.3.0/datatables.min.js"></script>
 </head>
 
 <body>
@@ -59,9 +56,7 @@
   <!-- Template JS File -->
   <script src="{{ asset('assets/js/scripts.js') }}"></script>
   <script src="{{ asset('assets/js/custom.js') }}"></script>
-  <script src="{{ asset('js/page/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/r-2.3.0/datatables.min.js"></script>
+
   <!-- Page Specific JS File -->
 </body>
 </html>

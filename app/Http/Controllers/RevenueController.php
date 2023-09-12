@@ -14,21 +14,35 @@ class RevenueController extends Controller
     //
     public function index()
     {
-
+            $account = Auth::guard('account')->user();
             $tahunData = Target::distinct()->where('jenis_laporan', '=', 'REVENUE')->get(['tahun']);
             
-
-            $revenueData = DB::table('laporan_commerce')
-                ->select(
-                    DB::raw('YEAR(tanggal) as year'),
-                    DB::raw('MONTH(tanggal) as month'),
-                    DB::raw('SUM(nilai) as total_nilai')
-                )
-                ->where('jenis_laporan', '=', 'REVENUE')
-                ->groupBy('year', 'month')
-                ->orderBy('year', 'asc')
-                ->orderBy('month', 'asc')
-                ->get();
+            if($account->role == 'Admin'|| $account->role == 'GM' ){
+                $revenueData = DB::table('laporan_commerce')
+                    ->select(
+                        DB::raw('YEAR(tanggal) as year'),
+                        DB::raw('MONTH(tanggal) as month'),
+                        DB::raw('SUM(nilai) as total_nilai')
+                    )
+                    ->where('jenis_laporan', '=', 'REVENUE')
+                    ->groupBy('year', 'month')
+                    ->orderBy('year', 'asc')
+                    ->orderBy('month', 'asc')
+                    ->get();
+            } else{
+                $revenueData = DB::table('laporan_commerce')
+                    ->select(
+                        DB::raw('YEAR(tanggal) as year'),
+                        DB::raw('MONTH(tanggal) as month'),
+                        DB::raw('SUM(nilai) as total_nilai')
+                    )
+                    ->where('kota', '=', $account->kota)
+                    ->where('jenis_laporan', '=', 'REVENUE')
+                    ->groupBy('year', 'month')
+                    ->orderBy('year', 'asc')
+                    ->orderBy('month', 'asc')
+                    ->get();
+            }
 
             $targetData = DB::table('target')
                 ->select(
@@ -92,13 +106,23 @@ class RevenueController extends Controller
         //======== CARD STATISTIC ==========
 
         //======== STATISTIC TOTAL REALISASI ==========
-        $newestYear = LaporanCommerce::max(DB::raw('YEAR(tanggal)'));
-        $TotalRealisasiRevenue = LaporanCommerce::whereYear("tanggal", [$newestYear])->where('jenis_laporan', '=', 'REVENUE')
-            ->sum('nilai');
-
-        $lastYear = $newestYear-1;
-        $TotalRealisasiRevenue2 = LaporanCommerce::whereYear("tanggal", [$lastYear])->where('jenis_laporan', '=', 'REVENUE')
-            ->sum('nilai');
+        if($account->role == 'Admin'|| $account->role == 'GM' ){
+            $newestYear = LaporanCommerce::max(DB::raw('YEAR(tanggal)'));
+            $TotalRealisasiRevenue = LaporanCommerce::whereYear("tanggal", [$newestYear])->where('jenis_laporan', '=', 'REVENUE')
+                ->sum('nilai');
+    
+            $lastYear = $newestYear-1;
+            $TotalRealisasiRevenue2 = LaporanCommerce::whereYear("tanggal", [$lastYear])->where('jenis_laporan', '=', 'REVENUE')
+                ->sum('nilai');
+        } else{
+            $newestYear = LaporanCommerce::where('kota', '=', $account->kota)->max(DB::raw('YEAR(tanggal)'));
+            $TotalRealisasiRevenue = LaporanCommerce::whereYear("tanggal", [$newestYear])->where('jenis_laporan', '=', 'REVENUE')
+                ->where('kota', '=', $account->kota)->sum('nilai');
+    
+            $lastYear = $newestYear-1;
+            $TotalRealisasiRevenue2 = LaporanCommerce::whereYear("tanggal", [$lastYear])->where('jenis_laporan', '=', 'REVENUE')
+                ->where('kota', '=', $account->kota)->sum('nilai');
+        }
 
 
         if ($TotalRealisasiRevenue2 != 0) {
@@ -146,18 +170,34 @@ class RevenueController extends Controller
         // dd($kenaikanGap);
 
         //======== STATISTIC TOP USER ==========
-        $portofolioData = DB::table('laporan_commerce')
-        ->select(
-            'id_portofolio',
-            DB::raw('YEAR(tanggal) as year'),
-            DB::raw('MONTH(tanggal) as month'),
-            DB::raw('SUM(nilai) as total_nilai')
-        )
-        ->where('jenis_laporan', '=', 'Revenue')
-        ->groupBy('id_portofolio', 'year', 'month')
-        ->orderBy('year', 'asc')
-        ->orderBy('month', 'asc')
-        ->get();
+        if($account->role == 'Admin'|| $account->role == 'GM' ){
+            $portofolioData = DB::table('laporan_commerce')
+            ->select(
+                'id_portofolio',
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(nilai) as total_nilai')
+            )
+            ->where('jenis_laporan', '=', 'Revenue')
+            ->groupBy('id_portofolio', 'year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+        } else{
+            $portofolioData = DB::table('laporan_commerce')
+            ->select(
+                'id_portofolio',
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(nilai) as total_nilai')
+            )
+            ->where('kota', '=', $account->kota)
+            ->where('jenis_laporan', '=', 'Revenue')
+            ->groupBy('id_portofolio', 'year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+        }
 
         $gapPortofolio = [];
 
@@ -177,8 +217,9 @@ class RevenueController extends Controller
 
         // dd($gapPortofolio);
 
+        
         $collection = collect($gapPortofolio);
-
+        
         $smallestGapPortofolio = $collection->groupBy('portofolio')->map(function ($portofolioEntries, $portofolioId) {
             if ($portofolioEntries->isEmpty()) {
                 return null; // Tidak ada data gap untuk portofolio ini
@@ -202,7 +243,6 @@ class RevenueController extends Controller
         }
 
 
-        $account = Auth::guard('account')->user();
         if ($account->role == "Commerce") {
             return view('commerce.dashboard.revenue', [
                 "title" => "Revenue",
