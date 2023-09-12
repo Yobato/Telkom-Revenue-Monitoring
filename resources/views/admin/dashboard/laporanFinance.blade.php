@@ -100,7 +100,9 @@
 <script src="{{ asset('js/page/components-table.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('#table-1').dataTable();
+        $('#table-1').dataTable({
+            responsive: true
+        });
     });
 </script>
 @endpush
