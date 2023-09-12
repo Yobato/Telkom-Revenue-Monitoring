@@ -62,23 +62,6 @@ Route::group(['middleware' => 'revalidate'], function () {
       
         Route::get('/admin', [App\Http\Controllers\GpmController::class, 'index'])->name('admin.dashboard');
 
-
-        Route::get('/commerce-management', function () {
-            return view('admin.users.commerce-management');
-        })->name('commerce-management');
-
-        Route::get('/finance-management', function () {
-            return view('admin.users.finance-management');
-        })->name('finance-management');
-
-        Route::get('/gm-management', function () {
-            return view('admin.users.gm-management');
-        })->name('gm-management');
-
-        Route::get('/create-user', function () {
-            return view('admin.users.create');
-        })->name('create-user');
-
         Route::get('/admin-cogs', [App\Http\Controllers\CogsController::class, 'index'])->name('admin-cogs');
         Route::get('/admin-revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('admin-revenue');
         Route::get('/admin-kkp', [App\Http\Controllers\KkpController::class, 'index'])->name('admin-kkp');

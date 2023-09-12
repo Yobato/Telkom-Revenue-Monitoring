@@ -87,15 +87,19 @@ Dashboard
     /* Atau atur properti lainnya untuk mengubah tampilan field input menjadi merah */
   }
 </style>
-
-
-
 @endsection
-
 @push('scripts')
 <script>
-    $(document).ready(function() {
-        $('#table-1').dataTable();
+$(document).ready(function() {
+    $('#table-1').DataTable({
+        "columnDefs": [
+            {
+                "targets": [2], // 4th column (Action)
+                "searchable": false, // Disable searching for this column
+                "orderable": false,
+            }
+        ]
     });
+});
 </script>
 @endpush

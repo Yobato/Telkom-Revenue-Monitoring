@@ -247,7 +247,6 @@ Dashboard
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </td>
                                         </tr>
                                         @endforeach
@@ -283,3 +282,19 @@ Dashboard
     }
 </script>
 @endsection
+
+@push('scripts')
+<script>
+$(document).ready(function() {
+    $('#table-1').DataTable({
+        "columnDefs": [
+            {
+                "targets": [5], // 4th column (Action)
+                "searchable": false, // Disable searching for this column
+                "orderable": false,
+            }
+        ]
+    });
+});
+</script>
+@endpush
