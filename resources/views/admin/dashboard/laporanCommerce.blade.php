@@ -38,7 +38,8 @@
                         <h4>Laporan COGS dan Revenue</h4>
                     </div>
                     <div class="card-body">
-                            <table class="table table-responsive" id="table-1">
+                        <div class="table-responsive">
+                            <table class="table-striped table" id="table-1">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
@@ -82,6 +83,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
                     </div>
                 </div>
             </div>

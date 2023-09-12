@@ -44,67 +44,69 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-responsive" id="table-1">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">ID Commerce</th>
-                                    <th scope="col">Nama Program</th>
-                                    <th scope="col">Kode Program</th>
-                                    <th scope="col">Jenis</th>
-                                    <th scope="col">Portofolio</th>
-                                    <th scope="col">Sub Grup Akun</th>
-                                    <th scope="col">Nilai</th>
-                                    <th scope="col">Keterangan</th>
-                                    <th scope="col">Tanggal</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1 ?>
-                                @foreach ($laporan_commerce as $admins)
-                                <tr>
-                                    <th scope="row">{{$i++}}</th>
-                                    <td>{{ $admins ->id_commerce}}</td>
-                                    <td>{{ $program_id[$admins ->id_program]}}</td>
-                                    <td>{{ $kode_program_id[$admins->id_program]}}</td>
-                                    <td>{{ $admins ->jenis_laporan}}</td>
-                                    <td>{{ $portofolio_id[$admins ->id_portofolio]}}</td>
-                                    <td>{{ $sub_grup_akun_id[$admins ->id_sub_grup_akun]}}</td>
-                                    <td>{{ $admins ->nilai}}</td>
-                                    <td>{{ $admins ->keterangan}}</td>
-                                    <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
-                                    <td>
-                                        @if(Auth::user()->role == "Commerce" && $admins->editable == 1)
-                                        <a href={{ route('commerce.editLaporanCommerce', [$admins->id_commerce]) }} class="btn btn-success btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i></a>
-                                        @endif
-                                        <a class="btn btn-sm btn-danger rounded-0" style="color: white" data-toggle="modal" data-target="#deleteLaporanCommerceModal{{ $admins->id_commerce }}"><i class="fa fa-trash"></i></a>
-                                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanCommerceModal{{ $admins->id_commerce }}" data-backdrop="static">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Hapus Laporan Commerce</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanCommerce1">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    @csrf
-                                                    <div class="modal-body">
-                                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan Commerce yang dipilih.
-                                                    </div>
-                                                    <div class="modal-footer bg-whitesmoke br">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanCommerce2">Cancel</button>
-                                                        <a class="btn btn-danger" href="{{ route('commerce.deleteLaporanCommerce', [$admins->id_commerce]) }}" value="Delete">Delete</a>
+                        <div class="table-responsive">
+                            <table class="table-striped table" id="table-1">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">ID Commerce</th>
+                                        <th scope="col">Nama Program</th>
+                                        <th scope="col">Kode Program</th>
+                                        <th scope="col">Jenis</th>
+                                        <th scope="col">Portofolio</th>
+                                        <th scope="col">Sub Grup Akun</th>
+                                        <th scope="col">Nilai</th>
+                                        <th scope="col">Keterangan</th>
+                                        <th scope="col">Tanggal</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1 ?>
+                                    @foreach ($laporan_commerce as $admins)
+                                    <tr>
+                                        <th scope="row">{{$i++}}</th>
+                                        <td>{{ $admins ->id_commerce}}</td>
+                                        <td>{{ $program_id[$admins ->id_program]}}</td>
+                                        <td>{{ $kode_program_id[$admins->id_program]}}</td>
+                                        <td>{{ $admins ->jenis_laporan}}</td>
+                                        <td>{{ $portofolio_id[$admins ->id_portofolio]}}</td>
+                                        <td>{{ $sub_grup_akun_id[$admins ->id_sub_grup_akun]}}</td>
+                                        <td>{{ $admins ->nilai}}</td>
+                                        <td>{{ $admins ->keterangan}}</td>
+                                        <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
+                                        <td>
+                                            @if(Auth::user()->role == "Commerce" && $admins->editable == 1)
+                                            <a href={{ route('commerce.editLaporanCommerce', [$admins->id_commerce]) }} class="btn btn-success btn-sm rounded-0" type="button">
+                                                <i class="fa fa-edit"></i></a>
+                                            @endif
+                                            <a class="btn btn-sm btn-danger rounded-0" style="color: white" data-toggle="modal" data-target="#deleteLaporanCommerceModal{{ $admins->id_commerce }}"><i class="fa fa-trash"></i></a>
+                                            <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanCommerceModal{{ $admins->id_commerce }}" data-backdrop="static">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Hapus Laporan Commerce</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanCommerce1">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan Commerce yang dipilih.
+                                                        </div>
+                                                        <div class="modal-footer bg-whitesmoke br">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanCommerce2">Cancel</button>
+                                                            <a class="btn btn-danger" href="{{ route('commerce.deleteLaporanCommerce', [$admins->id_commerce]) }}" value="Delete">Delete</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                </tbody>
                                 @endforeach
-                            </tbody>
-                        </table>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
