@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Target extends Model
+class TargetCommerce extends Model
 {
     use HasFactory;
-    protected $table = "target";
+    protected $table = "target_commerce";
     protected $primaryKey = "id";
     public $timestamps = false;
     protected $fillable = [
-        'jumlah', 'bulan', 'tahun', 'jenis_laporan'
+        'jumlah', 'bulan', 'tahun', 'jenis_laporan', 'portofolio'
     ];
 }

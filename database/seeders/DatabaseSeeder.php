@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PeruntukanSeeder::class);
         $this->call(UserRecoSeeder::class);
         $this->call(SubGrupAkunSeeder::class);
-        $this->call(TargetSeeder::class);
+        $this->call(TargetCommerceSeeder::class);
+        $this->call(TargetFinanceSeeder::class);
 
 
     }

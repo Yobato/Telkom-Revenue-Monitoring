@@ -17,12 +17,14 @@ return new class extends Migration
     public function up()
     {
         //
-        Schema::create('target', function (Blueprint $table) {
+        Schema::create('target_commerce', function (Blueprint $table) {
             $table->id();
             $table->integer('jumlah');
             $table->string('bulan');
             $table->integer('tahun');
             $table->string('jenis_laporan');
+            $table->unsignedBigInteger('id_portofolio');
+            $table->foreign('id_portofolio')->references('id')->on('portofolio');
         });
     }
 
@@ -34,6 +36,6 @@ return new class extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('target');
+        Schema::dropIfExists('target_commerce');
     }
 };

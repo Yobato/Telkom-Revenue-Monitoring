@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LaporanCommerce;
-use App\Models\Target;
+use App\Models\TargetCommerce;
 use App\Models\Portofolio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +14,7 @@ class CogsController extends Controller
     public function index()
     {
         $account = Auth::guard('account')->user();
-        $tahunData = Target::distinct()->where('jenis_laporan', '=', 'COGS')->get(['tahun']);
+        $tahunData = TargetCommerce::distinct()->where('jenis_laporan', '=', 'COGS')->get(['tahun']);
         
         if($account->role == 'Admin'|| $account->role == 'GM' ){
             $commerceData = DB::table('laporan_commerce')

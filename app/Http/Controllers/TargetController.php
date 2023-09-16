@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
-use App\Models\Target;
+use App\Models\Portofolio;
+use App\Models\TargetCommerce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
@@ -14,18 +15,25 @@ class TargetController extends Controller
     //
     public function index()
     {
+        $portofolio_id = array();
+        foreach (Portofolio::all() as $porto) {
+            $portofolio_id[$porto->id] = $porto->nama_portofolio;
+        }
+        
          $account = Auth::guard('account')->user();
         if ($account->role == "Admin") {
             return view('admin.dashboard.target', [
                 "title" => "Target",
-                "target" => Target::all(),
+                "target" => TargetCommerce::all(),
                 "roles" => Role::all(),
+                "portofolio_id" => $portofolio_id,
             ]);
         } elseif($account->role == "GM"){
             return view('manager.dashboard.target', [
                 "title" => "Target",
-                "target" => Target::all(),
+                "target" => TargetCommerce::all(),
                 "roles" => Role::all(),
+                "portofolio_id" => $portofolio_id,
             ]);
         }
     }

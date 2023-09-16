@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Target;
+use App\Models\TargetFinance;
 use App\Models\UserReco;
 use Illuminate\Http\Request;
 use App\Models\LaporanFinance;
@@ -43,7 +43,7 @@ class KkpController extends Controller
         }
         // dd($account->role);
 
-        $tahunData = Target::distinct()->where('jenis_laporan', '=', 'KKP')->get(['tahun']);
+        $tahunData = TargetFinance::distinct()->where('jenis_laporan', '=', 'KKP')->get(['tahun']);
         
         //======== CHART TARGET KKP OPERASIONAL ==========
         $targetData = DB::table('target')

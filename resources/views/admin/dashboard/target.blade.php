@@ -134,6 +134,7 @@ Dashboard
                                         <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Jenis Laporan</th>
+                                            <th scope="col">Portofolio</th>
                                             <th scope="col">Jumlah</th>
                                             <th scope="col">Bulan</th>
                                             <th scope="col">Tahun</th>
@@ -146,6 +147,7 @@ Dashboard
                                         <tr>
                                             <th scope="row">{{$i++}}</th>
                                             <td>{{ $admins ->jenis_laporan}}</td>
+                                            <td>{{ $portofolio_id[$admins ->id_portofolio]}}</td>
                                             <td>{{ $admins ->jumlah}}</td>
                                             <td>{{ $admins ->bulan}}</td>
                                             <td>{{ $admins ->tahun}}</td>
