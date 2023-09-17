@@ -39,7 +39,18 @@
                     </li>
                 </ul>
             </li>
-            <li class="{{ $title==='Target' ? ' active' : '' }}"><a class="nav-link" href="{{route('manager.dashboard.target')}}"><i class="bi bi-ui-checks"></i><span>Target</span></a></li>
+            <li class="nav-item dropdown {{ $title==='Target' || $title==='Target-Finance' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="bi bi-ui-checks"></i><span>Target Management</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ $title==='Target' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('manager.dashboard.target')}}">Target Commerce</a>
+                    </li>
+                    <li class="{{ $title==='Target-Finance' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('manager.dashboard.target-finance')}}">Target Finance</a>
+                    </li>
+                </ul>
+            </li>
+            {{-- <li class="{{ $title==='Target' ? ' active' : '' }}"><a class="nav-link" href="{{route('manager.dashboard.target')}}"><i class="bi bi-ui-checks"></i><span>Target</span></a></li> --}}
         </ul>
     </aside>
 </div>

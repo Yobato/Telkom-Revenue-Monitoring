@@ -13,17 +13,17 @@ Dashboard
     <div class="section-body">
         <section class="section">
             <div class="section-header">
-                <h1>Target</h1>
+                <h1>Target KKP</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item"><a href="#">Dropdown</a></div>
-                    <div class="breadcrumb-item active">Target</div>
+                    <div class="breadcrumb-item active">Target KKP</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Tabel Target</h2>
+                <h2 class="section-title">Tabel Target KKP</h2>
                 <p class="section-lead">
-                    Kelola Target. Target disini akan mempengaruhi capaian bulanan gross profit margin
+                    Kelola Target KKP. Target disini akan mempengaruhi capaian bulanan Dashboard KKP Operasional
                 </p>
 
                 @if(session()->has('success'))
@@ -57,7 +57,6 @@ Dashboard
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
-                                            <th scope="col">Jenis Laporan</th>
                                             <th scope="col">Portofolio</th>
                                             <th scope="col">Jumlah</th>
                                             <th scope="col">Bulan</th>
@@ -69,7 +68,6 @@ Dashboard
                                         @foreach ($target as $admins)
                                         <tr>
                                             <th scope="row">{{$i++}}</th>
-                                            <td>{{ $admins ->jenis_laporan}}</td>
                                             <td>{{ $portofolio_id[$admins ->id_portofolio]}}</td>
                                             <td>{{ $admins ->jumlah}}</td>
                                             <td>{{ $admins ->bulan}}</td>

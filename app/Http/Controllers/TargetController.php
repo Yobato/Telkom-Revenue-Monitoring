@@ -27,6 +27,7 @@ class TargetController extends Controller
                 "target" => TargetCommerce::all(),
                 "roles" => Role::all(),
                 "portofolio_id" => $portofolio_id,
+                "addportofolio" => Portofolio::all()->where("role", "=", "Commerce"),
             ]);
         } elseif($account->role == "GM"){
             return view('manager.dashboard.target', [
@@ -40,13 +41,14 @@ class TargetController extends Controller
 
     public function storeTarget(Request $request)
     {
-        Target::insert([
+        TargetCommerce::insert([
             "bulan" => $request->bulan,
             "jumlah"=> str_replace('.','',$request->jumlah),
             'jenis_laporan' => $request->jenis_laporan,
+            'id_portofolio' => $request->id_portofolio,
             'tahun' => $request->tahun,
         ]);
-        return redirect()->intended(route('admin.dashboard.target'))->with("success", "Berhasil menambahkan Target");
+        return redirect()->intended(route('admin.dashboard.target'))->with("success", "Berhasil menambahkan Target Commerce");
     }
 
     public function deleteTarget($id)
@@ -54,14 +56,14 @@ class TargetController extends Controller
         try {
             DB::beginTransaction();
 
-            $target = Target::find($id);
+            $target = TargetCommerce::find($id);
 
             // Jika tidak ada pengecualian, hapus kota
             $target->delete();
 
             DB::commit();
 
-            return redirect()->intended(route('admin.dashboard.target'))->with("success", "Berhasil menghapus Target");
+            return redirect()->intended(route('admin.dashboard.target'))->with("success", "Berhasil menghapus Target Commerce");
         } catch (QueryException $e) {
             DB::rollback();
 
@@ -77,13 +79,14 @@ class TargetController extends Controller
 
     public function updateTarget(Request $request, $id)
     {
-        Target::where('id', $id)->update([
+        TargetCommerce::where('id', $id)->update([
             "bulan" => $request->bulan,
             "jumlah"=> str_replace('.','',$request->jumlah),
             'jenis_laporan' => $request->jenis_laporan,
+            'id_portofolio' => $request->id_portofolio,
             'tahun' => $request->tahun,
         ]);
 
-        return redirect()->intended(route('admin.dashboard.target'))->with("success", "Berhasil mengubah Target");
+        return redirect()->intended(route('admin.dashboard.target'))->with("success", "Berhasil mengubah Target Commerce");
     }
 }

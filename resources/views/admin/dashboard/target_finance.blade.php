@@ -13,17 +13,17 @@ Dashboard
     <div class="section-body">
         <section class="section">
             <div class="section-header">
-                <h1>Target</h1>
+                <h1>Target KKP</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item"><a href="#">Dropdown</a></div>
-                    <div class="breadcrumb-item active">Target</div>
+                    <div class="breadcrumb-item active">Target KKP</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Tabel Target</h2>
+                <h2 class="section-title">Tabel Target KKP</h2>
                 <p class="section-lead">
-                    Kelola Target. Target disini akan mempengaruhi capaian bulanan Dashboard COGS, Revenue dan GPM
+                    Kelola Target KKP. Target KKP disini akan mempengaruhi capaian bulanan Dashboard KKP Operasional
                 </p>
 
                 @if(session()->has('success'))
@@ -48,10 +48,10 @@ Dashboard
                             <!-- ADD Target -->
                             <div class="card-header">
                                 <div class="col-8">
-                                    <h4>Target</h4>
+                                    <h4>Target KKP</h4>
                                 </div>
                                 <div class="col-4 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Target</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Target KKP</button>
                                 </div>
                             </div>
 
@@ -60,12 +60,12 @@ Dashboard
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Tambah Target</h5>
+                                            <h5 class="modal-title">Tambah Target KKP</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeTarget1">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form class="form-validation" id="targetForm" action="{{route('admin.storeTarget')}}" method="POST">
+                                        <form class="form-validation" id="targetForm" action="{{route('admin.storeTargetFinance')}}" method="POST">
                                             @csrf
                                             <div class="modal-body">
                                                 <div class="form-group">
@@ -80,16 +80,6 @@ Dashboard
                                                     </div>
                                                     <span class="error-message" id="jumlah_error" style="display: none; color: red;">Field Jumlah harus diisi!</span>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="jenis_laporan" class="col-form-label">Jenis Laporan: </label>
-                                                    <select class="required-input form-control" name="jenis_laporan" id="jenis_laporan">
-                                                        <option value="">-- Pilih Jenis Laporan --</option>
-                                                        <option value="COGS">COGS</option>
-                                                        <option value="REVENUE">REVENUE</option>
-                                                    </select>
-                                                    <span class="error-message" id="bulan_error" style="display: none; color: red;">Field Jenis Laporan harus dipilih!</span>
-                                                </div>
-
                                                 <div class="form-group">
                                                     <label for="id_portofolio" class="col-form-label">Portofolio: </label>
                                                     <select class="id_portofolio required-input form-control" name="id_portofolio" id="id_portofolio">
@@ -141,11 +131,10 @@ Dashboard
                             </div>
 
                             <div class="card-body">
-                                <table class="table" id="table-2">
+                                <table class="table" id="table-1">
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
-                                            <th scope="col">Jenis Laporan</th>
                                             <th scope="col">Portofolio</th>
                                             <th scope="col">Jumlah</th>
                                             <th scope="col">Bulan</th>
@@ -158,7 +147,6 @@ Dashboard
                                         @foreach ($target as $admins)
                                         <tr>
                                             <th scope="row">{{$i++}}</th>
-                                            <td>{{ $admins ->jenis_laporan}}</td>
                                             <td>{{ $portofolio_id[$admins ->id_portofolio]}}</td>
                                             <td>{{ $admins ->jumlah}}</td>
                                             <td>{{ $admins ->bulan}}</td>
@@ -184,7 +172,7 @@ Dashboard
                                                             </div>
                                                             <div class="modal-footer bg-whitesmoke br">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeTarget2">Cancel</button>
-                                                                <a class="btn btn-danger" href="{{ route('admin.deleteTarget', [$admins->id]) }}" value="Delete">Delete</a>
+                                                                <a class="btn btn-danger" href="{{ route('admin.deleteTargetFinance', [$admins->id]) }}" value="Delete">Delete</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -201,7 +189,7 @@ Dashboard
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <form id="TargetUpdateForm" class="form-validation" action="{{route('admin.updateTarget', [$admins->id])}}" method="POST">
+                                                            <form id="TargetUpdateForm" class="form-validation" action="{{route('admin.updateTargetFinance', [$admins->id])}}" method="POST">
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <div class="form-group">
@@ -215,14 +203,6 @@ Dashboard
                                                                                 </div>
                                                                                 <input type="text" id="jumlah" name="jumlah" class="form-control" value="{{ old('jumlah', $admins->jumlah) }}" onkeyup="formatCurrency(this)" required>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="jenis_laporan" class="col-form-label">Jenis Laporan: </label>
-                                                                            <select class="form-control" name="jenis_laporan" id="jenis_laporan" required>
-                                                                                <option value="COGS" {{ $admins->jenis_laporan === 'COGS' ? 'selected' : '' }}>COGS</option>
-                                                                                <option value="REVENUE" {{ $admins->jenis_laporan === 'REVENUE' ? 'selected' : '' }}>REVENUE</option>
-                                                                                <option value="KKP" {{ $admins->jenis_laporan === 'KKP' ? 'selected' : '' }}>KKP</option>
-                                                                            </select>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label for="id_portofolio_edit" class="col-form-label">Portofolio: </label>
@@ -307,10 +287,10 @@ Dashboard
 @push('scripts')
 <script>
 $(document).ready(function() {
-    $('#table-2').DataTable({
+    $('#table-1').DataTable({
         "columnDefs": [
             {
-                "targets": [6], // 7th column (Action)
+                "targets": [5], // 4th column (Action)
                 "searchable": false, // Disable searching for this column
                 "orderable": false,
             }

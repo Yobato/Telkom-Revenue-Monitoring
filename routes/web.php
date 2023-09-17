@@ -54,6 +54,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/manager-revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('manager-revenue');
         Route::get('/manager-kkp', [App\Http\Controllers\KkpController::class, 'index'])->name('manager-kkp');
         Route::get('/manager/target', [App\Http\Controllers\TargetController::class, 'index'])->name('manager.dashboard.target');
+        Route::get('/manager/target-kkp', [App\Http\Controllers\TargetFinanceController::class, 'index'])->name('manager.dashboard.target-finance');
         Route::get('/manager/finance', [App\Http\Controllers\LaporanFinanceController::class, 'index'])->name('manager.dashboard.finance');
         Route::get('/manager/commerce', [App\Http\Controllers\LaporanCommerceController::class, 'index'])->name('manager.dashboard.commerce');
     });
@@ -114,6 +115,11 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/target/add', [App\Http\Controllers\TargetController::class, 'storeTarget'])->name('admin.storeTarget');
         Route::get('/target/deleteTarget/{id}', [App\Http\Controllers\TargetController::class, 'deleteTarget'])->name('admin.deleteTarget');
         Route::post('/target/update/{id}', [App\Http\Controllers\TargetController::class, 'updateTarget'])->name('admin.updateTarget');
+
+        Route::get('/target-kkp', [App\Http\Controllers\TargetFinanceController::class, 'index'])->name('admin.dashboard.target-finance');
+        Route::post('/target-kkp/add', [App\Http\Controllers\TargetFinanceController::class, 'storeTargetFinance'])->name('admin.storeTargetFinance');
+        Route::get('/target-kkp/deleteTarget/{id}', [App\Http\Controllers\TargetFinanceController::class, 'deleteTargetFinance'])->name('admin.deleteTargetFinance');
+        Route::post('/target-kkp/update/{id}', [App\Http\Controllers\TargetFinanceController::class, 'updateTargetFinance'])->name('admin.updateTargetFinance');
 
         Route::get('/admin/finance', [App\Http\Controllers\LaporanFinanceController::class, 'index'])->name('admin.dashboard.finance');
         Route::get('admin/finance/editable/{id}', [App\Http\Controllers\LaporanFinanceController::class, 'Editable'])->name('admin.editableFinance');
