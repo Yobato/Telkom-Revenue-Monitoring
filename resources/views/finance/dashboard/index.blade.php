@@ -51,12 +51,7 @@
                                     <th scope="col">PID Finance</th>
                                     <th scope="col">Portofolio</th>
                                     <th scope="col">Nama Program</th>
-                                    <th scope="col">Cost Plan</th>
-                                    <th scope="col">Peruntukan</th>
-                                    <th scope="col">User</th>
-                                    <th scope="col">Nilai</th>
-                                    <th scope="col">Keterangan</th>
-                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Cost Plan</th>                                    
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -69,11 +64,6 @@
                                     <td>{{ $portofolio_id[$admins->id_portofolio]}}</td>
                                     <td>{{ $program_id[$admins->id_program]}}</td>
                                     <td>{{ $cost_plan_id[$admins->id_cost_plan]}}</td>
-                                    <td>{{ $peruntukan_id[$admins->id_peruntukan]}}</td>
-                                    <td>{{ $user_id[$admins->id_user]}}</td>
-                                    <td>{{ $admins->nilai}}</td>
-                                    <td>{{ $admins->keterangan }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td>
                                         @if(Auth::user()->role == "Finance" && $admins->editable == 1)
                                         <a href={{ route('finance.editLaporanFinance', [$admins->pid_finance]) }} class="btn btn-success btn-sm rounded-0" type="button">

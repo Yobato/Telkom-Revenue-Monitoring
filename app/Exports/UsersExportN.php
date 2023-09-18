@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\LaporanFinance;
+use App\Models\LaporanNota;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -14,7 +14,7 @@ class UsersExportF implements FromQuery, WithMapping, WithHeadings
     */
     public function query()
     {
-        return LaporanFinance::query()
+        return LaporanNota::query()
             ->join('portofolio', 'laporan_finance.id_portofolio', '=', 'portofolio.id')
             ->join('program', 'laporan_finance.id_program', '=', 'program.id')
             ->join('cost_plan', 'laporan_finance.id_cost_plan', '=', 'cost_plan.id')

@@ -43,16 +43,16 @@ class KkpController extends Controller
         }
         // dd($account->role);
 
-        $tahunData = TargetFinance::distinct()->where('jenis_laporan', '=', 'KKP')->get(['tahun']);
+        $tahunData = TargetFinance::distinct()->get(['tahun']);
         
         //======== CHART TARGET KKP OPERASIONAL ==========
-        $targetData = DB::table('target')
+        $targetData = DB::table('target_finance')
             ->select(
                 DB::raw('tahun as year'),
                 DB::raw('bulan as month'),
                 DB::raw('SUM(jumlah) as total_nilai')
             )
-            ->where('jenis_laporan', '=', 'KKP')
+            // ->where('jenis_laporan', '=', 'KKP')
             ->groupBy('tahun', 'bulan')
             ->orderBy('tahun', 'asc')
             ->orderBy('bulan', 'asc')
@@ -74,13 +74,13 @@ class KkpController extends Controller
             'Desember' => 12,
         ];
 
-        $targetGap = DB::table('target')
+        $targetGap = DB::table('target_finance')
             ->select(
                 DB::raw('tahun as year'),
                 DB::raw('bulan as month'),
                 DB::raw('SUM(jumlah) as total_nilai')
             )
-            ->where('jenis_laporan', '=', 'KKP')
+            // ->where('jenis_laporan', '=', 'KKP')
             ->groupBy('tahun', 'bulan')
             ->orderBy('tahun', 'asc')
             ->orderBy('bulan', 'asc')
@@ -134,10 +134,12 @@ class KkpController extends Controller
         }
 
         //======== STATISTIC TOTAL TARGET ==========
-        $TotalTarget1 = Target::where("tahun", [$newestYear])->where('jenis_laporan', '=', 'KKP')
+        $TotalTarget1 = TargetFinance::where("tahun", [$newestYear])
+        // ->where('jenis_laporan', '=', 'KKP')
             ->sum('jumlah');
 
-        $TotalTarget2 = Target::where("tahun", [$lastYear])->where('jenis_laporan', '=', 'KKP')
+        $TotalTarget2 = TargetFinance::where("tahun", [$lastYear])
+        // ->where('jenis_laporan', '=', 'KKP')
             ->sum('jumlah');
 
         if ($TotalTarget2 != 0) {
