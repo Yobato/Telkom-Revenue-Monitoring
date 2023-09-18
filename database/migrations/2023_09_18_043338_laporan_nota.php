@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("pid_nota");
             $table->integer('nilai_awal');
             $table->integer('nilai_akhir');
-            $table->boolean('pph')->default(0);
+            $table->string('pph');
             $table->integer('persentase');
             $table->string('keterangan');
             $table->unsignedBigInteger('id_peruntukan');

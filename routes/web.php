@@ -45,6 +45,16 @@ Route::group(['middleware' => 'revalidate'], function () {
 
         Route::get('/exportfin', [App\Http\Controllers\LaporanFinanceController::class, 'export'])->name('finance.dashboard.export');
 
+        // Route::get('/finance/dashboard', [App\Http\Controllers\KkpController::class, 'index'])->name('finance.dashboard.chart');
+        Route::get('/nota', [App\Http\Controllers\LaporanNotaController::class, 'index'])->name('nota.dashboard.index');
+        Route::get('/nota/add', [App\Http\Controllers\LaporanNotaController::class, 'addLaporanNota'])->name('nota.reporting.form');
+        Route::post('/nota/add/success', [App\Http\Controllers\LaporanNotaController::class, 'storeLaporanNota'])->name('nota.storeLaporanNota');
+        Route::get('/nota/delete/{id}', [App\Http\Controllers\LaporanNotaController::class, 'deleteLaporanNota'])->name('nota.deleteLaporanNota');
+        Route::get('/nota/edit/{id}', [App\Http\Controllers\LaporanNotaController::class, 'editLaporanNota'])->name('nota.editLaporanNota');
+        Route::post('/nota/edit/{id}/success', [App\Http\Controllers\LaporanNotaController::class, 'updateLaporanNota'])->name('nota.updateLaporanNota');
+
+        Route::get('/exportfin', [App\Http\Controllers\LaporanFinanceController::class, 'export'])->name('nota.dashboard.export');
+
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:GM']], function () {
@@ -124,6 +134,10 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/admin/finance', [App\Http\Controllers\LaporanFinanceController::class, 'index'])->name('admin.dashboard.finance');
         Route::get('admin/finance/editable/{id}', [App\Http\Controllers\LaporanFinanceController::class, 'Editable'])->name('admin.editableFinance');
         Route::get('admin/finance/uneditable/{id}', [App\Http\Controllers\LaporanFinanceController::class, 'Uneditable'])->name('admin.uneditableFinance');
+
+        Route::get('/admin/nota', [App\Http\Controllers\LaporanNotaController::class, 'index'])->name('admin.dashboard.nota');
+        Route::get('admin/nota/editable/{id}', [App\Http\Controllers\LaporanNotaController::class, 'Editable'])->name('admin.editableNota');
+        Route::get('admin/nota/uneditable/{id}', [App\Http\Controllers\LaporanNotaController::class, 'Uneditable'])->name('admin.uneditableNota');
 
         Route::get('/admin/commerce', [App\Http\Controllers\LaporanCommerceController::class, 'index'])->name('admin.dashboard.commerce');
         Route::get('admin/commerce/editable/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'Editable'])->name('admin.editableCommerce');

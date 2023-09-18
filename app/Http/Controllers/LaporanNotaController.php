@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LaporanNota;
+use App\Models\LaporanFinance;
 use App\Models\UserReco;
 use App\Models\Peruntukan;
 use App\Models\City;
@@ -42,7 +43,7 @@ class LaporanNotaController extends Controller
         if ($account->role == "Finance") {
             return view('finance.dashboard.indexNota', [
                 "title" => "Laporan Finance",
-                "laporan_finance" => LaporanNota::all()->where('kota', '=', $account->kota),
+                "laporan_nota" => LaporanNota::all()->where('kota', '=', $account->kota),
                 "user_id" => $user_id,
                 "peruntukan_id" => $peruntukan_id,
                 "citys" => $citys
@@ -50,7 +51,7 @@ class LaporanNotaController extends Controller
         } elseif ($account->role == "GM"){
              return view('manager.dashboard.laporanNota', [
                 "title" => "Laporan Finance",
-                "laporan_finance" => LaporanNota::all(),
+                "laporan_nota" => LaporanNota::all(),
                 "user_id" => $user_id,
                 "peruntukan_id" => $peruntukan_id,
                 "citys" => $citys
@@ -58,7 +59,7 @@ class LaporanNotaController extends Controller
         } else {
             return view('admin.dashboard.laporanNota', [
                 "title" => "Laporan Finance",
-                "laporan_finance" => LaporanNota::all(),
+                "laporan_nota" => LaporanNota::all(),
                 "user_id" => $user_id,
                 "peruntukan_id" => $peruntukan_id,
                 "citys" => $citys
@@ -72,17 +73,18 @@ class LaporanNotaController extends Controller
         return Excel::download(new UsersExportN, 'expor_nota.xlsx', ExcelExcel::XLSX);
     }
 
-    public function addLaporanFinance(Request $request)
+    public function addLaporanNota(Request $request)
     {
         return view('finance.reporting.formNota', [
             "title" => "Buat Laporan Finance",
+            "addfinance" => LaporanFinance::all(),
             "addcity" => City::all(),
             "adduser" => UserReco::all(),
             "addperuntukan" => Peruntukan::all(),
         ]);
     }
 
-    public function storeLaporanFinance(Request $request)
+    public function storeLaporanNota(Request $request)
     {
 
         $account = Auth::guard('account')->user();
@@ -118,41 +120,41 @@ class LaporanNotaController extends Controller
             'tanggal' => $request->tanggal . '-01'
 
         ]);
-        return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menambahkan Laporan KKP");
+        return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil menambahkan Laporan KKP");
     }
 
-    public function deleteLaporanFinance($id)
+    public function deleteLaporanNota($id)
     {
         try {
             $account = Auth::guard('account')->user();
             DB::beginTransaction();
 
-            $laporan_finance = LaporanNota::find($id);
+            $laporan_nota = LaporanNota::find($id);
 
             // Jika tidak ada pengecualian, hapus kota
-            $laporan_finance->delete();
+            $laporan_nota->delete();
 
             DB::commit();
 
-            return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menghapus Laporan Finance");
+            return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil menghapus Laporan Finance");
         } catch (QueryException $e) {
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            return redirect()->intended(route('finance.dashboard.index'))->with("error", $e->getMessage());
+            return redirect()->intended(route('nota.dashboard.index'))->with("error", $e->getMessage());
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            return redirect()->intended(route('finance.dashboard.index'))->with("error", $e->getMessage());
+            return redirect()->intended(route('nota.dashboard.index'))->with("error", $e->getMessage());
         }
     }
 
-    public function editLaporanFinance($id)
+    public function editLaporanNota($id)
     {
         return view('finance.reporting.formNotaEdit', [
             "title" => "Edit Laporan Finance",
-            "finance" => LaporanNota::where("pid_finance", "=", $id)->get(),
+            "finance" => LaporanNota::where("id", "=", $id)->get(),
             "addcity" => City::all(),
             "addportofolio" => Portofolio::all()->where("role", "=", "Finance"),
             "addprogram" => Program::all()->where("role", "=", "Finance"),
@@ -161,7 +163,7 @@ class LaporanNotaController extends Controller
         ]);
     }
 
-    public function updateLaporanFinance(Request $request, $id)
+    public function updateLaporanNota(Request $request, $id)
     {
         $messages = [
             'required' => ':Field wajib diisi',
@@ -176,7 +178,7 @@ class LaporanNotaController extends Controller
         ], $messages);
 
         $account = Auth::guard('account')->user();
-        LaporanNota::where('pid_finance', $id)->update([
+        LaporanNota::where('id', $id)->update([
             'id_portofolio' => $request->id_portofolio,
             'id_program' => $request->id_program,
             'id_cost_plan' => $request->id_cost_plan,
@@ -184,34 +186,34 @@ class LaporanNotaController extends Controller
             // 'tanggal' => $request->tanggal . '-01'
 
         ]);
-        return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil mengubah Laporan Finance");
+        return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil mengubah Laporan Finance");
     }
 
     public function Editable($id)
     {
         $account = Auth::guard('account')->user();
-        LaporanNota::where('pid_finance', $id)->update([
+        LaporanNota::where('id', $id)->update([
             "editable" => 1
         ]);
 
         if ($account->role == "Finance") {
-            return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil memberi akses edit pada Laporan Finance");
+            return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil memberi akses edit pada Laporan Finance");
         } else if ($account->role == "Admin") {
-            return redirect()->intended(route('admin.dashboard.finance'))->with("success", "Berhasil memberi akses edit pada Laporan Finance");
+            return redirect()->intended(route('admin.dashboard.nota'))->with("success", "Berhasil memberi akses edit pada Laporan Finance");
         }
     }
 
     public function Uneditable($id)
     {
         $account = Auth::guard('account')->user();
-        LaporanNota::where('pid_finance', $id)->update([
+        LaporanNota::where('id', $id)->update([
             "editable" => 0
         ]);
 
         if ($account->role == "Finance") {
-            return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menghapus akses edit pada Laporan Finance");
+            return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil menghapus akses edit pada Laporan Finance");
         } else if ($account->role == "Admin") {
-            return redirect()->intended(route('admin.dashboard.finance'))->with("success", "Berhasil menghapus akses edit pada Laporan Finance");
+            return redirect()->intended(route('admin.dashboard.nota'))->with("success", "Berhasil menghapus akses edit pada Laporan Finance");
         }
     }
 }
