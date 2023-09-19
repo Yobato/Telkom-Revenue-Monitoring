@@ -43,7 +43,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/finance/edit/{id}', [App\Http\Controllers\LaporanFinanceController::class, 'editLaporanFinance'])->name('finance.editLaporanFinance');
         Route::post('/finance/edit/{id}/success', [App\Http\Controllers\LaporanFinanceController::class, 'updateLaporanFinance'])->name('finance.updateLaporanFinance');
 
-        Route::get('/exportfin', [App\Http\Controllers\LaporanFinanceController::class, 'export'])->name('finance.dashboard.export');
+        Route::get('/finance/exportfin', [App\Http\Controllers\LaporanFinanceController::class, 'export'])->name('finance.dashboard.export');
 
         // Route::get('/finance/dashboard', [App\Http\Controllers\KkpController::class, 'index'])->name('finance.dashboard.chart');
         Route::get('/nota', [App\Http\Controllers\LaporanNotaController::class, 'index'])->name('nota.dashboard.index');
@@ -53,7 +53,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/nota/edit/{id}', [App\Http\Controllers\LaporanNotaController::class, 'editLaporanNota'])->name('nota.editLaporanNota');
         Route::post('/nota/edit/{id}/success', [App\Http\Controllers\LaporanNotaController::class, 'updateLaporanNota'])->name('nota.updateLaporanNota');
 
-        Route::get('/exportfin', [App\Http\Controllers\LaporanFinanceController::class, 'export'])->name('nota.dashboard.export');
+        Route::get('/exportfin', [App\Http\Controllers\LaporanNotaController::class, 'export'])->name('nota.dashboard.export');
 
     });
 

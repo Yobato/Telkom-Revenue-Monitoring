@@ -33,7 +33,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Laporan KKP</h4>
+                        <h4>PID Finance</h4>
                         <div class="card-header-form">
                             <div class="col-12 float-end">
                                 <a class="btn btn-outline-primary mr-3" href="{{ route('finance.dashboard.export') }}">Export</a>

@@ -91,7 +91,7 @@ class LaporanFinanceController extends Controller
     public function addLaporanFinance(Request $request)
     {
         return view('finance.reporting.form', [
-            "title" => "Buat Laporan Finance",
+            "title" => "Laporan Finance",
             "addcity" => City::all(),
             "addportofolio" => Portofolio::all()->where("role", "=", "Finance"),
             "addprogram" => Program::all()->where("role", "=", "Finance"),
@@ -163,7 +163,7 @@ class LaporanFinanceController extends Controller
     public function editLaporanFinance($id)
     {
         return view('finance.reporting.formEdit', [
-            "title" => "Edit Laporan Finance",
+            "title" => "Laporan Finance",
             "finance" => LaporanFinance::where("pid_finance", "=", $id)->get(),
             "addcity" => City::all(),
             "addportofolio" => Portofolio::all()->where("role", "=", "Finance"),

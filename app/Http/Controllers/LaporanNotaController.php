@@ -42,7 +42,7 @@ class LaporanNotaController extends Controller
         $account = Auth::guard('account')->user();
         if ($account->role == "Finance") {
             return view('finance.dashboard.indexNota', [
-                "title" => "Laporan Finance",
+                "title" => "Laporan Nota",
                 "laporan_nota" => LaporanNota::all()->where('kota', '=', $account->kota),
                 "user_id" => $user_id,
                 "peruntukan_id" => $peruntukan_id,
@@ -50,7 +50,7 @@ class LaporanNotaController extends Controller
             ]);
         } elseif ($account->role == "GM"){
              return view('manager.dashboard.laporanNota', [
-                "title" => "Laporan Finance",
+                "title" => "Laporan Nota",
                 "laporan_nota" => LaporanNota::all(),
                 "user_id" => $user_id,
                 "peruntukan_id" => $peruntukan_id,
@@ -58,7 +58,7 @@ class LaporanNotaController extends Controller
             ]);
         } else {
             return view('admin.dashboard.laporanNota', [
-                "title" => "Laporan Finance",
+                "title" => "Laporan Nota",
                 "laporan_nota" => LaporanNota::all(),
                 "user_id" => $user_id,
                 "peruntukan_id" => $peruntukan_id,
@@ -76,7 +76,7 @@ class LaporanNotaController extends Controller
     public function addLaporanNota(Request $request)
     {
         return view('finance.reporting.formNota', [
-            "title" => "Buat Laporan Finance",
+            "title" => "Laporan Nota",
             "addfinance" => LaporanFinance::all(),
             "addcity" => City::all(),
             "adduser" => UserReco::all(),
@@ -92,6 +92,7 @@ class LaporanNotaController extends Controller
         $messages = [
             'required' => 'Field wajib diisi',
             'unique' => 'Nilai sudah ada',
+            'persentase.required_if' => 'Field Persentase harus diisi!',
         ];
 
         $this->validate($request, [
@@ -99,8 +100,8 @@ class LaporanNotaController extends Controller
             'nilai_awal' => 'required',
             'nilai_akhir' => 'required',
             'pph' => 'required',
-            'persentase' => 'required',
-            'keterangan' => 'required',
+            'persentase' => 'required_if:pph,Ya',
+            // 'keterangan' => 'required',
             'id_peruntukan' => 'required',
             'id_user' => 'required',
             'tanggal' => 'required'
@@ -153,7 +154,7 @@ class LaporanNotaController extends Controller
     public function editLaporanNota($id)
     {
         return view('finance.reporting.formNotaEdit', [
-            "title" => "Edit Laporan Finance",
+            "title" => "Laporan Nota",
             "finance" => LaporanNota::where("id", "=", $id)->get(),
             "addcity" => City::all(),
             "addportofolio" => Portofolio::all()->where("role", "=", "Finance"),

@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('nilai_awal');
             $table->integer('nilai_akhir');
             $table->string('pph');
-            $table->integer('persentase');
-            $table->string('keterangan');
+            $table->float('persentase')->nullable();
+            $table->string('keterangan')->nullable();
             $table->unsignedBigInteger('id_peruntukan');
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('kota');
