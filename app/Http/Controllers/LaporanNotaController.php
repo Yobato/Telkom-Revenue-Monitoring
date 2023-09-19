@@ -155,11 +155,11 @@ class LaporanNotaController extends Controller
     {
         return view('finance.reporting.formNotaEdit', [
             "title" => "Laporan Nota",
-            "finance" => LaporanNota::where("id", "=", $id)->get(),
+            "nota" => LaporanNota::where("id", "=", $id)->get(),
+            "addfinance" => LaporanFinance::all(),
             "addcity" => City::all(),
-            "addportofolio" => Portofolio::all()->where("role", "=", "Finance"),
-            "addprogram" => Program::all()->where("role", "=", "Finance"),
-            "addcostplan" => CostPlan::all(),
+            "adduser" => UserReco::all(),
+            "addperuntukan" => Peruntukan::all(),
             "id" => $id,
         ]);
     }
@@ -169,23 +169,32 @@ class LaporanNotaController extends Controller
         $messages = [
             'required' => ':Field wajib diisi',
             'unique' => 'Nilai sudah ada',
+            'persentase.required_if' => 'Field Persentase harus diisi!',
         ];
 
         $this->validate($request, [
-            'id_portofolio' => 'required',
-            'id_program' => 'required',
-            'id_cost_plan' => 'required',
-            // 'tanggal' => 'required'
+            'pid_nota' => 'required',
+            'nilai_awal' => 'required',
+            'nilai_akhir' => 'required',
+            'pph' => 'required',
+            'persentase' => 'required_if:pph,Ya',
+            'id_peruntukan' => 'required',
+            'id_user' => 'required',
+            'tanggal' => 'required'
         ], $messages);
 
         $account = Auth::guard('account')->user();
         LaporanNota::where('id', $id)->update([
-            'id_portofolio' => $request->id_portofolio,
-            'id_program' => $request->id_program,
-            'id_cost_plan' => $request->id_cost_plan,
+            'pid_nota' => $request->pid_nota,
+            'nilai_awal' => str_replace('.', '', $request->nilai_awal),
+            'nilai_akhir' => str_replace('.', '', $request->nilai_akhir),
+            'pph' => $request->pph,
+            'persentase' => $request->persentase,
+            'keterangan' => $request->keterangan,
+            'id_peruntukan' => $request->id_peruntukan,
+            'id_user' => $request->id_user,
             'kota' => $account->kota,
-            // 'tanggal' => $request->tanggal . '-01'
-
+            'tanggal' => $request->tanggal . '-01'
         ]);
         return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil mengubah Laporan Finance");
     }

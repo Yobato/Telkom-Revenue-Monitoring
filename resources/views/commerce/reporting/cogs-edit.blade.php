@@ -143,7 +143,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end pr-5 mb-5">
-                            <button class="btn btn-primary" value="Simpan Data" type="submit">Buat Laporan</button>
+                            <button class="btn btn-primary" value="Simpan Data" type="submit">Edit Laporan</button>
                         </div>
                     </form>
                     @endforeach

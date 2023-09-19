@@ -28,14 +28,17 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item dropdown {{ $title==='Laporan Finance' || $title==='Laporan Commerce' ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ $title==='Laporan Finance' || $title==='Laporan Commerce' || $title==='Laporan Nota' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Reporting</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ $title==='Laporan Commerce' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.dashboard.commerce')}}">COGS & Revenue</a>
                     </li>
                     <li class="{{ $title==='Laporan Finance' ? ' active' : '' }}">
-                        <a class="nav-link" href="{{ route('admin.dashboard.finance')}}">KKP Operasional</a>
+                        <a class="nav-link" href="{{ route('admin.dashboard.finance')}}">PID Finance</a>
+                    </li>
+                    <li class="{{ $title==='Laporan Nota' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.dashboard.nota')}}">Laporan Nota</a>
                     </li>
                 </ul>
             </li>

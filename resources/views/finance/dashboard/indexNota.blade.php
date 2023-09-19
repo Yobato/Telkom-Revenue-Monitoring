@@ -53,7 +53,8 @@
                                     <th scope="col">User</th>
                                     <th scope="col">PPH</th>
                                     <th scope="col">Persentase</th>
-                                    <th scope="col">Nilai Awal</th>
+                                    {{-- <th scope="col">Nilai Awal</th> --}}
+                                    <th scope="col">Tanggal</th>
                                     <th scope="col">Nilai Akhir</th>
                                     <th scope="col">Keterangan</th>
                                     <th scope="col">Action</th>
@@ -69,7 +70,8 @@
                                     <td>{{ $user_id[$admins->id_user]}}</td>
                                     <td>{{ $admins->pph}}</td>
                                     <td>{{ $admins->persentase}}</td>
-                                    <td>{{ $admins->nilai_awal}}</td>
+                                    {{-- <td>{{ $admins->nilai_awal}}</td> --}}
+                                    <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td>{{ $admins->nilai_akhir}}</td>
                                     <td>{{ $admins->keterangan}}</td>
                                     
