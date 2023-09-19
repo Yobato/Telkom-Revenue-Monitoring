@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class UsersExportF implements FromQuery, WithMapping, WithHeadings
+class UsersExportN implements FromQuery, WithMapping, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -15,29 +15,38 @@ class UsersExportF implements FromQuery, WithMapping, WithHeadings
     public function query()
     {
         return LaporanNota::query()
-            ->join('portofolio', 'laporan_finance.id_portofolio', '=', 'portofolio.id')
-            ->join('program', 'laporan_finance.id_program', '=', 'program.id')
-            ->join('cost_plan', 'laporan_finance.id_cost_plan', '=', 'cost_plan.id')
-            ->join('city', 'laporan_finance.kota', '=', 'city.id')
+            ->join('peruntukan', 'laporan_nota.id_peruntukan', '=', 'peruntukan.id')
+            ->join('user_reco', 'laporan_nota.id_user', '=', 'user_reco.id')
+            ->join('city', 'laporan_nota.kota', '=', 'city.id')
             ->select(
-                'laporan_finance.pid_finance',
-                'portofolio.nama_portofolio',
-                'program.nama_program',
-                'cost_plan.nama_cost_plan',
+                'laporan_nota.pid_nota',
+                'peruntukan.nama_peruntukan',
+                'user_reco.nama_user_reco',
+                'laporan_nota.nilai_awal',
+                'laporan_nota.pph',
+                'laporan_nota.persentase',
+                'laporan_nota.nilai_akhir',
+                'laporan_nota.keterangan',
                 'city.nama_city',
-                'laporan_finance.created_at',
-                'laporan_finance.updated_at',
+                'laporan_nota.tanggal',
+                'laporan_nota.created_at',
+                'laporan_nota.updated_at',
             );
     }
 
     public function headings(): array
     {
         return [
-            'PID Finance',
-            'Nama Portofolio',
-            'Nama Program',
-            'Nama Cost Plan',
-            'Nama Kota',
+            'PID Nota', 
+            'Peruntukan', 
+            'User', 
+            'Nilai Awal', 
+            'PPH', 
+            'Persentase', 
+            'Nilai Akhir', 
+            'Keterangan', 
+            'Kota', 
+            'Tanggal',
             'Created At',
             'Updated At',
         ];
@@ -46,13 +55,18 @@ class UsersExportF implements FromQuery, WithMapping, WithHeadings
     public function map($row): array
     {
         return [
-            $row->pid_finance,
-            $row->nama_portofolio,
-            $row->nama_program,
-            $row->nama_cost_plan,
-            $row->nama_city,
+            $row->pid_nota,
+            $row->nama_peruntukan,
+            $row->nama_user_reco,
+            $row->nilai_awal,
+            $row->pph,
+            $row->persentase,
+            $row->nilai_akhir,
+            $row->keterangan,
+            $row->kota,
+            $row->tanggal,
             $row->created_at,
-            $row->updated_at,
+            $row->updated,
         ];
     }
 }

@@ -53,7 +53,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/nota/edit/{id}', [App\Http\Controllers\LaporanNotaController::class, 'editLaporanNota'])->name('nota.editLaporanNota');
         Route::post('/nota/edit/{id}/success', [App\Http\Controllers\LaporanNotaController::class, 'updateLaporanNota'])->name('nota.updateLaporanNota');
 
-        Route::get('/exportfin', [App\Http\Controllers\LaporanNotaController::class, 'export'])->name('nota.dashboard.export');
+        Route::get('/nota/exportnota', [App\Http\Controllers\LaporanNotaController::class, 'export'])->name('nota.dashboard.export');
 
     });
 

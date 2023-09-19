@@ -7,11 +7,11 @@ use App\Models\LaporanFinance;
 use App\Models\UserReco;
 use App\Models\Peruntukan;
 use App\Models\City;
-use App\Exports\UsersExportN;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use App\Exports\UsersExportN;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 use Carbon\Carbon;
@@ -68,7 +68,7 @@ class LaporanNotaController extends Controller
         //
     }
 
-    public function exportNota() 
+    public function export() 
     {
         return Excel::download(new UsersExportN, 'expor_nota.xlsx', ExcelExcel::XLSX);
     }
