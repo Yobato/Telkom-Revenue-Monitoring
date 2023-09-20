@@ -12,6 +12,12 @@ class TargetCommerce extends Model
     protected $primaryKey = "id";
     public $timestamps = false;
     protected $fillable = [
-        'jumlah', 'bulan', 'tahun', 'jenis_laporan', 'portofolio'
+        'jumlah', 'bulan', 'tahun', 'jenis_laporan', 'id_portofolio'
     ];
+
+    public function portofolio()
+    {
+        return $this->belongsTo(Portofolio::class, 'id_portofolio');
+    }
+
 }

@@ -15,45 +15,60 @@ class CogsController extends Controller
     {
         $account = Auth::guard('account')->user();
         $tahunData = TargetCommerce::distinct()->where('jenis_laporan', '=', 'COGS')->get(['tahun']);
+        // $filterPortofolio = TargetCommerce::distinct()->where('jenis_laporan', '=', 'COGS')->get(['portofolio']);
+        $filterPortofolio = DB::table('target_commerce')
+            ->join('portofolio', 'target_commerce.id_portofolio', '=', 'portofolio.id')
+            ->where('target_commerce.jenis_laporan', 'COGS')
+            ->select('portofolio.id', 'portofolio.nama_portofolio')
+            ->distinct()
+            ->get();
+
+        // dd($filterPortofolio);
         
         if($account->role == 'Admin'|| $account->role == 'GM' ){
             $commerceData = DB::table('laporan_commerce')
                 ->select(
+                    'id_portofolio',
                     DB::raw('YEAR(tanggal) as year'),
                     DB::raw('MONTH(tanggal) as month'),
                     DB::raw('SUM(nilai) as total_nilai')
                 )
                 ->where('jenis_laporan', '=', 'COGS')
-                ->groupBy('year', 'month')
+                ->groupBy('id_portofolio','year', 'month')
                 ->orderBy('year', 'asc')
                 ->orderBy('month', 'asc')
                 ->get();
         } else{
             $commerceData = DB::table('laporan_commerce')
                 ->select(
+                    'id_portofolio',
                     DB::raw('YEAR(tanggal) as year'),
                     DB::raw('MONTH(tanggal) as month'),
                     DB::raw('SUM(nilai) as total_nilai')
                 )
                 ->where('kota', '=', $account->kota)
                 ->where('jenis_laporan', '=', 'COGS')
-                ->groupBy('year', 'month')
+                ->groupBy('id_portofolio', 'year', 'month')
                 ->orderBy('year', 'asc')
                 ->orderBy('month', 'asc')
                 ->get();
         }
 
-        $targetData = DB::table('target')
+        $targetData = DB::table('target_commerce')
             ->select(
+                'id_portofolio',
                 DB::raw('tahun as year'),
                 DB::raw('bulan as month'),
                 DB::raw('SUM(jumlah) as total_nilai')
             )
             ->where('jenis_laporan', '=', 'COGS')
-            ->groupBy('tahun', 'bulan')
+            ->groupBy('id_portofolio', 'tahun', 'bulan')
             ->orderBy('tahun', 'asc')
             ->orderBy('bulan', 'asc')
             ->get();
+
+        // dd($targetData);
+
 
         $monthMapping = [
             'Januari' => 1,
@@ -70,14 +85,15 @@ class CogsController extends Controller
             'Desember' => 12,
             ];
 
-        $targetGap = DB::table('target')
+        $targetGap = DB::table('target_commerce')
         ->select(
+            'id_portofolio',
             DB::raw('tahun as year'),
             DB::raw('bulan as month'),
             DB::raw('SUM(jumlah) as total_nilai')
         )
         ->where('jenis_laporan', '=', 'COGS')
-        ->groupBy('tahun', 'bulan')
+        ->groupBy('id_portofolio','tahun', 'bulan')
         ->orderBy('tahun', 'asc')
         ->orderBy('bulan', 'asc')
         ->get()
@@ -128,10 +144,10 @@ class CogsController extends Controller
             $kenaikanRealisasi = 0;
         }
 
-        $TotalTarget1 = Target::where("tahun", [$newestYear])->where('jenis_laporan', '=', 'COGS')
+        $TotalTarget1 = TargetCommerce::where("tahun", [$newestYear])->where('jenis_laporan', '=', 'COGS')
         ->sum('jumlah');
 
-        $TotalTarget2 = Target::where("tahun", [$lastYear])->where('jenis_laporan', '=', 'COGS')
+        $TotalTarget2 = TargetCommerce::where("tahun", [$lastYear])->where('jenis_laporan', '=', 'COGS')
             ->sum('jumlah');
 
         if ($TotalTarget2 != 0) {
@@ -246,6 +262,7 @@ class CogsController extends Controller
                 "gapSum1" => $gapSum1,
                 "kenaikanGap" => $kenaikanGap,
                 'tahunData' => $tahunData,
+                'filterPortofolio' => $filterPortofolio,
                 "TopCOGS" => $TopCOGS,
                 "GapTop" => $smallestGapPortofolio['gap'] ?? null
             ]);

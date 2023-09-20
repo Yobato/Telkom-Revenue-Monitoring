@@ -132,7 +132,13 @@
                     <div class="card-header d-flex justify-content-between">
                         <h4 style="color:#525358; font-weight:bold">COGS Operasional</h4>
                         <div class="filter d-flex ">
-                            <label for="tahun" class="col-form-label mr-3">Filter </label>
+                            <label for="portofolio" class="col-form-label mr-3">Portofolio </label>
+                            <select class="form-control" name="portofolio-filter" id="portofolio-filter" style="border-radius: 8px">
+                                @foreach ($filterPortofolio as $porto)
+                                    <option value=<?= $porto->id ?>>{{ $porto->nama_portofolio }}</option>
+                                @endforeach
+                            </select>
+                            <label for="tahun" class="col-form-label ml-3 mr-3">Filter </label>
                             <select class="form-control" name="tahun-filter" id="tahun-filter" style="border-radius: 8px">
                                 @foreach ($tahunData as $tahun)
                                     <option value=<?= $tahun->tahun ?>>{{ $tahun->tahun }}</option>
@@ -150,7 +156,13 @@
                     <div class="card-header d-flex justify-content-between">
                         <h4 style="color:#525358; font-weight:bold">GAP</h4>
                         <div class="filter d-flex ">
-                            <label for="tahun" class="col-form-label mr-3">Filter </label>
+                            <label for="portofolio" class="col-form-label mr-3">Portofolio </label>
+                            <select class="form-control" name="portofolio-filter" id="portofolio-filter" style="border-radius: 8px">
+                                @foreach ($filterPortofolio as $porto)
+                                    <option value=<?= $porto->id ?>>{{ $porto->nama_portofolio }}</option>
+                                @endforeach
+                            </select>
+                            <label for="tahun" class="col-form-label ml-3 mr-3">Filter </label>
                             <select class="form-control" name="tahun-filter-gap" id="tahun-filter-gap" style="border-radius: 8px">
                                 @foreach ($tahunData as $tahun)
                                     <option value=<?= $tahun->tahun ?>>{{ $tahun->tahun }}</option>
@@ -168,6 +180,14 @@
                     <div class="card-header d-flex justify-content-between">
                         <h4 style="color:#525358; font-weight:bold">Perbandingan Tahun</h4>
                         <div class="filter d-flex">
+                            <div class="mr-3">
+                                <label for="portofolio" class="col-form-label mr-3">Portofolio </label>
+                                <select class="form-control" name="portofolio-filter" id="portofolio-filter" style="border-radius: 8px">
+                                    @foreach ($filterPortofolio as $porto)
+                                        <option value=<?= $porto->id ?>>{{ $porto->nama_portofolio }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="mr-3">
                                 <label for="cogs-tahun-filter-1" class="col-form-label">Filter 1:</label>
                                 <select class="form-control" name="cogs-tahun-filter-1" id="cogs-tahun-filter-1" style="border-radius: 8px">
