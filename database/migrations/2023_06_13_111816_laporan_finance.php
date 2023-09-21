@@ -25,6 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             // $table->string('id_nama_kota');
             $table->unsignedBigInteger('kota');
+            $table->string("slug")->unique();
             $table->foreign('id_portofolio')->references('id')->on('portofolio');
             $table->foreign('id_program')->references('id')->on('program');
             $table->foreign('id_cost_plan')->references('id')->on('cost_plan');

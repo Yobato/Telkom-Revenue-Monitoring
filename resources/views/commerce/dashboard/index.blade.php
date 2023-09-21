@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table" id="table-1">
+                        <table class="table table-responsive" id="table-1">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
@@ -76,11 +76,11 @@
                                     <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td>
                                         @if(Auth::user()->role == "Commerce" && $admins->editable == 1)
-                                        <a href={{ route('commerce.editLaporanCommerce', [$admins->id_commerce]) }} class="btn btn-success btn-sm rounded-0" type="button">
+                                        <a href={{ route('commerce.editLaporanCommerce', [$admins->slug]) }} class="btn btn-success btn-sm rounded-0" type="button">
                                             <i class="fa fa-edit"></i></a>
                                         @endif
-                                        <a class="btn btn-sm btn-danger rounded-0" style="color: white" data-toggle="modal" data-target="#deleteLaporanCommerceModal{{ $admins->id_commerce }}"><i class="fa fa-trash"></i></a>
-                                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanCommerceModal{{ $admins->id_commerce }}" data-backdrop="static">
+                                        <a class="btn btn-sm btn-danger rounded-0" style="color: white" data-toggle="modal" data-target="#deleteLaporanCommerceModal{{ $admins->slug }}"><i class="fa fa-trash"></i></a>
+                                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanCommerceModal{{ $admins->slug }}" data-backdrop="static">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -95,7 +95,7 @@
                                                     </div>
                                                     <div class="modal-footer bg-whitesmoke br">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanCommerce2">Cancel</button>
-                                                        <a class="btn btn-danger" href="{{ route('commerce.deleteLaporanCommerce', [$admins->id_commerce]) }}" value="Delete">Delete</a>
+                                                        <a class="btn btn-danger" href="{{ route('commerce.deleteLaporanCommerce', [$admins->slug]) }}" value="Delete">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>

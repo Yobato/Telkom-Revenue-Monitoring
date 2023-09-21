@@ -143,7 +143,8 @@ class LaporanCommerceController extends Controller
             'id_sub_grup_akun' => $request->id_sub_grup_akun,
             'kota' => $account->kota,
             'created_at' => Carbon::now(),
-            'tanggal' => $request->tanggal . '-01'
+            'tanggal' => $request->tanggal . '-01',
+            'slug' => preg_replace('/[^A-Za-z0-9]+/', '-', preg_replace('/[^A-Za-z0-9\/-]+/', '', $request->id_commerce))
         ]);
         return redirect()->intended(route('commerce.dashboard.index'))->with("success", "Berhasil menambahkan Laporan COGS");
     }
@@ -156,7 +157,7 @@ class LaporanCommerceController extends Controller
             $account = Auth::guard('account')->user();
             DB::beginTransaction();
 
-            $laporan_commerce = LaporanCommerce::find($id);
+            $laporan_commerce = LaporanCommerce::where("slug", "=", $id);
 
             // Jika tidak ada pengecualian, hapus kota
             $laporan_commerce->delete();
@@ -181,7 +182,7 @@ class LaporanCommerceController extends Controller
     {
         return view('commerce.reporting.cogs-edit', [
             "title" => "Edit Laporan Commerce",
-            "commerce" => LaporanCommerce::where("id_commerce", "=", $id)->get(),
+            "commerce" => LaporanCommerce::all()->where("slug", "=", $id),
             "addcity" => City::all(),
             "addprogram" => Program::all()->where("role", "=", "Commerce"),
             "addportofolio" => Portofolio::all()->where("role", "=", "Commerce"),
@@ -209,11 +210,12 @@ class LaporanCommerceController extends Controller
 
         $account = Auth::guard('account')->user();
         $program = Program::where("id", '=', $request->id_program)->get('kode_program');
-        LaporanCommerce::where('id_commerce', $id)->update([
+        LaporanCommerce::where('slug', $id)->update([
             'nilai' => str_replace('.', '', $request->nilai),
             'keterangan' => $request->keterangan,
             'id_program' => $request->id_program,
             'kode_program' => $program,
+            'jenis_laporan' => $request->jenis_laporan,
             'id_portofolio' => $request->id_portofolio,
             'id_sub_grup_akun' => $request->id_sub_grup_akun,
             'kota' => $account->kota,
@@ -225,7 +227,7 @@ class LaporanCommerceController extends Controller
     public function Editable($id)
     {
         $account = Auth::guard('account')->user();
-        LaporanCommerce::where('id_commerce', $id)->update([
+        LaporanCommerce::where('slug', '=', $id)->update([
             "editable" => 1
         ]);
 
@@ -239,7 +241,7 @@ class LaporanCommerceController extends Controller
     public function Uneditable($id)
     {
         $account = Auth::guard('account')->user();
-        LaporanCommerce::where('id_commerce', $id)->update([
+        LaporanCommerce::where('slug', $id)->update([
             "editable" => 0
         ]);
 

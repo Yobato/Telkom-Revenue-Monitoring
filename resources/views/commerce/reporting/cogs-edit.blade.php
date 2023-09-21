@@ -35,7 +35,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group pt-4 pb-0 pl-5 mb-0 pb-0">
                                     <label for="id_commerce" class="col-form-label">PID Commerce: </label>
-                                    <input type="text" id="id_commerce" name="id_commerce" class="form-control @error('id_commerce') is-invalid @enderror mb-2" value="{{ old('id_commerce', $id) }}" readonly>
+                                    <input type="text" id="id_commerce" name="id_commerce" class="form-control @error('id_commerce') is-invalid @enderror mb-2" value="{{ old('id_commerce', $laporan->id_commerce) }}" readonly>
                                     @error('id_commerce')
                                     <div class="invalid-feedback">
                                         {{ $message }}
