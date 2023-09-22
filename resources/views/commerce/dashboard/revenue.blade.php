@@ -309,24 +309,24 @@
 document.addEventListener("DOMContentLoaded", function() {
 
     // ==== CHART REVENUE OPERASIONAL ====
-    var dropdown = document.getElementById("tahun-filter");
+    let dropdown = document.getElementById("tahun-filter");
     let dropdownPortofolio = document.getElementById("portofolio-filter-revenue");
-    var selectedValue = dropdown.value;
+    let selectedValue = dropdown.value;
     let selectedValuePorto = dropdownPortofolio.value;
 
     // ==== CHART GAP ====
-    var dropdownGap = document.getElementById("tahun-filter-gap");
-    var dropdownGapPortofolio = document.getElementById("portofolio-filter-gap");
-    var selectedValueGap = dropdownGap.value;
-    var selectedValueGapPorto = dropdownGapPortofolio.value;
+    let dropdownGap = document.getElementById("tahun-filter-gap");
+    let dropdownGapPortofolio = document.getElementById("portofolio-filter-gap");
+    let selectedValueGap = dropdownGap.value;
+    let selectedValueGapPorto = dropdownGapPortofolio.value;
 
     // ==== CHART LINE REVENUE ====
-    var dropdownTahunRevenue1 = document.getElementById("revenue-tahun-filter-1");
-    var dropdownTahunRevenue2 = document.getElementById("revenue-tahun-filter-2");
-    var dropdownTahunPortofolio = document.getElementById("portofolio-filter-tahun");
-    var selectedValueRevenueLine1 = dropdownTahunRevenue1.value;
-    var selectedValueRevenueLine2 = dropdownTahunRevenue2.value;
-    var selectedValueRevenueLinePortofolio = dropdownTahunPortofolio.value;
+    let dropdownTahunRevenue1 = document.getElementById("revenue-tahun-filter-1");
+    let dropdownTahunRevenue2 = document.getElementById("revenue-tahun-filter-2");
+    let dropdownTahunPortofolio = document.getElementById("portofolio-filter-tahun");
+    let selectedValueRevenueLine1 = dropdownTahunRevenue1.value;
+    let selectedValueRevenueLine2 = dropdownTahunRevenue2.value;
+    let selectedValueRevenueLinePortofolio = dropdownTahunPortofolio.value;
 
     // ==== CHART Revenue OPERASIONAL ====
     function updateChart(valueRevenuePorto, valueRevenueYear) {

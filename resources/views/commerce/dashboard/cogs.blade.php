@@ -323,18 +323,18 @@ document.addEventListener("DOMContentLoaded", function() {
     // console.log("INI PORTOFOLIO" , dropdown);
 
     // ==== CHART GAP ====
-    var dropdownGap = document.getElementById("tahun-filter-gap");
-    var dropdownGapPortofolio = document.getElementById("portofolio-filter-gap");
-    var selectedValueGap = dropdownGap.value;
-    var selectedValueGapPorto = dropdownGapPortofolio.value;
+    let dropdownGap = document.getElementById("tahun-filter-gap");
+    let dropdownGapPortofolio = document.getElementById("portofolio-filter-gap");
+    let selectedValueGap = dropdownGap.value;
+    let selectedValueGapPorto = dropdownGapPortofolio.value;
 
     // ==== CHART LINE COGS ====
-    var dropdownTahunCOGS1 = document.getElementById("cogs-tahun-filter-1");
-    var dropdownTahunCOGS2 = document.getElementById("cogs-tahun-filter-2");
-    var dropdownTahunPortofolio = document.getElementById("portofolio-filter-tahun");
-    var selectedValueCOGSLine1 = dropdownTahunCOGS1.value;
-    var selectedValueCOGSLine2 = dropdownTahunCOGS2.value;
-    var selectedValueCOGSLinePortofolio = dropdownTahunPortofolio.value;
+    let dropdownTahunCOGS1 = document.getElementById("cogs-tahun-filter-1");
+    let dropdownTahunCOGS2 = document.getElementById("cogs-tahun-filter-2");
+    let dropdownTahunPortofolio = document.getElementById("portofolio-filter-tahun");
+    let selectedValueCOGSLine1 = dropdownTahunCOGS1.value;
+    let selectedValueCOGSLine2 = dropdownTahunCOGS2.value;
+    let selectedValueCOGSLinePortofolio = dropdownTahunPortofolio.value;
 
     // ==== CHART COGS OPERASIONAL ====
     function updateChart(valuePorto, valueYear) {

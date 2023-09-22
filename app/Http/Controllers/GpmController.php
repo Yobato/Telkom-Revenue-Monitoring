@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 // use App\Models\Target;
-use App\Models\Portofolio;
-use Illuminate\Http\Request;
 use App\Models\LaporanCommerce;
-use Illuminate\Support\Facades\DB;
+use App\Models\Portofolio;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GpmController extends Controller
 {
@@ -16,30 +15,30 @@ class GpmController extends Controller
     {
         //======== CHART Gross Profit ==========
         $account = Auth::guard('account')->user();
-        if($account->role == 'Admin'|| $account->role == 'GM' ){
-            $realisasiDataRevenue = DB::table('laporan_commerce')
-                ->select(
-                    DB::raw('YEAR(tanggal) as year'),
-                    DB::raw('MONTH(tanggal) as month'),
-                    DB::raw('SUM(nilai) as total_nilai')
-                )
-                ->groupBy('year', 'month')
-                ->orderBy('year', 'asc')
-                ->orderBy('month', 'asc')
-                ->where('jenis_laporan', '=', 'REVENUE')
-                ->get();
-    
-            $realisasiDataCOGS = DB::table('laporan_commerce')
-                ->select(
-                    DB::raw('YEAR(tanggal) as year'),
-                    DB::raw('MONTH(tanggal) as month'),
-                    DB::raw('SUM(nilai) as total_nilai')
-                )
-                ->groupBy('year', 'month')
-                ->orderBy('year', 'asc')
-                ->orderBy('month', 'asc')
-                ->where('jenis_laporan', '=', 'COGS')
-                ->get();
+        if ($account->role == 'Admin' || $account->role == 'GM') {
+            // $realisasiDataRevenue = DB::table('laporan_commerce')
+            //     ->select(
+            //         DB::raw('YEAR(tanggal) as year'),
+            //         DB::raw('MONTH(tanggal) as month'),
+            //         DB::raw('SUM(nilai) as total_nilai')
+            //     )
+            //     ->groupBy('year', 'month')
+            //     ->orderBy('year', 'asc')
+            //     ->orderBy('month', 'asc')
+            //     ->where('jenis_laporan', '=', 'REVENUE')
+            //     ->get();
+
+            // $realisasiDataCOGS = DB::table('laporan_commerce')
+            //     ->select(
+            //         DB::raw('YEAR(tanggal) as year'),
+            //         DB::raw('MONTH(tanggal) as month'),
+            //         DB::raw('SUM(nilai) as total_nilai')
+            //     )
+            //     ->groupBy('year', 'month')
+            //     ->orderBy('year', 'asc')
+            //     ->orderBy('month', 'asc')
+            //     ->where('jenis_laporan', '=', 'COGS')
+            //     ->get();
 
             $realisasiDataRevenuePortofolio = DB::table('laporan_commerce')
                 ->select(
@@ -53,7 +52,7 @@ class GpmController extends Controller
                 ->orderBy('month', 'asc')
                 ->where('jenis_laporan', '=', 'REVENUE')
                 ->get();
-    
+
             $realisasiDataCOGSPortofolio = DB::table('laporan_commerce')
                 ->select(
                     'id_portofolio',
@@ -66,32 +65,32 @@ class GpmController extends Controller
                 ->orderBy('month', 'asc')
                 ->where('jenis_laporan', '=', 'COGS')
                 ->get();
-        } else{
-            $realisasiDataRevenue = DB::table('laporan_commerce')
-                ->select(
-                    DB::raw('YEAR(tanggal) as year'),
-                    DB::raw('MONTH(tanggal) as month'),
-                    DB::raw('SUM(nilai) as total_nilai')
-                )
-                ->groupBy('year', 'month')
-                ->orderBy('year', 'asc')
-                ->orderBy('month', 'asc')
-                ->where('kota', '=', $account->kota)
-                ->where('jenis_laporan', '=', 'REVENUE')
-                ->get();
-    
-            $realisasiDataCOGS = DB::table('laporan_commerce')
-                ->select(
-                    DB::raw('YEAR(tanggal) as year'),
-                    DB::raw('MONTH(tanggal) as month'),
-                    DB::raw('SUM(nilai) as total_nilai')
-                )
-                ->groupBy('year', 'month')
-                ->orderBy('year', 'asc')
-                ->orderBy('month', 'asc')
-                ->where('kota', '=', $account->kota)
-                ->where('jenis_laporan', '=', 'COGS')
-                ->get();
+        } else {
+            // $realisasiDataRevenue = DB::table('laporan_commerce')
+            //     ->select(
+            //         DB::raw('YEAR(tanggal) as year'),
+            //         DB::raw('MONTH(tanggal) as month'),
+            //         DB::raw('SUM(nilai) as total_nilai')
+            //     )
+            //     ->groupBy('year', 'month')
+            //     ->orderBy('year', 'asc')
+            //     ->orderBy('month', 'asc')
+            //     ->where('kota', '=', $account->kota)
+            //     ->where('jenis_laporan', '=', 'REVENUE')
+            //     ->get();
+
+            // $realisasiDataCOGS = DB::table('laporan_commerce')
+            //     ->select(
+            //         DB::raw('YEAR(tanggal) as year'),
+            //         DB::raw('MONTH(tanggal) as month'),
+            //         DB::raw('SUM(nilai) as total_nilai')
+            //     )
+            //     ->groupBy('year', 'month')
+            //     ->orderBy('year', 'asc')
+            //     ->orderBy('month', 'asc')
+            //     ->where('kota', '=', $account->kota)
+            //     ->where('jenis_laporan', '=', 'COGS')
+            //     ->get();
 
             $realisasiDataRevenuePortofolio = DB::table('laporan_commerce')
                 ->select(
@@ -106,7 +105,7 @@ class GpmController extends Controller
                 ->where('kota', '=', $account->kota)
                 ->where('jenis_laporan', '=', 'REVENUE')
                 ->get();
-    
+
             $realisasiDataCOGSPortofolio = DB::table('laporan_commerce')
                 ->select(
                     'id_portofolio',
@@ -125,14 +124,14 @@ class GpmController extends Controller
         // dd($realisasiDataRevenue);
 
         //======== Fungsi Filter Berdasarkan Tahun laporan Revenue==========
-        if($account->role == 'Admin'|| $account->role == 'GM' ){
+        if ($account->role == 'Admin' || $account->role == 'GM') {
             $query = "
                         SELECT DISTINCT YEAR(tanggal) AS year
                         FROM laporan_commerce
                         WHERE jenis_laporan = 'REVENUE'
                         ORDER BY year DESC
                     ";
-        } else{
+        } else {
             $query = "
                         SELECT DISTINCT YEAR(tanggal) AS year
                         FROM laporan_commerce
@@ -143,12 +142,21 @@ class GpmController extends Controller
 
         $tahunData = DB::select(DB::raw($query));
 
+        //======== Fungsi Filter Portofolio berdasarkan Laporan Revenue==========
+        $filterPortofolio = DB::table('laporan_commerce')
+            ->join('portofolio', 'laporan_commerce.id_portofolio', '=', 'portofolio.id')
+            ->where('laporan_commerce.jenis_laporan', 'REVENUE')
+            ->select('portofolio.id', 'portofolio.nama_portofolio')
+            ->distinct()
+            ->get();
+
         //======== RUMUS CHART Gross Profit ==========
         $gpmData1 = [];
-        foreach ($realisasiDataRevenue as $revenueItem) {
-            foreach ($realisasiDataCOGS as $cogsItem) {
-                if ($revenueItem->year == $cogsItem->year && $revenueItem->month == $cogsItem->month) {
+        foreach ($realisasiDataRevenuePortofolio as $revenueItem) {
+            foreach ($realisasiDataCOGSPortofolio as $cogsItem) {
+                if ($revenueItem->year == $cogsItem->year && $revenueItem->month == $cogsItem->month && $revenueItem->id_portofolio == $cogsItem->id_portofolio) {
                     $gpmData1[] = [
+                        'id_portofolio' => $revenueItem->id_portofolio,
                         'year' => $revenueItem->year,
                         'month' => $revenueItem->month,
                         'gpm' => $revenueItem->total_nilai - $cogsItem->total_nilai,
@@ -157,11 +165,11 @@ class GpmController extends Controller
                 }
             }
         }
-        
+
         $PortfolioGPM = [];
         foreach ($realisasiDataRevenuePortofolio as $revenueItem) {
             foreach ($realisasiDataCOGSPortofolio as $cogsItem) {
-                if ($revenueItem->year == $cogsItem->year && $revenueItem->month == $cogsItem->month) {
+                if ($revenueItem->year == $cogsItem->year && $revenueItem->month == $cogsItem->month && $revenueItem->id_portofolio == $cogsItem->id_portofolio) {
                     $PortfolioGPM[] = [
                         'id_portofolio' => $revenueItem->id_portofolio,
                         'year' => $revenueItem->year,
@@ -172,15 +180,15 @@ class GpmController extends Controller
                 }
             }
         }
-        // dd($PortfolioGPM);
 
         //======== RUMUS CHART Gross Margin ==========
         $gpmData2 = [];
 
-        foreach ($realisasiDataRevenue as $revenueItem) {
-            foreach ($realisasiDataCOGS as $cogsItem) {
-                if ($revenueItem->year == $cogsItem->year && $revenueItem->month == $cogsItem->month) {
+        foreach ($realisasiDataRevenuePortofolio as $revenueItem) {
+            foreach ($realisasiDataCOGSPortofolio as $cogsItem) {
+                if ($revenueItem->year == $cogsItem->year && $revenueItem->month == $cogsItem->month && $revenueItem->id_portofolio == $cogsItem->id_portofolio) {
                     $gpmData2[] = [
+                        'id_portofolio' => $revenueItem->id_portofolio,
                         'year' => $revenueItem->year,
                         'month' => $revenueItem->month,
                         'gpm' => (($revenueItem->total_nilai - $cogsItem->total_nilai) / $revenueItem->total_nilai) * 100,
@@ -190,12 +198,12 @@ class GpmController extends Controller
             }
         }
 
+        // dd($gpmData2);
 
         //======== CARD STATISTIC ==========
-        if($account->role == 'Admin'|| $account->role == 'GM' ){
+        if ($account->role == 'Admin' || $account->role == 'GM') {
             $newestYear = LaporanCommerce::max(DB::raw('YEAR(tanggal)'));
-        }
-        else{
+        } else {
             $newestYear = LaporanCommerce::where('kota', '=', $account->kota)->max(DB::raw('YEAR(tanggal)'));
         }
         $lastYear = $newestYear - 1;
@@ -277,7 +285,6 @@ class GpmController extends Controller
             $TopGP = $TopUserGPM->nama_portofolio;
         }
 
-
         if ($account->role == "Commerce") {
             return view('commerce.dashboard.gpm', [
                 "title" => "GPM",
@@ -288,10 +295,11 @@ class GpmController extends Controller
                 "kenaikanGPM" => $kenaikanGPM,
                 "cumulativeGM" => $cumulativeGM,
                 "kenaikanGM" => $kenaikanGM,
+                'filterPortofolio' => $filterPortofolio,
                 "TopGP" => $TopGP,
-                "biggestGPUser" => $biggestGPUser['gpm'] ?? null
+                "biggestGPUser" => $biggestGPUser['gpm'] ?? null,
             ]);
-        }elseif ($account->role == "GM"){
+        } elseif ($account->role == "GM") {
             return view('manager.dashboard.gpm', [
                 "title" => "GPM",
                 "gpmData1" => $gpmData1,
@@ -301,8 +309,9 @@ class GpmController extends Controller
                 "kenaikanGPM" => $kenaikanGPM,
                 "cumulativeGM" => $cumulativeGM,
                 "kenaikanGM" => $kenaikanGM,
+                'filterPortofolio' => $filterPortofolio,
                 "TopGP" => $TopGP,
-                "biggestGPUser" => $biggestGPUser['gpm'] ?? null
+                "biggestGPUser" => $biggestGPUser['gpm'] ?? null,
             ]);
         } else {
             return view('admin.dashboard.gpm', [
@@ -314,8 +323,9 @@ class GpmController extends Controller
                 "kenaikanGPM" => $kenaikanGPM,
                 "cumulativeGM" => $cumulativeGM,
                 "kenaikanGM" => $kenaikanGM,
+                'filterPortofolio' => $filterPortofolio,
                 "TopGP" => $TopGP,
-                "biggestGPUser" => $biggestGPUser['gpm'] ?? null
+                "biggestGPUser" => $biggestGPUser['gpm'] ?? null,
             ]);
         }
     }

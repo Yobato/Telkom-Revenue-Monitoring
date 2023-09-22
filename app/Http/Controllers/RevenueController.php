@@ -15,9 +15,9 @@ class RevenueController extends Controller
     {
         $account = Auth::guard('account')->user();
         $tahunData = TargetCommerce::distinct()->where('jenis_laporan', '=', 'REVENUE')->get(['tahun']);
-        $filterPortofolio = DB::table('target_commerce')
-            ->join('portofolio', 'target_commerce.id_portofolio', '=', 'portofolio.id')
-            ->where('target_commerce.jenis_laporan', 'REVENUE')
+        $filterPortofolio = DB::table('laporan_commerce')
+            ->join('portofolio', 'laporan_commerce.id_portofolio', '=', 'portofolio.id')
+            ->where('laporan_commerce.jenis_laporan', 'REVENUE')
             ->select('portofolio.id', 'portofolio.nama_portofolio')
             ->distinct()
             ->get();

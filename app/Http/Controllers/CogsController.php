@@ -15,9 +15,9 @@ class CogsController extends Controller
         $account = Auth::guard('account')->user();
         $tahunData = TargetCommerce::distinct()->where('jenis_laporan', '=', 'COGS')->get(['tahun']);
         // $filterPortofolio = TargetCommerce::distinct()->where('jenis_laporan', '=', 'COGS')->get(['portofolio']);
-        $filterPortofolio = DB::table('target_commerce')
-            ->join('portofolio', 'target_commerce.id_portofolio', '=', 'portofolio.id')
-            ->where('target_commerce.jenis_laporan', 'COGS')
+        $filterPortofolio = DB::table('laporan_commerce')
+            ->join('portofolio', 'laporan_commerce.id_portofolio', '=', 'portofolio.id')
+            ->where('laporan_commerce.jenis_laporan', 'COGS')
             ->select('portofolio.id', 'portofolio.nama_portofolio')
             ->distinct()
             ->get();
@@ -274,6 +274,7 @@ class CogsController extends Controller
                 "gapSum1" => $gapSum1,
                 "kenaikanGap" => $kenaikanGap,
                 'tahunData' => $tahunData,
+                'filterPortofolio' => $filterPortofolio,
                 "TopCOGS" => $TopCOGS,
                 "GapTop" => $smallestGapPortofolio['gap'] ?? null,
             ]);
@@ -290,6 +291,7 @@ class CogsController extends Controller
                 "gapSum1" => $gapSum1,
                 "kenaikanGap" => $kenaikanGap,
                 'tahunData' => $tahunData,
+                'filterPortofolio' => $filterPortofolio,
                 "TopCOGS" => $TopCOGS,
                 "GapTop" => $smallestGapPortofolio['gap'] ?? null,
             ]);
