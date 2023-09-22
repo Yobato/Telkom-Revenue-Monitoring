@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\LaporanCommerce;
-use App\Models\TargetCommerce;
 use App\Models\Portofolio;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\TargetCommerce;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CogsController extends Controller
 {
@@ -24,8 +23,8 @@ class CogsController extends Controller
             ->get();
 
         // dd($filterPortofolio);
-        
-        if($account->role == 'Admin'|| $account->role == 'GM' ){
+
+        if ($account->role == 'Admin' || $account->role == 'GM') {
             $commerceData = DB::table('laporan_commerce')
                 ->select(
                     'id_portofolio',
@@ -34,11 +33,11 @@ class CogsController extends Controller
                     DB::raw('SUM(nilai) as total_nilai')
                 )
                 ->where('jenis_laporan', '=', 'COGS')
-                ->groupBy('id_portofolio','year', 'month')
+                ->groupBy('id_portofolio', 'year', 'month')
                 ->orderBy('year', 'asc')
                 ->orderBy('month', 'asc')
                 ->get();
-        } else{
+        } else {
             $commerceData = DB::table('laporan_commerce')
                 ->select(
                     'id_portofolio',
@@ -69,7 +68,6 @@ class CogsController extends Controller
 
         // dd($targetData);
 
-
         $monthMapping = [
             'Januari' => 1,
             'Februari' => 2,
@@ -83,32 +81,32 @@ class CogsController extends Controller
             'Oktober' => 10,
             'November' => 11,
             'Desember' => 12,
-            ];
+        ];
 
         $targetGap = DB::table('target_commerce')
-        ->select(
-            'id_portofolio',
-            DB::raw('tahun as year'),
-            DB::raw('bulan as month'),
-            DB::raw('SUM(jumlah) as total_nilai')
-        )
-        ->where('jenis_laporan', '=', 'COGS')
-        ->groupBy('id_portofolio','tahun', 'bulan')
-        ->orderBy('tahun', 'asc')
-        ->orderBy('bulan', 'asc')
-        ->get()
-        ->map(function ($item) use ($monthMapping) {
-            $item->month = $monthMapping[$item->month];
-            return $item;
-        });
+            ->select(
+                'id_portofolio',
+                DB::raw('tahun as year'),
+                DB::raw('bulan as month'),
+                DB::raw('SUM(jumlah) as total_nilai')
+            )
+            ->where('jenis_laporan', '=', 'COGS')
+            ->groupBy('id_portofolio', 'tahun', 'bulan')
+            ->orderBy('tahun', 'asc')
+            ->orderBy('bulan', 'asc')
+            ->get()
+            ->map(function ($item) use ($monthMapping) {
+                $item->month = $monthMapping[$item->month];
+                return $item;
+            });
 
         $gapData = [];
 
-
         foreach ($commerceData as $cogsItem) {
             foreach ($targetGap as $targetItem) {
-                if ($cogsItem->year == $targetItem->year && $cogsItem->month == $targetItem->month) {
+                if ($cogsItem->year == $targetItem->year && $cogsItem->month == $targetItem->month && $cogsItem->id_portofolio == $targetItem->id_portofolio) {
                     $gapData[] = [
+                        'id_portofolio' => $cogsItem->id_portofolio,
                         'year' => $cogsItem->year,
                         'month' => $cogsItem->month,
                         'gap' => $targetItem->total_nilai - $cogsItem->total_nilai,
@@ -118,25 +116,24 @@ class CogsController extends Controller
             }
         }
 
-            //======== CARD STATISTIC ==========
-        if($account->role == 'Admin'|| $account->role == 'GM' ){
+        //======== CARD STATISTIC ==========
+        if ($account->role == 'Admin' || $account->role == 'GM') {
             $newestYear = LaporanCommerce::max(DB::raw('YEAR(tanggal)'));
             $TotalRealisasiCOGS = LaporanCommerce::whereYear("tanggal", [$newestYear])->where('jenis_laporan', '=', 'COGS')
                 ->sum('nilai');
-    
-            $lastYear = $newestYear-1;
+
+            $lastYear = $newestYear - 1;
             $TotalRealisasiCOGS2 = LaporanCommerce::whereYear("tanggal", [$lastYear])->where('jenis_laporan', '=', 'COGS')
                 ->sum('nilai');
-        } else{
+        } else {
             $newestYear = LaporanCommerce::where('kota', '=', $account->kota)->max(DB::raw('YEAR(tanggal)'));
             $TotalRealisasiCOGS = LaporanCommerce::whereYear("tanggal", [$newestYear])->where('jenis_laporan', '=', 'COGS')
                 ->where('kota', '=', $account->kota)->sum('nilai');
-    
-            $lastYear = $newestYear-1;
+
+            $lastYear = $newestYear - 1;
             $TotalRealisasiCOGS2 = LaporanCommerce::whereYear("tanggal", [$lastYear])->where('jenis_laporan', '=', 'COGS')
                 ->where('kota', '=', $account->kota)->sum('nilai');
         }
-
 
         if ($TotalRealisasiCOGS2 != 0) {
             $kenaikanRealisasi = ($TotalRealisasiCOGS - $TotalRealisasiCOGS2) / $TotalRealisasiCOGS2 * 100;
@@ -145,7 +142,7 @@ class CogsController extends Controller
         }
 
         $TotalTarget1 = TargetCommerce::where("tahun", [$newestYear])->where('jenis_laporan', '=', 'COGS')
-        ->sum('jumlah');
+            ->sum('jumlah');
 
         $TotalTarget2 = TargetCommerce::where("tahun", [$lastYear])->where('jenis_laporan', '=', 'COGS')
             ->sum('jumlah');
@@ -178,33 +175,33 @@ class CogsController extends Controller
         }
 
         //======== STATISTIC TOP USER ==========
-        if($account->role == 'Admin'|| $account->role == 'GM' ){
+        if ($account->role == 'Admin' || $account->role == 'GM') {
             $portofolioData = DB::table('laporan_commerce')
-            ->select(
-                'id_portofolio',
-                DB::raw('YEAR(tanggal) as year'),
-                DB::raw('MONTH(tanggal) as month'),
-                DB::raw('SUM(nilai) as total_nilai')
-            )
-            ->where('jenis_laporan', '=', 'COGS')
-            ->groupBy('id_portofolio', 'year', 'month')
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
-            ->get();
-        } else{
+                ->select(
+                    'id_portofolio',
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->where('jenis_laporan', '=', 'COGS')
+                ->groupBy('id_portofolio', 'year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->get();
+        } else {
             $portofolioData = DB::table('laporan_commerce')
-            ->select(
-                'id_portofolio',
-                DB::raw('YEAR(tanggal) as year'),
-                DB::raw('MONTH(tanggal) as month'),
-                DB::raw('SUM(nilai) as total_nilai')
-            )
-            ->where('kota', '=', $account->kota)
-            ->where('jenis_laporan', '=', 'COGS')
-            ->groupBy('id_portofolio', 'year', 'month')
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
-            ->get();
+                ->select(
+                    'id_portofolio',
+                    DB::raw('YEAR(tanggal) as year'),
+                    DB::raw('MONTH(tanggal) as month'),
+                    DB::raw('SUM(nilai) as total_nilai')
+                )
+                ->where('kota', '=', $account->kota)
+                ->where('jenis_laporan', '=', 'COGS')
+                ->groupBy('id_portofolio', 'year', 'month')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->get();
         }
 
         $gapPortofolio = [];
@@ -231,15 +228,13 @@ class CogsController extends Controller
             if ($portofolioEntries->isEmpty()) {
                 return null; // Tidak ada data gap untuk portofolio ini
             }
-            
+
             $smallestGapEntry = $portofolioEntries->sortBy('gap')->first();
             return [
                 'portofolio' => $portofolioId,
                 'gap' => $smallestGapEntry['gap'],
             ];
         })->filter()->sortBy('gap')->first(); // Menggunakan filter() untuk menghapus nilai null
-        
-        
 
         if ($smallestGapPortofolio !== null && isset($smallestGapPortofolio['portofolio'])) {
             $TopPortofolio = Portofolio::find($smallestGapPortofolio['portofolio']);
@@ -264,9 +259,9 @@ class CogsController extends Controller
                 'tahunData' => $tahunData,
                 'filterPortofolio' => $filterPortofolio,
                 "TopCOGS" => $TopCOGS,
-                "GapTop" => $smallestGapPortofolio['gap'] ?? null
+                "GapTop" => $smallestGapPortofolio['gap'] ?? null,
             ]);
-        } elseif ($account->role == "GM"){
+        } elseif ($account->role == "GM") {
             return view('manager.dashboard.cogs', [
                 "title" => "COGS",
                 "cogsData" => $commerceData,
@@ -280,7 +275,7 @@ class CogsController extends Controller
                 "kenaikanGap" => $kenaikanGap,
                 'tahunData' => $tahunData,
                 "TopCOGS" => $TopCOGS,
-                "GapTop" => $smallestGapPortofolio['gap'] ?? null
+                "GapTop" => $smallestGapPortofolio['gap'] ?? null,
             ]);
         } else {
             return view('admin.dashboard.cogs', [
@@ -296,7 +291,7 @@ class CogsController extends Controller
                 "kenaikanGap" => $kenaikanGap,
                 'tahunData' => $tahunData,
                 "TopCOGS" => $TopCOGS,
-                "GapTop" => $smallestGapPortofolio['gap'] ?? null
+                "GapTop" => $smallestGapPortofolio['gap'] ?? null,
             ]);
         }
     }

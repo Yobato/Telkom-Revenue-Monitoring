@@ -3,11 +3,9 @@
 @section('title', 'Statistic')
 
 @push('style')
-    <!-- CSS Libraries -->
-    <link rel="stylesheet"
-        href="{{ asset('assets/library/jqvmap/dist/jqvmap.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('assets/library/flag-icon-css/css/flag-icon.min.css') }}">
+<!-- CSS Libraries -->
+<link rel="stylesheet" href="{{ asset('assets/library/jqvmap/dist/jqvmap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/library/flag-icon-css/css/flag-icon.min.css') }}">
 @endpush
 
 @section('content')
@@ -24,7 +22,8 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Realisasi</h5>
-                                <span class="h5 font-weight-bold mb-0">{{ number_format($TotalRealisasiRevenue), 2, ',', '.'}}</span>
+                                <span class="h5 font-weight-bold mb-0">{{ number_format($TotalRealisasiRevenue), 2, ',',
+                                    '.'}}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -37,9 +36,11 @@
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
                             @if($kenaikanRealisasi>0)
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanRealisasi, 2, '.', '' )}}%</span>
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{
+                                number_format($kenaikanRealisasi, 2, '.', '' )}}%</span>
                             @else
-                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanRealisasi, 2, '.', '') }}%</span>
+                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{
+                                number_format($kenaikanRealisasi, 2, '.', '') }}%</span>
                             @endif
                             <span class="text-nowrap">Dari tahun lalu</span>
                         </p>
@@ -52,7 +53,8 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Target</h5>
-                                <span class="h5 font-weight-bold mb-0">{{ number_format($TotalTarget1), 2, ',', '.'}}</span>
+                                <span class="h5 font-weight-bold mb-0">{{ number_format($TotalTarget1), 2, ',',
+                                    '.'}}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -62,14 +64,16 @@
                                 </div>
                             </div>
                         </div>
-                    <p class="mt-3 mb-0 text-muted text-sm">
-                        @if($kenaikanTarget>0)
-                        <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanTarget, 2, '.', '' )}}%</span>
-                        @else
-                        <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanTarget, 2, '.', '') }}%</span>
-                        @endif
-                        <span class="text-nowrap">Dari tahun lalu</span>
-                    </p>
+                        <p class="mt-3 mb-0 text-muted text-sm">
+                            @if($kenaikanTarget>0)
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{
+                                number_format($kenaikanTarget, 2, '.', '' )}}%</span>
+                            @else
+                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{
+                                number_format($kenaikanTarget, 2, '.', '') }}%</span>
+                            @endif
+                            <span class="text-nowrap">Dari tahun lalu</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -82,16 +86,19 @@
                                 <span class="h5 font-weight-bold mb-0">{{ number_format($gapSum1), 2, ',', '.'}}</span>
                             </div>
                             <div class="col-auto">
-                                <div class="icon icon-shape text-white rounded-circle shadow" style="background-color: #6f42c1">
+                                <div class="icon icon-shape text-white rounded-circle shadow"
+                                    style="background-color: #6f42c1">
                                     <i class="fas fa-percent"></i>
                                 </div>
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
                             @if($kenaikanGap>0)
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanGap, 2, '.', '' )}}%</span>
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{
+                                number_format($kenaikanGap, 2, '.', '' )}}%</span>
                             @else
-                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanGap, 2, '.', '') }}%</span>
+                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{
+                                number_format($kenaikanGap, 2, '.', '') }}%</span>
                             @endif
                             <span class="text-nowrap">Dari tahun lalu</span>
                         </p>
@@ -114,11 +121,11 @@
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
                             <span class="text-success mr-2">
-                                @if($GapTop<0)
-                                <span class="text-success mr-2">{{ number_format($GapTop), 2, ',', '.'}}</span>
-                                @else
-                                <span class="text-danger mr-2"></i>{{ number_format($GapTop), 2, ',', '.'}}</span>
-                                @endif
+                                @if($GapTop<0) <span class="text-success mr-2">{{ number_format($GapTop), 2, ',',
+                                    '.'}}</span>
+                            @else
+                            <span class="text-danger mr-2"></i>{{ number_format($GapTop), 2, ',', '.'}}</span>
+                            @endif
                             </span>
                             <span class="text-nowrap">Total GAP</span>
                         </p>
@@ -132,67 +139,94 @@
                     <div class="card-header d-flex justify-content-between">
                         <h4 style="color:#525358; font-weight:bold">Revenue Operasional</h4>
                         <div class="filter d-flex ">
-                            <label for="tahun" class="col-form-label mr-3">Filter </label>
-                            <select class="form-control" name="tahun-filter" id="tahun-filter" style="border-radius: 8px">
+                            <label for="portofolio" class="col-form-label mr-3">Portofolio </label>
+                            <select class="form-control" name="portofolio-filter-revenue" id="portofolio-filter-revenue"
+                                style="border-radius: 8px">
+                                @foreach ($filterPortofolio as $porto)
+                                <option value=<?=$porto->id ?>>{{ $porto->nama_portofolio }}</option>
+                                @endforeach
+                            </select>
+                            <label for="tahun" class="col-form-label ml-3 mr-3">Filter </label>
+                            <select class="form-control" name="tahun-filter" id="tahun-filter"
+                                style="border-radius: 8px">
                                 @foreach ($tahunData as $tahun)
-                                    <option value=<?= $tahun->tahun ?>>{{ $tahun->tahun }}</option>
+                                <option value=<?=$tahun->tahun ?>>{{ $tahun->tahun }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div id= chartRevenue>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 style="color:#525358; font-weight:bold">GAP</h4>
-                        <div class="filter d-flex ">
-                            <label for="tahun" class="col-form-label mr-3">Filter </label>
-                            <select class="form-control" name="tahun-filter-gap" id="tahun-filter-gap" style="border-radius: 8px">
-                                @foreach ($tahunData as $tahun)
-                                    <option value=<?= $tahun->tahun ?>>{{ $tahun->tahun }}</option>
-                                @endforeach
-                            </select>
+                        <div id=chartRevenue>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div id= chartGAP>
-                    </div>
                 </div>
-            </div>
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 style="color:#525358; font-weight:bold">Perbandingan Tahun</h4>
-                        <div class="filter d-flex">
-                            <div class="mr-3">
-                                <label for="revenue-tahun-filter-1" class="col-form-label">Filter 1:</label>
-                                <select class="form-control" name="revenue-tahun-filter-1" id="revenue-tahun-filter-1" style="border-radius: 8px">
-                                    @foreach ($tahunData as $tahun)
-                                    <option value="{{ $tahun->tahun }}">{{ $tahun->tahun }}</option>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h4 style="color:#525358; font-weight:bold">GAP</h4>
+                            <div class="filter d-flex ">
+                                <label for="portofolio" class="col-form-label mr-3">Portofolio </label>
+                                <select class="form-control" name="portofolio-filter-gap" id="portofolio-filter-gap"
+                                    style="border-radius: 8px">
+                                    @foreach ($filterPortofolio as $porto)
+                                    <option value=<?=$porto->id ?>>{{ $porto->nama_portofolio }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                            <div>
-                                <label for="revenue-tahun-filter-2" class="col-form-label">Filter 2:</label>
-                                <select class="form-control" name="revenue-tahun-filter-2" id="revenue-tahun-filter-2" style="border-radius: 8px">
+                                <label for="tahun" class="col-form-label ml-3 mr-3">Filter </label>
+                                <select class="form-control" name="tahun-filter-gap" id="tahun-filter-gap"
+                                    style="border-radius: 8px">
                                     @foreach ($tahunData as $tahun)
-                                    <option value="{{ $tahun->tahun }}">{{ $tahun->tahun }}</option>
+                                    <option value=<?=$tahun->tahun ?>>{{ $tahun->tahun }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
+                        <div class="card-body">
+                            <div id=chartGAP>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div id= chartRevenue-Line>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <h4 style="color:#525358; font-weight:bold">Perbandingan Tahun</h4>
+                                <div class="filter d-flex">
+                                    <div class="mr-3">
+                                        <label for="portofolio" class="col-form-label mr-3">Portofolio </label>
+                                        <select class="form-control" name="portofolio-filter-tahun"
+                                            id="portofolio-filter-tahun" style="border-radius: 8px">
+                                            @foreach ($filterPortofolio as $porto)
+                                            <option value=<?=$porto->id ?>>{{ $porto->nama_portofolio }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mr-3">
+                                        <label for="revenue-tahun-filter-1" class="col-form-label">Filter 1:</label>
+                                        <select class="form-control" name="revenue-tahun-filter-1"
+                                            id="revenue-tahun-filter-1" style="border-radius: 8px">
+                                            @foreach ($tahunData as $tahun)
+                                            <option value="{{ $tahun->tahun }}">{{ $tahun->tahun }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="revenue-tahun-filter-2" class="col-form-label">Filter 2:</label>
+                                        <select class="form-control" name="revenue-tahun-filter-2"
+                                            id="revenue-tahun-filter-2" style="border-radius: 8px">
+                                            @foreach ($tahunData as $tahun)
+                                            <option value="{{ $tahun->tahun }}">{{ $tahun->tahun }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id=chartRevenue-Line>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 </section>
 @endsection
 
@@ -205,47 +239,47 @@
         align-items: center;
         justify-content: center;
     }
+
     .icon {
         width: 3rem;
         height: 3rem;
     }
 
-    .top-revenue{
-        display: block; 
-        width: 150px; 
-        overflow: hidden; 
-        white-space: nowrap; 
+    .top-revenue {
+        display: block;
+        width: 150px;
+        overflow: hidden;
+        white-space: nowrap;
         text-overflow: ellipsis;
     }
 
     @media only screen and (max-width: 1366px) {
-        .top-revenue{
-            display: block; 
-            width: 105px; 
-            overflow: hidden; 
-            white-space: nowrap; 
+        .top-revenue {
+            display: block;
+            width: 105px;
+            overflow: hidden;
+            white-space: nowrap;
             text-overflow: ellipsis;
         }
     }
 </style>
 
 @push('scripts')
-    <!-- JS Libraies -->
-    <script src="{{ asset('assets/library/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
-    <script src="{{ asset('assets/library/chart.js/dist/Chart.min.js') }}"></script>
-    <script src="{{ asset('assets/library/jqvmap/dist/jquery.vmap.min.js') }}"></script>
-    <script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
-    <script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.indonesia.js') }}"></script>
-    
+<!-- JS Libraies -->
+<script src="{{ asset('assets/library/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
+<script src="{{ asset('assets/library/chart.js/dist/Chart.min.js') }}"></script>
+<script src="{{ asset('assets/library/jqvmap/dist/jquery.vmap.min.js') }}"></script>
+<script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
+<script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.indonesia.js') }}"></script>
 
-    <!-- Page Specific JS File -->
-    <script src="{{ asset('assets/js/page/components-statistic.js') }}"></script>
+
+<!-- Page Specific JS File -->
+<script src="{{ asset('assets/js/page/components-statistic.js') }}"></script>
 @endpush
 @section('footer')
 <script src="https://code.highcharts.com/highcharts.js"></script>
 
 <script>
-
     // ==== CHART REVENUE OPERASIONAL ====
     const revenueData = {!! json_encode($revenueData) !!};
     const targetData = {!! json_encode($targetData) !!};
@@ -276,26 +310,34 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // ==== CHART REVENUE OPERASIONAL ====
     var dropdown = document.getElementById("tahun-filter");
+    let dropdownPortofolio = document.getElementById("portofolio-filter-revenue");
     var selectedValue = dropdown.value;
+    let selectedValuePorto = dropdownPortofolio.value;
 
     // ==== CHART GAP ====
     var dropdownGap = document.getElementById("tahun-filter-gap");
+    var dropdownGapPortofolio = document.getElementById("portofolio-filter-gap");
     var selectedValueGap = dropdownGap.value;
+    var selectedValueGapPorto = dropdownGapPortofolio.value;
 
     // ==== CHART LINE REVENUE ====
     var dropdownTahunRevenue1 = document.getElementById("revenue-tahun-filter-1");
     var dropdownTahunRevenue2 = document.getElementById("revenue-tahun-filter-2");
+    var dropdownTahunPortofolio = document.getElementById("portofolio-filter-tahun");
     var selectedValueRevenueLine1 = dropdownTahunRevenue1.value;
     var selectedValueRevenueLine2 = dropdownTahunRevenue2.value;
+    var selectedValueRevenueLinePortofolio = dropdownTahunPortofolio.value;
 
     // ==== CHART Revenue OPERASIONAL ====
-    function updateChart() {
-        if (selectedValue !== "") {
-            const filteredRevenueData = revenueData.filter(item => item.year.toString() === selectedValue);
-            const filteredTargetData = targetData.filter(item => item.year.toString() === selectedValue);
+    function updateChart(valueRevenuePorto, valueRevenueYear) {
+        if (valueRevenuePorto !== "" || valueRevenueYear !== "") {
+            const filteredRevenueData = revenueData.filter(item => item.year.toString() === valueRevenueYear);
+            const filteredTargetData = targetData.filter(item => item.year.toString() === valueRevenueYear);
+            const filteredRevenueDataByPorto = filteredRevenueData.filter(item => item.id_portofolio === Number(valueRevenuePorto));
+            const filteredTargetRevenueDataByPorto = filteredTargetData.filter(item => item.id_portofolio === Number(valueRevenuePorto));
 
             const seriesData = {};
-            filteredRevenueData.forEach(item => {
+            filteredRevenueDataByPorto.forEach(item => {
                 const year = item.year.toString();
                 const month = item.month - 1;
                 if (!seriesData[year]) {
@@ -307,7 +349,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const targetSeries = Object.keys(seriesData).map(year => {
                 // ... kode untuk target series
                 const targetValues = new Array(12).fill(null);
-                targetData.forEach(item => {
+                filteredTargetRevenueDataByPorto.forEach(item => {
                     if (item.year.toString() === year) {
                         const month = monthIndexMapping[item.month];
                         targetValues[month] = parseInt(item.total_nilai);
@@ -367,12 +409,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // ==== CHART GAP ====
-    function updateChartGap() {
-        if (selectedValueGap !== "") {
-            const filteredGapData = gapData.filter(item => item.year.toString() === selectedValueGap)
+    function updateChartGap(valueRevenuePortoGap, valueRevenueYearGap) {
+        if (valueRevenuePortoGap !== "" || valueRevenueYearGap !== "") {
+            const filteredRevenueGapData = gapData.filter(item => item.year.toString() === valueRevenueYearGap)
+            const filteredRevenueGapDataByPorto = filteredRevenueGapData.filter(item => item.id_portofolio === Number(valueRevenuePortoGap));
 
             const seriesDataGap = {};
-            filteredGapData.forEach(item => {
+            filteredRevenueGapDataByPorto.forEach(item => {
                 const year = item.year.toString();
                 const month = item.month - 1;
                 if (!seriesDataGap[year]) {
@@ -444,109 +487,126 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-    function updateLineChart() {
-        const filteredDataLineRevenue1 = lineRevenueData.filter(item => item.year.toString() === selectedValueRevenueLine1);
-        const filteredDataLineRevenue2 = lineRevenueData.filter(item => item.year.toString() === selectedValueRevenueLine2);    
-        const seriesDataRevenue1 = {}; 
-        const seriesDataRevenue2 = {}; 
-
-        filteredDataLineRevenue1.forEach(item => {
-        const year = item.year.toString();
-        const month = item.month - 1;
-        if (!seriesDataRevenue1[year]) {
-            seriesDataRevenue1[year] = new Array(12).fill(0);
-        }
-            seriesDataRevenue1[year][month] += parseInt(item.total_nilai);
-        });
-
-        filteredDataLineRevenue2.forEach(item => {
-            const year = item.year.toString();
-            const month = item.month - 1;
-            if (!seriesDataRevenue2[year]) {
-                seriesDataRevenue2[year] = new Array(12).fill(0);
-            }
-            seriesDataRevenue2[year][month] += parseInt(item.total_nilai);
-        });
-
-        const realizationSeriesRevenueLine1 = Object.keys(seriesDataRevenue1).map(year => {
-            return {
-                name: 'Realisasi ' + year,
-                data: seriesDataRevenue1[year]
-            };
-        });
-
-        const realizationSeriesRevenueLine2 = Object.keys(seriesDataRevenue2).map(year => {
-            return {
-                name: 'Realisasi ' + year,
-                data: seriesDataRevenue2[year]
-            };
-        });
-
-        Highcharts.chart('chartRevenue-Line', {
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: '',
-                align: 'left'
-            },
-            xAxis: {
-                categories: monthNames,
-                crosshair: true,
-                accessibility: {
-                    description: ''
+    function updateLineChart(valueRevenuePortoLine, valueRevenueYearLine1, valueRevenueYearLine2) {
+        if(valueRevenuePortoLine !== "" || valueRevenueYearLine1 !== "" || valueRevenueYearLine2){
+            const filteredDataLineRevenue1 = lineRevenueData.filter(item => item.year.toString() === valueRevenueYearLine1);
+            const filteredDataLineRevenue2 = lineRevenueData.filter(item => item.year.toString() === valueRevenueYearLine2);    
+            const seriesDataRevenue1 = {}; 
+            const seriesDataRevenue2 = {};
+            const filteredRevenueLineDataByPorto1 = filteredDataLineRevenue1.filter(item => item.id_portofolio === Number(valueRevenuePortoLine));
+            const filteredRevenueLineDataByPorto2 = filteredDataLineRevenue2.filter(item => item.id_portofolio === Number(valueRevenuePortoLine)); 
+    
+            filteredRevenueLineDataByPorto1.forEach(item => {
+                const year = item.year.toString();
+                const month = item.month - 1;
+                if (!seriesDataRevenue1[year]) {
+                    seriesDataRevenue1[year] = new Array(12).fill(0);
                 }
-            },
-            yAxis: {
-                min: 0,
+                    seriesDataRevenue1[year][month] += parseInt(item.total_nilai);
+            });
+    
+            filteredRevenueLineDataByPorto2.forEach(item => {
+                const year = item.year.toString();
+                const month = item.month - 1;
+                if (!seriesDataRevenue2[year]) {
+                    seriesDataRevenue2[year] = new Array(12).fill(0);
+                }
+                seriesDataRevenue2[year][month] += parseInt(item.total_nilai);
+            });
+    
+            const realizationSeriesRevenueLine1 = Object.keys(seriesDataRevenue1).map(year => {
+                return {
+                    name: 'Realisasi ' + year,
+                    data: seriesDataRevenue1[year]
+                };
+            });
+    
+            const realizationSeriesRevenueLine2 = Object.keys(seriesDataRevenue2).map(year => {
+                return {
+                    name: 'Realisasi ' + year,
+                    data: seriesDataRevenue2[year]
+                };
+            });
+    
+            Highcharts.chart('chartRevenue-Line', {
+                chart: {
+                    type: 'line'
+                },
                 title: {
-                    text: 'Total Nilai'
-                }
-            },
-            tooltip: {
-                valueSuffix: ''
-            },
-            plotOptions: {
-                line: {
-                    dataLabels: {
-                        enabled: true
-                    },
-                    enableMouseTracking: true
-                }
-            },
-            series: [...realizationSeriesRevenueLine1, ...realizationSeriesRevenueLine2]
-        });
+                    text: '',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: monthNames,
+                    crosshair: true,
+                    accessibility: {
+                        description: ''
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Total Nilai'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: true
+                    }
+                },
+                series: [...realizationSeriesRevenueLine1, ...realizationSeriesRevenueLine2]
+            });
+        }
     }
 
     // ==== CHART Revenue OPERASIONAL ====
-    updateChart();
+    updateChart(selectedValuePorto, selectedValue);
 
     // ==== CHART GAP ====
-    updateChartGap();
+    updateChartGap(selectedValueGapPorto, selectedValueGap);
 
     // ==== CHART LINE Revenue ====
-    updateLineChart();
+    updateLineChart(selectedValueRevenueLinePortofolio, selectedValueRevenueLine1, selectedValueRevenueLine2);
+
+    dropdownPortofolio.addEventListener("change", function() {
+        selectedValuePorto = dropdownPortofolio.value;
+        updateChart(selectedValuePorto, selectedValue); // Call the updateChart function to rebuild the chart
+    });
 
     dropdown.addEventListener("change", function() {
         selectedValue = dropdown.value;
-        console.log("Nilai input tahun: " + selectedValue);
-        updateChart(); // Call the updateChart function to rebuild the chart
+        updateChart(selectedValuePorto, selectedValue); // Call the updateChart function to rebuild the chart
+    });
+
+    dropdownGapPortofolio.addEventListener("change", function() {
+        selectedValueGapPorto = dropdownGapPortofolio.value;
+        updateChartGap(selectedValueGapPorto, selectedValueGap); // Call the updateChartGap function to rebuild the chart
     });
 
     dropdownGap.addEventListener("change", function() {
         selectedValueGap = dropdownGap.value;
-        console.log("Nilai input tahun: " + selectedValueGap);
-        updateChartGap(); // Call the updateChartGap function to rebuild the chart
+        updateChartGap(selectedValueGapPorto, selectedValueGap); // Call the updateChartGap function to rebuild the chart
+    });
+
+    dropdownTahunPortofolio.addEventListener("change", function () {
+        selectedValueRevenueLinePortofolio = dropdownTahunPortofolio.value;
+        updateLineChart(selectedValueRevenueLinePortofolio, selectedValueRevenueLine1, selectedValueRevenueLine2);
     });
 
     dropdownTahunRevenue1.addEventListener("change", function () {
         selectedValueRevenueLine1 = dropdownTahunRevenue1.value;
-        updateLineChart();
+        updateLineChart(selectedValueRevenueLinePortofolio, selectedValueRevenueLine1, selectedValueRevenueLine2);
     });
 
     dropdownTahunRevenue2.addEventListener("change", function () {
         selectedValueRevenueLine2 = dropdownTahunRevenue2.value;
-        updateLineChart();
+        updateLineChart(selectedValueRevenueLinePortofolio, selectedValueRevenueLine1, selectedValueRevenueLine2);
         });
     // ...
 });

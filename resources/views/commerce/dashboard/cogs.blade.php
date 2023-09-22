@@ -304,7 +304,7 @@
 
     // ==== CHART GAP ====
     const gapData = {!! json_encode($gapData) !!};
-    // console.log("INI GAP DATA BOS", gapData)
+    console.log("INI GAP DATA BOS", gapData)
 
     // ==== CHART LINE COGS ====
     const lineCOGSData = {!! json_encode($cogsData) !!};
@@ -424,12 +424,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // ==== CHART GAP ====
-    function updateChartGap() {
-        if (selectedValueGap !== "") {
-            const filteredGapData = gapData.filter(item => item.year.toString() === selectedValueGap)
+    function updateChartGap(valuePortoGap, valueYearGap) {
+        if (valuePortoGap !== "" || valueYearGap !== "") {
+            const filteredGapData = gapData.filter(item => item.year.toString() === valueYearGap)
+            const filteredGapDataByPorto = filteredGapData.filter(item => item.id_portofolio === Number(valuePortoGap));
 
             const seriesDataGap = {};
-            filteredGapData.forEach(item => {
+            filteredGapDataByPorto.forEach(item => {
                 const year = item.year.toString();
                 const month = item.month - 1;
                 if (!seriesDataGap[year]) {
@@ -445,8 +446,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     data: seriesDataGap[year]
                 };
             });
-
-            // console.log("realizationSeriesGap",realizationSeriesGap)
 
             const newRealizationSeriesGap = realizationSeriesGap.map(item => ({
                 name: item.name,
@@ -501,88 +500,92 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-    function updateLineChart() {
-        const filteredDataLineCOGS1 = lineCOGSData.filter(item => item.year.toString() === selectedValueCOGSLine1);
-        const filteredDataLineCOGS2 = lineCOGSData.filter(item => item.year.toString() === selectedValueCOGSLine2);    
-        const seriesDataCOGS1 = {}; 
-        const seriesDataCOGS2 = {}; 
-
-        filteredDataLineCOGS1.forEach(item => {
-        const year = item.year.toString();
-        const month = item.month - 1;
-        if (!seriesDataCOGS1[year]) {
-            seriesDataCOGS1[year] = new Array(12).fill(0);
-        }
-            seriesDataCOGS1[year][month] += parseInt(item.total_nilai);
-        });
-
-        filteredDataLineCOGS2.forEach(item => {
+    function updateLineChart(valuePortoLine, valueYearLine1, valueYearLine2) {
+        if (valuePortoLine !== "" || valueYearLine1 !== "" || valueYearLine2) {
+            const filteredDataLineCOGS1 = lineCOGSData.filter(item => item.year.toString() === valueYearLine1);
+            const filteredDataLineCOGS2 = lineCOGSData.filter(item => item.year.toString() === valueYearLine2);    
+            const seriesDataCOGS1 = {}; 
+            const seriesDataCOGS2 = {};
+            const filteredLineDataByPorto1 = filteredDataLineCOGS1.filter(item => item.id_portofolio === Number(valuePortoLine));
+            const filteredLineDataByPorto2 = filteredDataLineCOGS2.filter(item => item.id_portofolio === Number(valuePortoLine));
+    
+            filteredLineDataByPorto1.forEach(item => {
             const year = item.year.toString();
             const month = item.month - 1;
-            if (!seriesDataCOGS2[year]) {
-                seriesDataCOGS2[year] = new Array(12).fill(0);
+            if (!seriesDataCOGS1[year]) {
+                seriesDataCOGS1[year] = new Array(12).fill(0);
             }
-            seriesDataCOGS2[year][month] += parseInt(item.total_nilai);
-        });
-
-        const realizationSeriesCOGSLine1 = Object.keys(seriesDataCOGS1).map(year => {
-            return {
-                name: 'Realisasi ' + year,
-                data: seriesDataCOGS1[year]
-            };
-        });
-
-        const realizationSeriesCOGSLine2 = Object.keys(seriesDataCOGS2).map(year => {
-            return {
-                name: 'Realisasi ' + year,
-                data: seriesDataCOGS2[year]
-            };
-        });
-
-        Highcharts.chart('chartCOGS-Line', {
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: '',
-                align: 'left'
-            },
-            xAxis: {
-                categories: monthNames,
-                crosshair: true,
-                accessibility: {
-                    description: ''
+                seriesDataCOGS1[year][month] += parseInt(item.total_nilai);
+            });
+    
+            filteredLineDataByPorto2.forEach(item => {
+                const year = item.year.toString();
+                const month = item.month - 1;
+                if (!seriesDataCOGS2[year]) {
+                    seriesDataCOGS2[year] = new Array(12).fill(0);
                 }
-            },
-            yAxis: {
-                min: 0,
+                seriesDataCOGS2[year][month] += parseInt(item.total_nilai);
+            });
+    
+            const realizationSeriesCOGSLine1 = Object.keys(seriesDataCOGS1).map(year => {
+                return {
+                    name: 'Realisasi ' + year,
+                    data: seriesDataCOGS1[year]
+                };
+            });
+    
+            const realizationSeriesCOGSLine2 = Object.keys(seriesDataCOGS2).map(year => {
+                return {
+                    name: 'Realisasi ' + year,
+                    data: seriesDataCOGS2[year]
+                };
+            });
+    
+            Highcharts.chart('chartCOGS-Line', {
+                chart: {
+                    type: 'line'
+                },
                 title: {
-                    text: 'Total Nilai'
-                }
-            },
-            tooltip: {
-                valueSuffix: ''
-            },
-            plotOptions: {
-                line: {
-                    dataLabels: {
-                        enabled: true
-                    },
-                    enableMouseTracking: true
-                }
-            },
-            series: [...realizationSeriesCOGSLine1, ...realizationSeriesCOGSLine2]
-        });
+                    text: '',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: monthNames,
+                    crosshair: true,
+                    accessibility: {
+                        description: ''
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Total Nilai'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: true
+                    }
+                },
+                series: [...realizationSeriesCOGSLine1, ...realizationSeriesCOGSLine2]
+            });
+        }
     }
 
     // ==== CHART COGS OPERASIONAL ====
     updateChart(selectedValuePorto, selectedValue);
 
     // ==== CHART GAP ====
-    updateChartGap();
+    updateChartGap(selectedValueGapPorto, selectedValueGap);
 
     // ==== CHART LINE COGS ====
-    updateLineChart();
+    updateLineChart(selectedValueCOGSLinePortofolio, selectedValueCOGSLine1, selectedValueCOGSLine2);
 
 
     
@@ -596,20 +599,29 @@ document.addEventListener("DOMContentLoaded", function() {
         updateChart(selectedValuePorto, selectedValue); // Call the updateChart function to rebuild the chart
     });
 
+    dropdownGapPortofolio.addEventListener("change", function() {
+        selectedValueGapPorto = dropdownGapPortofolio.value;
+        updateChartGap(selectedValueGapPorto, selectedValueGap); // Call the updateChartGap function to rebuild the chart
+    });
+
     dropdownGap.addEventListener("change", function() {
         selectedValueGap = dropdownGap.value;
-        console.log("Nilai input tahun: " + selectedValueGap);
-        updateChartGap(); // Call the updateChartGap function to rebuild the chart
+        updateChartGap(selectedValueGapPorto, selectedValueGap); // Call the updateChartGap function to rebuild the chart
+    });
+
+    dropdownTahunPortofolio.addEventListener("change", function () {
+        selectedValueCOGSLinePortofolio = dropdownTahunPortofolio.value;
+        updateLineChart(selectedValueCOGSLinePortofolio, selectedValueCOGSLine1, selectedValueCOGSLine2);
     });
 
     dropdownTahunCOGS1.addEventListener("change", function () {
         selectedValueCOGSLine1 = dropdownTahunCOGS1.value;
-        updateLineChart();
+        updateLineChart(selectedValueCOGSLinePortofolio, selectedValueCOGSLine1, selectedValueCOGSLine2);
     });
 
     dropdownTahunCOGS2.addEventListener("change", function () {
         selectedValueCOGSLine2 = dropdownTahunCOGS2.value;
-        updateLineChart();
+        updateLineChart(selectedValueCOGSLinePortofolio, selectedValueCOGSLine1, selectedValueCOGSLine2);
         });
     // ...
 });
