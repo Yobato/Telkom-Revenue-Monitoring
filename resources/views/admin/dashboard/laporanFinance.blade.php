@@ -66,12 +66,12 @@
                                     <td>{{ $cost_plan_id[$admins->id_cost_plan]}}</td>
                                     <td>
                                         @if($admins->editable == 0)
-                                        <a href={{ route('admin.editableFinance', [$admins->pid_finance]) }} class="btn
+                                        <a href={{ route('admin.editableFinance', [$admins->slug]) }} class="btn
                                             btn-primary btn-sm rounded-0" type="button">
                                             <i class="fa fa-edit"></i> Open Edit</a>
                                         @endif
                                         @if($admins->editable == 1)
-                                        <a href={{ route('admin.uneditableFinance', [$admins->pid_finance]) }}
+                                        <a href={{ route('admin.uneditableFinance', [$admins->slug]) }}
                                             class="btn btn-danger btn-sm rounded-0" type="button">
                                             <i class="fa fa-edit"></i> Close Edit</a>
                                         @endif

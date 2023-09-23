@@ -12,7 +12,7 @@ class LaporanFinance extends Model
     protected $primaryKey = "pid_finance";
     public $timestamps = true;
     protected $fillable = [
-        'id_portofolio', 'id_program', 'id_cost_plan', 'kota'
+        'id_portofolio', 'id_program', 'id_cost_plan', 'kota', 'slug',
     ];
     public $incrementing = false;
 }

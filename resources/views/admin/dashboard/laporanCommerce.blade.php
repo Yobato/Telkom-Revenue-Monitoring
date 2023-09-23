@@ -76,12 +76,12 @@
                                     <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td>
                                         @if($admins->editable == 0)
-                                        <a href={{ route('admin.editableCommerce', [$admins->id_commerce]) }} class="btn
+                                        <a href={{ route('admin.editableCommerce', [$admins->slug]) }} class="btn
                                             btn-primary btn-sm rounded-0" type="button">
                                             <i class="fa fa-edit"></i> Open Edit</a>
                                         @endif
                                         @if($admins->editable == 1)
-                                        <a href={{ route('admin.uneditableCommerce', [$admins->id_commerce]) }}
+                                        <a href={{ route('admin.uneditableCommerce', [$admins->slug]) }}
                                             class="btn btn-danger btn-sm rounded-0" type="button">
                                             <i class="fa fa-edit"></i> Close Edit</a>
                                         @endif

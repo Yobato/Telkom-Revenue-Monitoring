@@ -22,7 +22,8 @@ class LaporanCommerce extends Model
         'kota',
         'created_at',
         'updated_at',
-        'tanggal'
+        'tanggal',
+        'slug',
     ];
     public $incrementing = false;
 }

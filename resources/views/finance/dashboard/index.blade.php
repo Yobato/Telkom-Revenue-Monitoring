@@ -66,15 +66,15 @@
                                     <td>{{ $cost_plan_id[$admins->id_cost_plan]}}</td>
                                     <td>
                                         @if(Auth::user()->role == "Finance" && $admins->editable == 1)
-                                        <a href={{ route('finance.editLaporanFinance', [$admins->pid_finance]) }} class="btn btn-success btn-sm rounded-0" type="button">
+                                        <a href={{ route('finance.editLaporanFinance', [$admins->slug]) }} class="btn btn-success btn-sm rounded-0" type="button">
                                             <i class="fa fa-edit"></i></a>
                                         @endif
                                         
                                         {{-- DELETE  --}}
                                         <a class="btn btn-sm btn-danger rounded-0" style="color: white" 
-                                        data-toggle="modal" data-target="#deleteLaporanFinanceModal{{ $admins->pid_finance }}"><i class="fa fa-trash"></i></a>
+                                        data-toggle="modal" data-target="#deleteLaporanFinanceModal{{ $admins->slug }}"><i class="fa fa-trash"></i></a>
                                         <div class="modal fade" tabindex="-1" role="dialog" 
-                                        id="deleteLaporanFinanceModal{{ $admins->pid_finance }}" data-backdrop="static">
+                                        id="deleteLaporanFinanceModal{{ $admins->slug }}" data-backdrop="static">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -89,7 +89,7 @@
                                                     </div>
                                                     <div class="modal-footer bg-whitesmoke br">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanFinance2">Cancel</button>
-                                                        <a class="btn btn-danger" href="{{ route('finance.deleteLaporanFinance', [$admins->pid_finance]) }}" value="Delete">Delete</a>
+                                                        <a class="btn btn-danger" href="{{ route('finance.deleteLaporanFinance', [$admins->slug]) }}" value="Delete">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>

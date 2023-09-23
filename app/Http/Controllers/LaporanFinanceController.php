@@ -126,6 +126,7 @@ class LaporanFinanceController extends Controller
             'id_cost_plan' => $request->id_cost_plan,
             'kota' => $account->kota,
             'created_at' => Carbon::now(),
+            'slug' => preg_replace('/[^A-Za-z0-9]+/', '-', preg_replace('/[^A-Za-z0-9\/-]+/', '', $request->pid_finance))
             // 'tanggal' => $request->tanggal . '-01'
 
 
@@ -139,7 +140,7 @@ class LaporanFinanceController extends Controller
             $account = Auth::guard('account')->user();
             DB::beginTransaction();
 
-            $laporan_finance = LaporanFinance::find($id);
+            $laporan_finance = LaporanFinance::where("slug", "=", $id);
 
             // Jika tidak ada pengecualian, hapus kota
             $laporan_finance->delete();
@@ -164,7 +165,7 @@ class LaporanFinanceController extends Controller
     {
         return view('finance.reporting.formEdit', [
             "title" => "Laporan Finance",
-            "finance" => LaporanFinance::where("pid_finance", "=", $id)->get(),
+            "finance" => LaporanFinance::all()->where("slug", "=", $id),
             "addcity" => City::all(),
             "addportofolio" => Portofolio::all()->where("role", "=", "Finance"),
             "addprogram" => Program::all()->where("role", "=", "Finance"),
@@ -188,7 +189,7 @@ class LaporanFinanceController extends Controller
         ], $messages);
 
         $account = Auth::guard('account')->user();
-        LaporanFinance::where('pid_finance', $id)->update([
+        LaporanFinance::where('slug', $id)->update([
             'id_portofolio' => $request->id_portofolio,
             'id_program' => $request->id_program,
             'id_cost_plan' => $request->id_cost_plan,
@@ -202,7 +203,7 @@ class LaporanFinanceController extends Controller
     public function Editable($id)
     {
         $account = Auth::guard('account')->user();
-        LaporanFinance::where('pid_finance', $id)->update([
+        LaporanFinance::where('slug', $id)->update([
             "editable" => 1
         ]);
 
@@ -216,7 +217,7 @@ class LaporanFinanceController extends Controller
     public function Uneditable($id)
     {
         $account = Auth::guard('account')->user();
-        LaporanFinance::where('pid_finance', $id)->update([
+        LaporanFinance::where('slug', $id)->update([
             "editable" => 0
         ]);
 
