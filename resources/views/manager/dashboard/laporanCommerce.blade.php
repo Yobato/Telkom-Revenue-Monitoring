@@ -37,14 +37,10 @@
                     <div class="card-header">
                         <h4>Laporan COGS dan Revenue</h4>
                         <div class="card-header-form">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
+                            <div class="col-12 float-end">
+                                <a class="btn btn-outline-primary mr-3"
+                                    href="{{ route('manager.commerce.dashboard.export') }}">Export</a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">

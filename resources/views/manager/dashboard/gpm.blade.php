@@ -3,11 +3,9 @@
 @section('title', 'Statistic')
 
 @push('style')
-    <!-- CSS Libraries -->
-    <link rel="stylesheet"
-        href="{{ asset('assets/library/jqvmap/dist/jqvmap.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('assets/library/flag-icon-css/css/flag-icon.min.css') }}">
+<!-- CSS Libraries -->
+<link rel="stylesheet" href="{{ asset('assets/library/jqvmap/dist/jqvmap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/library/flag-icon-css/css/flag-icon.min.css') }}">
 @endpush
 
 @section('content')
@@ -24,7 +22,8 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Gross Profit</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ number_format($cumulativeGPM), 2, ',', '.'}}</span>
+                                <span class="h2 font-weight-bold mb-0">{{ number_format($cumulativeGPM), 2, ',',
+                                    '.'}}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -35,9 +34,11 @@
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
                             @if($kenaikanGPM>0)
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanGPM, 2, '.', '' )}}%</span>
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{
+                                number_format($kenaikanGPM, 2, '.', '' )}}%</span>
                             @else
-                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanGPM, 2, '.', '') }}%</span>
+                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{
+                                number_format($kenaikanGPM, 2, '.', '') }}%</span>
                             @endif
                             <span class="text-nowrap">Dari tahun lalu</span>
                         </p>
@@ -50,7 +51,8 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Gross Margin</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ number_format($cumulativeGM), 2, ',', '.'}}%</span>
+                                <span class="h2 font-weight-bold mb-0">{{ number_format($cumulativeGM), 2, ',',
+                                    '.'}}%</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -59,14 +61,16 @@
                                 </div>
                             </div>
                         </div>
-                    <p class="mt-3 mb-0 text-muted text-sm">
-                        @if($kenaikanGM>0)
-                        <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanGM, 2, '.', '' )}}%</span>
-                        @else
-                        <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{ number_format($kenaikanGM, 2, '.', '') }}%</span>
-                        @endif
-                        <span class="text-nowrap">Dari tahun lalu</span>
-                    </p>
+                        <p class="mt-3 mb-0 text-muted text-sm">
+                            @if($kenaikanGM>0)
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanGM,
+                                2, '.', '' )}}%</span>
+                            @else
+                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{
+                                number_format($kenaikanGM, 2, '.', '') }}%</span>
+                            @endif
+                            <span class="text-nowrap">Dari tahun lalu</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -102,39 +106,55 @@
                     <div class="card-header d-flex justify-content-between">
                         <h4 style="color:#525358; font-weight:bold">Gross Profit</h4>
                         <div class="filter d-flex ">
-                            <label for="filter-tahun-gp" class="col-form-label mr-3">Filter </label>
-                            <select class="form-control" name="filter-tahun-gp" id="filter-tahun-gp" style="border-radius: 8px">
+                            <label for="portofolio" class="col-form-label mr-3">Portofolio </label>
+                            <select class="form-control" name="portofolio-filter-gp" id="portofolio-filter-gp"
+                                style="border-radius: 8px">
+                                @foreach ($filterPortofolio as $porto)
+                                <option value=<?=$porto->id ?>>{{ $porto->nama_portofolio }}</option>
+                                @endforeach
+                            </select>
+                            <label for="filter-tahun-gp" class="col-form-label ml-3 mr-3">Filter </label>
+                            <select class="form-control" name="filter-tahun-gp" id="filter-tahun-gp"
+                                style="border-radius: 8px">
                                 @foreach ($tahunData as $tahun)
-                                    <option value=<?= $tahun->year ?>>{{ $tahun->year }}</option>
+                                <option value=<?=$tahun->year ?>>{{ $tahun->year }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div id= chartGP>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 style="color:#525358; font-weight:bold">Gross Margin</h4>
-                        <div class="filter d-flex ">
-                            <label for="filter-tahun-gm" class="col-form-label mr-3">Filter </label>
-                            <select class="form-control" name="filter-tahun-gm" id="filter-tahun-gm" style="border-radius: 8px">
-                                @foreach ($tahunData as $tahun)
-                                    <option value=<?= $tahun->year ?>>{{ $tahun->year }}</option>
-                                @endforeach
-                            </select>
+                        <div id=chartGP>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div id= chartGM>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h4 style="color:#525358; font-weight:bold">Gross Margin</h4>
+                            <div class="filter d-flex ">
+                                <label for="portofolio" class="col-form-label mr-3">Portofolio </label>
+                                <select class="form-control" name="portofolio-filter-gm" id="portofolio-filter-gm"
+                                    style="border-radius: 8px">
+                                    @foreach ($filterPortofolio as $porto)
+                                    <option value=<?=$porto->id ?>>{{ $porto->nama_portofolio }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="filter-tahun-gm" class="col-form-label ml-3 mr-3">Filter </label>
+                                <select class="form-control" name="filter-tahun-gm" id="filter-tahun-gm"
+                                    style="border-radius: 8px">
+                                    @foreach ($tahunData as $tahun)
+                                    <option value=<?=$tahun->year ?>>{{ $tahun->year }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id=chartGM>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 </section>
 @endsection
 
@@ -147,47 +167,47 @@
         align-items: center;
         justify-content: center;
     }
+
     .icon {
         width: 3rem;
         height: 3rem;
     }
 
-    .top-cogs{
-        display: block; 
-        width: 200px; 
-        overflow: hidden; 
-        white-space: nowrap; 
+    .top-cogs {
+        display: block;
+        width: 200px;
+        overflow: hidden;
+        white-space: nowrap;
         text-overflow: ellipsis;
     }
 
     @media only screen and (max-width: 1366px) {
-        .top-cogs{
-            display: block; 
-            width: 155px; 
-            overflow: hidden; 
-            white-space: nowrap; 
+        .top-cogs {
+            display: block;
+            width: 155px;
+            overflow: hidden;
+            white-space: nowrap;
             text-overflow: ellipsis;
         }
     }
 </style>
 
 @push('scripts')
-    <!-- JS Libraies -->
-    <script src="{{ asset('assets/library/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
-    <script src="{{ asset('assets/library/chart.js/dist/Chart.min.js') }}"></script>
-    <script src="{{ asset('assets/library/jqvmap/dist/jquery.vmap.min.js') }}"></script>
-    <script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
-    <script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.indonesia.js') }}"></script>
-    
+<!-- JS Libraies -->
+<script src="{{ asset('assets/library/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
+<script src="{{ asset('assets/library/chart.js/dist/Chart.min.js') }}"></script>
+<script src="{{ asset('assets/library/jqvmap/dist/jquery.vmap.min.js') }}"></script>
+<script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
+<script src="{{ asset('assets/library/jqvmap/dist/maps/jquery.vmap.indonesia.js') }}"></script>
 
-    <!-- Page Specific JS File -->
-    <script src="{{ asset('assets/js/page/components-statistic.js') }}"></script>
+
+<!-- Page Specific JS File -->
+<script src="{{ asset('assets/js/page/components-statistic.js') }}"></script>
 @endpush
 @section('footer')
 <script src="https://code.highcharts.com/highcharts.js"></script>
 
 <script>
-
     // ==== CHART Gross Profit ====
     const gpmData1 = {!! json_encode($gpmData1) !!};
     const gpmData2 = {!! json_encode($gpmData2) !!};
@@ -213,20 +233,25 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     // ==== CHART GP ====
-    var dropdownGP = document.getElementById("filter-tahun-gp");
-    var selectedValueGP = dropdownGP.value;
+    let dropdownGP = document.getElementById("filter-tahun-gp");
+    let dropdownPortoGP = document.getElementById("portofolio-filter-gp");
+    let selectedValueGP = dropdownGP.value;
+    let selectedValuePortoGP = dropdownPortoGP.value;
 
     // ==== CHART GM ====
-    var dropdownGM = document.getElementById("filter-tahun-gm");
-    var selectedValueGM = dropdownGM.value;
+    let dropdownGM = document.getElementById("filter-tahun-gm");
+    let dropdownPortoGM = document.getElementById("portofolio-filter-gm");
+    let selectedValueGM = dropdownGM.value;
+    let selectedValuePortoGM = dropdownPortoGM.value;
 
     // ==== CHART GP ====
-    function updateChartGP() {
-        if (selectedValueGP !== "") {
-            const filteredGPData = gpmData1.filter(item => item.year.toString() === selectedValueGP)
+    function updateChartGP(valuePortoGP, valueYearGP) {
+        if (valuePortoGP !== "" || valueYearGP !== "") {
+            const filteredGPData = gpmData1.filter(item => item.year.toString() === valueYearGP)
+            const filteredGPDataByPorto = filteredGPData.filter(item => item.id_portofolio === Number(valuePortoGP));
 
             const seriesDataGP = {};
-            filteredGPData.forEach(item => {
+            filteredGPDataByPorto.forEach(item => {
                 const year = item.year.toString();
                 const month = item.month - 1;
                 if (!seriesDataGP[year]) {
@@ -296,12 +321,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // ==== CHART GM ====
-    function updateChartGM() {
-        if (selectedValueGM !== "") {
-            const filteredGMData = gpmData2.filter(item => item.year.toString() === selectedValueGM)
+    function updateChartGM(valuePortoGM, valueYearGM) {
+        if (valuePortoGM !== "" || valueYearGM !== "") {
+            const filteredGMData = gpmData2.filter(item => item.year.toString() === valueYearGM)
+            const filteredGMDataByPorto = filteredGMData.filter(item => item.id_portofolio === Number(valuePortoGM));
 
             const seriesDataGM = {};
-            filteredGMData.forEach(item => {
+            filteredGMDataByPorto.forEach(item => {
                 const year = item.year.toString();
                 const month = item.month - 1;
                 if (!seriesDataGM[year]) {
@@ -375,23 +401,32 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // ==== CHART GP ====
-    updateChartGP();
+    updateChartGP(selectedValuePortoGP, selectedValueGP);
 
     // ==== CHART GM ====
-    updateChartGM();
+    updateChartGM(selectedValuePortoGM, selectedValueGM);
 
+    dropdownPortoGP.addEventListener("change", function() {
+        selectedValuePortoGP = dropdownPortoGP.value;
+        updateChartGP(selectedValuePortoGP, selectedValueGP); // Call the updateChartGap function to rebuild the chart
+    });
+    
     dropdownGP.addEventListener("change", function() {
         selectedValueGP = dropdownGP.value;
-        console.log("Nilai input tahun: " + selectedValueGP);
-        updateChartGP(); // Call the updateChartGap function to rebuild the chart
+        updateChartGP(selectedValuePortoGP, selectedValueGP); // Call the updateChartGap function to rebuild the chart
+    });
+
+    dropdownPortoGM.addEventListener("change", function() {
+        selectedValuePortoGM = dropdownPortoGM.value;
+        updateChartGM(selectedValuePortoGM, selectedValueGM); // Call the updateChartGap function to rebuild the chart
     });
 
     dropdownGM.addEventListener("change", function() {
         selectedValueGM = dropdownGM.value;
-        console.log("Nilai input tahun: " + selectedValueGM);
-        updateChartGM(); // Call the updateChartGap function to rebuild the chart
+        updateChartGM(selectedValuePortoGM, selectedValueGM); // Call the updateChartGap function to rebuild the chart
     });
-    }
+    
+}
 );
 </script>
 @endsection

@@ -36,6 +36,12 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Laporan KKP</h4>
+                        <div class="card-header-form">
+                            <div class="col-12 float-end">
+                                <a class="btn btn-outline-primary mr-3"
+                                    href="{{ route('manager.finance.dashboard.export') }}">Export</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <table class="table" id="table-1">
@@ -46,11 +52,6 @@
                                     <th scope="col">Portofolio</th>
                                     <th scope="col">Nama Program</th>
                                     <th scope="col">Cost Plan</th>
-                                    <th scope="col">Peruntukan</th>
-                                    <th scope="col">User</th>
-                                    <th scope="col">Nilai</th>
-                                    <th scope="col">Keterangan</th>
-                                    <th scope="col">Tanggal</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,11 +63,6 @@
                                     <td>{{ $portofolio_id[$admins->id_portofolio]}}</td>
                                     <td>{{ $program_id[$admins->id_program]}}</td>
                                     <td>{{ $cost_plan_id[$admins->id_cost_plan]}}</td>
-                                    <td>{{ $peruntukan_id[$admins->id_peruntukan]}}</td>
-                                    <td>{{ $user_id[$admins->id_user]}}</td>
-                                    <td>{{ $admins->nilai}}</td>
-                                    <td>{{ $admins->keterangan }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -86,4 +82,11 @@
 
 <!-- Page Specific JS File -->
 <script src="{{ asset('js/page/components-table.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#table-1').dataTable({
+            responsive: true
+        });
+    });
+</script>
 @endpush

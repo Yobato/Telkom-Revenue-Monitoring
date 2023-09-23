@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TargetFinance;
-use App\Models\UserReco;
-use Illuminate\Http\Request;
-use App\Models\LaporanFinance;
+use App\Models\LaporanNota;
 use App\Models\Portofolio;
-use Illuminate\Support\Facades\DB;
+use App\Models\TargetFinance;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class KkpController extends Controller
 {
@@ -16,47 +14,61 @@ class KkpController extends Controller
     {
 
         //======== CHART REALISASI KKP OPERASIONAL ==========
-        $account = Auth::guard('account')->user();
-        if($account->role == 'Admin'|| $account->role == 'GM' ){
-            $kkpData = DB::table('laporan_finance')
-            ->select(
-                DB::raw('YEAR(tanggal) as year'),
-                DB::raw('MONTH(tanggal) as month'),
-                DB::raw('SUM(nilai) as total_nilai')
-            )
-            ->groupBy('year', 'month')
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
+        $tahunData = TargetFinance::distinct()->get(['tahun']);
+        $filterPortofolio = DB::table('laporan_finance')
+            ->join('portofolio', 'laporan_finance.id_portofolio', '=', 'portofolio.id')
+            ->select('portofolio.id', 'portofolio.nama_portofolio')
+            ->distinct()
             ->get();
-        } else{
+
+        $account = Auth::guard('account')->user();
+        if ($account->role == 'Admin' || $account->role == 'GM') {
             $kkpData = DB::table('laporan_finance')
+                ->join('laporan_nota as nota_finance', 'laporan_finance.pid_finance', '=', 'nota_finance.pid_nota')
                 ->select(
-                    DB::raw('YEAR(tanggal) as year'),
-                    DB::raw('MONTH(tanggal) as month'),
-                    DB::raw('SUM(nilai) as total_nilai')
+                    'laporan_finance.id_portofolio',
+                    DB::raw('YEAR(nota_finance.tanggal) as year'),
+                    DB::raw('MONTH(nota_finance.tanggal) as month'),
+                    DB::raw('SUM(nota_finance.nilai_akhir) as total_nilai')
                 )
-                ->where('kota', '=', $account->kota)
-                ->groupBy('year', 'month')
+                ->groupBy('laporan_finance.id_portofolio', 'year', 'month')
+                ->orderBy('laporan_finance.id_portofolio', 'asc')
                 ->orderBy('year', 'asc')
                 ->orderBy('month', 'asc')
                 ->get();
-        }
-        // dd($account->role);
+        } else {
+            $kkpData = DB::table('laporan_finance')
+                ->join('laporan_nota as nota_finance', 'laporan_finance.pid_finance', '=', 'nota_finance.pid_nota')
+                ->select(
+                    'laporan_finance.id_portofolio',
+                    DB::raw('YEAR(nota_finance.tanggal) as year'),
+                    DB::raw('MONTH(nota_finance.tanggal) as month'),
+                    DB::raw('SUM(nota_finance.nilai_akhir) as total_nilai')
+                )
+                ->where('laporan_finance.kota', '=', $account->kota)
+                ->groupBy('laporan_finance.id_portofolio', 'year', 'month')
+                ->orderBy('laporan_finance.id_portofolio', 'asc')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->get();
 
-        $tahunData = TargetFinance::distinct()->get(['tahun']);
-        
+        }
+
         //======== CHART TARGET KKP OPERASIONAL ==========
         $targetData = DB::table('target_finance')
             ->select(
+                'id_portofolio',
                 DB::raw('tahun as year'),
                 DB::raw('bulan as month'),
                 DB::raw('SUM(jumlah) as total_nilai')
             )
-            // ->where('jenis_laporan', '=', 'KKP')
-            ->groupBy('tahun', 'bulan')
+        // ->where('jenis_laporan', '=', 'KKP')
+            ->groupBy('id_portofolio', 'tahun', 'bulan')
             ->orderBy('tahun', 'asc')
             ->orderBy('bulan', 'asc')
             ->get();
+
+        // dd($targetData);
 
         //======== CHART GAP KKP OPERASIONAL ==========
         $monthMapping = [
@@ -76,12 +88,13 @@ class KkpController extends Controller
 
         $targetGap = DB::table('target_finance')
             ->select(
+                'id_portofolio',
                 DB::raw('tahun as year'),
                 DB::raw('bulan as month'),
                 DB::raw('SUM(jumlah) as total_nilai')
             )
-            // ->where('jenis_laporan', '=', 'KKP')
-            ->groupBy('tahun', 'bulan')
+        // ->where('jenis_laporan', '=', 'KKP')
+            ->groupBy('id_portofolio', 'tahun', 'bulan')
             ->orderBy('tahun', 'asc')
             ->orderBy('bulan', 'asc')
             ->get()
@@ -94,8 +107,9 @@ class KkpController extends Controller
 
         foreach ($kkpData as $kkpItem) {
             foreach ($targetGap as $targetItem) {
-                if ($kkpItem->year == $targetItem->year && $kkpItem->month == $targetItem->month) {
+                if ($kkpItem->year == $targetItem->year && $kkpItem->month == $targetItem->month && $kkpItem->id_portofolio == $targetItem->id_portofolio) {
                     $gapData[] = [
+                        'id_portofolio' => $kkpItem->id_portofolio,
                         'year' => $kkpItem->year,
                         'month' => $kkpItem->month,
                         'gap' => $targetItem->total_nilai - $kkpItem->total_nilai,
@@ -104,28 +118,27 @@ class KkpController extends Controller
                 }
             }
         }
-        
+
         //======== CARD STATISTIC ==========
 
         //======== STATISTIC TOTAL REALISASI ==========
-        if($account->role == 'Admin'|| $account->role == 'GM' ){
-            $newestYear = LaporanFinance::max(DB::raw('YEAR(tanggal)'));
-            $TotalRealisasiKKP = LaporanFinance::whereYear("tanggal", [$newestYear])
-                ->sum('nilai');
-    
-            $lastYear = $newestYear-1;
-            $TotalRealisasiKKP2 = LaporanFinance::whereYear("tanggal", [$lastYear])
-                ->sum('nilai');            
-        } else{
-            $newestYear = LaporanFinance::where('kota', '=', $account->kota)->max(DB::raw('YEAR(tanggal)'));
-            $TotalRealisasiKKP = LaporanFinance::whereYear("tanggal", [$newestYear])
-                ->where('kota', '=', $account->kota)->sum('nilai');
-    
-            $lastYear = $newestYear-1;
-            $TotalRealisasiKKP2 = LaporanFinance::whereYear("tanggal", [$lastYear])
-                ->where('kota', '=', $account->kota)->sum('nilai'); 
-        }
+        if ($account->role == 'Admin' || $account->role == 'GM') {
+            $newestYear = LaporanNota::max(DB::raw('YEAR(tanggal)'));
+            $TotalRealisasiKKP = LaporanNota::whereYear("tanggal", [$newestYear])
+                ->sum('nilai_akhir');
 
+            $lastYear = $newestYear - 1;
+            $TotalRealisasiKKP2 = LaporanNota::whereYear("tanggal", [$lastYear])
+                ->sum('nilai_akhir');
+        } else {
+            $newestYear = LaporanNota::where('kota', '=', $account->kota)->max(DB::raw('YEAR(tanggal)'));
+            $TotalRealisasiKKP = LaporanNota::whereYear("tanggal", [$newestYear])
+                ->where('kota', '=', $account->kota)->sum('nilai_akhir');
+
+            $lastYear = $newestYear - 1;
+            $TotalRealisasiKKP2 = LaporanNota::whereYear("tanggal", [$lastYear])
+                ->where('kota', '=', $account->kota)->sum('nilai_akhir');
+        }
 
         if ($TotalRealisasiKKP2 != 0) {
             $kenaikanRealisasi = ($TotalRealisasiKKP - $TotalRealisasiKKP2) / $TotalRealisasiKKP2 * 100;
@@ -171,40 +184,47 @@ class KkpController extends Controller
         }
 
         //======== STATISTIC TOP USER ==========
-        if($account->role == 'Admin'|| $account->role == 'GM' ){
+        if ($account->role == 'Admin' || $account->role == 'GM') {
             $userData = DB::table('laporan_finance')
-            ->select(
-                'id_user',
-                DB::raw('YEAR(tanggal) as year'),
-                DB::raw('MONTH(tanggal) as month'),
-                DB::raw('SUM(nilai) as total_nilai')
-            )
-            ->groupBy('id_user', 'year', 'month')
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
-            ->get();
-        } else{
+                ->join('laporan_nota as nota_finance', 'laporan_finance.pid_finance', '=', 'nota_finance.pid_nota')
+                ->select(
+                    'laporan_finance.id_portofolio',
+                    DB::raw('YEAR(nota_finance.tanggal) as year'),
+                    DB::raw('MONTH(nota_finance.tanggal) as month'),
+                    DB::raw('SUM(nota_finance.nilai_akhir) as total_nilai')
+                )
+                ->where('laporan_finance.kota', '=', $account->kota)
+                ->groupBy('laporan_finance.id_portofolio', 'year', 'month')
+                ->orderBy('laporan_finance.id_portofolio', 'asc')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->get();
+
+        } else {
             $userData = DB::table('laporan_finance')
-            ->select(
-                'id_user',
-                DB::raw('YEAR(tanggal) as year'),
-                DB::raw('MONTH(tanggal) as month'),
-                DB::raw('SUM(nilai) as total_nilai')
-            )
-            ->where('kota', '=', $account->kota)
-            ->groupBy('id_user', 'year', 'month')
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
-            ->get();
+                ->join('laporan_nota as nota_finance', 'laporan_finance.pid_finance', '=', 'nota_finance.pid_nota')
+                ->select(
+                    'laporan_finance.id_portofolio',
+                    DB::raw('YEAR(nota_finance.tanggal) as year'),
+                    DB::raw('MONTH(nota_finance.tanggal) as month'),
+                    DB::raw('SUM(nota_finance.nilai_akhir) as total_nilai')
+                )
+                ->where('laporan_finance.kota', '=', $account->kota)
+                ->groupBy('laporan_finance.id_portofolio', 'year', 'month')
+                ->orderBy('laporan_finance.id_portofolio', 'asc')
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->get();
+
         }
-        
+
         $gapUser = [];
 
         foreach ($userData as $userItem) {
             foreach ($targetGap as $targetItem) {
-                if ($userItem->year == $targetItem->year && $userItem->month == $targetItem->month) {
+                if ($userItem->year == $targetItem->year && $userItem->month == $targetItem->month && $userItem->id_portofolio == $targetItem->id_portofolio) {
                     $gapUser[] = [
-                        'user' => $userItem->id_user,
+                        'portofolio' => $userItem->id_portofolio,
                         'year' => $userItem->year,
                         'month' => $userItem->month,
                         'gap' => $targetItem->total_nilai - $userItem->total_nilai,
@@ -213,31 +233,29 @@ class KkpController extends Controller
                 }
             }
         }
-      
-        
-        if($gapUser != null && !empty($gapUser)){
+
+        if ($gapUser != null && !empty($gapUser)) {
             $collection = collect($gapUser);
-            $smallestGapUser = $collection->groupBy('user')->map(function ($userEntries, $userId) {
+            $smallestGapUser = $collection->groupBy('portofolio')->map(function ($userEntries, $userId) {
                 if ($userEntries->isEmpty()) {
                     return null; // Tidak ada data gap untuk user ini
                 }
-                
+
                 $smallestGapEntry = $userEntries->sortBy('gap')->first();
                 return [
-                    'user' => $userId,
+                    'portofolio' => $userId,
                     'gap' => $smallestGapEntry['gap'],
                 ];
             })->filter()->sortBy('gap')->first(); // Menggunakan filter() untuk menghapus nilai null
-        }else{
+        } else {
             $smallestGapUser = [
-                'user' => 0,
+                'portofolio' => 0,
                 'gap' => 0,
             ];
         }
-         
-        
-        if ($smallestGapUser['user'] != null) {
-            $TopUser = UserReco::find($smallestGapUser['user']);
+
+        if ($smallestGapUser['portofolio'] != null) {
+            $TopUser = Portofolio::find($smallestGapUser['portofolio']);
             $TopKKP = $TopUser->nama_user_reco;
         } else {
             $TopKKP = "Belum ada data";
@@ -257,9 +275,10 @@ class KkpController extends Controller
                 "kenaikanGap" => $kenaikanGap,
                 "TopKKP" => $TopKKP,
                 "GapTop" => $smallestGapUser['gap'] ?? null,
-                "targetData" => $targetData
+                "targetData" => $targetData,
+                'filterPortofolio' => $filterPortofolio,
             ]);
-        } elseif ($account->role == "GM"){
+        } elseif ($account->role == "GM") {
             return view('manager.dashboard.kkp', [
                 "title" => "KKP",
                 "kkpData" => $kkpData,
@@ -273,10 +292,10 @@ class KkpController extends Controller
                 "kenaikanGap" => $kenaikanGap,
                 "TopKKP" => $TopKKP,
                 "GapTop" => $smallestGapUser['gap'] ?? null,
-                "targetData" => $targetData
+                "targetData" => $targetData,
+                'filterPortofolio' => $filterPortofolio,
             ]);
-        }
-        else{
+        } else {
             return view('admin.dashboard.kkp', [
                 "title" => "KKP",
                 "kkpData" => $kkpData,
@@ -290,7 +309,8 @@ class KkpController extends Controller
                 "kenaikanGap" => $kenaikanGap,
                 "TopKKP" => $TopKKP,
                 "GapTop" => $smallestGapUser['gap'] ?? null,
-                "targetData" => $targetData
+                "targetData" => $targetData,
+                'filterPortofolio' => $filterPortofolio,
             ]);
         }
     }

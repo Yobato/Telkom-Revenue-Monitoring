@@ -488,7 +488,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     function updateLineChart(valueRevenuePortoLine, valueRevenueYearLine1, valueRevenueYearLine2) {
-        if(valueRevenuePortoLine !== "" || valueRevenueYearLine1 !== "" || valueRevenueYearLine2){
+        if(valueRevenuePortoLine !== "" || valueRevenueYearLine1 !== "" || valueRevenueYearLine2 !== ""){
             const filteredDataLineRevenue1 = lineRevenueData.filter(item => item.year.toString() === valueRevenueYearLine1);
             const filteredDataLineRevenue2 = lineRevenueData.filter(item => item.year.toString() === valueRevenueYearLine2);    
             const seriesDataRevenue1 = {}; 

@@ -501,7 +501,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     function updateLineChart(valuePortoLine, valueYearLine1, valueYearLine2) {
-        if (valuePortoLine !== "" || valueYearLine1 !== "" || valueYearLine2) {
+        if (valuePortoLine !== "" || valueYearLine1 !== "" || valueYearLine2 !== "") {
             const filteredDataLineCOGS1 = lineCOGSData.filter(item => item.year.toString() === valueYearLine1);
             const filteredDataLineCOGS2 = lineCOGSData.filter(item => item.year.toString() === valueYearLine2);    
             const seriesDataCOGS1 = {}; 

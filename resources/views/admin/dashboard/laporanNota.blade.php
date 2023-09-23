@@ -1,4 +1,4 @@
-@extends('layouts.finance-master')
+@extends('layouts.admin-master')
 
 @section('title', 'Reporting')
 
@@ -36,12 +36,13 @@
                         <h4>Laporan Nota</h4>
                         <div class="card-header-form">
                             <div class="col-12 float-end">
-                                <a class="btn btn-outline-primary mr-3" href="{{ route('nota.dashboard.export') }}">Export</a>
+                                <a class="btn btn-outline-primary mr-3"
+                                    href="{{ route('admin.nota.dashboard.export') }}">Export</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table" id="table-1">
+                        <table class="table" id="table-4">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
@@ -71,15 +72,17 @@
                                     <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td>{{ $admins->nilai_akhir}}</td>
                                     <td>{{ $admins->keterangan}}</td>
-                                    
+
                                     <td>
-                                         @if($admins->editable == 0)
-                                            <a href={{ route('admin.editableNota', [$admins->id]) }} class="btn btn-primary btn-sm rounded-0" type="button">
-                                                <i class="fa fa-edit"></i> Open Edit</a>
+                                        @if($admins->editable == 0)
+                                        <a href={{ route('admin.editableNota', [$admins->id]) }} class="btn btn-primary
+                                            btn-sm rounded-0" type="button">
+                                            <i class="fa fa-edit"></i> Open Edit</a>
                                         @endif
                                         @if($admins->editable == 1)
-                                            <a href={{ route('admin.uneditableNota', [$admins->id]) }} class="btn btn-danger btn-sm rounded-0" type="button">
-                                                <i class="fa fa-edit"></i> Close Edit</a>
+                                        <a href={{ route('admin.uneditableNota', [$admins->id]) }} class="btn btn-danger
+                                            btn-sm rounded-0" type="button">
+                                            <i class="fa fa-edit"></i> Close Edit</a>
                                         @endif
                                     </td>
                                 </tr>

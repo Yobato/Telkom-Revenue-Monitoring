@@ -36,43 +36,51 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Laporan KKP</h4>
+                        <div class="card-header-form">
+                            <div class="col-12 float-end">
+                                <a class="btn btn-outline-primary mr-3"
+                                    href="{{ route('admin.finance.dashboard.export') }}">Export</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
-                            <table class="table" id="table-1">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">PID Finance</th>
-                                        <th scope="col">Portofolio</th>
-                                        <th scope="col">Nama Program</th>
-                                        <th scope="col">Cost Plan</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1 ?>
-                                    @foreach ($laporan_finance as $admins)
-                                    <tr>
-                                        <th scope="row">{{$i++}}</th>
-                                        <td>{{ $admins->pid_finance}}</td>
-                                        <td>{{ $portofolio_id[$admins->id_portofolio]}}</td>
-                                        <td>{{ $program_id[$admins->id_program]}}</td>
-                                        <td>{{ $cost_plan_id[$admins->id_cost_plan]}}</td>
-                                        <td>
-                                            @if($admins->editable == 0)
-                                            <a href={{ route('admin.editableFinance', [$admins->pid_finance]) }} class="btn btn-primary btn-sm rounded-0" type="button">
-                                                <i class="fa fa-edit"></i> Open Edit</a>
-                                            @endif
-                                            @if($admins->editable == 1)
-                                            <a href={{ route('admin.uneditableFinance', [$admins->pid_finance]) }} class="btn btn-danger btn-sm rounded-0" type="button">
-                                                <i class="fa fa-edit"></i> Close Edit</a>
-                                            @endif
+                        <table class="table" id="table-1">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">PID Finance</th>
+                                    <th scope="col">Portofolio</th>
+                                    <th scope="col">Nama Program</th>
+                                    <th scope="col">Cost Plan</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1 ?>
+                                @foreach ($laporan_finance as $admins)
+                                <tr>
+                                    <th scope="row">{{$i++}}</th>
+                                    <td>{{ $admins->pid_finance}}</td>
+                                    <td>{{ $portofolio_id[$admins->id_portofolio]}}</td>
+                                    <td>{{ $program_id[$admins->id_program]}}</td>
+                                    <td>{{ $cost_plan_id[$admins->id_cost_plan]}}</td>
+                                    <td>
+                                        @if($admins->editable == 0)
+                                        <a href={{ route('admin.editableFinance', [$admins->pid_finance]) }} class="btn
+                                            btn-primary btn-sm rounded-0" type="button">
+                                            <i class="fa fa-edit"></i> Open Edit</a>
+                                        @endif
+                                        @if($admins->editable == 1)
+                                        <a href={{ route('admin.uneditableFinance', [$admins->pid_finance]) }}
+                                            class="btn btn-danger btn-sm rounded-0" type="button">
+                                            <i class="fa fa-edit"></i> Close Edit</a>
+                                        @endif
 
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

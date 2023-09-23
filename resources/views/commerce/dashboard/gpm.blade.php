@@ -139,7 +139,7 @@
                                     <option value=<?=$porto->id ?>>{{ $porto->nama_portofolio }}</option>
                                     @endforeach
                                 </select>
-                                <label for="filter-tahun-gm" class="col-form-label mr-3">Filter </label>
+                                <label for="filter-tahun-gm" class="col-form-label ml-3 mr-3">Filter </label>
                                 <select class="form-control" name="filter-tahun-gm" id="filter-tahun-gm"
                                     style="border-radius: 8px">
                                     @foreach ($tahunData as $tahun)

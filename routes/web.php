@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\CogsController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::group(['middleware' => 'revalidate'], function () {
     Route::group(['middleware' => ['auth:account', 'account-access:Commerce']], function () {
@@ -28,7 +27,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/commerce/delete/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'deleteLaporanCommerce'])->name('commerce.deleteLaporanCommerce');
         Route::get('/commerce/edit/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'editLaporanCommerce'])->name('commerce.editLaporanCommerce');
         Route::post('/commerce/edit/{id}/success', [App\Http\Controllers\LaporanCommerceController::class, 'updateLaporanCommerce'])->name('commerce.updateLaporanCommerce');
-        
+
         Route::get('/exportcom', [App\Http\Controllers\LaporanCommerceController::class, 'export'])->name('commerce.dashboard.export');
     });
 
@@ -58,7 +57,7 @@ Route::group(['middleware' => 'revalidate'], function () {
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:GM']], function () {
-    
+
         Route::get('/manager-cogs', [App\Http\Controllers\CogsController::class, 'index'])->name('manager-cogs');
         Route::get('/manager', [App\Http\Controllers\GpmController::class, 'index'])->name('manager.dashboard');
         Route::get('/manager-revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('manager-revenue');
@@ -66,11 +65,17 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/manager/target', [App\Http\Controllers\TargetController::class, 'index'])->name('manager.dashboard.target');
         Route::get('/manager/target-kkp', [App\Http\Controllers\TargetFinanceController::class, 'index'])->name('manager.dashboard.target-finance');
         Route::get('/manager/finance', [App\Http\Controllers\LaporanFinanceController::class, 'index'])->name('manager.dashboard.finance');
+        Route::get('/manager/nota', [App\Http\Controllers\LaporanNotaController::class, 'index'])->name('manager.dashboard.nota');
         Route::get('/manager/commerce', [App\Http\Controllers\LaporanCommerceController::class, 'index'])->name('manager.dashboard.commerce');
+
+        Route::get('manager/commerce/exportcom', [App\Http\Controllers\LaporanCommerceController::class, 'export'])->name('manager.commerce.dashboard.export');
+        Route::get('manager/finance/exportfin', [App\Http\Controllers\LaporanFinanceController::class, 'export'])->name('manager.finance.dashboard.export');
+        Route::get('manager/nota/exportnota', [App\Http\Controllers\LaporanNotaController::class, 'export'])->name('manager.nota.dashboard.export');
+
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:Admin']], function () {
-      
+
         Route::get('/admin', [App\Http\Controllers\GpmController::class, 'index'])->name('admin.dashboard');
 
         Route::get('/admin-cogs', [App\Http\Controllers\CogsController::class, 'index'])->name('admin-cogs');
@@ -78,7 +83,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/admin-kkp', [App\Http\Controllers\KkpController::class, 'index'])->name('admin-kkp');
         // Route::get('/admin-gpm', [App\Http\Controllers\GpmController::class, 'index'])->name('admin-gpm');
 
-        // ------------- ADMIN ------------- 
+        // ------------- ADMIN -------------
         Route::get('/city', [App\Http\Controllers\CityController::class, 'index'])->name('admin.dashboard.city');
         Route::post('/city/add', [App\Http\Controllers\CityController::class, 'storeCity'])->name('admin.storeCity');
         Route::get('/city/deleteCity/{id}', [App\Http\Controllers\CityController::class, 'deleteCity'])->name('admin.deleteCity');
@@ -142,6 +147,10 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/admin/commerce', [App\Http\Controllers\LaporanCommerceController::class, 'index'])->name('admin.dashboard.commerce');
         Route::get('admin/commerce/editable/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'Editable'])->name('admin.editableCommerce');
         Route::get('admin/commerce/uneditable/{id}', [App\Http\Controllers\LaporanCommerceController::class, 'Uneditable'])->name('admin.uneditableCommerce');
+
+        Route::get('admin/commerce/exportcom', [App\Http\Controllers\LaporanCommerceController::class, 'export'])->name('admin.commerce.dashboard.export');
+        Route::get('admin/finance/exportfin', [App\Http\Controllers\LaporanFinanceController::class, 'export'])->name('admin.finance.dashboard.export');
+        Route::get('admin/nota/exportnota', [App\Http\Controllers\LaporanNotaController::class, 'export'])->name('admin.nota.dashboard.export');
     });
 
     Route::post('/', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');

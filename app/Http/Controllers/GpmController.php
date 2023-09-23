@@ -143,10 +143,15 @@ class GpmController extends Controller
         $tahunData = DB::select(DB::raw($query));
 
         //======== Fungsi Filter Portofolio berdasarkan Laporan Revenue==========
-        $filterPortofolio = DB::table('laporan_commerce')
-            ->join('portofolio', 'laporan_commerce.id_portofolio', '=', 'portofolio.id')
-            ->where('laporan_commerce.jenis_laporan', 'REVENUE')
-            ->select('portofolio.id', 'portofolio.nama_portofolio')
+        $filterPortofolio = DB::table('portofolio')
+            ->whereIn('id', function ($query) {
+                $query->select('id_portofolio')
+                    ->from('laporan_commerce')
+                    ->whereIn('jenis_laporan', ['COGS', 'REVENUE'])
+                    ->groupBy('id_portofolio')
+                    ->havingRaw('COUNT(DISTINCT jenis_laporan) = 2');
+            })
+            ->select('id', 'nama_portofolio')
             ->distinct()
             ->get();
 
