@@ -12,6 +12,6 @@ class Program extends Model
     protected $primaryKey = "id";
     public $timestamps = false;
     protected $fillable = [
-        'nama_program', 'kode_program', 'role'
+        'nama_program', 'kode_program', 'role', 'id_portofolio',
     ];
 }

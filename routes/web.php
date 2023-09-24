@@ -37,6 +37,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/finance/dashboard', [App\Http\Controllers\KkpController::class, 'index'])->name('finance.dashboard.chart');
         Route::get('/finance', [App\Http\Controllers\LaporanFinanceController::class, 'index'])->name('finance.dashboard.index');
         Route::get('/finance/add', [App\Http\Controllers\LaporanFinanceController::class, 'addLaporanFinance'])->name('finance.reporting.form');
+        Route::post('/finance/getprogram', [App\Http\Controllers\LaporanFinanceController::class, 'dependentDropdownProgram'])->name('finance.reporting.getProgram');
         Route::post('/finance/add/success', [App\Http\Controllers\LaporanFinanceController::class, 'storeLaporanFinance'])->name('finance.storeLaporanFinance');
         Route::get('/finance/delete/{id}', [App\Http\Controllers\LaporanFinanceController::class, 'deleteLaporanFinance'])->name('finance.deleteLaporanFinance');
         Route::get('/finance/edit/{id}', [App\Http\Controllers\LaporanFinanceController::class, 'editLaporanFinance'])->name('finance.editLaporanFinance');

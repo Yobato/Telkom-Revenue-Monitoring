@@ -17,11 +17,11 @@ class PortofolioSeeder extends Seeder
     {
         $portofolio = [
             [
-                'nama_portofolio' => 'Construction',
+                'nama_portofolio' => 'CONSTRUCTION',
                 'role' => 'Finance'
             ],
             [
-                'nama_portofolio' => 'Dismanting',
+                'nama_portofolio' => 'MS OPEX',
                 'role' => 'Finance'
             ],
             [
@@ -29,23 +29,23 @@ class PortofolioSeeder extends Seeder
                 'role' => 'Finance'
             ],
             [
-                'nama_portofolio' => 'MS Capex Telkom',
-                'role' => 'Finance'
-            ],
-            [
-                'nama_portofolio' => 'MS Opex Telkom',
-                'role' => 'Finance'
-            ],
-            [
-                'nama_portofolio' => 'NTE',
-                'role' => 'Finance'
-            ],
-            [
-                'nama_portofolio' => 'Provisioning',
+                'nama_portofolio' => 'OPERATION',
                 'role' => 'Finance'
             ],
             [
                 'nama_portofolio' => 'SDI',
+                'role' => 'Finance'
+            ],
+            [
+                'nama_portofolio' => 'MS NTE',
+                'role' => 'Finance'
+            ],
+            [
+                'nama_portofolio' => 'FA',
+                'role' => 'Finance'
+            ],
+            [
+                'nama_portofolio' => 'DISMANTLING',
                 'role' => 'Finance'
             ],
             [

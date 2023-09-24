@@ -46,7 +46,7 @@
                                     @enderror
                                     
                                     <label for="id_portofolio" class="col-form-label">Portofolio: </label>
-                                    <select class="id_portofolio form-control @error('id_portofolio') is-invalid @enderror mb-2" name="id_portofolio" value="{{ old('id_portofolio', $laporan->id_portofolio) }}">
+                                    <select class="id_portofolio form-control @error('id_portofolio') is-invalid @enderror mb-2" name="id_portofolio" value="{{ old('id_portofolio', $laporan->id_portofolio) }}" id="id_portofolio" onchange="getProgram()">
                                         <option value="" selected>-- Pilih Portofolio --</option>
                                         @foreach ($addportofolio as $portofolio)
                                         <option value="{{ $portofolio->id }}" {{ strcmp($laporan->id_portofolio, "$portofolio->id")==0? 'selected':''; }}>{{ $portofolio->nama_portofolio }}</option>
@@ -65,7 +65,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group pt-4 pb-0 pr-5 mb-0">
                                     <label for="id_program" class="col-form-label">Nama Program: </label>
-                                    <select class="id_program form-control @error('id_program') is-invalid @enderror mb-2" name="id_program" value="{{ old('id_program', $laporan->id_program) }}">
+                                    <select class="id_program form-control @error('id_program') is-invalid @enderror mb-2" name="id_program" value="{{ old('id_program', $laporan->id_program) }}" id="id_program">
                                         <option value="" selected>-- Pilih Nama Program --</option>
                                         @foreach ($addprogram as $program)
                                         <option value="{{ $program->id }}" {{ strcmp($laporan->id_program,"$program->id")==0? 'selected':''; }}>{{ $program->nama_program }}</option>
@@ -126,5 +126,44 @@
             // Menampilkan hasil format uang di input
             input.value = formattedValue;
         }
+    }
+</script>
+<script>
+    // Panggil fungsi getProgram() saat halaman dimuat
+    document.addEventListener("DOMContentLoaded", function () {
+        getProgram();
+    });
+
+    function getProgram() {
+        let portofolioSelect = document.getElementById("id_portofolio");
+        let programSelect = document.getElementById("id_program");
+        let oldProgramValue = "{{ old('id_program', $laporan->id_program) }}";
+
+        // Simpan oldProgramValue sebagai nilai yang akan dipilih
+        programSelect.value = oldProgramValue;
+
+        portofolioSelect.addEventListener("change", function () {
+            let portofolio = portofolioSelect.value;
+
+            if (portofolio != "") {
+                $.ajax({
+                    type: "POST", // Sesuaikan dengan metode HTTP yang digunakan oleh rute Anda
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    url: '{{ route("finance.reporting.getProgram") }}', // Ganti dengan rute yang sesuai untuk mendapatkan program berdasarkan portofolio
+                    data: {
+                        id_portofolio: portofolio
+                    },
+                    success: function (response) {
+                        // Mengisi ulang dropdown Program dengan data yang diterima dari server
+                        programSelect.innerHTML = "<option value=''>-- Pilih Nama Program --</option>";
+                        programSelect.innerHTML += response;
+                    },
+                });
+            }
+        });
     }
 </script>

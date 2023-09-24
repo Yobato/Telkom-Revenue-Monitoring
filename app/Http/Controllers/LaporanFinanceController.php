@@ -2,22 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExportF;
+use App\Models\City;
 use App\Models\CostPlan;
 use App\Models\LaporanFinance;
 use App\Models\Portofolio;
 use App\Models\Program;
-use App\Models\City;
-use App\Models\Peruntukan;
-use App\Models\UserReco;
+use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\QueryException;
-use App\Exports\UsersExportF;
-use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Excel as ExcelExcel;
-use Carbon\Carbon;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanFinanceController extends Controller
 {
@@ -39,7 +36,6 @@ class LaporanFinanceController extends Controller
             $cost_plan_id[$costp->id] = $costp->nama_cost_plan;
         }
 
-
         $citys = array();
         foreach (City::all() as $item) {
             $citys[$item->id] = $item->nama_city;
@@ -53,16 +49,16 @@ class LaporanFinanceController extends Controller
                 "portofolio_id" => $portofolio_id,
                 "program_id" => $program_id,
                 "cost_plan_id" => $cost_plan_id,
-                "citys" => $citys
+                "citys" => $citys,
             ]);
-        } elseif ($account->role == "GM"){
-             return view('manager.dashboard.laporanFinance', [
+        } elseif ($account->role == "GM") {
+            return view('manager.dashboard.laporanFinance', [
                 "title" => "Laporan Finance",
                 "laporan_finance" => LaporanFinance::all(),
                 "portofolio_id" => $portofolio_id,
                 "program_id" => $program_id,
                 "cost_plan_id" => $cost_plan_id,
-                "citys" => $citys
+                "citys" => $citys,
             ]);
         } else {
             return view('admin.dashboard.laporanFinance', [
@@ -71,12 +67,12 @@ class LaporanFinanceController extends Controller
                 "portofolio_id" => $portofolio_id,
                 "program_id" => $program_id,
                 "cost_plan_id" => $cost_plan_id,
-                "citys" => $citys
+                "citys" => $citys,
             ]);
         }
         //
     }
-    public function export() 
+    public function export()
     {
         return Excel::download(new UsersExportF, 'expor_finance.xlsx', ExcelExcel::XLSX);
     }
@@ -94,9 +90,26 @@ class LaporanFinanceController extends Controller
             "title" => "Laporan Finance",
             "addcity" => City::all(),
             "addportofolio" => Portofolio::all()->where("role", "=", "Finance"),
-            "addprogram" => Program::all()->where("role", "=", "Finance"),
+            // "addprogram" => $addprogram,
             "addcostplan" => CostPlan::all(),
         ]);
+    }
+
+    public function dependentDropdownProgram(Request $request){
+        $portofolio = $request->id_portofolio;
+
+        // $addprogram = Program::where('id_portofolio', $portofolio)->get();
+        $addprogram = DB::table('program')
+            ->where('id_portofolio', $portofolio)
+            ->get();
+        // dd($addprogram);
+
+        $output = '';
+        foreach($addprogram as $program){
+            $output .= '<option value="' .$program->id. '">' . $program->nama_program . '</option>';
+        }
+
+        return $output;
     }
 
     public function storeLaporanFinance(Request $request)
@@ -108,8 +121,6 @@ class LaporanFinanceController extends Controller
             'required' => 'Field wajib diisi',
             'unique' => 'Nilai sudah ada',
         ];
-        
-        
 
         $this->validate($request, [
             'pid_finance' => 'required|unique:laporan_finance',
@@ -126,9 +137,8 @@ class LaporanFinanceController extends Controller
             'id_cost_plan' => $request->id_cost_plan,
             'kota' => $account->kota,
             'created_at' => Carbon::now(),
-            'slug' => preg_replace('/[^A-Za-z0-9]+/', '-', preg_replace('/[^A-Za-z0-9\/-]+/', '', $request->pid_finance))
+            'slug' => preg_replace('/[^A-Za-z0-9]+/', '-', preg_replace('/[^A-Za-z0-9\/-]+/', '', $request->pid_finance)),
             // 'tanggal' => $request->tanggal . '-01'
-
 
         ]);
         return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menambahkan Laporan KKP");
@@ -161,7 +171,7 @@ class LaporanFinanceController extends Controller
         }
     }
 
-    public function editLaporanFinance($id)
+    public function editLaporanFinance(Request $request, $id)
     {
         return view('finance.reporting.formEdit', [
             "title" => "Laporan Finance",
@@ -204,7 +214,7 @@ class LaporanFinanceController extends Controller
     {
         $account = Auth::guard('account')->user();
         LaporanFinance::where('slug', $id)->update([
-            "editable" => 1
+            "editable" => 1,
         ]);
 
         if ($account->role == "Finance") {
@@ -218,7 +228,7 @@ class LaporanFinanceController extends Controller
     {
         $account = Auth::guard('account')->user();
         LaporanFinance::where('slug', $id)->update([
-            "editable" => 0
+            "editable" => 0,
         ]);
 
         if ($account->role == "Finance") {

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('kode_program');
             $table->string('role');
             $table->foreign('role')->references('nama_role')->on('role');
+            $table->unsignedBigInteger('id_portofolio')->nullable();
+            $table->foreign('id_portofolio')->references('id')->on('portofolio');
             // $table->unsignedBigInteger('role');
             // $table->string('role');
             // $table->foreign('role')->references('id')->on('role');
