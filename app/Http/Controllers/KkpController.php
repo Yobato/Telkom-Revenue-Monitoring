@@ -112,7 +112,7 @@ class KkpController extends Controller
                         'id_portofolio' => $kkpItem->id_portofolio,
                         'year' => $kkpItem->year,
                         'month' => $kkpItem->month,
-                        'gap' => $targetItem->total_nilai - $kkpItem->total_nilai,
+                        'gap' =>  $kkpItem->total_nilai - $targetItem->total_nilai,
                     ];
                     break;
                 }

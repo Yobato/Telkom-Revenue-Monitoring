@@ -164,7 +164,7 @@
                         <div class="row mb-lg-5">
                             <div class="col-lg-12" style="padding: 0 62px">
                                 <label for="keterangan" class="col-form-label">Keterangan:</label>
-                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
+                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2" placeholder="dd/mm/yyyy - keterangan">
                                     @error('keterangan')
                                     <div class="invalid-feedback">
                                         Keterangan wajib diisi!

@@ -162,12 +162,12 @@ class LaporanFinanceController extends Controller
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            return redirect()->intended(route('finance.dashboard.index'))->with("error", $e->getMessage());
+            return redirect()->intended(route('finance.dashboard.index'))->with("error", "Terjadi Error karena PID ini sedang digunakan");
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            return redirect()->intended(route('finance.dashboard.index'))->with("error", $e->getMessage());
+            return redirect()->intended(route('finance.dashboard.index'))->with("error", "Terjadi Error karena PID ini sedang digunakan");
         }
     }
 
