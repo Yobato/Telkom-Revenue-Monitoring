@@ -11,7 +11,7 @@
                     {{-- ADD LAPORAN  --}}
                     <div class="card-body d-flex justify-content-start" style="padding-bottom:0; margin-bottom:0;">
                         <div class="breadcrumb-item"><a href="{{ route('finance.dashboard.index') }}">KKP Operasional</a></div>
-                        <div class="breadcrumb-item active">Edit Laporan </div>
+                        <div class="breadcrumb-item active">Edit PID Finance </div>
                     </div>
                     <div class="card-header" style="padding-bottom:0;">
                         <div class="col-12">
@@ -19,7 +19,7 @@
                         </div>
                     </div>
 
-                    <p style="padding-left: 43px; padding-bottom:10px">Edit Laporan sesuai dengan ketentuan dan SOP yang berlaku di Telkom Akses. Anda dapat mengubah laporan ini nanti.</p>
+                    <p style="padding-left: 43px; padding-bottom:10px">Edit PID Finance sesuai dengan ketentuan dan SOP yang berlaku di Telkom Akses. Anda dapat mengubah PID Finance ini nanti.</p>
                 </div>
             </div>
         </div>
@@ -29,8 +29,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="px-5 pt-4" style="font-size: 140%"><b>Edit Laporan</b></div>
-                    <div class="px-5 pt-2 pb-0">Sesuaikan data yang dibutuhkan dalam membuat laporan</div>
+                    <div class="px-5 pt-4" style="font-size: 140%"><b>Edit PID Finance</b></div>
+                    <div class="px-5 pt-2 pb-0">Sesuaikan data yang dibutuhkan dalam mengubah PID Finance</div>
                     @foreach ($finance as $laporan)
                     <form action="{{route('finance.updateLaporanFinance', [$id])}}" method="POST">
                         @csrf
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end pr-5 mb-5">
-                            <button class="btn btn-primary" value="Simpan Data" type="submit">Buat Laporan</button>
+                            <button class="btn btn-primary" value="Simpan Data" type="submit">Ubah PID Finance</button>
                         </div>
                     </form>
                     @endforeach

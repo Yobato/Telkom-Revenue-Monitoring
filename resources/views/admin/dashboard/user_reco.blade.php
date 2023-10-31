@@ -13,17 +13,17 @@ Dashboard
   <div class="section-body">
         <section class="section">
           <div class="section-header">
-            <h1>User</h1>
+            <h1>User Laporan</h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item"><a href="#">Dropdown</a></div>
-              <div class="breadcrumb-item active">User</div>
+              <div class="breadcrumb-item active">User Laporan</div>
             </div>
           </div>
 
           <div class="section-body">
-            <h2 class="section-title">Tabel User</h2>
+            <h2 class="section-title">Tabel User Laporan</h2>
             <p class="section-lead">
-              Kelola User pada sistem. User disini akan memengaruhi interaksi Anda pada sistem seperti filter dan search!
+              Kelola User Laporan pada sistem. User Laporan disini akan memengaruhi interaksi Anda pada sistem seperti filter dan search!
             </p>
 
             @if(session()->has('success'))
@@ -51,7 +51,7 @@ Dashboard
                       <h4>Simple</h4>
                     </div>
                     <div class="col-4 d-flex justify-content-end">
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add User</button>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add User Laporan</button>
                     </div>
                   </div>
 
@@ -60,7 +60,7 @@ Dashboard
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title">Tambah User</h5>
+                          <h5 class="modal-title">Tambah User Laporan</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeUserReco1">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -69,9 +69,9 @@ Dashboard
                         @csrf
                           <div class="modal-body">
                             <div class="form-group">
-                              <label for="nama_user_reco" class="col-form-label">Nama User: </label>
+                              <label for="nama_user_reco" class="col-form-label">Nama User Laporan: </label>
                               <input type="text" id="nama_user_reco" name="nama_user_reco" class="required-input form-control">
-                              <span class="error-message" id="nama_user_reco_error" style="display: none; color: red;">Field Nama User harus diisi!</span>
+                              <span class="error-message" id="nama_user_reco_error" style="display: none; color: red;">Field Nama User Laporan harus diisi!</span>
                               {{-- @if($errors->has('nama_user_reco'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_user_reco') }}</span>
                               @endif --}}
@@ -111,7 +111,7 @@ Dashboard
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title">Ubah User</h5>
+                                    <h5 class="modal-title">Ubah User Laporan</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeUserReco1">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -120,7 +120,7 @@ Dashboard
                                   @csrf
                                     <div class="modal-body">
                                       <div class="form-group">
-                                        <label for="nama_update_user_reco" class="col-form-label">Nama User: </label>
+                                        <label for="nama_update_user_reco" class="col-form-label">Nama User Laporan: </label>
                                         <input type="text" id="nama_update_user_reco" name="nama_user_reco" class="form-control" value="{{ $admins->nama_user_reco }}" required>
                                         <!-- <span id="nama_user_reco_error" class="error-message">Field Nama User harus diisi!</span> -->
                                       </div>
@@ -145,14 +145,14 @@ Dashboard
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Hapus User</h5>
+                                      <h5 class="modal-title">Hapus User Laporan</h5>
                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeUserReco1">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
                                     @csrf
                                       <div class="modal-body">
-                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus User yang dipilih.
+                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus User Laporan yang dipilih.
                                       </div>
                                       <div class="modal-footer bg-whitesmoke br">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeUserReco2">Cancel</button>

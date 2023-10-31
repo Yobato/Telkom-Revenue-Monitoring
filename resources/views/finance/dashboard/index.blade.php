@@ -38,7 +38,7 @@
                             <div class="col-12 float-end">
                                 <a class="btn btn-outline-primary mr-3" href="{{ route('finance.dashboard.export') }}">Export</a>
                                 <a href="{{ route('finance.reporting.form') }}" class="btn btn-primary mb-3 mt-3 shadow rounded">
-                                    <i class="bi bi-file-earmark-plus" style="padding-right: 10px"></i>Buat Laporan
+                                    <i class="bi bi-file-earmark-plus" style="padding-right: 10px"></i>Buat PID Finance
                                 </a>
                             </div>
                         </div>
@@ -78,14 +78,14 @@
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Hapus Laporan Finance</h5>
+                                                        <h5 class="modal-title">Hapus PID Finance</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanFinance1">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     @csrf
                                                     <div class="modal-body">
-                                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan Finance yang dipilih.
+                                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus PID Finance yang dipilih.
                                                     </div>
                                                     <div class="modal-footer bg-whitesmoke br">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanFinance2">Cancel</button>

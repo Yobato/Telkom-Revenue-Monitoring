@@ -75,7 +75,7 @@
                     </li>
                     <li class="{{ $title==='User Reco' ? ' active' : '' }}">
                         <a class="nav-link"
-                            href="{{ route('admin.dashboard.user_reco')}}">User</a>
+                            href="{{ route('admin.dashboard.user_reco')}}">User Laporan</a>
                     </li>
                 </ul>
             </li>

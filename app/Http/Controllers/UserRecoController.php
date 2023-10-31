@@ -24,7 +24,7 @@ class UserRecoController extends Controller
         UserReco::insert([
             "nama_user_reco" => $request->nama_user_reco,
         ]);
-        return redirect()->intended(route('admin.dashboard.user_reco'))->with("success", "Berhasil menambahkan Cost Plan");
+        return redirect()->intended(route('admin.dashboard.user_reco'))->with("success", "Berhasil menambahkan User Laporan");
     }
 
     public function deleteUserReco($id)
@@ -34,12 +34,12 @@ class UserRecoController extends Controller
 
             $user_reco = UserReco::find($id);
 
-            // Jika tidak ada pengecualian, hapus Cost Plan
+            // Jika tidak ada pengecualian, hapus User Laporan
             $user_reco->delete();
 
             DB::commit();
 
-            return redirect()->intended(route('admin.dashboard.user_reco'))->with("success", "Berhasil menghapus Cost Plan");
+            return redirect()->intended(route('admin.dashboard.user_reco'))->with("success", "Berhasil menghapus User Laporan");
         } catch (QueryException $e) {
             DB::rollback();
 
@@ -59,6 +59,6 @@ class UserRecoController extends Controller
             "nama_user_reco" => $request->nama_user_reco,
         ]);
 
-        return redirect()->intended(route('admin.dashboard.user_reco'))->with("success", "Berhasil mengubah Cost Plan");
+        return redirect()->intended(route('admin.dashboard.user_reco'))->with("success", "Berhasil mengubah User Laporan");
     }
 }

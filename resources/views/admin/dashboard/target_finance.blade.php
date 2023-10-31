@@ -13,17 +13,17 @@ Dashboard
     <div class="section-body">
         <section class="section">
             <div class="section-header">
-                <h1>Target KKP</h1>
+                <h1>Target Finance</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item"><a href="#">Dropdown</a></div>
-                    <div class="breadcrumb-item active">Target KKP</div>
+                    <div class="breadcrumb-item active">Target Finance</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Tabel Target KKP</h2>
+                <h2 class="section-title">Tabel Target Finance</h2>
                 <p class="section-lead">
-                    Kelola Target KKP. Target KKP disini akan mempengaruhi capaian bulanan Dashboard KKP Operasional
+                    Kelola Target Finance. Target Finance disini akan mempengaruhi capaian bulanan Dashboard KKP Operasional
                 </p>
 
                 @if(session()->has('success'))
@@ -48,10 +48,10 @@ Dashboard
                             <!-- ADD Target -->
                             <div class="card-header">
                                 <div class="col-8">
-                                    <h4>Target KKP</h4>
+                                    <h4>Target Finance</h4>
                                 </div>
                                 <div class="col-4 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Target KKP</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Target Finance</button>
                                 </div>
                             </div>
 
@@ -60,7 +60,7 @@ Dashboard
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Tambah Target KKP</h5>
+                                            <h5 class="modal-title">Tambah Target Finance</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeTarget1">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>

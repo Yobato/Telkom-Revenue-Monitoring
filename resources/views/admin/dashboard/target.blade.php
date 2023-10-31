@@ -13,17 +13,17 @@ Dashboard
     <div class="section-body">
         <section class="section">
             <div class="section-header">
-                <h1>Target</h1>
+                <h1>Target Commerce</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item"><a href="#">Dropdown</a></div>
-                    <div class="breadcrumb-item active">Target</div>
+                    <div class="breadcrumb-item active">Target Commerce</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Tabel Target</h2>
+                <h2 class="section-title">Tabel Target Commerce</h2>
                 <p class="section-lead">
-                    Kelola Target. Target disini akan mempengaruhi capaian bulanan Dashboard COGS, Revenue dan GPM
+                    Kelola Target Commerce. Target Commerce disini akan mempengaruhi capaian bulanan Dashboard COGS, Revenue dan GPM
                 </p>
 
                 @if(session()->has('success'))
@@ -48,10 +48,10 @@ Dashboard
                             <!-- ADD Target -->
                             <div class="card-header">
                                 <div class="col-8">
-                                    <h4>Target</h4>
+                                    <h4>Target Commerce</h4>
                                 </div>
                                 <div class="col-4 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Target</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Target Commerce</button>
                                 </div>
                             </div>
 
@@ -60,7 +60,7 @@ Dashboard
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Tambah Target</h5>
+                                            <h5 class="modal-title">Tambah Target Commerce</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeTarget1">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -173,14 +173,14 @@ Dashboard
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Hapus Target</h5>
+                                                                <h5 class="modal-title">Hapus Target Commerce</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeTarget1">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             @csrf
                                                             <div class="modal-body">
-                                                                Pilih "Delete" dibawah ini jika Anda yakin menghapus Target yang dipilih.
+                                                                Pilih "Delete" dibawah ini jika Anda yakin menghapus Target Commerce yang dipilih.
                                                             </div>
                                                             <div class="modal-footer bg-whitesmoke br">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeTarget2">Cancel</button>
@@ -196,7 +196,7 @@ Dashboard
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Ubah Target</h5>
+                                                                <h5 class="modal-title">Ubah Target Commerce</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeTarget1">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>

@@ -121,7 +121,7 @@ class LaporanNotaController extends Controller
             'tanggal' => $request->tanggal . '-01'
 
         ]);
-        return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil menambahkan Laporan KKP");
+        return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil menambahkan Laporan Nota");
     }
 
     public function deleteLaporanNota($id)
@@ -137,7 +137,7 @@ class LaporanNotaController extends Controller
 
             DB::commit();
 
-            return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil menghapus Laporan Finance");
+            return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil menghapus Laporan Nota");
         } catch (QueryException $e) {
             DB::rollback();
 
@@ -196,7 +196,7 @@ class LaporanNotaController extends Controller
             'kota' => $account->kota,
             'tanggal' => $request->tanggal . '-01'
         ]);
-        return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil mengubah Laporan Finance");
+        return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil mengubah Laporan Nota");
     }
 
     public function Editable($id)
@@ -207,9 +207,9 @@ class LaporanNotaController extends Controller
         ]);
 
         if ($account->role == "Finance") {
-            return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil memberi akses edit pada Laporan Finance");
+            return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil memberi akses edit pada Laporan Nota");
         } else if ($account->role == "Admin") {
-            return redirect()->intended(route('admin.dashboard.nota'))->with("success", "Berhasil memberi akses edit pada Laporan Finance");
+            return redirect()->intended(route('admin.dashboard.nota'))->with("success", "Berhasil memberi akses edit pada Laporan Nota");
         }
     }
 
@@ -221,9 +221,9 @@ class LaporanNotaController extends Controller
         ]);
 
         if ($account->role == "Finance") {
-            return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil menghapus akses edit pada Laporan Finance");
+            return redirect()->intended(route('nota.dashboard.index'))->with("success", "Berhasil menghapus akses edit pada Laporan Nota");
         } else if ($account->role == "Admin") {
-            return redirect()->intended(route('admin.dashboard.nota'))->with("success", "Berhasil menghapus akses edit pada Laporan Finance");
+            return redirect()->intended(route('admin.dashboard.nota'))->with("success", "Berhasil menghapus akses edit pada Laporan Nota");
         }
     }
 }

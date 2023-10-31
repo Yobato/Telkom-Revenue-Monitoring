@@ -141,7 +141,7 @@ class LaporanFinanceController extends Controller
             // 'tanggal' => $request->tanggal . '-01'
 
         ]);
-        return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menambahkan Laporan KKP");
+        return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menambahkan PID Finance");
     }
 
     public function deleteLaporanFinance($id)
@@ -157,7 +157,7 @@ class LaporanFinanceController extends Controller
 
             DB::commit();
 
-            return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menghapus Laporan Finance");
+            return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menghapus PID Finance");
         } catch (QueryException $e) {
             DB::rollback();
 
@@ -207,7 +207,7 @@ class LaporanFinanceController extends Controller
             // 'tanggal' => $request->tanggal . '-01'
 
         ]);
-        return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil mengubah Laporan Finance");
+        return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil mengubah PID Finance");
     }
 
     public function Editable($id)
@@ -218,9 +218,9 @@ class LaporanFinanceController extends Controller
         ]);
 
         if ($account->role == "Finance") {
-            return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil memberi akses edit pada Laporan Finance");
+            return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil memberi akses edit pada PID Finance");
         } else if ($account->role == "Admin") {
-            return redirect()->intended(route('admin.dashboard.finance'))->with("success", "Berhasil memberi akses edit pada Laporan Finance");
+            return redirect()->intended(route('admin.dashboard.finance'))->with("success", "Berhasil memberi akses edit pada PID Finance");
         }
     }
 
@@ -232,9 +232,9 @@ class LaporanFinanceController extends Controller
         ]);
 
         if ($account->role == "Finance") {
-            return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menghapus akses edit pada Laporan Finance");
+            return redirect()->intended(route('finance.dashboard.index'))->with("success", "Berhasil menghapus akses edit pada PID Finance");
         } else if ($account->role == "Admin") {
-            return redirect()->intended(route('admin.dashboard.finance'))->with("success", "Berhasil menghapus akses edit pada Laporan Finance");
+            return redirect()->intended(route('admin.dashboard.finance'))->with("success", "Berhasil menghapus akses edit pada PID Finance");
         }
     }
 }

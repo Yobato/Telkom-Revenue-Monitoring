@@ -146,7 +146,7 @@ class LaporanCommerceController extends Controller
             'tanggal' => $request->tanggal . '-01',
             'slug' => preg_replace('/[^A-Za-z0-9]+/', '-', preg_replace('/[^A-Za-z0-9\/-]+/', '', $request->id_commerce))
         ]);
-        return redirect()->intended(route('commerce.dashboard.index'))->with("success", "Berhasil menambahkan Laporan COGS");
+        return redirect()->intended(route('commerce.dashboard.index'))->with("success", "Berhasil menambahkan Laporan Commerce");
     }
 
 
