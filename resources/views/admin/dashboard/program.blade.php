@@ -79,13 +79,32 @@ Dashboard
                               <span class="error-message" id="error_kode_program" style="display: none; color: red;">Field Kode Program harus diisi!</span>
 
                               <label for="role" class="col-form-label">Role: </label>
-                              <select class="required-input role form-control" name="role">
+                              <select class="required-input role form-control" id="roless" name="role" onchange="getPorto()">
                                 <option value="" selected>-- Pilih Role --</option>
                                 @foreach ($roles as $role)
                                     <option value=<?= $role->nama_role ?>>{{ $role->nama_role }}</option>
                                 @endforeach
                               </select>
                               <span class="error-message" id="role_error" style="display: none; color: red;">Field Role harus diisi!</span>
+
+                              <label for="ketentuan" class="col-form-label">Apakah program harus sesuai portofolio: </label>
+                              <select id="ketentuan" class="ketentuan form-control @error('ketentuan') is-invalid @enderror mb-2" name="ketentuan">
+                                <option value="" selected>-- Pilih ketentuan program --</option>
+                                <option value="Ya" @if(old('ketentuan')=='Ya' ) selected @endif>Ya</option>
+                                <option value="Tidak" @if(old('ketentuan')=='Tidak' ) selected @endif>Tidak</option>
+                              </select>
+                              <span class="error-message" id="ketentuan_error" style="display: none; color: red;">Field ini harus diisi!</span>
+
+                              <label for="portofolio" class="col-form-label">Portofolio: </label>
+                              <select id="id_portofolios" class="id_portofolio form-control" name="id_portofolio" disabled>
+                                <option value="" selected>-- Pilih Portofolio --</option>
+                                {{-- @foreach ($portofolios as $portofolio)
+                                <option value=
+                                <.?=$portofolio->id ?>
+                                >{{ $portofolio->nama_portofolio }}</option>
+                                @endforeach --}}
+                              </select>
+
                             </div>
                           </div>
                           <div class="modal-footer bg-whitesmoke br">
@@ -105,6 +124,7 @@ Dashboard
                           <th scope="col">Nama Program</th>
                           <th scope="col">Kode Program</th>
                           <th scope="col">Role</th>
+                          <th scope="col">Portofolio</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -116,6 +136,7 @@ Dashboard
                           <td>{{ $admins ->nama_program}}</td>
                           <td>{{ $admins ->kode_program}}</td>
                           <td>{{ $admins ->role}}</td>
+                          <td>{{ $portofolio_id[$admins ->id_portofolio] ?? 'Portofolio tidak dipilih'}}</td>
                           <td>
                             {{-- UPDATE PROGRAM --}}
                             <a class="btn btn-sm btn-success btn-sm rounded-0" data-toggle="modal" data-target="#editProgramModal-{{$admins->id}}" style="color: white" 
@@ -140,7 +161,7 @@ Dashboard
                                         <span id="nama_program_update_error" style="display: none; color: red;">Field Nama harus diisi!</span>
   
                                         <label for="kode" class="col-form-label">Kode Program: </label>
-                                        <input type="text" id="kode_program_update" name="kode_program" class="required-input form-control" value="{{ $admins->kode_program }}" required>
+                                        <input type="text" id="kode_program_update" name="kode_program" class="form-control" value="{{ $admins->kode_program }}" required>
                                         <span class="error-message" id="error_kode_program_update" style="display: none; color: red;">Field Kode Program harus diisi!</span>
   
                                         <label for="role" class="col-form-label">Role: </label>
@@ -153,6 +174,20 @@ Dashboard
                                           @endforeach
                                         </select>
                                         <span id="role_error" style="display: none; color: red;">Field Role harus diisi!</span>
+                                        
+                                        <label for="id_portofolio_edit" class="col-form-label">Portofolio: </label>
+                                        <select class="id_portofolio_edit form-control" name="id_portofolio" id="id_portofolio_edit">
+                                          <option value="" {{ $admins->id_portofolio == "" ? 'selected' : '' }}>-- Pilih Portofolio --</option>
+                                          @foreach ($portofolios as $portofolio)
+                                            @if ($admins->id_portofolio !== "")
+                                            <option value="{{ $portofolio->id }}" {{ $admins->id_portofolio == $portofolio->id ? 'selected' : '' }}>
+                                              {{ $portofolio->nama_portofolio }}
+                                            </option>
+                                            @endif
+                                          @endforeach
+                                        </select>
+                                        <p style="font-size: 8pt">**tidak wajib dipilih</p>
+
                                       </div>
                                     </div>
                                     <div class="modal-footer bg-whitesmoke br">
@@ -226,5 +261,56 @@ $(document).ready(function() {
         ]
     });
 });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Mendapatkan elemen dropdown ketentuan dan field persentase
+    var ketentuanDropdown = document.getElementById('ketentuan');
+    var persentaseInput = document.getElementById('id_portofolios');
+    let nilaiAwalInput = document.getElementById('nilai_awal');
+    let nilaiAkhirInput = document.getElementById('nilai_akhir');
+    
+    // Menambahkan event listener untuk mengikuti perubahan pada dropdown ketentuan
+    ketentuanDropdown.addEventListener('change', function () {
+      if (ketentuanDropdown.value === 'Ya') {
+        // Jika dipilih "Ya", aktifkan field persentase dan tambahkan event listener
+        persentaseInput.removeAttribute('disabled');
+      } else {
+        // Jika dipilih "Tidak" atau opsi kosong, nonaktifkan field persentase dan hapus event listener
+        persentaseInput.setAttribute('disabled', 'disabled');
+        persentaseInput.value = ''; // Menghapus nilai input persentase
+        nilaiAkhirInput.value = nilaiAwalInput.value;
+      }
+    });
+  });
+</script>
+
+<script>
+  function getPorto() {
+        let roles = document.getElementById("roless").value;
+
+        if (roles != "") {
+            $.ajax({
+                type: "POST", // Sesuaikan dengan metode HTTP yang digunakan oleh rute Anda
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                url: '{{ route("admin.getPorto") }}', // Ganti dengan rute yang sesuai untuk mendapatkan program berdasarkan portofolio
+                data: {
+                    role: roles
+                },
+                success: function (response) {
+                    // Mengisi ulang dropdown Program dengan data yang diterima dari server
+                    let portofolioSelect = document.getElementById("id_portofolios");
+                    portofolioSelect.innerHTML = "<option value=''>-- Pilih Nama Portofolio --</option>";
+                    portofolioSelect.innerHTML += response;
+                    console.log(portofolioSelect)
+                },
+            });
+        }
+    }
 </script>
 @endpush

@@ -116,6 +116,9 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/program/add', [App\Http\Controllers\ProgramController::class, 'storeProgram'])->name('admin.storeProgram');
         Route::get('/program/deleteProgram/{id}', [App\Http\Controllers\ProgramController::class, 'deleteProgram'])->name('admin.deleteProgram');
         Route::post('/program/update/{id}', [App\Http\Controllers\ProgramController::class, 'updateProgram'])->name('admin.updateProgram');
+        Route::post('/program/getPortofolio', [App\Http\Controllers\ProgramController::class, 'dependentDropdownRole'])->name('admin.getPorto');
+    
+
 
         Route::get('/costplan', [App\Http\Controllers\CostPlanController::class, 'index'])->name('admin.dashboard.cost_plan');
         Route::post('/costplan/add', [App\Http\Controllers\CostPlanController::class, 'storeCostPlan'])->name('admin.storeCostPlan');
