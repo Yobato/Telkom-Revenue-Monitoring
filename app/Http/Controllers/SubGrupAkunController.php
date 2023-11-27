@@ -6,6 +6,7 @@ use App\Models\SubGrupAkun;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Validator;
 
 class SubGrupAkunController extends Controller
 {
@@ -21,6 +22,12 @@ class SubGrupAkunController extends Controller
 
     public function storeSub(Request $request)
     {
+        $validator = Validator::make($request->all(), SubGrupAkun::$rules, SubGrupAkun::$messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
         SubGrupAkun::insert([
             "nama_sub" => $request->nama_sub,
         ]);
@@ -55,6 +62,21 @@ class SubGrupAkunController extends Controller
 
     public function updateSub(Request $request, $id)
     {
+        // Ambil aturan validasi dari model
+        $rules = SubGrupAkun::$rules;
+        $messages = SubGrupAkun::$messages;
+
+        // Modifikasi aturan validasi untuk keperluan update
+        $rules['nama_sub'] = 'unique:sub_grup_akun,nama_sub,'.$id.',id';
+
+        // Buat validator dengan aturan validasi yang telah dimodifikasi
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        // Lakukan validasi
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
         SubGrupAkun::where('id', $id)->update([
             "nama_sub" => $request->nama_sub,
         ]);

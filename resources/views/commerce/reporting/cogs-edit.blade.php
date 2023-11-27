@@ -1,4 +1,4 @@
-@extends('layouts.admin-master')
+@extends('layouts.commerce-master')
 
 @section('content')
 <section class="section">

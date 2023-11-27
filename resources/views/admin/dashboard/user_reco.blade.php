@@ -33,6 +33,15 @@ Dashboard
             </div>
             @endif
 
+            @error('nama_user_reco')
+            <div class="alert alert-danger alert-dismissible fade show">
+              {{ $message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            @enderror
+
             @if(session()->has('error'))
             <div class="alert alert-danger alert-dismissible fade show">
                 {{ session('error') }}

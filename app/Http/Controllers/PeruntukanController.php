@@ -6,6 +6,7 @@ use App\Models\Peruntukan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Validator;
 
 class PeruntukanController extends Controller
 {
@@ -21,6 +22,12 @@ class PeruntukanController extends Controller
 
     public function storePeruntukan(Request $request)
     {
+        $validator = Validator::make($request->all(), Peruntukan::$rules, Peruntukan::$messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
         Peruntukan::insert([
             "nama_peruntukan" => $request->nama_peruntukan,
         ]);
@@ -55,6 +62,21 @@ class PeruntukanController extends Controller
 
     public function updatePeruntukan(Request $request, $id)
     {
+        // Ambil aturan validasi dari model
+        $rules = Peruntukan::$rules;
+        $messages = Peruntukan::$messages;
+
+        // Modifikasi aturan validasi untuk keperluan update
+        $rules['nama_peruntukan'] = 'unique:peruntukan,nama_peruntukan,'.$id.',id';
+
+        // Buat validator dengan aturan validasi yang telah dimodifikasi
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        // Lakukan validasi
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
         Peruntukan::where('id', $id)->update([
             "nama_peruntukan" => $request->nama_peruntukan,
         ]);

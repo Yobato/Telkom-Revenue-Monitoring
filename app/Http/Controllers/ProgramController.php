@@ -6,6 +6,8 @@ use App\Models\Program;
 use App\Models\Portofolio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ProgramController extends Controller
 {
@@ -55,6 +57,23 @@ class ProgramController extends Controller
 
     public function storeProgram(Request $request)
     {
+        // Lakukan validasi menggunakan Validator di dalam kontroller
+        $validator = Validator::make($request->all(), [
+            'nama_program' => [
+                Rule::unique('program')->where(function ($query) use ($request) {
+                    return $query->where('nama_program', $request->nama_program)
+                                ->where('role', $request->role);
+                }),
+            ],
+        ], [
+            'nama_program.unique' => 'Kombinasi Nama Program dan Role sudah ada dalam database.',
+        ]);
+
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }   
+        
         Program::insert([
             "nama_program" => $request->nama_program,
             "kode_program" => $request->kode_program,
@@ -90,15 +109,44 @@ class ProgramController extends Controller
         }
     }
 
+    // public function updateProgram(Request $request, $id)
+    // {
+    //     Program::where('id', $id)->update([
+    //         "nama_program" => $request->nama_program,
+    //         "kode_program" => $request->kode_program,
+    //         "role" => $request->role,
+    //         "id_portofolio" => $request->id_portofolio,
+    //     ]);
+
+    //     return redirect()->intended(route('admin.dashboard.program'))->with("success", "Berhasil mengubah Program");
+    // }
+
     public function updateProgram(Request $request, $id)
     {
-        Program::where('id', $id)->update([
-            "nama_program" => $request->nama_program,
-            "kode_program" => $request->kode_program,
-            "role" => $request->role,
-            "id_portofolio" => $request->id_portofolio,
+        $validator = Validator::make($request->all(), [
+            'nama_program' => [
+                Rule::unique('program')->where(function ($query) use ($request, $id) {
+                    return $query->where('nama_program', $request->nama_program)
+                        ->where('role', $request->role)
+                        ->where('id', '!=', $id); // Tambahkan kondisi untuk memeriksa id
+                }),
+            ],
+            // ... definisi validasi untuk field lainnya
         ]);
 
-        return redirect()->intended(route('admin.dashboard.program'))->with("success", "Berhasil mengubah Program");
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Proses update data ke dalam database
+        $program = Program::find($id);
+        $program->nama_program = $request->nama_program;
+        $program->kode_program = $request->kode_program;
+        $program->role = $request->role;
+        $program->id_portofolio = $request->id_portofolio;
+        $program->save();
+
+        return redirect()->intended(route('admin.dashboard.program'))->with("success", "Berhasil mengupdate Program");
     }
+
 }

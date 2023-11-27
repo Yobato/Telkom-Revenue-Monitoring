@@ -14,4 +14,12 @@ class Peruntukan extends Model
     protected $fillable = [
         'nama_peruntukan'
     ];
+ 
+    public static $rules = [
+        'nama_peruntukan' => 'unique:peruntukan',
+    ];
+
+    public static $messages = [
+        'nama_peruntukan.unique' => 'Nama Peruntukan sudah ada dalam database.',
+    ];
 }

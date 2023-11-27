@@ -6,6 +6,7 @@ use App\Models\UserReco;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class UserRecoController extends Controller
 {
@@ -21,6 +22,12 @@ class UserRecoController extends Controller
 
     public function storeUserReco(Request $request)
     {
+        $validator = Validator::make($request->all(), UserReco::$rules, UserReco::$messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
         UserReco::insert([
             "nama_user_reco" => $request->nama_user_reco,
         ]);
@@ -55,6 +62,21 @@ class UserRecoController extends Controller
 
     public function updateUserReco(Request $request, $id)
     {
+        // Ambil aturan validasi dari model
+        $rules = UserReco::$rules;
+        $messages = UserReco::$messages;
+
+        // Modifikasi aturan validasi untuk keperluan update
+        $rules['nama_user_reco'] = 'unique:user_reco,nama_user_reco,'.$id.',id';
+
+        // Buat validator dengan aturan validasi yang telah dimodifikasi
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        // Lakukan validasi
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
         UserReco::where('id', $id)->update([
             "nama_user_reco" => $request->nama_user_reco,
         ]);

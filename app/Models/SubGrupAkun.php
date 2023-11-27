@@ -14,4 +14,12 @@ class SubGrupAkun extends Model
     protected $fillable = [
         'nama_sub'
     ];
+    
+    public static $rules = [
+        'nama_sub' => 'unique:sub_grup_akun',
+    ];
+
+    public static $messages = [
+        'nama_sub.unique' => 'Nama Sub Grup Akun sudah ada dalam database.',
+    ];
 }

@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="index.html" class="logo d-flex align-items-center justify-content-center">
                 <img src="{{ asset('favicon.ico') }}" alt="">
                 <span class="d-none d-lg-block">Telkom Akses</span>
             </a>

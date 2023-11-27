@@ -14,4 +14,12 @@ class Portofolio extends Model
     protected $fillable = [
         'nama_portofolio', 'role'
     ];
+
+    public static $rules = [
+        'nama_portofolio' => 'unique_with_role:portofolio',
+    ];
+
+    public static $messages = [
+        'nama_portofolio.unique_with_role' => 'Kombinasi Nama Portofolio dan Role sudah ada dalam database.',
+    ];
 }

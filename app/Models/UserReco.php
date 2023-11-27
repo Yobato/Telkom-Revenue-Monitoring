@@ -14,4 +14,12 @@ class UserReco extends Model
     protected $fillable = [
         'nama_user_reco'
     ];
+
+    public static $rules = [
+        'nama_user_reco' => 'unique:user_reco',
+    ];
+
+    public static $messages = [
+        'nama_user_reco.unique' => 'Nama User Reco sudah ada dalam database.',
+    ];
 }
