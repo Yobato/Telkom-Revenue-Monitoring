@@ -13,7 +13,12 @@ class CogsController extends Controller
     public function index()
     {
         $account = Auth::guard('account')->user();
-        $tahunData = TargetCommerce::distinct()->where('jenis_laporan', '=', 'COGS')->get(['tahun']);
+        // $tahunData = TargetCommerce::distinct()->where('jenis_laporan', '=', 'COGS')->get(['tahun']);
+        $tahunData = DB::table('laporan_commerce')
+                    ->select(DB::raw('YEAR(tanggal) as tahun'))
+                    ->where('jenis_laporan', '=', 'COGS')
+                    ->distinct()
+                    ->get();
         // $filterPortofolio = TargetCommerce::distinct()->where('jenis_laporan', '=', 'COGS')->get(['portofolio']);
         $filterPortofolio = DB::table('laporan_commerce')
             ->join('portofolio', 'laporan_commerce.id_portofolio', '=', 'portofolio.id')
@@ -109,7 +114,7 @@ class CogsController extends Controller
                         'id_portofolio' => $cogsItem->id_portofolio,
                         'year' => $cogsItem->year,
                         'month' => $cogsItem->month,
-                        'gap' => $targetItem->total_nilai - $cogsItem->total_nilai,
+                        'gap' =>  $cogsItem->total_nilai - $targetItem->total_nilai,
                     ];
                     break;
                 }
@@ -213,7 +218,7 @@ class CogsController extends Controller
                         'portofolio' => $portofolioItem->id_portofolio,
                         'year' => $portofolioItem->year,
                         'month' => $portofolioItem->month,
-                        'gap' => $targetItem->total_nilai - $portofolioItem->total_nilai,
+                        'gap' =>  $portofolioItem->total_nilai - $targetItem->total_nilai,
                     ];
                     break;
                 }

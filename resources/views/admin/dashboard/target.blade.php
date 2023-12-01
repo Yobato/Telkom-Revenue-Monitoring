@@ -125,9 +125,9 @@ Dashboard
                                                 <div class="form-group">
                                                     <div class="form-group">
                                                         <label for="tahun" class="col-form-label">Tahun: </label>
-                                                        <input type="text" id="tahun" class="required-input form-control" name="tahun" required />
+                                                        <input type="text" id="tahun" class="required-input form-control" name="tahun" />
                                                         {{-- <input type="text" id="tahun" name="tahun" class="form-control" value="{{ old('tahun')}}" required> --}}
-                                                        <span class="error-message" id="tahun_error" style="display: none; color: red;">Field Jumlah harus diisi!</span>
+                                                        <span class="error-message" id="tahun_error" style="display: none; color: red;">Field Tahun harus diisi!</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -221,7 +221,7 @@ Dashboard
                                                                             <select class="form-control" name="jenis_laporan" id="jenis_laporan" required>
                                                                                 <option value="COGS" {{ $admins->jenis_laporan === 'COGS' ? 'selected' : '' }}>COGS</option>
                                                                                 <option value="REVENUE" {{ $admins->jenis_laporan === 'REVENUE' ? 'selected' : '' }}>REVENUE</option>
-                                                                                <option value="KKP" {{ $admins->jenis_laporan === 'KKP' ? 'selected' : '' }}>KKP</option>
+                                                                                {{-- <option value="KKP" {{ $admins->jenis_laporan === 'KKP' ? 'selected' : '' }}>KKP</option> --}}
                                                                             </select>
                                                                         </div>
                                                                         <div class="form-group">

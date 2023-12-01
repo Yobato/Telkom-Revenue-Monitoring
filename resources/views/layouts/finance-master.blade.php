@@ -74,7 +74,8 @@
   <script>
     $(document).ready(function() {
         $('#table-2').dataTable({
-          responsive: true
+          // responsive: true
+          scrollX: true
         });
     });
   </script>

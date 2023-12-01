@@ -14,7 +14,12 @@ class RevenueController extends Controller
     public function index()
     {
         $account = Auth::guard('account')->user();
-        $tahunData = TargetCommerce::distinct()->where('jenis_laporan', '=', 'REVENUE')->get(['tahun']);
+        // $tahunData = TargetCommerce::distinct()->where('jenis_laporan', '=', 'REVENUE')->get(['tahun']);
+        $tahunData = DB::table('laporan_commerce')
+                    ->select(DB::raw('YEAR(tanggal) as tahun'))
+                    ->where('jenis_laporan', '=', 'REVENUE')
+                    ->distinct()
+                    ->get();
         $filterPortofolio = DB::table('laporan_commerce')
             ->join('portofolio', 'laporan_commerce.id_portofolio', '=', 'portofolio.id')
             ->where('laporan_commerce.jenis_laporan', 'REVENUE')
@@ -105,7 +110,7 @@ class RevenueController extends Controller
                         'id_portofolio' => $revenueItem->id_portofolio,
                         'year' => $revenueItem->year,
                         'month' => $revenueItem->month,
-                        'gap' => $targetItem->total_nilai - $revenueItem->total_nilai,
+                        'gap' =>  $revenueItem->total_nilai - $targetItem->total_nilai,
                     ];
                     break;
                 }
@@ -216,7 +221,7 @@ class RevenueController extends Controller
                         'portofolio' => $portofolioItem->id_portofolio,
                         'year' => $portofolioItem->year,
                         'month' => $portofolioItem->month,
-                        'gap' => $targetItem->total_nilai - $portofolioItem->total_nilai,
+                        'gap' =>  $portofolioItem->total_nilai - $targetItem->total_nilai,
                     ];
                     break;
                 }

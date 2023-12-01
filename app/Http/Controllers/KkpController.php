@@ -14,7 +14,12 @@ class KkpController extends Controller
     {
 
         //======== CHART REALISASI KKP OPERASIONAL ==========
-        $tahunData = TargetFinance::distinct()->get(['tahun']);
+        // $tahunData = TargetFinance::distinct()->get(['tahun']);
+        $tahunData = DB::table('laporan_nota')
+                    ->select(DB::raw('YEAR(tanggal) as tahun'))
+                    ->distinct()
+                    ->get();  
+
         $filterPortofolio = DB::table('laporan_finance')
             ->join('portofolio', 'laporan_finance.id_portofolio', '=', 'portofolio.id')
             ->select('portofolio.id', 'portofolio.nama_portofolio')

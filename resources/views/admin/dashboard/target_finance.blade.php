@@ -115,9 +115,9 @@ Dashboard
                                                 <div class="form-group">
                                                     <div class="form-group">
                                                         <label for="tahun" class="col-form-label">Tahun: </label>
-                                                        <input type="text" id="tahun" class="required-input form-control" name="tahun" required />
+                                                        <input type="text" id="tahun" class="required-input form-control" name="tahun" />
                                                         {{-- <input type="text" id="tahun" name="tahun" class="form-control" value="{{ old('tahun')}}" required> --}}
-                                                        <span class="error-message" id="tahun_error" style="display: none; color: red;">Field Jumlah harus diisi!</span>
+                                                        <span class="error-message" id="tahun_error" style="display: none; color: red;">Field Tahun harus diisi!</span>
                                                     </div>
                                                 </div>
                                             </div>
