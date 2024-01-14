@@ -82,11 +82,13 @@
       });
     });
     $(document).ready(function() {
-        $('#table-4').dataTable();
+        $('#table-4').dataTable({
+          scrollX: true
+        });
     });
   </script>
   @stack('scripts')
 </body>
 <script src="{{ asset('assets/js/modals.js') }}"></script>
-
+<script src="{{ asset('assets/js/currency.js') }}"></script>
 </html>

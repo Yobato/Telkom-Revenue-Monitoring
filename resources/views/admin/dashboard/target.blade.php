@@ -160,7 +160,7 @@ Dashboard
                                             <th scope="row">{{$i++}}</th>
                                             <td>{{ $admins ->jenis_laporan}}</td>
                                             <td>{{ $portofolio_id[$admins ->id_portofolio]}}</td>
-                                            <td>{{ $admins ->jumlah}}</td>
+                                            <td class="currency-field">{{ $admins ->jumlah}}</td>
                                             <td>{{ $admins ->bulan}}</td>
                                             <td>{{ $admins ->tahun}}</td>
                                             <td>

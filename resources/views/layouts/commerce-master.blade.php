@@ -76,5 +76,6 @@
     });
   </script>
 </body>
+<script src="{{ asset('assets/js/currency.js') }}"></script>
 
 </html>

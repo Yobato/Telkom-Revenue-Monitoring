@@ -148,7 +148,7 @@ Dashboard
                                         <tr>
                                             <th scope="row">{{$i++}}</th>
                                             <td>{{ $portofolio_id[$admins ->id_portofolio]}}</td>
-                                            <td>{{ $admins ->jumlah}}</td>
+                                            <td class="currency-field">{{ $admins ->jumlah}}</td>
                                             <td>{{ $admins ->bulan}}</td>
                                             <td>{{ $admins ->tahun}}</td>
                                             <td>

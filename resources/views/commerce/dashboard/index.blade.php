@@ -71,7 +71,7 @@
                                     <td>{{ $admins ->jenis_laporan}}</td>
                                     <td>{{ $portofolio_id[$admins ->id_portofolio]}}</td>
                                     <td>{{ $sub_grup_akun_id[$admins ->id_sub_grup_akun]}}</td>
-                                    <td>{{ $admins ->nilai}}</td>
+                                    <td class="currency-field">{{ $admins ->nilai}}</td>
                                     <td>{{ $admins ->keterangan}}</td>
                                     <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td>
@@ -112,6 +112,10 @@
     </div>
 </section>
 
+{{-- <script>
+    
+
+</script> --}}
 @endsection
 
 @push('scripts')

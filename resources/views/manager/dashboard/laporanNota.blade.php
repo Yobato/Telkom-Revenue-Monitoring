@@ -69,7 +69,7 @@
                                     <td>{{ $admins->persentase}}</td>
                                     {{-- <td>{{ $admins->nilai_awal}}</td> --}}
                                     <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
-                                    <td>{{ $admins->nilai_akhir}}</td>
+                                    <td class="currency-field">{{ $admins->nilai_akhir}}</td>
                                     <td>{{ $admins->keterangan}}</td>
                                 </tr>
                                 @endforeach
