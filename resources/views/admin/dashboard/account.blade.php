@@ -169,7 +169,7 @@ Dashboard
                                         <span id="nik" style="display: none; color: red;">Field NIK harus diisi!</span>
   
                                         <label for="password" class="col-form-label">Password: </label>
-                                        <input type="password" id="password" name="password" class="form-control" placeholder="Kosong" required>
+                                        <input type="password" id="password" name="password" class="form-control" placeholder="Kosong">
                                         <span id="password_error" style="display: none; color: red;">Field Password harus diisi!</span>
   
                                         <label for="role" class="col-form-label">Role: </label>

@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table" id="table-4">
+                        <table class="table w-100" id="table-4">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>

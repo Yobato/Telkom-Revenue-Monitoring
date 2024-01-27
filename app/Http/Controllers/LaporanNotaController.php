@@ -109,8 +109,8 @@ class LaporanNotaController extends Controller
 
         LaporanNota::insert([
             'pid_nota' => $request->pid_nota,
-            'nilai_awal' => str_replace('.', '', $request->nilai_awal),
-            'nilai_akhir' => str_replace('.', '', $request->nilai_akhir),
+            'nilai_awal' => str_replace([',00', '.'], '', $request->nilai_awal),
+            'nilai_akhir' => str_replace([',00', '.'], '', $request->nilai_akhir),
             'pph' => $request->pph,
             'persentase' => $request->persentase,
             'keterangan' => $request->keterangan,
@@ -186,8 +186,8 @@ class LaporanNotaController extends Controller
         $account = Auth::guard('account')->user();
         LaporanNota::where('id', $id)->update([
             'pid_nota' => $request->pid_nota,
-            'nilai_awal' => str_replace('.', '', $request->nilai_awal),
-            'nilai_akhir' => str_replace('.', '', $request->nilai_akhir),
+            'nilai_awal' => str_replace([',00', '.'], '', $request->nilai_awal),
+            'nilai_akhir' => str_replace([',00', '.'], '', $request->nilai_akhir),
             'pph' => $request->pph,
             'persentase' => $request->persentase,
             'keterangan' => $request->keterangan,
