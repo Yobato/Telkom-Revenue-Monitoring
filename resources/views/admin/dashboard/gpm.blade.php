@@ -211,10 +211,10 @@
     // ==== CHART Gross Profit ====
     const gpmData1 = {!! json_encode($gpmData1) !!};
     const gpmData2 = {!! json_encode($gpmData2) !!};
-    const monthNames = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     const monthIndexMapping = {
         'Januari': 0,
-        'Febuari': 1,
+        'Februari': 1,
         'Maret': 2,
         'April': 3,
         'Mei': 4,
