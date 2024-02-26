@@ -10,7 +10,7 @@
 
 <section class="section">
     <div class="section-header">
-        <h1>Reporting</h1>
+        <h1>Pelaporan</h1>
     </div>
 
     <div class="section-body">

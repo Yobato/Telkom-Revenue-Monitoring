@@ -31,7 +31,7 @@
             </li>
             <li
                 class="nav-item dropdown {{ $title==='Laporan Finance' || $title==='Laporan Commerce' || $title==='Laporan Nota' ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Reporting</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Pelaporan</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ $title==='Laporan Commerce' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('manager.dashboard.commerce')}}">COGS & Revenue</a>
@@ -45,8 +45,7 @@
                 </ul>
             </li>
             <li class="nav-item dropdown {{ $title==='Target' || $title==='Target-Finance' ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown"><i class="bi bi-ui-checks"></i><span>Target
-                        Management</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="bi bi-ui-checks"></i><span>Manajemen Target</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ $title==='Target' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('manager.dashboard.target')}}">Target Commerce</a>

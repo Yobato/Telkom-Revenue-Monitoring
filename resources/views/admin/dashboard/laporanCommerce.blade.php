@@ -10,7 +10,7 @@
 
 <section class="section">
     <div class="section-header">
-        <h1>Reporting</h1>
+        <h1>Pelaporan</h1>
     </div>
 
     <div class="section-body">
@@ -57,7 +57,7 @@
                                     <th scope="col">Nilai</th>
                                     <th scope="col">Keterangan</th>
                                     <th scope="col">Tanggal</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,12 +78,12 @@
                                         @if($admins->editable == 0)
                                         <a href={{ route('admin.editableCommerce', [$admins->slug]) }} class="btn
                                             btn-primary btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i> Open Edit</a>
+                                            <i class="fa fa-edit"></i> Buka Edit</a>
                                         @endif
                                         @if($admins->editable == 1)
                                         <a href={{ route('admin.uneditableCommerce', [$admins->slug]) }}
                                             class="btn btn-danger btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i> Close Edit</a>
+                                            <i class="fa fa-edit"></i> Tutup Edit</a>
                                         @endif
                                     </td>
                                 </tr>

@@ -7,7 +7,7 @@
             </a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-          <img src="{{ asset('favicon.ico') }}" alt="">
+            <img src="{{ asset('favicon.ico') }}" alt="">
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
@@ -26,12 +26,12 @@
                 </ul>
             </li>
             <li class="nav-item dropdown {{ $title==='Laporan Commerce' ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Reporting</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Pelaporan</span></a>
                 <ul class="dropdown-menu">
-                    <li class='{{ $title==='Laporan Commerce' ? ' active' : '' }}'>
+                    <li class='{{ $title===' Laporan Commerce' ? ' active' : '' }}'>
                         <a class="nav-link" href="{{ route('commerce.dashboard.index') }}">COGS & Revenue</a>
                     </li>
-                    
+
                 </ul>
             </li>
         </ul>

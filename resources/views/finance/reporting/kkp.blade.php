@@ -3,14 +3,14 @@
 @section('title', 'Reporting')
 
 @push('style')
-    <!-- CSS Libraries -->
+<!-- CSS Libraries -->
 @endpush
 
 @section('content')
 
 <section class="section">
     <div class="section-header">
-        <h1>Reporting</h1>
+        <h1>Pelaporan</h1>
     </div>
 
     <div class="section-body">
@@ -29,9 +29,7 @@
                         <div class="card-header-form">
                             <form>
                                 <div class="input-group">
-                                    <input type="text"
-                                        class="form-control"
-                                        placeholder="Search">
+                                    <input type="text" class="form-control" placeholder="Search">
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                     </div>
@@ -64,8 +62,9 @@
                                     <td>2017-01-09</td>
                                     <td>
                                         <button a href="#" class="btn btn-success btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i></button> 
-                                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-confirm="Hapus Data?" >
+                                            <i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-danger btn-sm rounded-0" type="button"
+                                            data-confirm="Hapus Data?">
                                             <i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
@@ -80,8 +79,9 @@
                                     <td>2017-01-09</td>
                                     <td>
                                         <button a href="#" class="btn btn-success btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i></button> 
-                                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-confirm="Hapus Data?" >
+                                            <i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-danger btn-sm rounded-0" type="button"
+                                            data-confirm="Hapus Data?">
                                             <i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
@@ -96,8 +96,9 @@
                                     <td>2017-01-09</td>
                                     <td>
                                         <button a href="#" class="btn btn-success btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i></button> 
-                                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-confirm="Hapus Data?" >
+                                            <i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-danger btn-sm rounded-0" type="button"
+                                            data-confirm="Hapus Data?">
                                             <i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
@@ -112,8 +113,9 @@
                                     <td>2017-01-09</td>
                                     <td>
                                         <button a href="#" class="btn btn-success btn-sm rounded-0" type="button">
-                                            <i class="fa fa-edit"></i></button> 
-                                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-confirm="Hapus Data?" >
+                                            <i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-danger btn-sm rounded-0" type="button"
+                                            data-confirm="Hapus Data?">
                                             <i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
@@ -129,9 +131,9 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
-    <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+<!-- JS Libraies -->
+<script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
-    <!-- Page Specific JS File -->
-    <script src="{{ asset('js/page/components-table.js') }}"></script>
+<!-- Page Specific JS File -->
+<script src="{{ asset('js/page/components-table.js') }}"></script>
 @endpush

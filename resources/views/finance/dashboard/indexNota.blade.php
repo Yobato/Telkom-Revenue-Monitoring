@@ -10,7 +10,7 @@
 
 <section class="section">
     <div class="section-header">
-        <h1>Reporting</h1>
+        <h1>Pelaporan</h1>
     </div>
 
     <div class="section-body">
@@ -36,8 +36,10 @@
                         <h4>Laporan Nota</h4>
                         <div class="card-header-form">
                             <div class="col-12 float-end">
-                                <a class="btn btn-outline-primary mr-3" href="{{ route('nota.dashboard.export') }}">Export</a>
-                                <a href="{{ route('nota.reporting.form') }}" class="btn btn-primary mb-3 mt-3 shadow rounded">
+                                <a class="btn btn-outline-primary mr-3"
+                                    href="{{ route('nota.dashboard.export') }}">Export</a>
+                                <a href="{{ route('nota.reporting.form') }}"
+                                    class="btn btn-primary mb-3 mt-3 shadow rounded">
                                     <i class="bi bi-file-earmark-plus" style="padding-right: 10px"></i>Buat Laporan
                                 </a>
                             </div>
@@ -57,7 +59,7 @@
                                     <th scope="col">Tanggal</th>
                                     <th scope="col">Nilai Akhir</th>
                                     <th scope="col">Keterangan</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,33 +76,42 @@
                                     <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td class="currency-field">{{ $admins->nilai_akhir}}</td>
                                     <td>{{ $admins->keterangan}}</td>
-                                    
+
                                     <td>
                                         @if(Auth::user()->role == "Finance" && $admins->editable == 1)
-                                        <a href={{ route('nota.editLaporanNota', [$admins->id]) }} class="btn btn-success btn-sm rounded-0" type="button">
+                                        <a href={{ route('nota.editLaporanNota', [$admins->id]) }} class="btn
+                                            btn-success btn-sm rounded-0" type="button">
                                             <i class="fa fa-edit"></i></a>
                                         @endif
-                                        
-                                        {{-- DELETE  --}}
-                                        <a class="btn btn-sm btn-danger rounded-0" style="color: white" 
-                                        data-toggle="modal" data-target="#deleteLaporanFinanceModal{{ $admins->id }}"><i class="fa fa-trash"></i></a>
-                                        <div class="modal fade" tabindex="-1" role="dialog" 
-                                        id="deleteLaporanFinanceModal{{ $admins->id }}" data-backdrop="static">
+
+                                        {{-- DELETE --}}
+                                        <a class="btn btn-sm btn-danger rounded-0" style="color: white"
+                                            data-toggle="modal"
+                                            data-target="#deleteLaporanFinanceModal{{ $admins->id }}"><i
+                                                class="fa fa-trash"></i></a>
+                                        <div class="modal fade" tabindex="-1" role="dialog"
+                                            id="deleteLaporanFinanceModal{{ $admins->id }}" data-backdrop="static">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title">Hapus Laporan Finance</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanFinance1">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close" id="closeLaporanFinance1">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     @csrf
                                                     <div class="modal-body">
-                                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan Finance yang dipilih.
+                                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan
+                                                        Finance yang dipilih.
                                                     </div>
                                                     <div class="modal-footer bg-whitesmoke br">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanFinance2">Cancel</button>
-                                                        <a class="btn btn-danger" href="{{ route('nota.deleteLaporanNota', [$admins->id]) }}" value="Delete">Delete</a>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal"
+                                                            id="closeLaporanFinance2">Batal</button>
+                                                        <a class="btn btn-danger"
+                                                            href="{{ route('nota.deleteLaporanNota', [$admins->id]) }}"
+                                                            value="Delete">Hapus</a>
                                                     </div>
                                                 </div>
                                             </div>
