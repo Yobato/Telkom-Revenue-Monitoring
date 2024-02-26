@@ -130,7 +130,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <h4 style="color:#525358; font-weight:bold">Gross Margin</h4>
+                            <h4 style="color:#525358; font-weight:bold">Gross Profit Margin</h4>
                             <div class="filter d-flex ">
                                 <label for="portofolio" class="col-form-label mr-3">Portofolio </label>
                                 <select class="form-control" name="portofolio-filter-gm" id="portofolio-filter-gm"
