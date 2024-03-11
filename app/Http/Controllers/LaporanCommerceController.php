@@ -115,7 +115,7 @@ class LaporanCommerceController extends Controller
         $account = Auth::guard('account')->user();
 
         $messages = [
-            'required' => "Field wajib diisi!",
+            'required' => "Field is required!",
             "unique" => "Nilai sudah ada",
         ];
 
@@ -194,7 +194,7 @@ class LaporanCommerceController extends Controller
     public function updateLaporanCommerce(Request $request, $id)
     {
         $messages = [
-            'required' => 'Field wajib diisi',
+            'required' => 'Field is required',
             'unique' => 'Nilai sudah ada',
         ];
 

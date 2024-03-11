@@ -21,9 +21,9 @@ Dashboard
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Tabel Target KKP</h2>
+                <h2 class="section-title">Target KKP Table</h2>
                 <p class="section-lead">
-                    Kelola Target KKP. Target disini akan mempengaruhi capaian bulanan Dashboard KKP Operasional
+                    Manage Target Finance. The target finance here will influence the monthly achievements of the KKP Operational Dashboard.
                 </p>
 
                 @if(session()->has('success'))
@@ -58,9 +58,9 @@ Dashboard
                                         <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Portofolio</th>
-                                            <th scope="col">Jumlah</th>
-                                            <th scope="col">Bulan</th>
-                                            <th scope="col">Tahun</th>
+                                            <th scope="col">Total</th>
+                                            <th scope="col">Month</th>
+                                            <th scope="col">Year</th>
                                         </tr>
                                     </thead>
                                     <tbody>

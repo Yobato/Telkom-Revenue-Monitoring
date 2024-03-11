@@ -90,7 +90,7 @@ class LaporanNotaController extends Controller
         $account = Auth::guard('account')->user();
 
         $messages = [
-            'required' => 'Field wajib diisi',
+            'required' => 'Field is required',
             'unique' => 'Nilai sudah ada',
             'persentase.required_if' => 'Field Persentase harus diisi!',
         ];
@@ -167,7 +167,7 @@ class LaporanNotaController extends Controller
     public function updateLaporanNota(Request $request, $id)
     {
         $messages = [
-            'required' => ':Field wajib diisi',
+            'required' => 'Field is required',
             'unique' => 'Nilai sudah ada',
             'persentase.required_if' => 'Field Persentase harus diisi!',
         ];

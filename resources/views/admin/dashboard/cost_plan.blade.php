@@ -21,9 +21,9 @@ Dashboard
           </div>
 
           <div class="section-body">
-            <h2 class="section-title">Tabel Cost Plan</h2>
+            <h2 class="section-title">Cost Plan Table</h2>
             <p class="section-lead">
-              Kelola Cost Plan pada sistem. Cost Plan disini akan memengaruhi interaksi Anda pada sistem seperti filter dan search!
+              Manage cost plan in the system. The cost plan here will be dropdown data in pid finance!
             </p>
 
             @if(session()->has('success'))
@@ -57,7 +57,7 @@ Dashboard
                   <!-- ADD COST PLAN -->
                   <div class="card-header">
                     <div class="col-8">
-                      <h4>Simple</h4>
+                      <h4>Cost Plan</h4>
                     </div>
                     <div class="col-4 d-flex justify-content-end">
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Cost Plan</button>
@@ -69,7 +69,7 @@ Dashboard
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title">Tambah Cost Plan</h5>
+                          <h5 class="modal-title">Add Cost Plan</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCostPlan1">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -78,9 +78,9 @@ Dashboard
                         @csrf
                           <div class="modal-body">
                             <div class="form-group">
-                              <label for="nama_cost_plan" class="col-form-label">Nama Cost Plan: </label>
+                              <label for="nama_cost_plan" class="col-form-label">Cost Plan Name: </label>
                               <input type="text" id="nama_cost_plan" name="nama_cost_plan" class="required-input form-control">
-                              <span class="error-message" id="nama_cost_plan_error" style="display: none; color: red;">Field Nama Cost Plan harus diisi!</span>
+                              <span class="error-message" id="nama_cost_plan_error" style="display: none; color: red;">Cost Plan field is required!</span>
                               {{-- @if($errors->has('nama_cost_plan'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_cost_plan') }}</span>
                               @endif --}}
@@ -100,7 +100,7 @@ Dashboard
                       <thead>
                         <tr>
                           <th scope="col">No</th>
-                          <th scope="col" class="w-50">Nama Cost Plan</th>
+                          <th scope="col" class="w-50">Cost Plan Name</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -120,7 +120,7 @@ Dashboard
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title">Ubah Cost Plan</h5>
+                                    <h5 class="modal-title">Change Cost Plan</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCostPlan1">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -129,7 +129,7 @@ Dashboard
                                   @csrf
                                     <div class="modal-body">
                                       <div class="form-group">
-                                        <label for="nama_update_cost_plan" class="col-form-label">Nama Cost Plan: </label>
+                                        <label for="nama_update_cost_plan" class="col-form-label">Cost Plan Name: </label>
                                         <input type="text" id="nama_update_cost_plan" name="nama_cost_plan" class="form-control" value="{{ $admins->nama_cost_plan }}" required>
                                         <!-- <span id="nama_cost_plan_error" class="error-message">Field Nama Cost Plan harus diisi!</span> -->
                                       </div>
@@ -154,14 +154,14 @@ Dashboard
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Hapus Cost Plan</h5>
+                                      <h5 class="modal-title">Delete Cost Plan</h5>
                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCostPlan1">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
                                     @csrf
                                       <div class="modal-body">
-                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Cost Plan yang dipilih.
+                                        Choose "Delete" below if you are sure to delete the selected Cost Plan.
                                       </div>
                                       <div class="modal-footer bg-whitesmoke br">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCostPlan2">Cancel</button>

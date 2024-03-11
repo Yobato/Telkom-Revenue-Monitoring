@@ -21,9 +21,10 @@ Dashboard
           </div>
 
           <div class="section-body">
-            <h2 class="section-title">Tabel Role</h2>
+            <h2 class="section-title">Role Table</h2>
             <p class="section-lead">
-              Role disini menggambarkan tentang peran apa saja yang dimiliki oleh pengguna. Tabel ini penting dan krusial karena akan memengaruhi proses autentikasi dan dropdown.
+              Role here describes what roles the user has. This table is important and crucial because it will affect the
+              authentication and dropdown process.
             </p>
 
             @if(session()->has('success'))
@@ -48,7 +49,7 @@ Dashboard
                   <!-- ARole -->
                   <div class="card-header">
                     <div class="col-12">
-                      <h4>Simple</h4>
+                      <h4>Role</h4>
                     </div>
                   </div>
 
@@ -57,7 +58,7 @@ Dashboard
                       <thead>
                         <tr>
                           <th scope="col">No</th>
-                          <th scope="col" class="w-50">Nama Role</th>
+                          <th scope="col" class="w-50">Role Name</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -67,7 +68,7 @@ Dashboard
                         <tr>
                           <th scope="row">{{$i++}}</th>
                           <td>{{$admins->nama_role}}</td>
-                          <td>Akses dibatasi</td>
+                          <td>Access limited</td>
                         </tr>
                         @endforeach
                       </tbody>

@@ -35,7 +35,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Laporan COGS dan Revenue</h4>
+                        <h4>Report COGS dan Revenue</h4>
                         <div class="card-header-form">
                             <div class="col-12 float-end">
                                 <a class="btn btn-outline-primary mr-3"
@@ -49,14 +49,14 @@
                                 <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">ID Commerce</th>
-                                    <th scope="col">Nama Program</th>
-                                    <th scope="col">Kode Program</th>
-                                    <th scope="col">Jenis</th>
+                                    <th scope="col">Program Name</th>
+                                    <th scope="col">Program Code</th>
+                                    <th scope="col">Type</th>
                                     <th scope="col">Portofolio</th>
                                     <th scope="col">Sub Grup Akun</th>
-                                    <th scope="col">Nilai</th>
-                                    <th scope="col">Keterangan</th>
-                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Amout</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Date</th>
                                 </tr>
                             </thead>
                             <tbody>

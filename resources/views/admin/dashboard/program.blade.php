@@ -21,9 +21,9 @@ Dashboard
           </div>
 
           <div class="section-body">
-            <h2 class="section-title">Tabel Program</h2>
+            <h2 class="section-title">Program Table</h2>
             <p class="section-lead">
-              Kelola dropdown program. Dropdown Program akan muncul pada pengguna Commerce dan Finance!
+              Manage program in the system. The program here will be dropdown data in both finance and commerce report.
             </p>
 
             @if(session()->has('success'))
@@ -57,7 +57,7 @@ Dashboard
                   {{-- ADD PORTOFOLIO --}}
                   <div class="card-header">
                     <div class="col-8">
-                      <h4>Simple</h4>
+                      <h4>Program</h4>
                     </div>
                     <div class="col-4 d-flex justify-content-end">
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#programAddModal">Add Program</button>
@@ -69,7 +69,7 @@ Dashboard
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title">Tambah Program</h5>
+                          <h5 class="modal-title">Add Program</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeProgram1">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -79,34 +79,34 @@ Dashboard
                           <div class="modal-body">
                             <div class="form-group">
                               
-                              <label for="nama" class="col-form-label">Nama Program: </label>
+                              <label for="nama" class="col-form-label">Program Name: </label>
                               <input type="text" id="nama_program" name="nama_program" class="required-input form-control">
-                              <span class="error-message" id="error_nama_program" style="display: none; color: red;">Field Nama Program harus diisi!</span>
+                              <span class="error-message" id="error_nama_program" style="display: none; color: red;">Program Name field is required!</span>
 
-                              <label for="kode" class="col-form-label">Kode Program: </label>
+                              <label for="kode" class="col-form-label">Program Code: </label>
                               <input type="text" id="kode_program" name="kode_program" class="required-input form-control">
-                              <span class="error-message" id="error_kode_program" style="display: none; color: red;">Field Kode Program harus diisi!</span>
+                              <span class="error-message" id="error_kode_program" style="display: none; color: red;">Program Code field is required!</span>
 
                               <label for="role" class="col-form-label">Role: </label>
                               <select class="required-input role form-control" id="roless" name="role" onchange="getPorto()">
-                                <option value="" selected>-- Pilih Role --</option>
+                                <option value="" selected>-- Choose Role --</option>
                                 @foreach ($roles as $role)
                                     <option value=<?= $role->nama_role ?>>{{ $role->nama_role }}</option>
                                 @endforeach
                               </select>
-                              <span class="error-message" id="role_error" style="display: none; color: red;">Field Role harus diisi!</span>
+                              <span class="error-message" id="role_error" style="display: none; color: red;">Role field is required!</span>
 
-                              <label for="ketentuan" class="col-form-label">Apakah program harus sesuai portofolio: </label>
-                              <select id="ketentuan" class="ketentuan form-control @error('ketentuan') is-invalid @enderror mb-2" name="ketentuan">
-                                <option value="" selected>-- Pilih ketentuan program --</option>
-                                <option value="Ya" @if(old('ketentuan')=='Ya' ) selected @endif>Ya</option>
-                                <option value="Tidak" @if(old('ketentuan')=='Tidak' ) selected @endif>Tidak</option>
+                              <label for="ketentuan" class="col-form-label">Does the program have to match the portfolio: </label>
+                              <select id="ketentuan" class="ketentuan required-input form-control @error('ketentuan') is-invalid @enderror mb-2" name="ketentuan">
+                                <option value="" selected>-- Select program conditions --</option>
+                                <option value="Ya" @if(old('ketentuan')=='Ya' ) selected @endif>Yes</option>
+                                <option value="Tidak" @if(old('ketentuan')=='Tidak' ) selected @endif>No</option>
                               </select>
-                              <span class="error-message" id="ketentuan_error" style="display: none; color: red;">Field ini harus diisi!</span>
+                              <span class="error-message" id="ketentuan_error" style="display: none; color: red;">This field is required!</span>
 
                               <label for="portofolio" class="col-form-label">Portofolio: </label>
                               <select id="id_portofolios" class="id_portofolio form-control" name="id_portofolio" disabled>
-                                <option value="" selected>-- Pilih Portofolio --</option>
+                                <option value="" selected>-- Choose Portofolio --</option>
                                 {{-- @foreach ($portofolios as $portofolio)
                                 <option value=
                                 <.?=$portofolio->id ?>
@@ -130,8 +130,8 @@ Dashboard
                       <thead>
                         <tr>
                           <th scope="col">No</th>
-                          <th scope="col">Nama Program</th>
-                          <th scope="col">Kode Program</th>
+                          <th scope="col">Program Name</th>
+                          <th scope="col">Program Code</th>
                           <th scope="col">Role</th>
                           <th scope="col">Portofolio</th>
                           <th scope="col">Action</th>
@@ -145,7 +145,7 @@ Dashboard
                           <td>{{ $admins ->nama_program}}</td>
                           <td>{{ $admins ->kode_program}}</td>
                           <td>{{ $admins ->role}}</td>
-                          <td>{{ $portofolio_id[$admins ->id_portofolio] ?? 'Portofolio tidak dipilih'}}</td>
+                          <td>{{ $portofolio_id[$admins ->id_portofolio] ?? 'Portfolio is not selected'}}</td>
                           <td>
                             {{-- UPDATE PROGRAM --}}
                             <a class="btn btn-sm btn-success btn-sm rounded-0" data-toggle="modal" data-target="#editProgramModal-{{$admins->id}}" style="color: white" 
@@ -156,7 +156,7 @@ Dashboard
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title">Ubah Program</h5>
+                                    <h5 class="modal-title">Change Program</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeProgram1">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -165,11 +165,11 @@ Dashboard
                                   @csrf
                                     <div class="modal-body">
                                       <div class="form-group">
-                                        <label for="nama_program" class="col-form-label">Nama Program: </label>
+                                        <label for="nama_program" class="col-form-label">Program Name: </label>
                                         <input type="text" id="nama_program_update" name="nama_program" class="form-control" value="{{ $admins->nama_program }}" required>
                                         <span id="nama_program_update_error" style="display: none; color: red;">Field Nama harus diisi!</span>
   
-                                        <label for="kode" class="col-form-label">Kode Program: </label>
+                                        <label for="kode" class="col-form-label">Program Code: </label>
                                         <input type="text" id="kode_program_update" name="kode_program" class="form-control" value="{{ $admins->kode_program }}" required>
                                         <span class="error-message" id="error_kode_program_update" style="display: none; color: red;">Field Kode Program harus diisi!</span>
   
@@ -186,7 +186,7 @@ Dashboard
                                         
                                         <label for="id_portofolio_edit" class="col-form-label">Portofolio: </label>
                                         <select class="id_portofolio_edit form-control" name="id_portofolio" id="id_portofolio_edit">
-                                          <option value="" {{ $admins->id_portofolio == "" ? 'selected' : '' }}>-- Pilih Portofolio --</option>
+                                          <option value="" {{ $admins->id_portofolio == "" ? 'selected' : '' }}>-- Choose Portofolio --</option>
                                           @foreach ($portofolios as $portofolio)
                                             @if ($admins->id_portofolio !== "")
                                             <option value="{{ $portofolio->id }}" {{ $admins->id_portofolio == $portofolio->id ? 'selected' : '' }}>
@@ -195,7 +195,7 @@ Dashboard
                                             @endif
                                           @endforeach
                                         </select>
-                                        <p style="font-size: 8pt">**tidak wajib dipilih</p>
+                                        <p style="font-size: 8pt">**not required to be selected</p>
 
                                       </div>
                                     </div>
@@ -219,14 +219,14 @@ Dashboard
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Hapus Program</h5>
+                                      <h5 class="modal-title">Delete Program</h5>
                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeProgram1">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
                                     @csrf
                                       <div class="modal-body">
-                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Program yang dipilih.
+                                        Choose "Delete" below if you are sure to delete the selected Program.
                                       </div>
                                       <div class="modal-footer bg-whitesmoke br">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeProgram2">Cancel</button>

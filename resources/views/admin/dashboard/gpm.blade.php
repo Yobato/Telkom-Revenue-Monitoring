@@ -40,7 +40,7 @@
                             <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{
                                 number_format($kenaikanGPM, 2, '.', '') }}%</span>
                             @endif
-                            <span class="text-nowrap">Dari tahun lalu</span>
+                            <span class="text-nowrap">From last year</span>
                         </p>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                             <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{
                                 number_format($kenaikanGM, 2, '.', '') }}%</span>
                             @endif
-                            <span class="text-nowrap">Dari tahun lalu</span>
+                            <span class="text-nowrap">From last year</span>
                         </p>
                     </div>
                 </div>
@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 yAxis: {
                     // min: 0,
                     title: {
-                        text: 'Total Nilai'
+                        text: 'Total Value'
                     }
                 },
                 tooltip: {

@@ -50,11 +50,11 @@
                                     <th scope="col">Peruntukan</th>
                                     <th scope="col">User</th>
                                     <th scope="col">PPH</th>
-                                    <th scope="col">Persentase</th>
+                                    <th scope="col">Percentage</th>
                                     {{-- <th scope="col">Nilai Awal</th> --}}
-                                    <th scope="col">Tanggal</th>
-                                    <th scope="col">Nilai Akhir</th>
-                                    <th scope="col">Keterangan</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Final Amount</th>
+                                    <th scope="col">Description</th>
                                 </tr>
                             </thead>
                             <tbody>

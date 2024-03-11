@@ -38,7 +38,7 @@
                             <div class="col-12 float-end">
                                 <a class="btn btn-outline-primary mr-3" href="{{ route('finance.dashboard.export') }}">Export</a>
                                 <a href="{{ route('finance.reporting.form') }}" class="btn btn-primary mb-3 mt-3 shadow rounded">
-                                    <i class="bi bi-file-earmark-plus" style="padding-right: 10px"></i>Buat PID Finance
+                                    <i class="bi bi-file-earmark-plus" style="padding-right: 10px"></i>Create PID Finance
                                 </a>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                     <th scope="col">No</th>
                                     <th scope="col">PID Finance</th>
                                     <th scope="col">Portofolio</th>
-                                    <th scope="col">Nama Program</th>
+                                    <th scope="col">Program Name</th>
                                     <th scope="col">Cost Plan</th>                                    
                                     <th scope="col">Action</th>
                                 </tr>
@@ -85,7 +85,7 @@
                                                     </div>
                                                     @csrf
                                                     <div class="modal-body">
-                                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus PID Finance yang dipilih.
+                                                        Select "Delete" below if you are sure to delete the selected Finance PID.
                                                     </div>
                                                     <div class="modal-footer bg-whitesmoke br">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanFinance2">Cancel</button>

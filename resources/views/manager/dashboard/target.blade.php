@@ -23,7 +23,8 @@ Dashboard
             <div class="section-body">
                 <h2 class="section-title">Tabel Target</h2>
                 <p class="section-lead">
-                    Kelola Target. Target disini akan mempengaruhi capaian bulanan gross profit margin
+                    Manage Target Commerce. The Commerce Target here will affect the monthly achievements of the COGS, Revenue and GPM
+                    Dashboard
                 </p>
 
                 @if(session()->has('success'))
@@ -57,11 +58,11 @@ Dashboard
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
-                                            <th scope="col">Jenis Laporan</th>
+                                            <th scope="col">Report Type</th>
                                             <th scope="col">Portofolio</th>
-                                            <th scope="col">Jumlah</th>
-                                            <th scope="col">Bulan</th>
-                                            <th scope="col">Tahun</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Month</th>
+                                            <th scope="col">Year</th>
                                         </tr>
                                     </thead>
                                     <tbody>

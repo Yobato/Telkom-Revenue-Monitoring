@@ -23,7 +23,7 @@ Dashboard
             <div class="section-body">
                 <h2 class="section-title">Tabel Target Finance</h2>
                 <p class="section-lead">
-                    Kelola Target Finance. Target Finance disini akan mempengaruhi capaian bulanan Dashboard KKP Operasional
+                    Manage Target Finance. The target finance here will influence the monthly achievements of the KKP Operational Dashboard.
                 </p>
 
                 @if(session()->has('success'))
@@ -60,7 +60,7 @@ Dashboard
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Tambah Target Finance</h5>
+                                            <h5 class="modal-title">Add Target Finance</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeTarget1">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -69,7 +69,7 @@ Dashboard
                                             @csrf
                                             <div class="modal-body">
                                                 <div class="form-group">
-                                                    <label for="jumlah" class="col-form-label">Jumlah: </label>
+                                                    <label for="jumlah" class="col-form-label">Amount: </label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <div class="input-group-text">
@@ -78,22 +78,22 @@ Dashboard
                                                         </div>
                                                         <input type="text" id="jumlah" name="jumlah" class="required-input form-control" onkeyup="formatCurrency(this)">
                                                     </div>
-                                                    <span class="error-message" id="jumlah_error" style="display: none; color: red;">Field Jumlah harus diisi!</span>
+                                                    <span class="error-message" id="jumlah_error" style="display: none; color: red;">Amount field is required!</span>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="id_portofolio" class="col-form-label">Portofolio: </label>
                                                     <select class="id_portofolio required-input form-control" name="id_portofolio" id="id_portofolio">
-                                                        <option value="" selected>-- Pilih Portofolio --</option>
+                                                        <option value="" selected>-- Choose Portofolio --</option>
                                                         @foreach ($addportofolio as $portofolio)
                                                         <option value={{ $portofolio->id }}>{{ $portofolio->nama_portofolio }}</option>
                                                         @endforeach
                                                     </select>
-                                                    <span class="error-message" id="portofolio_error" style="display: none; color: red;">Field Portofolio harus dipilih!</span>
+                                                    <span class="error-message" id="portofolio_error" style="display: none; color: red;">Portofolio field is required!</span>
                                                 </div>
 
                                                 
                                                 <div class="form-group">
-                                                    <label for="bulan" class="col-form-label">Bulan: </label>
+                                                    <label for="bulan" class="col-form-label">Months: </label>
                                                     {{-- <input type="text" id="bulan-test" class="required-input form-control" name="bulan" required /> --}}
                                                     <select class="required-input form-control" name="bulan" id="bulan">
                                                         <option value="">-- Pilih Bulan --</option>
@@ -110,14 +110,14 @@ Dashboard
                                                         <option value="November">November</option>
                                                         <option value="Desember">Desember</option>
                                                     </select>
-                                                    <span class="error-message" id="bulan_error" style="display: none; color: red;">Field Bulan harus dipilih!</span>
+                                                    <span class="error-message" id="bulan_error" style="display: none; color: red;">Months field is required!</span>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="form-group">
-                                                        <label for="tahun" class="col-form-label">Tahun: </label>
+                                                        <label for="tahun" class="col-form-label">Year: </label>
                                                         <input type="text" id="tahun" class="required-input form-control" name="tahun" />
                                                         {{-- <input type="text" id="tahun" name="tahun" class="form-control" value="{{ old('tahun')}}" required> --}}
-                                                        <span class="error-message" id="tahun_error" style="display: none; color: red;">Field Tahun harus diisi!</span>
+                                                        <span class="error-message" id="tahun_error" style="display: none; color: red;">Year field is required!</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -136,9 +136,9 @@ Dashboard
                                         <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Portofolio</th>
-                                            <th scope="col">Jumlah</th>
-                                            <th scope="col">Bulan</th>
-                                            <th scope="col">Tahun</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Months</th>
+                                            <th scope="col">Years</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -161,14 +161,14 @@ Dashboard
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Hapus Target</h5>
+                                                                <h5 class="modal-title">Delete Target</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeTarget1">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             @csrf
                                                             <div class="modal-body">
-                                                                Pilih "Delete" dibawah ini jika Anda yakin menghapus Target yang dipilih.
+                                                                Choose "Delete" below if you are sure to delete the selected Target Finance.
                                                             </div>
                                                             <div class="modal-footer bg-whitesmoke br">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeTarget2">Cancel</button>
@@ -184,7 +184,7 @@ Dashboard
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Ubah Target</h5>
+                                                                <h5 class="modal-title">Change Target</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeTarget1">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
@@ -194,7 +194,7 @@ Dashboard
                                                                 <div class="modal-body">
                                                                     <div class="form-group">
                                                                         <div class="form-group">
-                                                                            <label for="jumlah" class="col-form-label">Jumlah: </label>
+                                                                            <label for="jumlah" class="col-form-label">Amount: </label>
                                                                             <div class="input-group">
                                                                                 <div class="input-group-prepend">
                                                                                     <div class="input-group-text">
@@ -217,7 +217,7 @@ Dashboard
                                                                     </div>
 
                                                                     <div class="form-group">
-                                                                        <label for="bulan" class="col-form-label">Bulan: </label>
+                                                                        <label for="bulan" class="col-form-label">Months: </label>
                                                                         <select class="form-control" name="bulan" id="bulan" required>
                                                                             <option value="Januari" {{ $admins->bulan === 'Januari' ? 'selected' : '' }}>Januari</option>
                                                                             <option value="Februari" {{ $admins->bulan === 'Februari' ? 'selected' : '' }}>Februari</option>
@@ -235,7 +235,7 @@ Dashboard
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <div class="form-group">
-                                                                            <label for="tahun" class="col-form-label">Tahun: </label>
+                                                                            <label for="tahun" class="col-form-label">Years: </label>
                                                                             <input type="text" id="tahun" name="tahun" class="form-control" value="{{ old('tahun', $admins->tahun) }}" required>
                                                                         </div>
                                                                     </div>

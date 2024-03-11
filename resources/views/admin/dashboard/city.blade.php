@@ -13,17 +13,17 @@ Dashboard
   <div class="section-body">
         <section class="section">
           <div class="section-header">
-            <h1>Kota</h1>
+            <h1>City</h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item"><a href="#">Dropdown</a></div>
-              <div class="breadcrumb-item active">Kota</div>
+              <div class="breadcrumb-item active">City</div>
             </div>
           </div>
 
           <div class="section-body">
-            <h2 class="section-title">Tabel Kota</h2>
+            <h2 class="section-title">City Table</h2>
             <p class="section-lead">
-              Kelola kota pada sistem. Kota disini akan memengaruhi interaksi Anda pada sistem seperti filter dan search!
+              Manage cities in the system. The city here will affect your interactions with the system such as filters and search!
             </p>
 
             @if(session()->has('success'))
@@ -57,7 +57,7 @@ Dashboard
                   {{-- ADD CITY --}}
                   <div class="card-header">
                     <div class="col-8">
-                      <h4>Simple</h4>
+                      <h4>City</h4>
                     </div>
                     <div class="col-4 d-flex justify-content-end">
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add City</button>
@@ -69,7 +69,7 @@ Dashboard
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title">Tambah Kota</h5>
+                          <h5 class="modal-title">Add City</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCity1">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -78,9 +78,9 @@ Dashboard
                         @csrf
                           <div class="modal-body">
                             <div class="form-group">
-                              <label for="nama_city" class="col-form-label">Nama Kota: </label>
+                              <label for="nama_city" class="col-form-label">City Name: </label>
                               <input type="text" id="nama_city" name="nama_city" class="required-input form-control">
-                              <span class="error-message" id="nama_city_error" style="display: none; color: red;">Field Nama Kota harus diisi!</span>
+                              <span class="error-message" id="nama_city_error" style="display: none; color: red;">City field is required!</span>
                               {{-- @if($errors->has('nama_city'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_city') }}</span>
                               @endif --}}
@@ -100,7 +100,7 @@ Dashboard
                       <thead>
                         <tr>
                           <th scope="col">No</th>
-                          <th scope="col" class="w-50">Nama Kota</th>
+                          <th scope="col" class="w-50">City Name</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -119,7 +119,7 @@ Dashboard
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title">Ubah Kota</h5>
+                                    <h5 class="modal-title">Change City</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCity1">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -128,7 +128,7 @@ Dashboard
                                   @csrf
                                     <div class="modal-body">
                                       <div class="form-group">
-                                        <label for="nama_update_city" class="col-form-label">Nama Kota: </label>
+                                        <label for="nama_update_city" class="col-form-label">City Name: </label>
                                         <input type="text" id="nama_update_city" name="nama_city" class="form-control" value="{{ $admins->nama_city }}" required>
                                         {{-- <span id="nama_city_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
                                       </div>
@@ -153,14 +153,14 @@ Dashboard
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Hapus Kota</h5>
+                                      <h5 class="modal-title">Delete City</h5>
                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCity1">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
                                     @csrf
                                       <div class="modal-body">
-                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Kota yang dipilih.
+                                        Choose "Delete" below if you are sure to delete the selected City.
                                       </div>
                                       <div class="modal-footer bg-whitesmoke br">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCity2">Cancel</button>

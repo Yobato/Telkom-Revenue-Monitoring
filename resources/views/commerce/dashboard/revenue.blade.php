@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Realisasi</h5>
+                                <h5 class="card-title text-uppercase text-muted mb-0">Realization</h5>
                                 <span class="h5 font-weight-bold mb-0">{{ number_format($TotalRealisasiRevenue), 2, ',',
                                     '.'}}</span>
                             </div>
@@ -42,7 +42,7 @@
                             <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{
                                 number_format($kenaikanRealisasi, 2, '.', '') }}%</span>
                             @endif
-                            <span class="text-nowrap">Dari tahun lalu</span>
+                            <span class="text-nowrap">From last year</span>
                         </p>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                             <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{
                                 number_format($kenaikanTarget, 2, '.', '') }}%</span>
                             @endif
-                            <span class="text-nowrap">Dari tahun lalu</span>
+                            <span class="text-nowrap">From last year</span>
                         </p>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                             <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> {{
                                 number_format($kenaikanGap, 2, '.', '') }}%</span>
                             @endif
-                            <span class="text-nowrap">Dari tahun lalu</span>
+                            <span class="text-nowrap">From last year</span>
                         </p>
                     </div>
                 </div>
@@ -189,7 +189,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
-                                <h4 style="color:#525358; font-weight:bold">Perbandingan Tahun</h4>
+                                <h4 style="color:#525358; font-weight:bold">Year Comparison</h4>
                                 <div class="filter d-flex">
                                     <div class="mr-3">
                                         <label for="portofolio" class="col-form-label mr-3">Portofolio </label>
@@ -390,7 +390,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'Total Nilai'
+                        text: 'Total Value'
                     }
                 },
                 tooltip: {
@@ -469,7 +469,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 yAxis: {
                     // min: 0,
                     title: {
-                        text: 'Total Nilai'
+                        text: 'Total Value'
                     }
                 },
                 tooltip: {
@@ -546,7 +546,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'Total Nilai'
+                        text: 'Total Value'
                     }
                 },
                 tooltip: {

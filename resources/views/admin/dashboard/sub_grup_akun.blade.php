@@ -21,9 +21,9 @@ Dashboard
           </div>
 
           <div class="section-body">
-            <h2 class="section-title">Tabel Sub Grup Akun</h2>
+            <h2 class="section-title">Sub Grup Akun Table</h2>
             <p class="section-lead">
-              Kelola Sub Grup Akun pada sistem. Sub Grup Akun disini akan memengaruhi interaksi Anda pada sistem seperti filter dan search!
+              Manage sub grup akun in the system. The sub grup akun here will be dropdown data in commerce report.
             </p>
 
             @if(session()->has('success'))
@@ -57,7 +57,7 @@ Dashboard
                   <!-- ADD CITY -->
                   <div class="card-header">
                     <div class="col-8">
-                      <h4>Simple</h4>
+                      <h4>Sub Grup Akun</h4>
                     </div>
                     <div class="col-4 d-flex justify-content-end">
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Sub Grup Akun</button>
@@ -69,7 +69,7 @@ Dashboard
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title">Tambah Sub Grup Akun</h5>
+                          <h5 class="modal-title">Add Sub Grup Akun</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeSubGrupAkun1">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -78,9 +78,9 @@ Dashboard
                         @csrf
                           <div class="modal-body">
                             <div class="form-group">
-                              <label for="nama_sub" class="col-form-label">Nama Sub Grup Akun: </label>
+                              <label for="nama_sub" class="col-form-label">Sub Grup Akun Name: </label>
                               <input type="text" id="nama_sub" name="nama_sub" class="required-input form-control">
-                              <span class="error-message" id="nama_sub_error" style="display: none; color: red;">Field Nama Sub Grup Akun harus diisi!</span>
+                              <span class="error-message" id="nama_sub_error" style="display: none; color: red;">Sub Grup Akun Name field is required!</span>
                               {{-- @if($errors->has('nama_sub'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_city') }}</span>
                               @endif --}}
@@ -100,7 +100,7 @@ Dashboard
                       <thead>
                         <tr>
                           <th scope="col">No</th>
-                          <th scope="col" class="w-50">Nama Sub Grup Akun</th>
+                          <th scope="col" class="w-50">Sub Grup Akun Name</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -120,7 +120,7 @@ Dashboard
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title">Ubah Sub Grup Akun</h5>
+                                    <h5 class="modal-title">Change Sub Grup Akun</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeSub1">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -129,7 +129,7 @@ Dashboard
                                   @csrf
                                     <div class="modal-body">
                                       <div class="form-group">
-                                        <label for="nama_update_sub" class="col-form-label">Nama Sub Grup Akun: </label>
+                                        <label for="nama_update_sub" class="col-form-label">Sub Grup Akun Name: </label>
                                         <input type="text" id="nama_update_sub" name="nama_sub" class="form-control" value="{{ $admins->nama_sub }}" required>
                                         {{-- <span id="nama_sub_error" class="error-message">Field Nama Sub Grup Akun harus diisi!</span> --}}
                                       </div>
@@ -154,14 +154,14 @@ Dashboard
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Hapus Sub Grup Akun</h5>
+                                      <h5 class="modal-title">Delete Sub Grup Akun</h5>
                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeSub1">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
                                     @csrf
                                       <div class="modal-body">
-                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Sub Grup Akun yang dipilih.
+                                        Choose "Delete" below if you are sure to delete the selected Sub Grup Akun.
                                       </div> 
                                       <div class="modal-footer bg-whitesmoke br">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeSub2">Cancel</button>

@@ -33,12 +33,14 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Laporan COGS dan Revenue</h4>
+                        <h4>COGS and Revenue Report</h4>
                         <div class="card-header-form">
                             <div class="col-12 float-end">
-                                <a class="btn btn-outline-primary mr-3" href="{{ route('commerce.dashboard.export') }}">Export</a>
-                                <a href="{{ route('commerce.reporting.form') }}" class="btn btn-primary mb-3 mt-3 shadow rounded">
-                                    <i class="bi bi-file-earmark-plus" style="padding-right: 10px"></i>Buat Laporan
+                                <a class="btn btn-outline-primary mr-3"
+                                    href="{{ route('commerce.dashboard.export') }}">Export</a>
+                                <a href="{{ route('commerce.reporting.form') }}"
+                                    class="btn btn-primary mb-3 mt-3 shadow rounded">
+                                    <i class="bi bi-file-earmark-plus" style="padding-right: 10px"></i>Create Report
                                 </a>
                             </div>
                         </div>
@@ -49,14 +51,14 @@
                                 <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">ID Commerce</th>
-                                    <th scope="col">Nama Program</th>
-                                    <th scope="col">Kode Program</th>
-                                    <th scope="col">Jenis</th>
+                                    <th scope="col">Program Name</th>
+                                    <th scope="col">Program Code</th>
+                                    <th scope="col">Type</th>
                                     <th scope="col">Portofolio</th>
                                     <th scope="col">Sub Grup Akun</th>
-                                    <th scope="col">Nilai</th>
-                                    <th scope="col">Keterangan</th>
-                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Date</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -76,26 +78,37 @@
                                     <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td>
                                         @if(Auth::user()->role == "Commerce" && $admins->editable == 1)
-                                        <a href={{ route('commerce.editLaporanCommerce', [$admins->slug]) }} class="btn btn-success btn-sm rounded-0" type="button">
+                                        <a href={{ route('commerce.editLaporanCommerce', [$admins->slug]) }} class="btn
+                                            btn-success btn-sm rounded-0" type="button">
                                             <i class="fa fa-edit"></i></a>
                                         @endif
-                                        <a class="btn btn-sm btn-danger rounded-0" style="color: white" data-toggle="modal" data-target="#deleteLaporanCommerceModal{{ $admins->slug }}"><i class="fa fa-trash"></i></a>
-                                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanCommerceModal{{ $admins->slug }}" data-backdrop="static">
+                                        <a class="btn btn-sm btn-danger rounded-0" style="color: white"
+                                            data-toggle="modal"
+                                            data-target="#deleteLaporanCommerceModal{{ $admins->slug }}"><i
+                                                class="fa fa-trash"></i></a>
+                                        <div class="modal fade" tabindex="-1" role="dialog"
+                                            id="deleteLaporanCommerceModal{{ $admins->slug }}" data-backdrop="static">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Hapus Laporan Commerce</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanCommerce1">
+                                                        <h5 class="modal-title">Delete Laporan Commerce</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close" id="closeLaporanCommerce1">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     @csrf
                                                     <div class="modal-body">
-                                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan Commerce yang dipilih.
+                                                        Select "Delete" below if you are sure to delete the selected
+                                                        Commerce Report.
                                                     </div>
                                                     <div class="modal-footer bg-whitesmoke br">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanCommerce2">Cancel</button>
-                                                        <a class="btn btn-danger" href="{{ route('commerce.deleteLaporanCommerce', [$admins->slug]) }}" value="Delete">Delete</a>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal"
+                                                            id="closeLaporanCommerce2">Cancel</button>
+                                                        <a class="btn btn-danger"
+                                                            href="{{ route('commerce.deleteLaporanCommerce', [$admins->slug]) }}"
+                                                            value="Delete">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -113,7 +126,7 @@
 </section>
 
 {{-- <script>
-    
+
 
 </script> --}}
 @endsection

@@ -21,9 +21,9 @@ Dashboard
           </div>
 
           <div class="section-body">
-            <h2 class="section-title">Tabel Portofolio</h2>
+            <h2 class="section-title">Portofolio Table</h2>
             <p class="section-lead">
-              Kelola dropdown portofolio. Dropdown Portofolio akan muncul pada pengguna Commerce dan Finance!
+              Manage portofolio in the system. The portofolio here will be dropdown data in both commerce and finance report.
             </p>
 
             @if(session()->has('success'))
@@ -57,7 +57,7 @@ Dashboard
                   {{-- ADD PORTOFOLIO --}}
                   <div class="card-header">
                     <div class="col-8">
-                      <h4>Simple</h4>
+                      <h4>Portofolio</h4>
                     </div>
                     <div class="col-4 d-flex justify-content-end">
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#portofolioAddModal">Add Portofolio</button>
@@ -69,7 +69,7 @@ Dashboard
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title">Tambah Portofolio</h5>
+                          <h5 class="modal-title">Add Portofolio</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closePortofolio1">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -79,18 +79,18 @@ Dashboard
                           <div class="modal-body">
                             <div class="form-group">
                               
-                              <label for="nama" class="col-form-label">Nama Portofolio: </label>
+                              <label for="nama" class="col-form-label">Portofolio Name: </label>
                               <input type="text" id="nama_portofolio" name="nama_portofolio" class="required-input form-control">
-                              <span class="error-message" id="error_nama_portofolio" style="display: none; color: red;">Field Nama Portofolio harus diisi!</span>
+                              <span class="error-message" id="error_nama_portofolio" style="display: none; color: red;">Portofolio Name field is required!</span>
 
                               <label for="role" class="col-form-label">Role: </label>
                               <select class="required-input role form-control" name="role">
-                                <option value="" selected>-- Pilih Role --</option>
+                                <option value="" selected>-- Choose Role --</option>
                                 @foreach ($roles as $role)
                                     <option value=<?= $role->nama_role ?>>{{ $role->nama_role }}</option>
                                 @endforeach
                               </select>
-                              <span class="error-message" id="role_error" style="display: none; color: red;">Field Role harus diisi!</span>
+                              <span class="error-message" id="role_error" style="display: none; color: red;">Role field is required!</span>
                             </div>
                           </div>
                           <div class="modal-footer bg-whitesmoke br">
@@ -107,7 +107,7 @@ Dashboard
                       <thead>
                         <tr>
                           <th scope="col">No</th>
-                          <th scope="col">Nama Portofolio</th>
+                          <th scope="col">Portofolio Name</th>
                           <th scope="col">Role</th>
                           <th scope="col">Action</th>
                         </tr>
@@ -129,7 +129,7 @@ Dashboard
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title">Ubah Portofolio</h5>
+                                    <h5 class="modal-title">Change Portofolio</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closePortofolio1">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -138,9 +138,9 @@ Dashboard
                                   @csrf
                                     <div class="modal-body">
                                       <div class="form-group">
-                                        <label for="nama_portofolio" class="col-form-label">Nama Portofolio: </label>
+                                        <label for="nama_portofolio" class="col-form-label">Portofolio Name: </label>
                                         <input type="text" id="nama_portofolio_update" name="nama_portofolio" class="form-control" value="{{ $admins->nama_portofolio }}" required>
-                                        <span id="nama_portofolio_update_error" style="display: none; color: red;">Field Nama harus diisi!</span>
+                                        <span id="nama_portofolio_update_error" style="display: none; color: red;">Portofolio Name field is required!</span>
 
                                         <label for="role" class="col-form-label">Role: </label>
                                         <select class="role form-control" name="role" required>
@@ -151,7 +151,7 @@ Dashboard
                                               @endif
                                           @endforeach
                                         </select>
-                                        <span id="role_error" style="display: none; color: red;">Field Role harus diisi!</span>
+                                        <span id="role_error" style="display: none; color: red;">Role field is required!</span>
                                       </div>
                                     </div>
                                     <div class="modal-footer bg-whitesmoke br">
@@ -174,14 +174,14 @@ Dashboard
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Hapus Portofolio</h5>
+                                      <h5 class="modal-title">Delete Portofolio</h5>
                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closePortofolio1">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
                                     @csrf
                                       <div class="modal-body">
-                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Portofolio yang dipilih.
+                                        Choose "Delete" below if you are sure to delete the selected Portofolio.
                                       </div>
                                       <div class="modal-footer bg-whitesmoke br">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closePortofolio2">Cancel</button>

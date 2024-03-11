@@ -21,9 +21,9 @@ Dashboard
           </div>
 
           <div class="section-body">
-            <h2 class="section-title">Tabel Peruntukan</h2>
+            <h2 class="section-title">Peruntukan Table</h2>
             <p class="section-lead">
-              Kelola Peruntukan pada sistem. Peruntukan disini akan memengaruhi interaksi Anda pada sistem seperti filter dan search!
+              Manage peruntukan in the system. The peruntukan here will be dropdown data in laporan nota
             </p>
 
             @if(session()->has('success'))
@@ -57,7 +57,7 @@ Dashboard
                   <!-- ADD Peruntukan -->
                   <div class="card-header">
                     <div class="col-8">
-                      <h4>Simple</h4>
+                      <h4>Peruntukan</h4>
                     </div>
                     <div class="col-4 d-flex justify-content-end">
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Peruntukan</button>
@@ -69,7 +69,7 @@ Dashboard
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title">Tambah Peruntukan</h5>
+                          <h5 class="modal-title">Add Peruntukan</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closePeruntukan1">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -78,9 +78,9 @@ Dashboard
                         @csrf
                           <div class="modal-body">
                             <div class="form-group">
-                              <label for="nama_peruntukan" class="col-form-label">Nama Peruntukan: </label>
+                              <label for="nama_peruntukan" class="col-form-label">Peruntukan Name: </label>
                               <input type="text" id="nama_peruntukan" name="nama_peruntukan" class="required-input form-control">
-                              <span class="error-message" id="nama_peruntukan_error" style="display: none; color: red;">Field Nama Peruntukan harus diisi!</span>
+                              <span class="error-message" id="nama_peruntukan_error" style="display: none; color: red;">Peruntukan Name field is required!</span>
                               <!-- @if($errors->has('nama_peruntukan'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_peruntukan') }}</span>
                               @endif -->
@@ -100,7 +100,7 @@ Dashboard
                       <thead>
                         <tr>
                           <th scope="col">No</th>
-                          <th scope="col" class="w-50">Nama Peruntukan</th>
+                          <th scope="col" class="w-50">Peruntukan Name</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -120,7 +120,7 @@ Dashboard
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title">Ubah Peruntukan</h5>
+                                    <h5 class="modal-title">Change Peruntukan</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closePeruntukan1">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -129,7 +129,7 @@ Dashboard
                                   @csrf
                                     <div class="modal-body">
                                       <div class="form-group">
-                                        <label for="nama_update_peruntukan" class="col-form-label">Nama Peruntukan: </label>
+                                        <label for="nama_update_peruntukan" class="col-form-label">Peruntukan Name: </label>
                                         <input type="text" id="nama_update_peruntukan" name="nama_peruntukan" class="form-control" value="{{ $admins->nama_peruntukan }}" required>
                                         {{-- <span id="nama_peruntukan_error" class="error-message">Field Nama Peruntukan harus diisi!</span> --}}
                                       </div>
@@ -154,14 +154,14 @@ Dashboard
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Hapus Peruntukan</h5>
+                                      <h5 class="modal-title">Delete Peruntukan</h5>
                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closePeruntukan1">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
                                     @csrf
                                       <div class="modal-body">
-                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Peruntukan yang dipilih.
+                                        Choose "Delete" below if you are sure to delete the selected Peruntukan.
                                       </div>
                                       <div class="modal-footer bg-whitesmoke br">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closePeruntukan2">Cancel</button>

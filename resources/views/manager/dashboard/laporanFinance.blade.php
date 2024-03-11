@@ -35,7 +35,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Laporan KKP</h4>
+                        <h4>PID Finance</h4>
                         <div class="card-header-form">
                             <div class="col-12 float-end">
                                 <a class="btn btn-outline-primary mr-3"
@@ -50,7 +50,7 @@
                                     <th scope="col">No</th>
                                     <th scope="col">PID Finance</th>
                                     <th scope="col">Portofolio</th>
-                                    <th scope="col">Nama Program</th>
+                                    <th scope="col">Program Name</th>
                                     <th scope="col">Cost Plan</th>
                                 </tr>
                             </thead>

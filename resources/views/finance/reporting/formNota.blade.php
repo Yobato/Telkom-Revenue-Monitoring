@@ -12,7 +12,7 @@
                     <div class="card-body d-flex justify-content-start" style="padding-bottom:0; margin-bottom:0;">
                         <div class="breadcrumb-item"><a href="{{ route('nota.dashboard.index') }}">KKP Operasional</a>
                         </div>
-                        <div class="breadcrumb-item active">Buat Nota </div>
+                        <div class="breadcrumb-item active">Create Nota </div>
                     </div>
                     <div class="card-header" style="padding-bottom:0;">
                         <div class="col-12">
@@ -20,8 +20,8 @@
                         </div>
                     </div>
 
-                    <p style="padding-left: 43px; padding-bottom:10px">Buat Laporan sesuai dengan ketentuan dan SOP yang
-                        berlaku di Telkom Akses. Anda dapat mengubah laporan ini nanti.</p>
+                    <p style="padding-left: 43px; padding-bottom:10px">Create reports in accordance with the provisions
+                        and SOPs that apply at Telkom Access. You can change this report later.</p>
                 </div>
             </div>
         </div>
@@ -31,8 +31,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="px-5 pt-4" style="font-size: 140%"><b>Buat Nota</b></div>
-                    <div class="px-5 pt-2 pb-0">Sesuaikan data yang dibutuhkan dalam membuat laporan</div>
+                    <div class="px-5 pt-4" style="font-size: 140%"><b>Create Nota</b></div>
+                    <div class="px-5 pt-2 pb-0">Adjust the data needed to create a report</div>
                     <form action="{{route('nota.storeLaporanNota')}}" method="POST">
                         @csrf
                         <div class="row">
@@ -51,7 +51,7 @@
                                     <label for="pid_nota" class="col-form-label">PID Nota: </label>
                                     <select class="pid_nota form-control @error('pid_nota') is-invalid @enderror mb-2"
                                         name="pid_nota" value="{{ old('pid_nota') }}">
-                                        <option value="" selected>-- Pilih PID Nota --</option>
+                                        <option value="" selected>-- Choose PID Nota --</option>
                                         @foreach ($addfinance as $finance)
                                         <option value={{ $finance->pid_finance }}
                                             @selected(old('pid_nota')==$finance->pid_finance)>{{ $finance->pid_finance
@@ -60,14 +60,14 @@
                                     </select>
                                     @error('pid_nota')
                                     <div class="invalid-feedback">
-                                        Field PID Finance harus diisi!
+                                        PID Nota Field is required!
                                     </div>
                                     @enderror
 
                                     <label for="id_user" class="col-form-label">User: </label>
                                     <select class="id_user form-control @error('id_user') is-invalid @enderror mb-2"
                                         name="id_user" value="{{ old('id_user') }}">
-                                        <option value="" selected>-- Pilih User --</option>
+                                        <option value="" selected>-- Choose User --</option>
                                         @foreach ($adduser as $user)
                                         <option value={{ $user->id }} @selected(old('id_user')==$user->id)>{{
                                             $user->nama_user_reco }}</option>
@@ -77,7 +77,7 @@
                                         diisi!</span>
                                     @error('id_user')
                                     <div class="invalid-feedback">
-                                        Field User harus diisi!
+                                        User Field is required!
                                     </div>
                                     @enderror
 
@@ -85,7 +85,7 @@
                                     <select
                                         class="id_peruntukan form-control @error('id_peruntukan') is-invalid @enderror mb-2"
                                         name="id_peruntukan" value="{{ old('id_peruntukan') }}">
-                                        <option value="" selected>-- Pilih Peruntukan --</option>
+                                        <option value="" selected>-- Choose Peruntukan --</option>
                                         @foreach ($addperuntukan as $peruntukan)
                                         <option value={{ $peruntukan->id }}
                                             @selected(old('id_peruntukan')==$peruntukan->id)>{{
@@ -96,17 +96,17 @@
                                         harus diisi!</span>
                                     @error('id_peruntukan')
                                     <div class="invalid-feedback">
-                                        Field Peruntukan harus diisi!
+                                        Peruntukan Field is required!
                                     </div>
                                     @enderror
 
-                                    <label for="monthYearPicker" class="col-form-label">Bulan dan Tahun:</label>
+                                    <label for="monthYearPicker" class="col-form-label">Month and Year:</label>
                                     <input type="month" id="monthYearPicker" onchange="handleDateChange(this)"
                                         name="tanggal" value="{{ old('tanggal') }}"
                                         class="form-control @error('tanggal') is-invalid @enderror mb-2">
                                     @error('tanggal')
                                     <div class="invalid-feedback">
-                                        Field Bulan dan Tahun harus diisi!
+                                        Month and Year Field is required!
                                     </div>
                                     @enderror
 
@@ -115,7 +115,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group pt-4 pb-0 pr-5 mb-0">
 
-                                    <label for="nilai_awal" class="col-form-label">Nilai Awal: </label>
+                                    <label for="nilai_awal" class="col-form-label">Initial Amount: </label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
@@ -131,32 +131,31 @@
                                         harus diisi!</span> --}}
                                     @error('nilai_awal')
                                     <div class="invalid-feedback">
-                                        Field Nilai harus diisi!
+                                        Initial Amount Field is required!
                                     </div>
                                     @enderror
 
                                     <label for="pph" class="col-form-label">PPH: </label>
                                     <select id="pph" class="pph form-control @error('pph') is-invalid @enderror mb-2"
                                         name="pph">
-                                        <option value="" selected>-- Apakah Ada PPH --</option>
-                                        <option value="Ya" @if(old('pph')=='Ya' ) selected @endif>Ya</option>
-                                        <option value="Tidak" @if(old('pph')=='Tidak' ) selected @endif>Tidak</option>
+                                        <option value="" selected>-- Is there PPH --</option>
+                                        <option value="Ya" @if(old('pph')=='Ya' ) selected @endif>Yes</option>
+                                        <option value="Tidak" @if(old('pph')=='Tidak' ) selected @endif>No</option>
                                     </select>
                                     {{-- <span id="pph_error" style="display: none; color: red;">Field PPH harus
                                         dipilih!</span> --}}
                                     @error('pph')
                                     <div class="invalid-feedback">
-                                        Field PPH harus dipilih!
+                                        PPH Field is required!
                                     </div>
                                     @enderror
 
-                                    <label for="persentase" class="col-form-label">Persentase: </label>
+                                    <label for="persentase" class="col-form-label">Percentage: </label>
                                     <div class="input-group">
                                         <input type="text" id="persentase" name="persentase"
                                             value="{{ old('persentase') }}"
                                             class="form-control @error('persentase') is-invalid @enderror mb-2"
-                                            placeholder="Gunakan titik"
-                                            disabled>
+                                            placeholder="Use dot ( . )" disabled>
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 %
@@ -171,7 +170,7 @@
                                     </div>
                                     @enderror
 
-                                    <label for="nilai_akhir" class="col-form-label">Nilai Akhir: </label>
+                                    <label for="nilai_akhir" class="col-form-label">Final Amount: </label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
@@ -187,7 +186,7 @@
                                         harus diisi!</span> --}}
                                     @error('nilai_akhir')
                                     <div class="invalid-feedback">
-                                        Field Nilai harus diisi!
+                                        Final Amount Field is required!
                                     </div>
                                     @enderror
                                 </div>
@@ -195,19 +194,19 @@
                         </div>
                         <div class="row mb-lg-5">
                             <div class="col-lg-12" style="padding: 0 62px">
-                                <label for="keterangan" class="col-form-label">Keterangan:</label>
+                                <label for="keterangan" class="col-form-label">Description:</label>
                                 <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}"
                                     class="form-control @error('keterangan') is-invalid @enderror mb-2"
-                                    placeholder="dd/mm/yyyy - keterangan">
+                                    placeholder="dd/mm/yyyy - description">
                                 @error('keterangan')
                                 <div class="invalid-feedback">
-                                    Keterangan wajib diisi!
+                                    Description Field is required!
                                 </div>
                                 @enderror
                             </div>
                         </div>
                         <div class="d-flex justify-content-end pr-5 mb-5">
-                            <button class="btn btn-primary" value="Simpan Data" type="submit">Buat Laporan</button>
+                            <button class="btn btn-primary" value="Simpan Data" type="submit">Create Laporan</button>
                         </div>
                     </form>
                 </div>
