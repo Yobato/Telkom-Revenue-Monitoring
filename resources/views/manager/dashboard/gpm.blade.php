@@ -26,7 +26,8 @@
                                     '.'}}</span>
                             </div>
                             <div class="col-auto">
-                                <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                                <div class="icon icon-shape text-white rounded-circle shadow"
+                                    style="background-color: #23337A">
                                     <i class="fa-solid fa-rupiah-sign"></i>
                                     <i class="fa-solid fa-arrow-trend-up" style="height: 0.5em"></i>
                                 </div>
@@ -55,7 +56,7 @@
                                     '.'}}%</span>
                             </div>
                             <div class="col-auto">
-                                <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                                <div class="icon icon-shape text-white rounded-circle shadow" style="background-color: #3D55C1">
                                     <i class="fas fa-chart-bar"></i>
                                     {{-- <i class="fas fa-chart-pie"></i> --}}
                                 </div>
@@ -83,7 +84,7 @@
                                 <span class="top-cogs h2 font-weight-bold mb-0">{{ $TopGP }}</span>
                             </div>
                             <div class="col-auto">
-                                <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                                <div class="icon icon-shape text-white rounded-circle shadow" style="background-color: #6D7BF2">
                                     <i class="fas fa-users"></i>
                                 </div>
                             </div>

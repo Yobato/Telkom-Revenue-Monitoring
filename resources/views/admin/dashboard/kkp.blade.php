@@ -26,7 +26,7 @@
                                     '.'}}</span>
                             </div>
                             <div class="col-auto">
-                                <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                                <div class="icon icon-shape text-white rounded-circle shadow" style="background-color: #23337A">
                                     <i class="fa-solid fa-rupiah-sign"></i>
                                     <i class="fa-solid fa-arrow-trend-up" style="height: 0.5em"></i>
                                     {{-- <i class="fas fa-chart-bar"></i> --}}
@@ -57,7 +57,7 @@
                                     '.'}}</span>
                             </div>
                             <div class="col-auto">
-                                <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                                <div class="icon icon-shape text-white rounded-circle shadow" style="background-color: #3D55C1">
                                     <i class="fas fa-chart-pie"></i>
                                     {{-- <i class="fa-regular fa-list-check fa-xl"></i> --}}
                                     {{-- <i class="fa-regular fa-bullseye fa-lg"></i> --}}
@@ -87,7 +87,7 @@
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape text-white rounded-circle shadow"
-                                    style="background-color: #6f42c1">
+                                    style="background-color: #6D7BF2">
                                     <i class="fas fa-percent"></i>
                                 </div>
                             </div>
