@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
-                            @if($kenaikanRealisasi>0)
+                            @if($kenaikanRealisasi>=0)
                             <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{
                                 number_format($kenaikanRealisasi, 2, '.', '' )}}%</span>
                             @else
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
-                            @if($kenaikanTarget>0)
+                            @if($kenaikanTarget>=0)
                             <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{
                                 number_format($kenaikanTarget, 2, '.', '' )}}%</span>
                             @else
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
-                            @if($kenaikanGap>0)
+                            @if($kenaikanGap>=0)
                             <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{
                                 number_format($kenaikanGap, 2, '.', '' )}}%</span>
                             @else
@@ -121,7 +121,7 @@
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
                             <span class="text-success mr-2">
-                                @if($GapTop<0) <span class="text-success mr-2">{{ number_format($GapTop), 2, ',',
+                                @if($GapTop>=0) <span class="text-success mr-2">{{ number_format($GapTop), 2, ',',
                                     '.'}}</span>
                             @else
                             <span class="text-danger mr-2"></i>{{ number_format($GapTop), 2, ',', '.'}}</span>
@@ -389,7 +389,7 @@ document.addEventListener("DOMContentLoaded", function() {
             Highcharts.chart('chartCOGS', {
                 // ... pengaturan chart
                 chart: {
-                    type: 'column'
+                    type: 'line'
                 },
                 title: {
                     text: '',
