@@ -54,8 +54,8 @@
                                     <th scope="col">Type</th>
                                     <th scope="col">Portofolio</th>
                                     <th scope="col">Sub Grup Akun</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Description</th>
+                                    {{-- <th scope="col">Amount</th>
+                                    <th scope="col">Description</th> --}}
                                     <th scope="col">Date</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -71,8 +71,8 @@
                                     <td>{{ $admins ->jenis_laporan}}</td>
                                     <td>{{ $portofolio_id[$admins ->id_portofolio]}}</td>
                                     <td>{{ $sub_grup_akun_id[$admins ->id_sub_grup_akun]}}</td>
-                                    <td class="currency-field">{{ $admins ->nilai}}</td>
-                                    <td>{{ $admins ->keterangan}}</td>
+                                    {{-- <td class="currency-field">{{ $admins ->nilai}}</td>
+                                    <td>{{ $admins ->keterangan}}</td> --}}
                                     <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td>
                                         @if($admins->editable == 0)

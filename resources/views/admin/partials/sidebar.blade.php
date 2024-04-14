@@ -11,7 +11,7 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="nav-item dropdown {{ $title==='KKP' || $title==='Revenue' || $title==='COGS'|| $title==='GPM' ? 'active' : '' }}">
+            {{-- <li class="nav-item dropdown {{ $title==='KKP' || $title==='Revenue' || $title==='COGS'|| $title==='GPM' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="bi bi-bar-chart-fill"></i><span>Dashboard</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ $title==='GPM' ? ' active' : '' }}">
@@ -27,7 +27,7 @@
                         <a class="nav-link" href="{{ route('admin-kkp') }}">KKP Operasional</a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             <li class="nav-item dropdown {{ $title==='Laporan Finance' || $title==='Laporan Commerce' || $title==='Laporan Nota' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="bi bi-pie-chart-fill"></i><span>Reporting</span></a>
                 <ul class="dropdown-menu">

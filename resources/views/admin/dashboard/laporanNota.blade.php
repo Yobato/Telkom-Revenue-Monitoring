@@ -53,8 +53,8 @@
                                     <th scope="col">Percentage</th>
                                     {{-- <th scope="col">Nilai Awal</th> --}}
                                     <th scope="col">Date</th>
-                                    <th scope="col">Final Amount</th>
-                                    <th scope="col">Description</th>
+                                    {{-- <th scope="col">Final Amount</th> --}}
+                                    <th scope="col">Description</th> 
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -70,7 +70,7 @@
                                     <td>{{ $admins->persentase}}</td>
                                     {{-- <td>{{ $admins->nilai_awal}}</td> --}}
                                     <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
-                                    <td class="currency-field">{{ $admins->nilai_akhir}}</td>
+                                    {{-- <td class="currency-field">{{ $admins->nilai_akhir}}</td> --}}
                                     <td>{{ $admins->keterangan}}</td>
 
                                     <td>

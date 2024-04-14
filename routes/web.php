@@ -77,11 +77,11 @@ Route::group(['middleware' => 'revalidate'], function () {
 
     Route::group(['middleware' => ['auth:account', 'account-access:Admin']], function () {
 
-        Route::get('/admin', [App\Http\Controllers\GpmController::class, 'index'])->name('admin.dashboard');
+        // Route::get('/admin', [App\Http\Controllers\GpmController::class, 'index'])->name('admin.dashboard');
 
-        Route::get('/admin-cogs', [App\Http\Controllers\CogsController::class, 'index'])->name('admin-cogs');
-        Route::get('/admin-revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('admin-revenue');
-        Route::get('/admin-kkp', [App\Http\Controllers\KkpController::class, 'index'])->name('admin-kkp');
+        // Route::get('/admin-cogs', [App\Http\Controllers\CogsController::class, 'index'])->name('admin-cogs');
+        // Route::get('/admin-revenue', [App\Http\Controllers\RevenueController::class, 'index'])->name('admin-revenue');
+        // Route::get('/admin-kkp', [App\Http\Controllers\KkpController::class, 'index'])->name('admin-kkp');
         // Route::get('/admin-gpm', [App\Http\Controllers\GpmController::class, 'index'])->name('admin-gpm');
 
         // ------------- ADMIN -------------

@@ -36,7 +36,7 @@ class LoginController extends Controller
             } else if ($account->role == 'GM') {
                 return redirect()->intended(route('manager.dashboard'));
             } else if ($account->role == 'Admin') {
-                return redirect()->intended(route('admin.dashboard'));
+                return redirect()->intended(route('admin.dashboard.commerce'));
             } else {
                 return redirect()->back()->with('error', 'NIK atau Password Salah');
             }
