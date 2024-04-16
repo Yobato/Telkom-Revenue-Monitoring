@@ -59,6 +59,19 @@ class KkpController extends Controller
 
         }
 
+        //======== CHART SELURUH PORTOFOLIO ==============
+        $TotalKkpData = DB::table('laporan_nota')
+            ->select(
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(nilai_akhir) as total_nilai')
+            )
+            ->groupBy(DB::raw('YEAR(tanggal), MONTH(tanggal)'))
+            // ->orderBy('asc')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+
         //======== CHART TARGET KKP OPERASIONAL ==========
         $targetData = DB::table('target_finance')
             ->select(
@@ -287,6 +300,7 @@ class KkpController extends Controller
             return view('manager.dashboard.kkp', [
                 "title" => "KKP",
                 "kkpData" => $kkpData,
+                "TotalKkpData" => $TotalKkpData,
                 'tahunData' => $tahunData,
                 "TotalRealisasiKKP" => $TotalRealisasiKKP,
                 "kenaikanRealisasi" => $kenaikanRealisasi,

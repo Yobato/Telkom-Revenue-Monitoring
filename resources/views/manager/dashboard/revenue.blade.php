@@ -137,6 +137,66 @@
         </div>
         <div class="row">
             <div class="col-12 col-sm-12 ">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h4 style="color:#525358; font-weight:bold">Portofolio Comparison</h4>
+                            <div class="filter d-flex ">
+                                <label for="portofolio-1" class="col-form-label mr-3">Portofolio </label>
+                                <select class="form-control" name="portofolio-filter-revenue-1" id="portofolio-filter-revenue-1"
+                                    style="border-radius: 8px">
+                                    @foreach ($filterPortofolio as $porto)
+                                    <option value=<?=$porto->id ?>>{{ $porto->nama_portofolio }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="portofolio-2" class="col-form-label ml-3 mr-3">Portofolio </label>
+                                <select class="form-control" name="portofolio-filter-revenue-2" id="portofolio-filter-revenue-2"
+                                    style="border-radius: 8px">
+                                    @foreach ($filterPortofolio as $porto)
+                                    <option value=<?=$porto->id ?>>{{ $porto->nama_portofolio }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="portofolio-3" class="col-form-label ml-3 mr-3">Portofolio </label>
+                                <select class="form-control" name="portofolio-filter-revenue-3" id="portofolio-filter-revenue-3"
+                                    style="border-radius: 8px">
+                                    @foreach ($filterPortofolio as $porto)
+                                    <option value=<?=$porto->id ?>>{{ $porto->nama_portofolio }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="tahunPerbandingan" class="col-form-label ml-3 mr-3">Filter </label>
+                                <select class="form-control" name="tahun-filter-perbandingan-porto-revenue" id="tahun-filter-perbandingan-porto-revenue"
+                                    style="border-radius: 8px">
+                                    @foreach ($tahunData as $tahun)
+                                    <option value=<?=$tahun->tahun ?>>{{ $tahun->tahun }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id=chartRevenuePorto>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h4 style="color:#525358; font-weight:bold">Total Revenue Operasional</h4>
+                            <div class="filter d-flex ">
+                                <label for="tahunTotal" class="col-form-label ml-3 mr-3">Filter </label>
+                                <select class="form-control" name="tahun-total" id="tahun-total" style="border-radius: 8px">
+                                    @foreach ($tahunData as $tahun)
+                                    <option value=<?=$tahun->tahun ?>>{{ $tahun->tahun }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id=chartRevenueTotal>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <h4 style="color:#525358; font-weight:bold">Revenue Operasional</h4>
@@ -285,6 +345,7 @@
     // ==== CHART REVENUE OPERASIONAL ====
     const revenueData = {!! json_encode($revenueData) !!};
     const targetData = {!! json_encode($targetData) !!};
+    const totalRevenueData = {!! json_encode($totalRevenueData) !!};
     const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     const monthIndexMapping = {
         'Januari': 0,
@@ -310,6 +371,20 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 
+    // ==== CHART PERBANDINGAN PORTOFOLIO ====
+    let dropdownPortofolio1 = document.getElementById("portofolio-filter-revenue-1");
+    let selectedValuePorto1 = dropdownPortofolio1.value;
+    let dropdownPortofolio2 = document.getElementById("portofolio-filter-revenue-2");
+    let selectedValuePorto2 = dropdownPortofolio2.value;
+    let dropdownPortofolio3 = document.getElementById("portofolio-filter-revenue-3");
+    let selectedValuePorto3 = dropdownPortofolio3.value;
+    let dropdownTahunPerbandingan = document.getElementById("tahun-filter-perbandingan-porto-revenue");
+    let selectedValueTahunPerbandingan = dropdownTahunPerbandingan.value;
+    
+    // ==== CHART TOTAL PORTOFOLIO ====
+    let dropdownTahunTotal = document.getElementById("tahun-total");
+    let selectedValueTahunTotal = dropdownTahunTotal.value;
+
     // ==== CHART REVENUE OPERASIONAL ====
     let dropdown = document.getElementById("tahun-filter");
     let dropdownPortofolio = document.getElementById("portofolio-filter-revenue");
@@ -329,6 +404,177 @@ document.addEventListener("DOMContentLoaded", function() {
     let selectedValueRevenueLine1 = dropdownTahunRevenue1.value;
     let selectedValueRevenueLine2 = dropdownTahunRevenue2.value;
     let selectedValueRevenueLinePortofolio = dropdownTahunPortofolio.value;
+
+
+     // ==== CHART COGS OPERASIONAL ====
+    function updateChartPorto(valuePorto1,   valuePorto2, valuePorto3, valueYear) {
+        if (valuePorto1 !== "" || valuePorto2 !== "" || valuePorto3 !== "") {
+            const filteredRevenueData = revenueData.filter(item => item.year.toString() === valueYear);
+            const filteredRevenueDataByPorto1 = filteredRevenueData.filter(item => item.id_portofolio === Number(valuePorto1));
+            const filteredRevenueDataByPorto2 = filteredRevenueData.filter(item => item.id_portofolio === Number(valuePorto2));
+            const filteredRevenueDataByPorto3 = filteredRevenueData.filter(item => item.id_portofolio === Number(valuePorto3));
+            const seriesDataPerbandingan1 = {};
+            const seriesDataPerbandingan2 = {};
+            const seriesDataPerbandingan3 = {};
+            const filteredDataByPorto1 = filteredRevenueDataByPorto1.filter(item => item.id_portofolio === Number(valuePorto1));
+            const filteredDataByPorto2 = filteredRevenueDataByPorto2.filter(item => item.id_portofolio === Number(valuePorto2));
+            const filteredDataByPorto3 = filteredRevenueDataByPorto3.filter(item => item.id_portofolio === Number(valuePorto3));
+            
+            filteredDataByPorto1.forEach(item => {
+                    const year = item.year.toString();
+                    const month = item.month - 1;
+                    if (!seriesDataPerbandingan1[year]) {
+                        seriesDataPerbandingan1[year] = new Array(12).fill(0);
+                    }
+                        seriesDataPerbandingan1[year][month] += parseInt(item.total_nilai);
+                }
+            );
+
+            filteredDataByPorto2.forEach(item => {
+                    const year = item.year.toString();
+                    const month = item.month - 1;
+                    if (!seriesDataPerbandingan2[year]) {
+                        seriesDataPerbandingan2[year] = new Array(12).fill(0);
+                    }
+                        seriesDataPerbandingan2[year][month] += parseInt(item.total_nilai);
+                }
+            );
+
+            filteredDataByPorto3.forEach(item => {
+                    const year = item.year.toString();
+                    const month = item.month - 1;
+                    if (!seriesDataPerbandingan3[year]) {
+                    seriesDataPerbandingan3[year] = new Array(12).fill(0);
+                    }
+                    seriesDataPerbandingan3[year][month] += parseInt(item.total_nilai);
+                }
+            );
+            
+            const realizationSeriesPorto1 = Object.keys(seriesDataPerbandingan1).map(year => {
+                // ... kode untuk realization series
+                return {
+                    name: 'Realisasi ' + year,
+                    data: seriesDataPerbandingan1[year]
+                    };
+                }
+            );
+
+            const realizationSeriesPorto2 = Object.keys(seriesDataPerbandingan2).map(year => {
+                // ... kode untuk realization series
+                return {
+                    name: 'Realisasi ' + year,
+                    data: seriesDataPerbandingan2[year]
+                    };
+                }
+            );
+
+            const realizationSeriesPorto3 = Object.keys(seriesDataPerbandingan3).map(year => {
+                // ... kode untuk realization series
+                return {
+                    name: 'Realisasi ' + year,
+                    data: seriesDataPerbandingan3[year]
+                    };
+                }
+            );
+            
+            const categories = monthNames;
+            
+            Highcharts.chart('chartRevenuePorto', {
+                // ... pengaturan chart
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: '',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: categories,
+                    crosshair: true,
+                    accessibility: {
+                        description: ''
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Total Value'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                plotOptions: {
+                    column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                    }
+                },
+                series: [...realizationSeriesPorto1, ...realizationSeriesPorto2, ...realizationSeriesPorto3]
+            });
+        }
+    }
+
+    function updateChartTotal(valueYear) {
+        const filteredRevenueData = totalRevenueData.filter(item => item.year.toString() === valueYear);
+        const seriesDataTotal = {};
+        
+        filteredRevenueData.forEach(item => {
+                const year = item.year.toString();
+                const month = item.month - 1;
+                if (!seriesDataTotal[year]) {
+                    seriesDataTotal[year] = new Array(12).fill(0);
+                }
+                    seriesDataTotal[year][month] += parseInt(item.total_nilai);
+            }
+        );
+        
+        const realizationSeriesTotal = Object.keys(seriesDataTotal).map(year => {
+            // ... kode untuk realization series
+            return {
+                name: 'Realisasi ' + year,
+                data: seriesDataTotal[year]
+                };
+            }
+        );
+        
+        const categories = monthNames;
+        
+        Highcharts.chart('chartRevenueTotal', {
+            // ... pengaturan chart
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: '',
+                align: 'left'
+            },
+            xAxis: {
+                categories: categories,
+                crosshair: true,
+                accessibility: {
+                    description: ''
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Total Value'
+                }
+            },
+            tooltip: {
+                valueSuffix: ''
+            },
+            plotOptions: {
+                column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+                }
+            },
+            series: [...realizationSeriesTotal]
+        });
+    }
+
 
     // ==== CHART Revenue OPERASIONAL ====
     function updateChart(valueRevenuePorto, valueRevenueYear) {
@@ -567,6 +813,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // ==== CHART Revenue PERBANDINGAN PORTO ====
+    updateChartPorto(selectedValuePorto1, selectedValuePorto2, selectedValuePorto3, selectedValueTahunPerbandingan);
+
+    // ==== CHART Revenue TOTAL ====
+    updateChartTotal(selectedValueTahunTotal);
+
     // ==== CHART Revenue OPERASIONAL ====
     updateChart(selectedValuePorto, selectedValue);
 
@@ -576,6 +828,31 @@ document.addEventListener("DOMContentLoaded", function() {
     // ==== CHART LINE Revenue ====
     updateLineChart(selectedValueRevenueLinePortofolio, selectedValueRevenueLine1, selectedValueRevenueLine2);
 
+    dropdownPortofolio1.addEventListener("change", function () {
+        selectedValuePorto1 = dropdownPortofolio1.value;
+        updateChartPorto(selectedValuePorto1, selectedValuePorto2, selectedValuePorto3, selectedValueTahunPerbandingan)
+    });
+
+    dropdownPortofolio2.addEventListener("change", function () {
+        selectedValuePorto2 = dropdownPortofolio2.value;
+        updateChartPorto(selectedValuePorto1, selectedValuePorto2, selectedValuePorto3, selectedValueTahunPerbandingan)
+    });
+
+    dropdownPortofolio3.addEventListener("change", function () {
+        selectedValuePorto3 = dropdownPortofolio3.value;
+        updateChartPorto(selectedValuePorto1, selectedValuePorto2, selectedValuePorto3, selectedValueTahunPerbandingan)
+    });
+
+    dropdownTahunPerbandingan.addEventListener("change", function () {
+        selectedValueTahunPerbandingan = dropdownTahunPerbandingan.value;
+        updateChartPorto(selectedValuePorto1, selectedValuePorto2, selectedValuePorto3, selectedValueTahunPerbandingan)
+    });
+
+    dropdownTahunTotal.addEventListener("change", function () {
+        selectedValueTahunPerbandingan = dropdownTahunTotal.value;
+        updateChartTotal(selectedValueTahunTotal)
+    });
+    
     dropdownPortofolio.addEventListener("change", function() {
         selectedValuePorto = dropdownPortofolio.value;
         updateChart(selectedValuePorto, selectedValue); // Call the updateChart function to rebuild the chart

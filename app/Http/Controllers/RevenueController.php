@@ -56,6 +56,19 @@ class RevenueController extends Controller
                 ->get();
         }
 
+
+        $totalRevenueData = DB::table('laporan_commerce')
+            ->select(
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(nilai) as total_nilai')
+            )
+            ->where('jenis_laporan', '=', 'REVENUE')
+            ->groupBy(DB::raw('YEAR(tanggal), MONTH(tanggal)'))
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+
         $targetData = DB::table('target_commerce')
             ->select(
                 'id_portofolio',
@@ -216,7 +229,7 @@ class RevenueController extends Controller
 
         foreach ($portofolioData as $portofolioItem) {
             foreach ($targetGap as $targetItem) {
-                if ($portofolioItem->year == $targetItem->year && $portofolioItem->month == $targetItem->month) {
+                if ($portofolioItem->id_portofolio == $targetItem->id_portofolio && $portofolioItem->year == $targetItem->year && $portofolioItem->month == $targetItem->month) {
                     $gapPortofolio[] = [
                         'portofolio' => $portofolioItem->id_portofolio,
                         'year' => $portofolioItem->year,
@@ -242,7 +255,7 @@ class RevenueController extends Controller
                 'portofolio' => $portofolioId,
                 'gap' => $smallestGapEntry['gap'],
             ];
-        })->filter()->sortBy('gap')->first(); // Menggunakan filter() untuk menghapus nilai null
+        })->filter()->sortByDesc('gap')->first(); // Menggunakan filter() untuk menghapus nilai null
 
         if ($smallestGapPortofolio !== null && isset($smallestGapPortofolio['portofolio'])) {
             $TopPortofolio = Portofolio::find($smallestGapPortofolio['portofolio']);
@@ -274,6 +287,7 @@ class RevenueController extends Controller
                 "title" => "Revenue",
                 "revenueData" => $revenueData,
                 "targetData" => $targetData,
+                "totalRevenueData" => $totalRevenueData,
                 "TotalRealisasiRevenue" => $TotalRealisasiRevenue,
                 "kenaikanRealisasi" => $kenaikanRealisasi,
                 "kenaikanTarget" => $kenaikanTarget,
@@ -285,6 +299,7 @@ class RevenueController extends Controller
                 "TopRevenue" => $TopRevenue,
                 "GapTop" => $smallestGapPortofolio['gap'] ?? null,
                 "filterPortofolio" => $filterPortofolio,
+                "gapPortofolio" => $smallestGapPortofolio,
             ]);
         } else {
             return view('admin.dashboard.revenue', [

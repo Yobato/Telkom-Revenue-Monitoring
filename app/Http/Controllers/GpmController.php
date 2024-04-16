@@ -121,6 +121,65 @@ class GpmController extends Controller
                 ->get();
         }
 
+        // ================== GM Total GPM =====================
+        $realisasiTotalRevenue = DB::table('laporan_commerce')
+            ->select(
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(nilai) as total_nilai')
+            )
+            ->groupBy(DB::raw('YEAR(tanggal), MONTH(tanggal)'))
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->where('jenis_laporan', '=', 'REVENUE')
+            ->get();
+
+        $realisasiTotalCOGS = DB::table('laporan_commerce')
+            ->select(
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(nilai) as total_nilai')
+            )
+            ->groupBy(DB::raw('YEAR(tanggal), MONTH(tanggal)'))
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->where('jenis_laporan', '=', 'COGS')
+            ->get();
+
+
+        // =============== RUMUS CHART GPM =================================
+        $gpmTotal = [];
+
+        foreach ($realisasiTotalRevenue as $revenueItem) {
+            foreach ($realisasiTotalCOGS as $cogsItem) {
+                if ($revenueItem->year == $cogsItem->year && $revenueItem->month == $cogsItem->month) {
+                    $gpmTotal[] = [
+                        'year' => $revenueItem->year,
+                        'month' => $revenueItem->month,
+                        'gpm' => (($revenueItem->total_nilai - $cogsItem->total_nilai) / $revenueItem->total_nilai) * 100,
+                    ];
+                    break;
+                }
+            }
+        }
+
+        $gpTotal = [];
+
+        foreach ($realisasiTotalRevenue as $revenueItem) {
+            foreach ($realisasiTotalCOGS as $cogsItem) {
+                if ($revenueItem->year == $cogsItem->year && $revenueItem->month == $cogsItem->month) {
+                    $gpTotal[] = [
+                        'year' => $revenueItem->year,
+                        'month' => $revenueItem->month,
+                        'gpm' => (($revenueItem->total_nilai - $cogsItem->total_nilai)),
+                    ];
+                    break;
+                }
+            }
+        }
+
+        
+
         // dd($realisasiDataRevenue);
 
         //======== Fungsi Filter Berdasarkan Tahun laporan Revenue==========
@@ -215,7 +274,7 @@ class GpmController extends Controller
 
         //======== TOTAL Gross Profit TAHUN INI ==========
         $cumulativeGPM = 0;
-        foreach ($gpmData1 as $entryGPM) {
+        foreach ($gpTotal as $entryGPM) {
             if ($entryGPM['year'] == $newestYear) {
                 $cumulativeGPM += $entryGPM['gpm'];
             }
@@ -223,7 +282,7 @@ class GpmController extends Controller
 
         //======== TOTAL Gross Profit TAHUN SEBELUMNYA ==========
         $cumulativeGPM2 = 0;
-        foreach ($gpmData1 as $entryGPM2) {
+        foreach ($gpTotal as $entryGPM2) {
             if ($entryGPM2['year'] == $lastYear) {
                 $cumulativeGPM2 += $entryGPM2['gpm'];
             }
@@ -239,7 +298,7 @@ class GpmController extends Controller
 
         //======== TOTAL Gross Margin TAHUN INI ==========
         $cumulativeGM = 0;
-        foreach ($gpmData2 as $entryGM) {
+        foreach ($gpmTotal as $entryGM) {
             if ($entryGM['year'] == $newestYear) {
                 $cumulativeGM += $entryGM['gpm'];
             }
@@ -247,7 +306,7 @@ class GpmController extends Controller
 
         //======== TOTAL Gross Margin TAHUN SEBELUMNYA ==========
         $cumulativeGM2 = 0;
-        foreach ($gpmData2 as $entryGM2) {
+        foreach ($gpmTotal as $entryGM2) {
             if ($entryGM2['year'] == $lastYear) {
                 $cumulativeGM2 += $entryGM2['gpm'];
             }
@@ -309,6 +368,7 @@ class GpmController extends Controller
                 "title" => "GPM",
                 "gpmData1" => $gpmData1,
                 "gpmData2" => $gpmData2,
+                "gpmTotal" => $gpmTotal,
                 'tahunData' => $tahunData,
                 "cumulativeGPM" => $cumulativeGPM,
                 "kenaikanGPM" => $kenaikanGPM,
