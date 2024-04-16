@@ -58,6 +58,18 @@ class CogsController extends Controller
                 ->get();
         }
 
+        $totalCOGSData = DB::table('laporan_commerce')
+            ->select(
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(nilai) as total_nilai')
+            )
+            ->where('jenis_laporan', '=', 'COGS')
+            ->groupBy(DB::raw('YEAR(tanggal), MONTH(tanggal)'))
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+
         $targetData = DB::table('target_commerce')
             ->select(
                 'id_portofolio',
@@ -213,7 +225,7 @@ class CogsController extends Controller
 
         foreach ($portofolioData as $portofolioItem) {
             foreach ($targetGap as $targetItem) {
-                if ($portofolioItem->year == $targetItem->year && $portofolioItem->month == $targetItem->month) {
+                if ($portofolioItem->id_portofolio == $targetItem->id_portofolio && $portofolioItem->year == $targetItem->year && $portofolioItem->month == $targetItem->month) {
                     $gapPortofolio[] = [
                         'portofolio' => $portofolioItem->id_portofolio,
                         'year' => $portofolioItem->year,
@@ -270,6 +282,7 @@ class CogsController extends Controller
             return view('manager.dashboard.cogs', [
                 "title" => "COGS",
                 "cogsData" => $commerceData,
+                "totalCOGSData" => $totalCOGSData,
                 "targetData" => $targetData,
                 "TotalRealisasiCOGS" => $TotalRealisasiCOGS,
                 "kenaikanRealisasi" => $kenaikanRealisasi,
@@ -282,6 +295,7 @@ class CogsController extends Controller
                 'filterPortofolio' => $filterPortofolio,
                 "TopCOGS" => $TopCOGS,
                 "GapTop" => $smallestGapPortofolio['gap'] ?? null,
+                "gapPortofolio" => $gapPortofolio,
             ]);
         } else {
             return view('admin.dashboard.cogs', [
