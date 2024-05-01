@@ -151,12 +151,22 @@
                                     @enderror
                                     <label for="persentase" class="col-form-label">Persentase: </label>
                                     <div class="input-group">
-                                        <input type="text" id="persentase" name="persentase"
+                                        {{-- <input type="text" id="persentase" name="persentase"
                                             value="{{ old('persentase', $laporan->persentase) }}"
                                             class="form-control @error('persentase') is-invalid @enderror mb-2" {{
                                             old('pph', $laporan->pph )==='Ya' ? '' : 'disabled' }}
                                         placeholder="Gunakan titik"
-                                        >
+                                        > --}}
+                                        <select class="persentase form-control @error('persentase') is-invalid @enderror mb-2" name="persentase" id="persentase"
+                                            value="{{ old('persentase', $laporan->id_pph) }}">
+                                            <option value="" selected>-- Pilih Persentase --</option>
+                                            @foreach ($addpersentase as $pph)
+                                            <option value={{ $pph->id }} data-persentase={{ $pph->nilai_pph }} {{ old('persentase',
+                                                $laporan->id_pph)==$pph->id ? 'selected' : '' }}>
+                                                {{$pph->nama_pph}}
+                                            </option>
+                                            @endforeach
+                                        </select>
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 %
@@ -262,9 +272,11 @@
         console.log("Elemen persentase:", persentaseInput.value);
         console.log("Elemen nilai_akhir:", nilaiAkhirInput.value);
 
+        let nilaiPph = persentaseInput.options[persentaseInput.selectedIndex].dataset.persentase;
+
         if (nilaiAwalInput && persentaseInput && nilaiAkhirInput) {
             let nilaiAwal = nilaiAwalInput.value // Menghilangkan karakter selain angka
-            let persentase = parseFloat(persentaseInput.value?.replace(/[^\d.]/g, '')); // Menghilangkan karakter selain angka dan titik
+            let persentase = parseFloat(nilaiPph?.replace(/[^\d.]/g, '')); // Menghilangkan karakter selain angka dan titik
 
             formatNilaiAwal = nilaiAwal.replace(/\./g, ''); // remove dot
             formatNilaiAwal = formatNilaiAwal.replace(',', '.'); // replace comma with dot

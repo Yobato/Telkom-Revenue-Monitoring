@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(AccountSeeder::class);
         $this->call(PortofolioSeeder::class);
+        $this->call(PphSeeder::class);
         $this->call(ProgramSeeder::class);
         $this->call(CostPlanSeeder::class);
         $this->call(PeruntukanSeeder::class);

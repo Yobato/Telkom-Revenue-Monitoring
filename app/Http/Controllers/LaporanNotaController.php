@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use App\Exports\UsersExportN;
+use App\Models\Pph;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 use Carbon\Carbon;
@@ -39,6 +40,11 @@ class LaporanNotaController extends Controller
             $citys[$item->id] = $item->nama_city;
         }
 
+        $pph_id = array();
+        foreach(Pph::all() as $item){
+            $pph_id[$item->id] = $item->nama_pph;
+        }
+
         $account = Auth::guard('account')->user();
         if ($account->role == "Finance") {
             return view('finance.dashboard.indexNota', [
@@ -46,7 +52,8 @@ class LaporanNotaController extends Controller
                 "laporan_nota" => LaporanNota::all()->where('kota', '=', $account->kota),
                 "user_id" => $user_id,
                 "peruntukan_id" => $peruntukan_id,
-                "citys" => $citys
+                "citys" => $citys,
+                "pph_id" => $pph_id,
             ]);
         } elseif ($account->role == "GM"){
              return view('manager.dashboard.laporanNota', [
@@ -54,7 +61,8 @@ class LaporanNotaController extends Controller
                 "laporan_nota" => LaporanNota::all(),
                 "user_id" => $user_id,
                 "peruntukan_id" => $peruntukan_id,
-                "citys" => $citys
+                "citys" => $citys,
+                "pph_id" => $pph_id
             ]);
         } else {
             return view('admin.dashboard.laporanNota', [
@@ -62,7 +70,8 @@ class LaporanNotaController extends Controller
                 "laporan_nota" => LaporanNota::all(),
                 "user_id" => $user_id,
                 "peruntukan_id" => $peruntukan_id,
-                "citys" => $citys
+                "citys" => $citys,
+                "pph_id" => $pph_id
             ]);
         }
         //
@@ -81,6 +90,7 @@ class LaporanNotaController extends Controller
             "addcity" => City::all(),
             "adduser" => UserReco::all(),
             "addperuntukan" => Peruntukan::all(),
+            "addpersentase" => Pph::all(),
         ]);
     }
 
@@ -112,7 +122,7 @@ class LaporanNotaController extends Controller
             'nilai_awal' => str_replace([',00', '.'], '', $request->nilai_awal),
             'nilai_akhir' => str_replace([',00', '.'], '', $request->nilai_akhir),
             'pph' => $request->pph,
-            'persentase' => $request->persentase,
+            'id_pph' => $request->persentase,
             'keterangan' => $request->keterangan,
             'id_peruntukan' => $request->id_peruntukan,
             'id_user' => $request->id_user,
@@ -160,6 +170,7 @@ class LaporanNotaController extends Controller
             "addcity" => City::all(),
             "adduser" => UserReco::all(),
             "addperuntukan" => Peruntukan::all(),
+            "addpersentase" => Pph::all(),
             "id" => $id,
         ]);
     }
@@ -189,7 +200,7 @@ class LaporanNotaController extends Controller
             'nilai_awal' => str_replace([',00', '.'], '', $request->nilai_awal),
             'nilai_akhir' => str_replace([',00', '.'], '', $request->nilai_akhir),
             'pph' => $request->pph,
-            'persentase' => $request->persentase,
+            'id_pph' => $request->persentase,
             'keterangan' => $request->keterangan,
             'id_peruntukan' => $request->id_peruntukan,
             'id_user' => $request->id_user,

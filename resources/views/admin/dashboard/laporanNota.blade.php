@@ -67,7 +67,8 @@
                                     <td>{{ $peruntukan_id[$admins->id_peruntukan]}}</td>
                                     <td>{{ $user_id[$admins->id_user]}}</td>
                                     <td>{{ $admins->pph}}</td>
-                                    <td>{{ $admins->persentase}}</td>
+                                    {{-- <td>{{ $admins->persentase}}</td> --}}
+                                    <td>{{ $pph_id[$admins->id_pph]}}</td>
                                     {{-- <td>{{ $admins->nilai_awal}}</td> --}}
                                     <td>{{ \Carbon\Carbon::parse($admins->tanggal)->format('F Y') }}</td>
                                     <td class="currency-field">{{ $admins->nilai_akhir}}</td>

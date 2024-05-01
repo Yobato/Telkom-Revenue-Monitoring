@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('nilai_awal');
             $table->integer('nilai_akhir');
             $table->string('pph');
-            $table->float('persentase')->nullable();
+            $table->unsignedBigInteger('id_pph')->nullable();
             $table->string('keterangan')->nullable();
             $table->unsignedBigInteger('id_peruntukan');
             $table->unsignedBigInteger('id_user');
@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreign('pid_nota')->references('pid_finance')->on('laporan_finance');
             $table->foreign('id_peruntukan')->references('id')->on('peruntukan');
             $table->foreign('id_user')->references('id')->on('user_reco');
+            $table->foreign('id_pph')->references('id')->on('pph');
             $table->foreign('kota')->references('id')->on('city');
             $table->timestamps();
             $table->boolean('editable')->default(0);
