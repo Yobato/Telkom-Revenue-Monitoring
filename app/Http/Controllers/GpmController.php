@@ -320,8 +320,8 @@ class GpmController extends Controller
 
         // dd($PortfolioGPM);
 
-        if ($PortfolioGPM != null && !empty($PortfolioGPM)) {
-            $collectionTop = collect($PortfolioGPM);
+        if ($gpmData2 != null && !empty($gpmData2)) {
+            $collectionTop = collect($gpmData2);
             $biggestGPUser = $collectionTop->groupBy('id_portofolio')->map(function ($portofolioEntries, $portofolioId) {
                 if ($portofolioEntries->isEmpty()) {
                     return null; // Tidak ada data gap untuk portofolio ini

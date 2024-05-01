@@ -79,7 +79,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="top-cogs card-title text-uppercase text-muted mb-0">Top Gross Profit</h5>
+                                <h5 class="top-cogs card-title text-uppercase text-muted mb-0">Top Gross Margin</h5>
                                 <span class="top-cogs h2 font-weight-bold mb-0">{{ $TopGP }}</span>
                             </div>
                             <div class="col-auto">
@@ -94,7 +94,7 @@
                             @else
                             <span class="text-danger mr-2"></i> {{ number_format($biggestGPUser), 2, ',', '.'}}</span>
                             @endif
-                            <span class="text-nowrap">Total Gross Profit</span>
+                            <span class="text-nowrap">Total Gross Margin</span>
                         </p>
                     </div>
                 </div>
@@ -181,8 +181,8 @@
                                     @endforeach
                                 </select>
                                 <label for="tahunPerbandingan" class="col-form-label ml-3 mr-3">Filter </label>
-                                <select class="form-control" name="tahun-filter-perbandingan-porto" id="tahun-filter-perbandingan-porto"
-                                    style="border-radius: 8px">
+                                <select class="form-control" name="tahun-filter-perbandingan-porto"
+                                    id="tahun-filter-perbandingan-porto" style="border-radius: 8px">
                                     @foreach ($tahunData as $tahun)
                                     <option value=<?=$tahun->year ?>>{{ $tahun->year }}</option>
                                     @endforeach
@@ -201,7 +201,8 @@
                             <h4 style="color:#525358; font-weight:bold">Total Gross Profit Margin</h4>
                             <div class="filter d-flex ">
                                 <label for="tahunTotal" class="col-form-label ml-3 mr-3">Filter </label>
-                                <select class="form-control" name="tahun-total" id="tahun-total" style="border-radius: 8px">
+                                <select class="form-control" name="tahun-total" id="tahun-total"
+                                    style="border-radius: 8px">
                                     @foreach ($tahunData as $tahun)
                                     <option value=<?=$tahun->year ?>>{{ $tahun->year }}</option>
                                     @endforeach
