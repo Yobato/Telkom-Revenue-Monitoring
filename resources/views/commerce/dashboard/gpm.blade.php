@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
-                            @if($kenaikanGPM>0)
+                            @if($kenaikanGPM>=0)
                             <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{
                                 number_format($kenaikanGPM, 2, '.', '' )}}%</span>
                             @else
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
-                            @if($kenaikanGM>0)
+                            @if($kenaikanGM>=0)
                             <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ number_format($kenaikanGM,
                                 2, '.', '' )}}%</span>
                             @else
@@ -91,7 +91,7 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-muted text-sm">
-                            @if($kenaikanGM>0)
+                            @if($kenaikanGM>=0)
                             <span class="text-success mr-2"></i> {{ number_format($biggestGPUser), 2, ',', '.'}}</span>
                             @else
                             <span class="text-danger mr-2"></i> {{ number_format($biggestGPUser), 2, ',', '.'}}</span>
