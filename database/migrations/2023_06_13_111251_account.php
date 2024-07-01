@@ -17,13 +17,13 @@ return new class extends Migration
         Schema::create('account', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->integer('nik');
+            $table->string('nik')->unique();
             $table->string('password');
             $table->string('keterangan');
             $table->string('role');
-            $table->string('id_nama_kota');
+            $table->unsignedBigInteger('kota');
             $table->foreign('role')->references('nama_role')->on('role');
-            $table->foreign('id_nama_kota')->references('nama_city')->on('city');
+            $table->foreign('kota')->references('id')->on('city');
         });
     }
 

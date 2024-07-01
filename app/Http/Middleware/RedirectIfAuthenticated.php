@@ -17,14 +17,29 @@ class RedirectIfAuthenticated
      * @param  string|null  ...$guards
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, ...$guards)
+    public function handle(Request $request, Closure $next, $guard = null)
     {
-        $guards = empty($guards) ? [null] : $guards;
+        $account = Auth::guard("account")->user();
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
-            }
+        switch ($guard) {
+            case "account":
+                if ($account) {
+                    if ($account->role == 'Commerce') {
+                        return redirect()->route('commerce.dashboard.index');
+                    } else if ($account->role == 'Finance') {
+                        return redirect()->route('finance.dashboard.index');
+                    } else if ($account->role == 'Admin') {
+                        return redirect()->route('admin.dashboard');
+                    } else if ($account->role == 'GM') {
+                        return redirect()->route('manager.dashboard');
+                    }
+                }
+                break;
+            default:
+                if (Auth::guard($guard)->check()) {
+                    return redirect()->route('login');
+                }
+                break;
         }
 
         return $next($request);
